@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1435676571678" name="http://open-multinet.info/ontology/omn" uri="omn.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1435676571678" name="http://open-multinet.info/ontology/omn-component" uri="omn-component.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1435676571678" name="http://open-multinet.info/ontology/omn-domain-pc" uri="omn-domain-pc.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1435676571678" name="http://open-multinet.info/ontology/omn-federation" uri="omn-federation.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1435676571678" name="http://open-multinet.info/ontology/omn-lifecycle" uri="omn-lifecycle.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1435676571678" name="http://open-multinet.info/ontology/omn-monitoring" uri="omn-monitoring.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1435676571678" name="http://open-multinet.info/ontology/omn-monitoring-data" uri="omn-monitoring-data.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1435676571678" name="http://open-multinet.info/ontology/omn-monitoring-genericconcepts" uri="omn-monitoring-genericconcepts.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1435676571678" name="http://open-multinet.info/ontology/omn-monitoring-metric" uri="omn-monitoring-metric.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1435676571678" name="http://open-multinet.info/ontology/omn-monitoring-tool" uri="omn-monitoring-tool.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1435676571678" name="http://open-multinet.info/ontology/omn-monitoring-unit" uri="omn-monitoring-unit.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1435676571678" name="http://open-multinet.info/ontology/omn-policy" uri="omn-policy.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1435676571678" name="http://open-multinet.info/ontology/omn-resource" uri="omn-resource.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1435676571678" name="http://open-multinet.info/ontology/omn-service" uri="omn-service.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1435676571678" name="duplicate:http://www.semanticweb.org/owl/owlapi/turtle" uri="rdf.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1435676571678" name="duplicate:http://www.semanticweb.org/owl/owlapi/turtle" uri="rdfs.owl"/>
+    </group>
+</catalog>

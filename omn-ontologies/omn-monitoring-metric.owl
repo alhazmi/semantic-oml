@@ -566,9 +566,9 @@
     
 
 
-    <!-- http://open-multinet.info/ontology/omn-monitoring-metric#ResponceTime -->
+    <!-- http://open-multinet.info/ontology/omn-monitoring-metric#ResponseTime -->
 
-    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-metric#ResponceTime">
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-metric#ResponseTime">
         <rdfs:subClassOf rdf:resource="&omn-monitoring;Metric"/>
     </owl:Class>
     
