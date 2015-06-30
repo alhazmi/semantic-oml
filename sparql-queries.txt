@@ -1,0 +1,81 @@
+======================================================
+Availability
+SELECT ?timevalue ?value{{
+?metric rdf:type omn-monitoring-metric:Availability .
+?metric omn-monitoring-data:hasMeasurementData ?data .
+?data omn-monitoring-data:hasMeasurementDataValue ?value .
+?data omn-monitoring-data:hasTimestamp ?timevalue
+}}
+limit 200
+
+UsedMemory
+SELECT ?timevalue ?value ?prefix ?unit{{
+?metric rdf:type omn-monitoring-metric:UsedMemory .
+?metric omn-monitoring-data:hasMeasurementData ?data .
+?data omn-monitoring-data:hasMeasurementDataValue ?value .
+?data omn-monitoring:hasUnit ?unit_value .
+?unit_value rdf:type ?unit .
+?unit_value omn-monitoring-unit:hasPrefix ?prefix_value .
+?prefix_value rdf:type ?prefix .
+?data omn-monitoring-data:hasTimestamp ?timevalue
+}}
+limit 200
+
+AvailableMemory
+SELECT ?timevalue ?value ?prefix ?unit{{
+?metric rdf:type omn-monitoring-metric:AvailableMemory .
+?metric omn-monitoring-data:hasMeasurementData ?data .
+?data omn-monitoring-data:hasMeasurementDataValue ?value .
+?data omn-monitoring:hasUnit ?unit_value .
+?unit_value rdf:type ?unit .
+?unit_value omn-monitoring-unit:hasPrefix ?prefix_value .
+?prefix_value rdf:type ?prefix .
+?data omn-monitoring-data:hasTimestamp ?timevalue
+}}
+limit 200
+
+TotalMemory
+SELECT ?timevalue ?value ?prefix ?unit{{
+?metric rdf:type omn-monitoring-metric:TotalMemory .
+?metric omn-monitoring-data:hasMeasurementData ?data .
+?data omn-monitoring-data:hasMeasurementDataValue ?value .
+?data omn-monitoring:hasUnit ?unit_value .
+?unit_value rdf:type ?unit .
+?unit_value omn-monitoring-unit:hasPrefix ?prefix_value .
+?prefix_value rdf:type ?prefix .
+?data omn-monitoring-data:hasTimestamp ?timevalue
+}}
+limit 200
+
+UsedBandwidth
+SELECT ?timevalue ?value ?prefix ?unit{{
+?metric rdf:type omn-monitoring-metric:UsedBandwidth .
+?metric omn-monitoring-data:hasMeasurementData ?data .
+?data omn-monitoring-data:hasMeasurementDataValue ?value .
+?data omn-monitoring:hasUnit ?unit_value .
+?unit_value rdf:type ?unit .
+?unit_value omn-monitoring-unit:hasPrefix ?prefix_value .
+?prefix_value rdf:type ?prefix .
+?data omn-monitoring-data:hasTimestamp ?timevalue
+}}
+limit 200
+
+Default
+SELECT * {
+{?s ?p ?o}
+}		
+
+========================================================
+Regex
+
+filter time period
+filter(?timeval >= xsd:dateTime('2015-02-23T00:00:00Z'))
+
+filter name
+filter(regex(?name,"FITeagle-Zabbix-Server"))}
+
+
+
+
+
+

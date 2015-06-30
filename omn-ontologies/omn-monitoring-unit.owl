@@ -1,0 +1,1403 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY dcterms "http://purl.org/dc/terms/" >
+    <!ENTITY vann "http://purl.org/vocab/vann/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY omn "http://open-multinet.info/ontology/omn#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY omn-service "http://open-multinet.info/ontology/omn-service#" >
+    <!ENTITY omn-resource "http://open-multinet.info/ontology/omn-resource#" >
+    <!ENTITY omn-component "http://open-multinet.info/ontology/omn-component#" >
+    <!ENTITY omn-lifecycle "http://open-multinet.info/ontology/omn-lifecycle#" >
+    <!ENTITY omn-federation "http://open-multinet.info/ontology/omn-federation#" >
+    <!ENTITY omn-monitoring "http://open-multinet.info/ontology/omn-monitoring#" >
+    <!ENTITY omn-monitoring-data "http://open-multinet.info/ontology/omn-monitoring-data#" >
+    <!ENTITY omn-monitoring-tool "http://open-multinet.info/ontology/omn-monitoring-tool#" >
+    <!ENTITY omn-monitoring-metric "http://open-multinet.info/ontology/omn-monitoring-metric#" >
+    <!ENTITY omn-monitoring-genericconcepts "http://open-multinet.info/ontology/omn-monitoring-genericconcepts#" >
+]>
+
+
+<rdf:RDF xmlns="http://open-multinet.info/ontology/omn-monitoring-unit#"
+     xml:base="http://open-multinet.info/ontology/omn-monitoring-unit"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:omn-lifecycle="http://open-multinet.info/ontology/omn-lifecycle#"
+     xmlns:omn-resource="http://open-multinet.info/ontology/omn-resource#"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:omn-monitoring-metric="http://open-multinet.info/ontology/omn-monitoring-metric#"
+     xmlns:omn-component="http://open-multinet.info/ontology/omn-component#"
+     xmlns:omn-monitoring-data="http://open-multinet.info/ontology/omn-monitoring-data#"
+     xmlns:omn-service="http://open-multinet.info/ontology/omn-service#"
+     xmlns:omn-monitoring-tool="http://open-multinet.info/ontology/omn-monitoring-tool#"
+     xmlns:dcterms="http://purl.org/dc/terms/"
+     xmlns:omn-federation="http://open-multinet.info/ontology/omn-federation#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:omn="http://open-multinet.info/ontology/omn#"
+     xmlns:omn-monitoring-genericconcepts="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:omn-monitoring="http://open-multinet.info/ontology/omn-monitoring#">
+    <owl:Ontology rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit">
+        <rdfs:label xml:lang="en">omn-monitoring-unit</rdfs:label>
+        <dc:author rdf:datatype="&xsd;string">NOVI project http://www.fp7-novi.eu/.</dc:author>
+        <dc:title rdf:datatype="&xsd;string">Open-Multinet Monitoring Unit Ontology</dc:title>
+        <dc:description rdf:datatype="&xsd;string">This ontology defines the data unites (e.g. bit, byte, second, bps) covering both unit prefixes binary and decimal, as well as different levels (nominal, ordinal, interval, and ratio) and dimensions (basic and derived).</dc:description>
+        <dc:rights rdf:datatype="&xsd;string">this ontology was developed by the European FP7 project NOVI. It was published under the name http://www.fp7-novi.eu/information-model/unit.owl. However now it is part of OMN ontology</dc:rights>
+        <dc:date>2015-05-30</dc:date>
+        <vann:preferredNamespaceUri>http://open-multinet.info/ontology/omn-monitoring-unit#</vann:preferredNamespaceUri>
+        <vann:preferredNamespacePrefix>omn-monitoring-unit</vann:preferredNamespacePrefix>
+        <rdfs:comment xml:lang="en">This ontology reused several concepts from NASA unit ontology http://sweet.jpl.nasa.gov/ontology/units.owl.</rdfs:comment>
+        <dc:contributor rdf:resource="http://alex.willner.ws/about#me"/>
+        <dcterms:license rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
+        <dc:publisher rdf:resource="http://open-multinet.info/"/>
+        <dc:contributor rdf:resource="http://www.commit-nl.nl/people/morsey"/>
+        <dc:contributor rdf:resource="https://staff.fnwi.uva.nl/p.grosso"/>
+        <dc:contributor rdf:resource="https://www.linkedin.com/in/yahyaalhazmi"/>
+        <dc:creator rdf:resource="https://www.linkedin.com/in/yahyaalhazmi"/>
+        <dc:contributor rdf:resource="mailto:chrisap@noc.ntua.gr"/>
+        <dc:contributor rdf:resource="mailto:jorge.lopez_vergara@uam.es"/>
+        <dc:contributor rdf:resource="mailto:lakis@inf.elte.hu"/>
+        <dc:contributor rdf:resource="mailto:steger@complex.elte.hu"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring#hasUnit -->
+
+    <owl:ObjectProperty rdf:about="&omn-monitoring;hasUnit">
+        <rdfs:domain rdf:resource="&omn-monitoring;Data"/>
+        <rdfs:range rdf:resource="&omn-monitoring;Unit"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#defaultUnit -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#defaultUnit">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&omn-monitoring;Unit"/>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#Dimension"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#derivedFrom -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#derivedFrom"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#hasPrefix -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#hasPrefix">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&omn-monitoring;Unit"/>
+        <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#Prefix"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#possiblePrefix -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#possiblePrefix">
+        <rdfs:domain rdf:resource="&omn-monitoring;Unit"/>
+        <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#Prefix"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#base -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#base">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#Prefix"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#exponent -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#exponent">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#PowerDimension"/>
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#PowerUnit"/>
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Prefix"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#forwardExpression -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#forwardExpression">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:subPropertyOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#regexp"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#hasValue -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#hasValue"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#inverseExpression -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#inverseExpression">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:subPropertyOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#regexp"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#offset -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#offset">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#LinearTransformedUnit"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#regexp -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#regexp">
+        <rdfs:comment>An abstraction of any arbitrary function that can be expressed by regular expressions. The format can be of the following two forms:
+
+  I.   /evalInteger/expresion/operation/
+  II.  /evalIntegerAsString/expression/operation/separator/[...],
+
+where [...] stands for a series of operation/separator/ with n repetition.
+
+&quot;expression&quot;: is a regular expression, which contains grouping eclosed by parenthesis, like &quot;([0-9]*)&quot;. These groups are referenced by &quot;\g&lt;?&gt;&quot; within the operation field, where question mark represents the sequence number of the group referenced, starting with 1.
+
+&quot;operation&quot;: is a mathematical form that may contain operations understood by eval method. For instance: &quot;+, -, *, /, &gt;&gt;&quot;, etc. 
+
+&quot;separator&quot;: is the piece of string to be appended to the result of an evaluation, which is already transformed a string.
+
+An example:
+Given a function that maps: {apple1 |-&gt; 10, apple2 |-&gt; 20, ...} can be expressed as follows:
+
+/evalInteger/alma([0-9]*)/10*(\g&lt;1&gt;)/
+
+
+
+Another example:
+Given a function that maps: { 11 |-&gt; 1d2u, 32 |-&gt; 3d4u, ...} can be expressed as follows:
+
+/evalIntegerAsString/([0-9])([0-9])/(\g&lt;1&gt;)/d/2*(\g&lt;2&gt;)/u/</rdfs:comment>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#RegexpTransformedUnit"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#scale -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#scale">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#LinearTransformedUnit"/>
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Prefix"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#symbol -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#symbol">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn-monitoring;Unit"/>
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Prefix"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring#Data -->
+
+    <owl:Class rdf:about="&omn-monitoring;Data"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring#Unit -->
+
+    <owl:Class rdf:about="&omn-monitoring;Unit"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-data#MeasurementData -->
+
+    <owl:Class rdf:about="&omn-monitoring-data;MeasurementData"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#BaseDimension -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#BaseDimension">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#Dimension"/>
+        <owl:disjointWith rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#DerivedDimension"/>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#BaseUnit -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#BaseUnit">
+        <rdfs:subClassOf rdf:resource="&omn-monitoring;Unit"/>
+        <rdfs:comment>Base units are the simplest unit forms, independent of each other, and they are the profound building blocks for derived units.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#BinaryPrefix -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#BinaryPrefix">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#Prefix"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#base"/>
+                <owl:hasValue rdf:datatype="&xsd;integer">2</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#DecimalPrefix"/>
+        <rdfs:comment>In computing, a binary prefix is a specifier or mnemonic that is prepended to the units of digital information, the bit and the byte, to indicate multiplication by a power of 2. In practice the powers used are multiples of 10, so the prefixes denote powers of 1024 = 2^10.
+
+Starting in about 1998, a number of standards and trade organizations approved standards and recommendations for a new set of binary prefixes, proposed earlier by the International Electrotechnical Commission (IEC), that would refer unambiguously to powers of 1024. According to these, the SI prefixes would only be used in the decimal sense, even when referring to data storage capacities: kilobyte and megabyte would denote one thousand bytes and one million bytes respectively (consistent with SI), while new terms such as kibibyte, mebibyte and gibibyte, abbreviated KiB, MiB, and GiB, would denote 1024 bytes, 1048576 bytes, and 1073741824 bytes respectively.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#Cardinal -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Cardinal">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseDimension"/>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#NominalLevel"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#defaultUnit"/>
+                <owl:hasValue rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#unitless"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#Countable -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Countable">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseDimension"/>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#RatioLevel"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#defaultUnit"/>
+                <owl:hasValue rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#piece"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#DecimalPrefix -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#DecimalPrefix">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#Prefix"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#base"/>
+                <owl:hasValue rdf:datatype="&xsd;integer">10</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>A prefix that precedes a basic unit of measure to indicate a decadic multiple or fraction of the unit.
+
+The prefix kilo-, for example, may be added to gram to indicate multiplication by one thousand; one kilogram is equal to one thousand grams (1 km = 1000 m). The prefix centi-, likewise, may be added to metre to indicate division by one hundred; one centimetre is equal to one hundredth of a metre (1 cm = 0.01 m).</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#DerivedDimension -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#DerivedDimension">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#Dimension"/>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#DifferenceDimension -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#DifferenceDimension">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#DerivedDimension"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#derivedFrom"/>
+                <owl:onClass rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#IntervalLevel"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#Dimension -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Dimension">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#hasValue"/>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&omn-monitoring;hasUnit"/>
+                <owl:onClass rdf:resource="&omn-monitoring;Unit"/>
+                <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#defaultUnit"/>
+                <owl:onClass rdf:resource="&omn-monitoring;Unit"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#hasPrefix"/>
+                <owl:onClass rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#Prefix"/>
+                <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>Numbers are meaningless for the physicist without the correct use of units. It makes no sense to say &quot;the distance from my house to school is two&quot;, unless we follow that statement with &quot;miles&quot; or &quot;kilometers&quot;, or whichever unit makes the statement true. 
+
+We will distinguish between dimension, the abstract quality of a measurement without scale (ie., length), and unit, the quality of a number which specifies a previously agreed upon scale (ie., meters). While dimensional arguments are of primary importance in understanding the qualitative behavior of systems, the use of units are necessary for the predictions we seek.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#Frequency -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Frequency">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#PowerDimension"/>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#RatioLevel"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#exponent"/>
+                <owl:hasValue rdf:datatype="&xsd;integer">-1</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#defaultUnit"/>
+                <owl:hasValue rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#persecond"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#derivedFrom"/>
+                <owl:onClass rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#TimeInterval"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#GeoPosition -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#GeoPosition">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseDimension"/>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#NominalLevel"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#defaultUnit"/>
+                <owl:hasValue rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#radian"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#IPAddress -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#IPAddress">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseDimension"/>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#NominalLevel"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#defaultUnit"/>
+                <owl:hasValue rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#ipv4dotted"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#InformationLossRatio -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#InformationLossRatio">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#RatioDimension"/>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#RatioLevel"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#defaultUnit"/>
+                <owl:hasValue rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#unitless"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#derivedFrom"/>
+                <owl:onClass rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#InformationSize"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#InformationRate -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#InformationRate">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#ProductDimension"/>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#RatioLevel"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#derivedFrom"/>
+                <owl:onClass rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#InformationSize"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#defaultUnit"/>
+                <owl:hasValue rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#bitpersecond"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#derivedFrom"/>
+                <owl:onClass rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#Frequency"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#InformationSize -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#InformationSize">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseDimension"/>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#RatioLevel"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#defaultUnit"/>
+                <owl:hasValue rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#bit"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#IntervalLevel -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#IntervalLevel">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#OrdinalLevel"/>
+        <rdfs:comment>Quantitative attributes are all measurable on interval scales, as any difference between the levels of an attribute can be multiplied by any real number to exceed or equal another difference. A highly familiar example of interval scale measurement is temperature with the Celsius scale. In this particular scale, the unit of measurement is 1/100 of the temperature difference between the freezing and boiling points of water under a pressure of 1 atmosphere. The &quot;zero point&quot; on an interval scale is arbitrary; and negative values can be used. The formal mathematical term is an affine space (in this case an affine line). Variables measured at the interval level are called &quot;interval variables&quot; or sometimes &quot;scaled variables&quot; as they have units of measurement.
+
+Ratios between numbers on the scale are not meaningful, so operations such as multiplication and division cannot be carried out directly. But ratios of differences can be expressed; for example, one difference can be twice another.
+
+The central tendency of a variable measured at the interval level can be represented by its mode, its median, or its arithmetic mean. Statistical dispersion can be measured in most of the usual ways, which just involved differences or averaging, such as range, interquartile range, and standard deviation. Since one cannot divide, one cannot define measures that require a ratio, such as studentized range or coefficient of variation. More subtly, while one can define moments about the origin, only central moments are useful, since the choice of origin is arbitrary and not meaningful. One can define standardized moments, since ratios of differences are meaningful, but one cannot define coefficient of variation, since the mean is a moment about the origin, unlike the standard deviation, which is (the square root of) a central moment.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#LinearTransformedUnit -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#LinearTransformedUnit">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#UnaryUnit"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#offset"/>
+                <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxQualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;double"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#scale"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;double"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>LTU = scale * U + offset,
+
+where LTU stands for the linear transformed unit derived from U.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#MeasurementLevel -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#MeasurementLevel">
+        <rdfs:comment>The &quot;levels of measurement&quot; or scales of measure are expressions that typically refer to the theory of scale types developed by the psychologist Stanley Smith Stevens. Stevens proposed his theory in a 1946 Science article titled &quot;On the theory of scales of measurement&quot;. In that article, Stevens claimed that all measurement in science was conducted using four different types of scales that he called &quot;nominal&quot;, &quot;ordinal&quot;, &quot;interval&quot; and &quot;ratio&quot;.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#N_aryUnit -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#N_aryUnit">
+        <rdfs:subClassOf rdf:resource="&omn-monitoring;Unit"/>
+        <rdfs:comment>N-ary units are derived from more than one unit.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#NameOfSomething -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#NameOfSomething">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseDimension"/>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#NominalLevel"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#defaultUnit"/>
+                <owl:hasValue rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#unitless"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#NominalLevel -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#NominalLevel">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#MeasurementLevel"/>
+        <rdfs:comment>At the nominal scale, i.e., for a nominal category, one uses labels; for example, rocks can be generally categorized as igneous, sedimentary and metamorphic. For this scale, some valid operations are equivalence and set membership. Nominal measures offer names or labels for certain characteristics.
+
+Variables assessed on a nominal scale are called categorical variables. We can use a simple example of a nominal category: the destination port of an IP packet captured. For instance, looking at the destination port values we might find one or more of IP packets with a value 7777. In this scenario 7777 is their label. We can only check whether two packets&apos; destination ports have the same label (equivalence) or whether a given label is in on a certain list of labels (set membership), but it is impossible to say which label is greater or less than another (comparison) or to measure the difference between two labels.
+
+Given a set of destination port numbers, we can describe the set by its most common label (the mode), but cannot provide an &quot;average label&quot; or even the &quot;middle label&quot; among all the names. However, if we decide to sort our labels numerically (or to sort them by how many times they appear in a measurement log), we will begin to turn this nominal scale into an ordinal scale.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#OrdinalLevel -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#OrdinalLevel">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#NominalLevel"/>
+        <rdfs:comment>Rank-ordering data simply puts the data on an ordinal scale. Ordinal measurements describe order, but not relative size or degree of difference between the items measured. In this scale type, the numbers assigned to objects or events represent the rank order (1st, 2nd, 3rd, etc.) of the entities assessed. An example of an ordinal scale is the result of a horse race, which says only which horses arrived first, second, or third but include no information about race times. 
+
+When using an ordinal scale, the central tendency of a group of items can be described by using the group&apos;s mode (or most common item) or its median (the middle-ranked item), but the mean (or average) cannot be defined. Thus it is an error to write that an IQ of 160 is just as different from an IQ of 130 as an IQ of 100 is different from an IQ of 70.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#PointInTime -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#PointInTime">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseDimension"/>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#IntervalLevel"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#defaultUnit"/>
+                <owl:hasValue rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#unixtimestamp"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#PowerDimension -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#PowerDimension">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#DerivedDimension"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#derivedFrom"/>
+                <owl:onClass rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#RatioLevel"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#exponent"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;integer"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#PowerUnit -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#PowerUnit">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#UnaryUnit"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#exponent"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;integer"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>PU = U^exponent,
+
+where PU power unit is derived from U unit.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#Prefix -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Prefix">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#exponent"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;integer"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#base"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;integer"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>A metric prefix or SI prefix is a unit prefix that precedes a basic unit of measure to indicate a decadic multiple or fraction or or binary multiple of the unit. Each prefix has a unique symbol that is prepended to the unit symbol. 
+
+The use of multiple prefixes are disallowed.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#Probability -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Probability">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#RatioDimension"/>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#RatioLevel"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#defaultUnit"/>
+                <owl:hasValue rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#unitless"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#derivedFrom"/>
+                <owl:onClass rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#Countable"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#ProductDimension -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#ProductDimension">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#DerivedDimension"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#derivedFrom"/>
+                <owl:onClass>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#BaseDimension"/>
+                            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#PowerDimension"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:onClass>
+                <owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:minQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#ProductUnit -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#ProductUnit">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#N_aryUnit"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#derivedFrom"/>
+                <owl:onClass rdf:resource="&omn-monitoring;Unit"/>
+                <owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:minQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>ProdU = U1 * U2 [... * Ui],
+
+where ProdU product unit is derived from multiplying units Ui.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#RatioDimension -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#RatioDimension">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#DerivedDimension"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#derivedFrom"/>
+                <owl:onClass rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#RatioLevel"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#RatioLevel -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#RatioLevel">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#IntervalLevel"/>
+        <rdfs:comment>Most measurement in the physical sciences and engineering is done on ratio scales. Mass, length, time, plane angle, energy and electric charge are examples of physical measures that are ratio scales. The scale type takes its name from the fact that measurement is the estimation of the ratio between a magnitude of a continuous quantity and a unit magnitude of the same kind (Michell, 1997, 1999). Informally, the distinguishing feature of a ratio scale is the possession of a zero value. For example, the Kelvin temperature scale has a non-arbitrary zero point of absolute zero, which is denoted 0K and is equal to -273.15 degrees Celsius. This zero point is accuracy representing the particles that compose matter at this temperature having zero kinetic energy.
+
+All statistical measures can be used for a variable measured at the ratio level, as all necessary mathematical operations are defined. The central tendency of a variable measured at the ratio level can be represented by, in addition to its mode, its median, or its arithmetic mean, also its geometric mean or harmonic mean. In addition to the measures of statistical dispersion defined for interval variables, such as range and standard deviation, for ratio variables one can also define measures that require a ratio, such as studentized range or coefficient of variation.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#RegexpTransformedUnit -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#RegexpTransformedUnit">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#UnaryUnit"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#inverseExpression"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#forwardExpression"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>This kind of unit is a made-up unary type. The idea behind is that most of the complex functions can be represented as a series of operations based on regular expressions.
+
+RTU = Fforward(U)
+U = Finverse(RTU)</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#Temperature -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Temperature">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseDimension"/>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#RatioLevel"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#defaultUnit"/>
+                <owl:hasValue rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#kelvin"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#TimeInterval -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#TimeInterval">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#DifferenceDimension"/>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#RatioLevel"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#defaultUnit"/>
+                <owl:hasValue rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#second"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#derivedFrom"/>
+                <owl:onClass rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#PointInTime"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#UnaryUnit -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#UnaryUnit">
+        <rdfs:subClassOf rdf:resource="&omn-monitoring;Unit"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#derivedFrom"/>
+                <owl:onClass rdf:resource="&omn-monitoring;Unit"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>Unary unit is a derivative of a single unit.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#Byte -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Byte">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#LinearTransformedUnit"/>
+        <symbol>B</symbol>
+        <scale>8</scale>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#Gibi"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#Kibi"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#Mebi"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#Tebi"/>
+        <derivedFrom rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#bit"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#giga"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#kilo"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#mega"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#Bytepersecond -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Bytepersecond">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#LinearTransformedUnit"/>
+        <symbol>Bps</symbol>
+        <scale>8</scale>
+        <derivedFrom rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#bitpersecond"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#giga"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#kilo"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#mega"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#Gibi -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Gibi">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BinaryPrefix"/>
+        <base>2</base>
+        <exponent>30</exponent>
+        <symbol>Gi</symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#Kibi -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Kibi">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BinaryPrefix"/>
+        <base>2</base>
+        <exponent>10</exponent>
+        <symbol>K</symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#Mebi -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Mebi">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BinaryPrefix"/>
+        <symbol>Mi</symbol>
+        <base>2</base>
+        <exponent>20</exponent>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#Tebi -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Tebi">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BinaryPrefix"/>
+        <base>2</base>
+        <exponent>40</exponent>
+        <symbol>Ti</symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#bit -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#bit">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseUnit"/>
+        <symbol>bit</symbol>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#giga"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#kilo"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#mega"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#bitpersecond -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#bitpersecond">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#ProductUnit"/>
+        <symbol>bps</symbol>
+        <derivedFrom rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#bit"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#giga"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#kilo"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#mega"/>
+        <derivedFrom rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#persecond"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#celsius -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#celsius">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#LinearTransformedUnit"/>
+        <scale>1</scale>
+        <symbol>C</symbol>
+        <offset>273.15</offset>
+        <derivedFrom rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#kelvin"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#day -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#day">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#LinearTransformedUnit"/>
+        <scale>86400</scale>
+        <derivedFrom rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#second"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#deco -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#deco">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#DecimalPrefix"/>
+        <symbol>da</symbol>
+        <base>10</base>
+        <exponent>1</exponent>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#dozen -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#dozen">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#LinearTransformedUnit"/>
+        <symbol>dozen</symbol>
+        <scale>12</scale>
+        <derivedFrom rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#piece"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#fraction -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#fraction">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseUnit"/>
+        <symbol></symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#giga -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#giga">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#DecimalPrefix"/>
+        <exponent>9</exponent>
+        <base>10</base>
+        <symbol>G</symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#hecto -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#hecto">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#DecimalPrefix"/>
+        <symbol>h</symbol>
+        <exponent>2</exponent>
+        <base>10</base>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#hour -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#hour">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#LinearTransformedUnit"/>
+        <symbol>h</symbol>
+        <scale>3600</scale>
+        <derivedFrom rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#second"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#ipv4dotted -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#ipv4dotted">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseUnit"/>
+        <symbol></symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#ipv4int -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#ipv4int">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#RegexpTransformedUnit"/>
+        <forwardExpression>/evalIntegerAsString/([0-9]*)/((\g&lt;1&gt;) &amp; (255 &lt;&lt; 24)) &gt;&gt; 24/./((\g&lt;1&gt;) &amp; (255 &lt;&lt; 16)) &gt;&gt; 16/./((\g&lt;1&gt;) &amp; (255 &lt;&lt; 8)) &gt;&gt; 8/./(\g&lt;1&gt;) &amp; 255//</forwardExpression>
+        <inverseExpression>/evalInteger/(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/(\g&lt;1&gt;) &lt;&lt; 24 | (\g&lt;2&gt;) &lt;&lt; 16 | (\g&lt;3&gt;) &lt;&lt; 8 | (\g&lt;4&gt;)/</inverseExpression>
+        <derivedFrom rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#ipv4dotted"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#ipv6dotted -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#ipv6dotted">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseUnit"/>
+        <symbol></symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#ipv6int -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#ipv6int">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#RegexpTransformedUnit"/>
+        <inverseExpression>/evalInteger/([0-9a-fA-F]{0,4}):([0-9a-fA-F]{0,4}):([0-9a-fA-F]{0,4}):([0-9a-fA-F]{0,4}):([0-9a-fA-F]{0,4}):([0-9a-fA-F]{0,4}):([0-9a-fA-F]{0,4}):([0-9a-fA-F]{0,4})/(0x\g&lt;1&gt;)&lt;&lt;112|(0x\g&lt;2&gt;)&lt;&lt;96|(0x\g&lt;3&gt;)&lt;&lt;80|(0x\g&lt;4&gt;)&lt;&lt;64|(0x\g&lt;5&gt;)&lt;&lt;48|(0x\g&lt;6&gt;)&lt;&lt;32|(0x\g&lt;7&gt;)&lt;&lt;16|(0x\g&lt;8&gt;)/</inverseExpression>
+        <forwardExpression>/evalIntegerAsString/([0-9]*)/hex(((\g&lt;1&gt;) &amp; 0xFFFF0000000000000000000000000000) &gt;&gt; 112)/:/hex(((\g&lt;1&gt;) &amp; 0xFFFF000000000000000000000000) &gt;&gt; 96)/:/hex(((\g&lt;1&gt;) &amp; 0xFFFF00000000000000000000) &gt;&gt; 80)/:/hex(((\g&lt;1&gt;) &amp; 0xFFFF0000000000000000) &gt;&gt; 64)/:/hex(((\g&lt;1&gt;) &amp; 0xFFFF000000000000) &gt;&gt; 48)/:/hex(((\g&lt;1&gt;) &amp; 0xFFFF00000000) &gt;&gt; 32)/:/hex(((\g&lt;1&gt;) &amp; 0xFFFF0000) &gt;&gt; 16)/:/hex((\g&lt;1&gt;) &amp; 0xFFFF)//</forwardExpression>
+        <derivedFrom rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#ipv6dotted"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#kelvin -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#kelvin">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseUnit"/>
+        <symbol>K</symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#kilo -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#kilo">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#DecimalPrefix"/>
+        <symbol>k</symbol>
+        <base>10</base>
+        <exponent>3</exponent>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#mega -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#mega">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#DecimalPrefix"/>
+        <exponent>6</exponent>
+        <symbol>M</symbol>
+        <base>10</base>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#micro -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#micro">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#DecimalPrefix"/>
+        <symbol>mu</symbol>
+        <exponent>-6</exponent>
+        <base>10</base>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#milli -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#milli">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#DecimalPrefix"/>
+        <base>10</base>
+        <symbol>m</symbol>
+        <exponent>-3</exponent>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#minute -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#minute">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#LinearTransformedUnit"/>
+        <symbol>min</symbol>
+        <scale>60</scale>
+        <derivedFrom rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#second"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#month -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#month">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#LinearTransformedUnit"/>
+        <scale>1814400</scale>
+        <derivedFrom rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#second"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#nano -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#nano">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#DecimalPrefix"/>
+        <base>10</base>
+        <exponent>-9</exponent>
+        <symbol>n</symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#percent -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#percent">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#LinearTransformedUnit"/>
+        <scale>100</scale>
+        <symbol>%</symbol>
+        <derivedFrom rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#fraction"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#permil -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#permil">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#LinearTransformedUnit"/>
+        <scale>1000</scale>
+        <derivedFrom rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#fraction"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#persecond -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#persecond">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#PowerUnit"/>
+        <symbol>Hz</symbol>
+        <exponent>-1</exponent>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#giga"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#kilo"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#mega"/>
+        <derivedFrom rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#second"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#pico -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#pico">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#DecimalPrefix"/>
+        <symbol>p</symbol>
+        <exponent>-12</exponent>
+        <base>10</base>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#piece -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#piece">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseUnit"/>
+        <symbol>(1)</symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#radian -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#radian">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseUnit"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#second -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#second">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseUnit"/>
+        <symbol>s</symbol>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#micro"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#milli"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#nano"/>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#pico"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#tera -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#tera">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#DecimalPrefix"/>
+        <symbol>T</symbol>
+        <exponent>12</exponent>
+        <base>10</base>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#unitless -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#unitless">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseUnit"/>
+        <symbol></symbol>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#unixtimestamp -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#unixtimestamp">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#BaseUnit"/>
+        <symbol>s</symbol>
+        <possiblePrefix rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#nano"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#week -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#week">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#LinearTransformedUnit"/>
+        <scale>604800</scale>
+        <derivedFrom rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#second"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-unit#year -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#year">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#LinearTransformedUnit"/>
+        <scale>6622560000</scale>
+        <derivedFrom rdf:resource="http://open-multinet.info/ontology/omn-monitoring-unit#second"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Cardinal"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Countable"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#GeoPosition"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#IPAddress"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#InformationSize"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#NameOfSomething"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#PointInTime"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#Temperature"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#BaseUnit"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#N_aryUnit"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#UnaryUnit"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#DifferenceDimension"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#PowerDimension"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#ProductDimension"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#RatioDimension"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#LinearTransformedUnit"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#PowerUnit"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-unit#RegexpTransformedUnit"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net -->
+

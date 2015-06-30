@@ -1,0 +1,1079 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY dcterms "http://purl.org/dc/terms/" >
+    <!ENTITY foaf "http://xmlns.com/foaf/0.1/" >
+    <!ENTITY vann "http://purl.org/vocab/vann/" >
+    <!ENTITY cc "http://creativecommons.org/ns#" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY voaf "http://purl.org/vocommons/voaf#" >
+    <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
+    <!ENTITY gr "http://purl.org/goodrelations/v1#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY omn "http://open-multinet.info/ontology/omn#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://open-multinet.info/ontology/omn-lifecycle#"
+     xml:base="http://open-multinet.info/ontology/omn-lifecycle"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:dcterms="http://purl.org/dc/terms/"
+     xmlns:voaf="http://purl.org/vocommons/voaf#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:omn="http://open-multinet.info/ontology/omn#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:gr="http://purl.org/goodrelations/v1#"
+     xmlns:cc="http://creativecommons.org/ns#">
+    <owl:Ontology rdf:about="http://open-multinet.info/ontology/omn-lifecycle">
+        <rdfs:label xml:lang="en">omn-lifecycle</rdfs:label>
+        <dc:date rdf:datatype="&xsd;date">2014-11-11</dc:date>
+        <dcterms:modified rdf:datatype="&xsd;date">2015-04-29</dcterms:modified>
+        <owl:versionInfo rdf:datatype="&xsd;string">2015-04-29</owl:versionInfo>
+        <vann:preferredNamespacePrefix rdf:datatype="&xsd;string">omn-lifecycle</vann:preferredNamespacePrefix>
+        <dc:title xml:lang="en">Open-Multinet Upper Lifecycle Ontology</dc:title>
+        <dc:description xml:lang="en">This ontology defines generic concepts related to the life cycle of resource or service.</dc:description>
+        <dc:rights xml:lang="en">This ontology is distributed under a Creative Commons Attribute License - http://creativecommons.org/licenses/by/4.0/</dc:rights>
+        <dc:creator rdf:resource="http://alex.willner.ws/about#me"/>
+        <dcterms:license rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
+        <dc:publisher rdf:resource="http://open-multinet.info/"/>
+        <vann:preferredNamespaceUri rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#"/>
+        <dc:contributor rdf:resource="http://users.ntua.gr/c.papagianni"/>
+        <dc:contributor rdf:resource="http://www.commit-nl.nl/people/morsey"/>
+        <dc:description rdf:resource="https://raw.githubusercontent.com/open-multinet/playground-rspecs-ontology/master/ontologies/pics/omn-lifecycle.png"/>
+        <dc:contributor rdf:resource="https://staff.fnwi.uva.nl/p.grosso"/>
+        <dc:contributor rdf:resource="mailto:brecht.vermeulen@iminds.be"/>
+        <dc:contributor rdf:resource="mailto:ibaldin@renci.org"/>
+        <dc:contributor rdf:resource="mailto:jorge.lopez_vergara@uam.es"/>
+        <dc:contributor rdf:resource="mailto:loughnane@campus.tu-berlin.de"/>
+        <dc:contributor rdf:resource="mailto:thijs.walcarius@intec.ugent.be"/>
+        <dc:contributor rdf:resource="mailto:yahya.al-hazmi@tu-berlin.de"/>
+        <dc:contributor rdf:resource="mailto:yxin@renci.org"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#canBeImplementedBy -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#canBeImplementedBy">
+        <rdfs:label xml:lang="en">can be implemented by</rdfs:label>
+        <rdfs:comment xml:lang="en">That which is not currently implemented, but can potentially be implemented by a resource, service, component or group.</rdfs:comment>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Component"/>
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Component"/>
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#canImplement -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#canImplement">
+        <rdfs:label xml:lang="en">can implement</rdfs:label>
+        <rdfs:comment xml:lang="en">That which does not currently implement, but can potentially implement a resource, service, component or group.</rdfs:comment>
+        <owl:inverseOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#canBeImplementedBy"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Component"/>
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Component"/>
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#childOf -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#childOf">
+        <rdfs:label xml:lang="en">child of</rdfs:label>
+        <rdfs:comment xml:lang="en">A resource, component, group or serice which is a part of another.</rdfs:comment>
+        <owl:inverseOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#parentOf"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Component"/>
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Component"/>
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#hasReservationState -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#hasReservationState">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:label xml:lang="en">has Reservation State</rdfs:label>
+        <rdfs:comment xml:lang="en">The state of the reservation.</rdfs:comment>
+        <rdfs:domain rdf:resource="&omn;Reservation"/>
+        <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#ReservationState"/>
+        <rdfs:subPropertyOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#hasState"/>
+        <owl:inverseOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#isReservationStateOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#hasState -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#hasState">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:label xml:lang="en">has State</rdfs:label>
+        <rdfs:comment xml:lang="en">Has state.</rdfs:comment>
+        <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Component"/>
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#implementedBy -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#implementedBy">
+        <rdfs:label xml:lang="en">implementd by.</rdfs:label>
+        <rdfs:comment xml:lang="en">Implementd by.</rdfs:comment>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Component"/>
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Component"/>
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#implements -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#implements">
+        <rdfs:label xml:lang="en">implements</rdfs:label>
+        <rdfs:comment xml:lang="en">Implements.</rdfs:comment>
+        <owl:inverseOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#implementedBy"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Component"/>
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Component"/>
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#isReservationStateOf -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#isReservationStateOf">
+        <rdfs:label xml:lang="en">is reservation state of</rdfs:label>
+        <rdfs:comment xml:lang="en">is reservation state of</rdfs:comment>
+        <rdfs:range rdf:resource="&omn;Reservation"/>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#ReservationState"/>
+        <rdfs:subPropertyOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#isStateOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#isStateOf -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#isStateOf">
+        <rdfs:label xml:lang="en">is state of</rdfs:label>
+        <rdfs:comment xml:lang="en">is state of</rdfs:comment>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+        <owl:inverseOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#hasState"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Component"/>
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#managedBy -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#managedBy">
+        <rdfs:label xml:lang="en">managed by</rdfs:label>
+        <rdfs:seeAlso xml:lang="en">GENI RSpec v3: component_manager_id</rdfs:seeAlso>
+        <rdfs:comment xml:lang="en">URI of service (e.g. AggregateManager) that manages the instantiation of childs of a resource</rdfs:comment>
+        <rdfs:range rdf:resource="&omn;Service"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#parentOf -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#parentOf">
+        <rdfs:label xml:lang="en">parent of</rdfs:label>
+        <rdfs:comment xml:lang="en">A resource, component, group or serice which encompasses another.</rdfs:comment>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Component"/>
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Component"/>
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#serviceIsUsedBy -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#serviceIsUsedBy">
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:label xml:lang="en">service is used by</rdfs:label>
+        <rdfs:comment xml:lang="en">a service is used by.</rdfs:comment>
+        <rdfs:domain rdf:resource="&omn;Service"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Component"/>
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#usesService -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#usesService">
+        <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
+        <rdfs:label xml:lang="en">uses Service</rdfs:label>
+        <rdfs:comment xml:lang="en">Uses a service.</rdfs:comment>
+        <rdfs:range rdf:resource="&omn;Service"/>
+        <owl:inverseOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#serviceIsUsedBy"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Component"/>
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#creationTime -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#creationTime">
+        <rdfs:label xml:lang="en">has creation time</rdfs:label>
+        <rdfs:comment xml:lang="en">GENI sliver info creation time</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#creator -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#creator">
+        <rdfs:label xml:lang="en">has creator URN</rdfs:label>
+        <rdfs:comment xml:lang="en">GENI sliver info creator URN</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#expirationTime -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#expirationTime">
+        <rdfs:label xml:lang="en">has expiration time</rdfs:label>
+        <rdfs:comment xml:lang="en">GENI sliver info expiration time</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#hasAuthenticationInformation -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#hasAuthenticationInformation">
+        <rdfs:label xml:lang="en">has authentication information</rdfs:label>
+        <rdfs:comment xml:lang="en">A specific authentification information for the management system</rdfs:comment>
+        <rdfs:seeAlso xml:lang="en">GENI Slice X.509 certificates</rdfs:seeAlso>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#hasID -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#hasID">
+        <rdfs:label xml:lang="en">has component ID</rdfs:label>
+        <rdfs:comment xml:lang="en">A unique identifier set by the management system</rdfs:comment>
+        <rdfs:seeAlso xml:lang="en">GENI Manifest RSpec v3: component_id</rdfs:seeAlso>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#resourceId -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#resourceId">
+        <rdfs:label xml:lang="en">has resource ID</rdfs:label>
+        <rdfs:comment xml:lang="en">GENI sliver info resource ID</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#startTime -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-lifecycle#startTime">
+        <rdfs:label xml:lang="en">has start time</rdfs:label>
+        <rdfs:comment xml:lang="en">GENI sliver info start time</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#Attribute -->
+
+    <owl:Class rdf:about="&omn;Attribute"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#Component -->
+
+    <owl:Class rdf:about="&omn;Component"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#Group -->
+
+    <owl:Class rdf:about="&omn;Group"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#Reservation -->
+
+    <owl:Class rdf:about="&omn;Reservation"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#Resource -->
+
+    <owl:Class rdf:about="&omn;Resource"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#Service -->
+
+    <owl:Class rdf:about="&omn;Service"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#Topology -->
+
+    <owl:Class rdf:about="&omn;Topology"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Active -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Active">
+        <rdfs:label xml:lang="en">Active</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+        <rdfs:seeAlso xml:lang="en">GENI geni_ready_busy operational state</rdfs:seeAlso>
+        <rdfs:comment xml:lang="en">The related resource/service is actively performing an action</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Allocated -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Allocated">
+        <rdfs:label xml:lang="en">Allocated</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#ReservationState"/>
+        <rdfs:seeAlso xml:lang="en">GENI geni_allocated allocation state</rdfs:seeAlso>
+        <rdfs:comment xml:lang="en">The related resources/services are reserved</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Cleaned -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Cleaned">
+        <rdfs:label xml:lang="en">Cleaned</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+        <rdfs:comment xml:lang="en">The related resource/service has been cleaned</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Confirmation -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Confirmation">
+        <rdfs:label xml:lang="en">Confirmation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&omn;Topology"/>
+        <rdfs:comment xml:lang="en">A collection (group) of resources/services/groups confirmed to be allocated for the user.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Error -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Error">
+        <rdfs:label xml:lang="en">Error</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+        <rdfs:seeAlso xml:lang="en">GENI geni_failed operational state</rdfs:seeAlso>
+        <rdfs:comment xml:lang="en">The related resource/service is in an error state</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Initialized -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Initialized">
+        <rdfs:label xml:lang="en">Initialized</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+        <rdfs:comment xml:lang="en">The related resource/service has been initialized</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Installed -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Installed">
+        <rdfs:label xml:lang="en">Installed</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+        <rdfs:comment xml:lang="en">The related resource/service has been installed</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Manifest -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Manifest">
+        <rdfs:label xml:lang="en">Manifest</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&omn;Topology"/>
+        <rdfs:comment xml:lang="en">A collection (group) of resources/services/groups allocated for the user.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#NotYetInitialized -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#NotYetInitialized">
+        <rdfs:label xml:lang="en">Not Yet Initialized</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+        <rdfs:seeAlso xml:lang="en">GENI geni_instantiating operational state</rdfs:seeAlso>
+        <rdfs:comment xml:lang="en">The related resource/service are not yet active/ready</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Offering -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Offering">
+        <rdfs:label xml:lang="en">Offering</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&omn;Topology"/>
+        <rdfs:comment xml:lang="en">A collection (group) of services and resources provided by an Infrastructure. The collection is the result of the application of Policies.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="&gr;Offering"/>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Pending -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Pending">
+        <rdfs:label xml:lang="en">Pending</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+        <rdfs:seeAlso xml:lang="en">GENI geni_pending_allocation operational state</rdfs:seeAlso>
+        <rdfs:comment xml:lang="en">The related resource/service is not yet provisioned</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Preinit -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Preinit">
+        <rdfs:label xml:lang="en">Preinit</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+        <rdfs:seeAlso xml:lang="en">GENI geni_configuring operational state</rdfs:seeAlso>
+        <rdfs:comment xml:lang="en">The related resource/service is currently configuring</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Provisioned -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Provisioned">
+        <rdfs:label xml:lang="en">Provisioned</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#ReservationState"/>
+        <rdfs:seeAlso xml:lang="en">GENI geni_provisioned allocation state</rdfs:seeAlso>
+        <rdfs:comment xml:lang="en">The related resources/services are provisioned</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Ready -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Ready">
+        <rdfs:label xml:lang="en">Ready</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+        <rdfs:seeAlso xml:lang="en">GENI geni_ready operational state</rdfs:seeAlso>
+        <rdfs:comment xml:lang="en">The related resource/service is ready</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Removing -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Removing">
+        <rdfs:label xml:lang="en">Removing</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+        <rdfs:comment xml:lang="en">The related resource/service gets removed</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Request -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Request">
+        <rdfs:label xml:lang="en">Request</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&omn;Topology"/>
+        <rdfs:comment xml:lang="en">A collection (group) of resources/services/groups requested by the user</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#ReservationState -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#ReservationState">
+        <rdfs:label xml:lang="en">Reservation State</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&omn;Attribute"/>
+        <rdfs:comment xml:lang="en">The current state of a reservation</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Started -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Started">
+        <rdfs:label xml:lang="en">Started</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+        <rdfs:comment xml:lang="en">The related resource/service has been started</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#State -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#State">
+        <rdfs:label xml:lang="en">State</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&omn;Attribute"/>
+        <rdfs:comment xml:lang="en">The current state of the resource, service or group</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Stopped -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Stopped">
+        <rdfs:label xml:lang="en">Stopped</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+        <rdfs:comment xml:lang="en">The related resource/service is stopped</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Stopping -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Stopping">
+        <rdfs:label xml:lang="en">Stopping</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+        <rdfs:seeAlso xml:lang="en">GENI geni_stopping operational state</rdfs:seeAlso>
+        <rdfs:comment xml:lang="en">The related resource/service is stopping</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Unallocated -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Unallocated">
+        <rdfs:label xml:lang="en">Unallocated</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#ReservationState"/>
+        <rdfs:seeAlso xml:lang="en">GENI geni_unallocated allocation state</rdfs:seeAlso>
+        <rdfs:comment xml:lang="en">The related resources/services are not reserved</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Uncompleted -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Uncompleted">
+        <rdfs:label xml:lang="en">Uncompleted</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+        <rdfs:comment xml:lang="en">The related resource/service is not complete</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Updating -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Updating">
+        <rdfs:label xml:lang="en">Updating</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+        <rdfs:comment xml:lang="en">The related resource/service is getting updated</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/vocommons/voaf#Vocabulary -->
+
+    <owl:Class rdf:about="&voaf;Vocabulary"/>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#AllDisjointClasses -->
+
+    <owl:Class rdf:about="&owl;AllDisjointClasses"/>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#IrreflexiveProperty -->
+
+    <owl:Class rdf:about="&owl;IrreflexiveProperty"/>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#NamedIndividual -->
+
+    <owl:Class rdf:about="&owl;NamedIndividual"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Person -->
+
+    <owl:Class rdf:about="&foaf;Person"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://alex.willner.ws/about#me -->
+
+    <owl:NamedIndividual rdf:about="http://alex.willner.ws/about#me">
+        <rdf:type rdf:resource="&foaf;Person"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle">
+        <rdf:type rdf:resource="&voaf;Vocabulary"/>
+        <rdfs:comment xml:lang="en">This ontology addresses parts of the resource lifecycle, to do with offering, provisioning and allocating resources.</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Active -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Active">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Allocated -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Allocated">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#ReservationState"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Cleaned -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Cleaned">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Error -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Error">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Initialized -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Initialized">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Installed -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Installed">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#NotYetInitialized -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#NotYetInitialized">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Pending -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Pending">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Preinit -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Preinit">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Provisioned -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Provisioned">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#ReservationState"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Ready -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Ready">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Removing -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Removing">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Started -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Started">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Stopped -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Stopped">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Stopping -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Stopping">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Unallocated -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Unallocated">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#ReservationState"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Uncompleted -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Uncompleted">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Updating -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Updating">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-lifecycle#State"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Confirmation"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Manifest"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Offering"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Request"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Allocated"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Pending"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Preinit"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Provisioned"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Unallocated"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Active"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Cleaned"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Error"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Initialized"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Installed"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#NotYetInitialized"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Ready"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Removing"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Started"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Stopped"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Stopping"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Uncompleted"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-lifecycle#Updating"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net -->
+

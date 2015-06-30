@@ -1,0 +1,654 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY dcterms "http://purl.org/dc/terms/" >
+    <!ENTITY vann "http://purl.org/vocab/vann/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY omn "http://open-multinet.info/ontology/omn#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY omn-service "http://open-multinet.info/ontology/omn-service#" >
+    <!ENTITY omn-resource "http://open-multinet.info/ontology/omn-resource#" >
+    <!ENTITY omn-component "http://open-multinet.info/ontology/omn-component#" >
+    <!ENTITY omn-lifecycle "http://open-multinet.info/ontology/omn-lifecycle#" >
+    <!ENTITY omn-federation "http://open-multinet.info/ontology/omn-federation#" >
+    <!ENTITY omn-monitoring "http://open-multinet.info/ontology/omn-monitoring#" >
+    <!ENTITY omn-monitoring-unit "http://open-multinet.info/ontology/omn-monitoring-unit#" >
+    <!ENTITY omn-monitoring-data "http://open-multinet.info/ontology/omn-monitoring-data#" >
+    <!ENTITY omn-monitoring-metric "http://open-multinet.info/ontology/omn-monitoring-metric#" >
+    <!ENTITY omn-monitoring-genericconcepts "http://open-multinet.info/ontology/omn-monitoring-genericconcepts#" >
+]>
+
+
+<rdf:RDF xmlns="http://open-multinet.info/ontology/omn-monitoring-tool#"
+     xml:base="http://open-multinet.info/ontology/omn-monitoring-tool"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:omn-lifecycle="http://open-multinet.info/ontology/omn-lifecycle#"
+     xmlns:omn-monitoring-unit="http://open-multinet.info/ontology/omn-monitoring-unit#"
+     xmlns:omn-resource="http://open-multinet.info/ontology/omn-resource#"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:omn-monitoring-metric="http://open-multinet.info/ontology/omn-monitoring-metric#"
+     xmlns:omn-component="http://open-multinet.info/ontology/omn-component#"
+     xmlns:omn-monitoring-data="http://open-multinet.info/ontology/omn-monitoring-data#"
+     xmlns:omn-service="http://open-multinet.info/ontology/omn-service#"
+     xmlns:dcterms="http://purl.org/dc/terms/"
+     xmlns:omn-federation="http://open-multinet.info/ontology/omn-federation#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:omn="http://open-multinet.info/ontology/omn#"
+     xmlns:omn-monitoring-genericconcepts="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:omn-monitoring="http://open-multinet.info/ontology/omn-monitoring#">
+    <owl:Ontology rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool">
+        <rdfs:label xml:lang="en">omn-monitoring-tool</rdfs:label>
+        <dc:title rdf:datatype="&xsd;string">Open-Multinet Monitoring Tool Ontology</dc:title>
+        <dc:description rdf:datatype="&xsd;string">The tool ontology describes generic concepts such as measurement location, timestamp, transport protocols, etc..</dc:description>
+        <rdfs:comment xml:lang="en">This ontology includes some classes and proberties that were defined by the European MOnitoring and MEasurement in the Next generation Technologies (MOMENT) project under MOMENT ontology that was then published under ETSI Group Specification Measurement Ontology for IP traffic (MOI). 
+                                                         However, most of the reused classes are classified in this ontology in different taxonomic hierarchy, and properties might have different domains and ranges.</rdfs:comment>
+        <vann:preferredNamespaceUri>http://open-multinet.info/ontology/omn-monitoring-tool#</vann:preferredNamespaceUri>
+        <vann:preferredNamespacePrefix>omn-monitoring-tool</vann:preferredNamespacePrefix>
+        <dc:date>2015-05-30</dc:date>
+        <dc:contributor rdf:resource="http://alex.willner.ws/about#me"/>
+        <dcterms:license rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
+        <dc:publisher rdf:resource="http://open-multinet.info/"/>
+        <dc:contributor rdf:resource="http://www.commit-nl.nl/people/morsey"/>
+        <dc:contributor rdf:resource="https://staff.fnwi.uva.nl/p.grosso"/>
+        <dc:author rdf:resource="https://www.linkedin.com/in/yahyaalhazmi"/>
+        <dc:creator rdf:resource="https://www.linkedin.com/in/yahyaalhazmi"/>
+        <dc:contributor rdf:resource="mailto:chrisap@noc.ntua.gr"/>
+        <dc:contributor rdf:resource="mailto:jorge.lopez_vergara@uam.es"/>
+        <dc:contributor rdf:resource="mailto:lakis@inf.elte.hu"/>
+        <dc:contributor rdf:resource="mailto:steger@complex.elte.hu"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#hasService -->
+
+    <owl:AnnotationProperty rdf:about="&omn;hasService"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#communicationParadigm -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#communicationParadigm">
+        <rdfs:comment rdf:datatype="&xsd;string">The communication paradigm the monitoring tool is using.</rdfs:comment>
+        <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#CommunicationParadigm"/>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#convertsDataFrom -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#convertsDataFrom">
+        <rdfs:comment rdf:datatype="&xsd;string">Defines from which data format the tool converts the available data .</rdfs:comment>
+        <rdfs:domain rdf:resource="&omn-monitoring;Tool"/>
+        <rdfs:range rdf:resource="&omn-monitoring-data;DataFormat"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#convertsDataTo -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#convertsDataTo">
+        <rdfs:comment rdf:datatype="&xsd;string">Defines to which data format the tool converts the available data .</rdfs:comment>
+        <rdfs:domain rdf:resource="&omn-monitoring;Tool"/>
+        <rdfs:range rdf:resource="&omn-monitoring-data;DataFormat"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#dataAccessProvided -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#dataAccessProvided">
+        <rdfs:comment rdf:datatype="&xsd;string">The data access capability the monitoring tool provides.</rdfs:comment>
+        <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#DataAccess"/>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#reportesDataAbout -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#reportesDataAbout">
+        <rdfs:comment rdf:datatype="&xsd;string">Reports data about particular domain or resource.</rdfs:comment>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Component"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                    <rdf:Description rdf:about="&omn-federation;Infrastructure"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#usesDataBroker -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#usesDataBroker">
+        <rdfs:comment rdf:datatype="&xsd;string">Determines the data broker used by a service or a tool.</rdfs:comment>
+        <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#DataBroker"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Service"/>
+                    <rdf:Description rdf:about="&omn-monitoring;Tool"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#Component -->
+
+    <owl:Class rdf:about="&omn;Component"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#Resource -->
+
+    <owl:Class rdf:about="&omn;Resource"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#Service -->
+
+    <owl:Class rdf:about="&omn;Service"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-federation#Infrastructure -->
+
+    <owl:Class rdf:about="&omn-federation;Infrastructure"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring#Metric -->
+
+    <owl:Class rdf:about="&omn-monitoring;Metric"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring#Tool -->
+
+    <owl:Class rdf:about="&omn-monitoring;Tool"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-data#DataFormat -->
+
+    <owl:Class rdf:about="&omn-monitoring-data;DataFormat"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#API -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#API">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#DataAccess"/>
+        <rdfs:comment rdf:datatype="&xsd;string"> Represents the Appication Programming Interface used to get/access the data.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#ActiveMeasurementTool -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#ActiveMeasurementTool">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MeasurementTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents any tool used to execute active measurments.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#Adapter -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#Adapter">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents any tool used to adapt and convert the collected data from one format to anohter.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#AnalysisTool -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#AnalysisTool">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents any tool used for analysing the collected monitoring and measurement data.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#CaptureTool -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#CaptureTool">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents any tool used for capturing monitoring and measurement data.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#Centralized -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#Centralized">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#CommunicationParadigm"/>
+        <rdfs:comment rdf:datatype="&xsd;string">The tool collects the data at a central point (collector/server).</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#ClientServer -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#ClientServer">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#Distributed"/>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#CollectionEndpoint -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#CollectionEndpoint">
+        <rdfs:subClassOf rdf:resource="&omn;Service"/>
+        <rdfs:comment rdf:datatype="&xsd;string"> Represents the endpoint of a monitoring data collection service.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#Collector -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#Collector">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents any tool used for collecting monitoring and measurement data.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#CommunicationParadigm -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#CommunicationParadigm">
+        <rdfs:comment rdf:datatype="&xsd;string">Describes the communication paradigm used in the tool to perform the measurements and monitoring services.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#DataAccess -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#DataAccess">
+        <rdfs:subClassOf rdf:resource="&omn;Service"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Describes the data access capability of a tool for its users.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#DataBroker -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#DataBroker">
+        <rdfs:subClassOf rdf:resource="&omn-monitoring;Tool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents any tool that acts as a data broker between two tools or between a service and a collection resource.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#Database -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#Database">
+        <rdfs:subClassOf rdf:resource="&omn;Service"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents any database management system.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#Distributed -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#Distributed">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#CommunicationParadigm"/>
+        <rdfs:comment rdf:datatype="&xsd;string">The tool has other components that collect the data that are then merged.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#Exporter -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#Exporter">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents any tool used to export the collected data to a remote/external collector.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#Filter -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#Filter">
+        <rdfs:subClassOf rdf:resource="&omn;Service"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents filtering capability of the monitoring tool.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#GUI -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#GUI">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#DataAccess"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents the Graphical User Interface used to get/access the data.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#GeographicalVisualizationTool -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#GeographicalVisualizationTool">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#VisualizationTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents any tool used for geographical visualizations.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#GraphicalVisualizationTool -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#GraphicalVisualizationTool">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#VisualizationTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents any tool used to visualize/display measurement data graphically.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#MeasurementTool -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#MeasurementTool">
+        <rdfs:subClassOf rdf:resource="&omn-monitoring;Tool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents any tool used to execute the measurments.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringDashboard -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringDashboard">
+        <rdfs:subClassOf rdf:resource="&omn;Service"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents monitoring dashboard capability of the monitoring tool.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool">
+        <rdfs:subClassOf rdf:resource="&omn-monitoring;Tool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents any tool used for performing monitoring service.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#P2P -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#P2P">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#Distributed"/>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#PassiveMeasurementTool -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#PassiveMeasurementTool">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MeasurementTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents any tool used to execute passive measurments.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#SQL -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#SQL">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#Database"/>
+        <rdfs:comment rdf:datatype="&xsd;string">SQL (Structured Query Language) is a special-purpose programming language designed for managing data held in a relational database management system (RDBMS), or for stream processing in a relational data stream management system (RDSMS).</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#TopologicalVisualizationTool -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#TopologicalVisualizationTool">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#VisualizationTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents any tool used to visualize topologies.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#VisualizationTool -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#VisualizationTool">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents any tool used to visualize the collected monitoring and measurement data.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#ClientServer -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#ClientServer"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#Iperf -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#Iperf">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#ActiveMeasurementTool"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#CaptureTool"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Iperf is a tool used used for capturing data, monitoring or for executing passive measurements. It is used to measure maximum TCP bandwidth, allowing the tuning of various parameters and UDP characteristics. Iperf reports bandwidth, delay jitter, datagram loss. Website: https://iperf.fr.</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#JenaFuseki -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#JenaFuseki">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#Collector"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Is a SPARQL server with a native triple store database (TDB) that serves storing and querying data as RDF triples over HTTP. Website: http://jena.apache.org/documentation/serving_data/.</rdfs:comment>
+        <omn:hasService rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#Database"/>
+        <omn:hasService rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#SPARQLEndpoint"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#Manifold -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#Manifold">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#DataBroker"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Manifod acts as a data broker in this matter to retrieve monitoring data from a central collection point. It allows users to express queries over heterogeneous sources of data and aggregate results based on common key attributes. Website: http://trac.myslice.info/wiki/Manifold.</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#Nagios -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#Nagios">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#AnalysisTool"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#GraphicalVisualizationTool"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#TopologicalVisualizationTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Nagios is a computer network monitoring solution used to monitor network objects. For more information visit its website: https://www.nagios.com.</rdfs:comment>
+        <communicationParadigm rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#ClientServer"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#OMLServer -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#OMLServer">
+        <rdf:type rdf:resource="&omn;Service"/>
+        <rdfs:comment rdf:datatype="&xsd;string">OML Measurement Library (OML) server receives measurement data sent by OML clients as OML streams through the OML protocol (OMSP) and stores this data into a database (natively support SQlite and PostgreSQL). Website: https://oml.mytestbed.net/projects/oml/wiki/.</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#OMLWrapper -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#OMLWrapper">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#Adapter"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Orbit Measurement Library (OML) Wrapper (https://oml.mytestbed.net/projects/oml/wiki/) is a software that acts as an adapter retrieving measurement and monitoring data from any monitoring tool and converts this data into OML streams that are then sent through the OML Measurement Stream Protocol (OMSP) to an OML server.</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#OMSPEndpoint -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#OMSPEndpoint">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#CollectionEndpoint"/>
+        <rdfs:comment rdf:datatype="&xsd;string">The end point of the collectin service that offers an OMSP interface to receive and store OML measurement streams transfered through the use of the OML Measurement Stream Protocol (OMSP).</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#Ping -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#Ping">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#ActiveMeasurementTool"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#CaptureTool"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Ping is a program that can be considered as a tool used for capturing data, monitoring or for executing active measurements. The ping program is can be used to test wether a particular host is reachable across an IP network. It measures the round trip time, packet loss, and some statistical information about round trip time (minimum, maximum, average and mean deviation).</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#PostgreSQL -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#PostgreSQL">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#Collector"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#SQL"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Is an object-relational database management system. Website: http://www.postgresql.org.</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#SPARQLEndpoint -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#SPARQLEndpoint">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#CollectionEndpoint"/>
+        <rdfs:comment rdf:datatype="&xsd;string">The end point of the collectin service that offers a SPARQL query interface allowing its user to update or query data from triple stores over HTTP protocol.</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#SQLite -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#SQLite">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#Collector"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#SQL"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Is is a software library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine. Website: https://www.sqlite.org.</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#Tcpdump -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#Tcpdump">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#CaptureTool"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#PassiveMeasurementTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Tcpdump is a command-line packet analyzer. Website:http://www.tcpdump.org</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#Traceroute -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#Traceroute">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#ActiveMeasurementTool"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#TopologicalVisualizationTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Traceroute is a computer network tool used to determine the route taken by packets across an IP network.</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#Wireshark -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#Wireshark">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#CaptureTool"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#PassiveMeasurementTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Wireshark is a free and open-source packet analyzer. Website: https://www.wireshark.org</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#Zabbix -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#Zabbix">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#AnalysisTool"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#GraphicalVisualizationTool"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Zabbix is a monitoring solution used to monitor computer and network devices. For more information visit its website: http://www.zabbix.com.</rdfs:comment>
+        <communicationParadigm rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#ClientServer"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#collectd -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#collectd">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#AnalysisTool"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#GraphicalVisualizationTool"/>
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
+        <rdfs:comment rdf:datatype="&xsd;string">collectd is a monitoring solution used to monitor computer and network devices. For more information visit its website: http://collectd.org.</rdfs:comment>
+        <communicationParadigm rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#ClientServer"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net -->
+

@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY dcterms "http://purl.org/dc/terms/" >
+    <!ENTITY novi "http://fp7-novi.eu/im.owl#" >
+    <!ENTITY foaf "http://xmlns.com/foaf/0.1/" >
+    <!ENTITY vann "http://purl.org/vocab/vann/" >
+    <!ENTITY cc "http://creativecommons.org/ns#" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY voaf "http://purl.org/vocommons/voaf#" >
+    <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY omn "http://open-multinet.info/ontology/omn#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://open-multinet.info/ontology/omn-federation#"
+     xml:base="http://open-multinet.info/ontology/omn-federation"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:dcterms="http://purl.org/dc/terms/"
+     xmlns:voaf="http://purl.org/vocommons/voaf#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:omn="http://open-multinet.info/ontology/omn#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:novi="http://fp7-novi.eu/im.owl#"
+     xmlns:cc="http://creativecommons.org/ns#">
+    <owl:Ontology rdf:about="http://open-multinet.info/ontology/omn-federation">
+        <rdfs:label xml:lang="en">omn-federation</rdfs:label>
+        <dc:date rdf:datatype="&xsd;date">2014-11-11</dc:date>
+        <dcterms:modified rdf:datatype="&xsd;date">2015-04-27</dcterms:modified>
+        <owl:versionInfo rdf:datatype="&xsd;string">2015-04-27</owl:versionInfo>
+        <vann:preferredNamespacePrefix>omn-federation</vann:preferredNamespacePrefix>
+        <dc:title xml:lang="en">Open-Multinet Upper Federation Ontology</dc:title>
+        <dc:description xml:lang="en">This ontology defines concepts related to federation of internet infrastructures.</dc:description>
+        <dc:creator rdf:resource="http://alex.willner.ws/about#me"/>
+        <dc:rights rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
+        <dcterms:license rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
+        <dc:publisher rdf:resource="http://open-multinet.info/"/>
+        <vann:preferredNamespaceUri rdf:resource="http://open-multinet.info/ontology/omn-federation#"/>
+        <dc:description rdf:resource="http://raw.githubusercontent.com/open-multinet/playground-rspecs-ontology/master/ontologies/pics/omn-federation.png"/>
+        <dc:contributor rdf:resource="http://users.ntua.gr/c.papagianni"/>
+        <dc:contributor rdf:resource="http://www.commit-nl.nl/people/morsey"/>
+        <dc:contributor rdf:resource="https://staff.fnwi.uva.nl/p.grosso"/>
+        <dc:contributor rdf:resource="mailto:brecht.vermeulen@iminds.be"/>
+        <dc:contributor rdf:resource="mailto:ibaldin@renci.org"/>
+        <dc:contributor rdf:resource="mailto:jorge.lopez_vergara@uam.es"/>
+        <dc:contributor rdf:resource="mailto:loughnane@campus.tu-berlin.de"/>
+        <dc:contributor rdf:resource="mailto:thijs.walcarius@intec.ugent.be"/>
+        <dc:contributor rdf:resource="mailto:yahya.al-hazmi@tu-berlin.de"/>
+        <dc:contributor rdf:resource="mailto:yxin@renci.org"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-federation#administers -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-federation#administers">
+        <rdfs:label xml:lang="en">administers</rdfs:label>
+        <rdfs:comment xml:lang="en">an organization (e.g. a federation member) administers its own infrastructure</rdfs:comment>
+        <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn-federation#Infrastructure"/>
+        <owl:inverseOf rdf:resource="http://open-multinet.info/ontology/omn-federation#isAdministeredBy"/>
+        <rdfs:domain rdf:resource="&foaf;Organization"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-federation#hasFederationMember -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-federation#hasFederationMember">
+        <rdfs:label xml:lang="en">has federation member</rdfs:label>
+        <rdfs:comment xml:lang="en">a federation can have an organization as a member</rdfs:comment>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-federation#Federation"/>
+        <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn-federation#FederationMember"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-federation#isAdministeredBy -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-federation#isAdministeredBy">
+        <rdfs:label xml:lang="en">is administered by</rdfs:label>
+        <rdfs:comment xml:lang="en">an infrastructure can be administered by an organization (e.g. a federation member)</rdfs:comment>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-federation#Infrastructure"/>
+        <rdfs:range rdf:resource="&foaf;Organization"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-federation#partOfFederation -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-federation#partOfFederation">
+        <rdfs:label xml:lang="en">is part of federation</rdfs:label>
+        <rdfs:comment xml:lang="en">an organization can be part of a federation</rdfs:comment>
+        <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn-federation#Federation"/>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-federation#FederationMember"/>
+        <owl:inverseOf rdf:resource="http://open-multinet.info/ontology/omn-federation#hasFederationMember"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#Group -->
+
+    <owl:Class rdf:about="&omn;Group"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-federation#Federation -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-federation#Federation">
+        <rdfs:label xml:lang="en">Federation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&foaf;Organization"/>
+        <rdfs:comment xml:lang="en">a federation of infrastructures</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-federation#FederationMember -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-federation#FederationMember">
+        <rdfs:label xml:lang="en">federation member</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&foaf;Organization"/>
+        <rdfs:comment xml:lang="en">member of a federation</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-federation#Infrastructure -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-federation#Infrastructure">
+        <rdfs:label xml:lang="en">Infrastructure</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&omn;Group"/>
+        <rdfs:comment xml:lang="en">Example: FUESCO Playground</rdfs:comment>
+        <rdfs:comment xml:lang="en">an infrastructure such as a testbed or cloud facility</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="&novi;Platform"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/vocommons/voaf#Vocabulary -->
+
+    <owl:Class rdf:about="&voaf;Vocabulary"/>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#AllDisjointClasses -->
+
+    <owl:Class rdf:about="&owl;AllDisjointClasses"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Organization -->
+
+    <owl:Class rdf:about="&foaf;Organization"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Person -->
+
+    <owl:Class rdf:about="&foaf;Person"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://alex.willner.ws/about#me -->
+
+    <owl:NamedIndividual rdf:about="http://alex.willner.ws/about#me">
+        <rdf:type rdf:resource="&foaf;Person"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-federation -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-federation">
+        <rdf:type rdf:resource="&voaf;Vocabulary"/>
+        <rdfs:comment xml:lang="en">describes a federation and its members</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-federation#Federation"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-federation#FederationMember"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-federation#Infrastructure"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net -->
+

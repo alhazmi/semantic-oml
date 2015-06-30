@@ -1,0 +1,408 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY dcterms "http://purl.org/dc/terms/" >
+    <!ENTITY vann "http://purl.org/vocab/vann/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY omn "http://open-multinet.info/ontology/omn#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY omn-service "http://open-multinet.info/ontology/omn-service#" >
+    <!ENTITY omn-resource "http://open-multinet.info/ontology/omn-resource#" >
+    <!ENTITY omn-component "http://open-multinet.info/ontology/omn-component#" >
+    <!ENTITY omn-lifecycle "http://open-multinet.info/ontology/omn-lifecycle#" >
+    <!ENTITY omn-federation "http://open-multinet.info/ontology/omn-federation#" >
+    <!ENTITY omn-monitoring "http://open-multinet.info/ontology/omn-monitoring#" >
+    <!ENTITY omn-monitoring-unit "http://open-multinet.info/ontology/omn-monitoring-unit#" >
+    <!ENTITY omn-monitoring-data "http://open-multinet.info/ontology/omn-monitoring-data#" >
+    <!ENTITY omn-monitoring-tool "http://open-multinet.info/ontology/omn-monitoring-tool#" >
+    <!ENTITY omn-monitoring-metric "http://open-multinet.info/ontology/omn-monitoring-metric#" >
+]>
+
+
+<rdf:RDF xmlns="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#"
+     xml:base="http://open-multinet.info/ontology/omn-monitoring-genericconcepts"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:omn-lifecycle="http://open-multinet.info/ontology/omn-lifecycle#"
+     xmlns:omn-monitoring-unit="http://open-multinet.info/ontology/omn-monitoring-unit#"
+     xmlns:omn-resource="http://open-multinet.info/ontology/omn-resource#"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:omn-monitoring-metric="http://open-multinet.info/ontology/omn-monitoring-metric#"
+     xmlns:omn-component="http://open-multinet.info/ontology/omn-component#"
+     xmlns:omn-monitoring-data="http://open-multinet.info/ontology/omn-monitoring-data#"
+     xmlns:omn-service="http://open-multinet.info/ontology/omn-service#"
+     xmlns:omn-monitoring-tool="http://open-multinet.info/ontology/omn-monitoring-tool#"
+     xmlns:dcterms="http://purl.org/dc/terms/"
+     xmlns:omn-federation="http://open-multinet.info/ontology/omn-federation#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:omn="http://open-multinet.info/ontology/omn#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:omn-monitoring="http://open-multinet.info/ontology/omn-monitoring#">
+    <owl:Ontology rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts">
+        <rdfs:label xml:lang="en">omn-monitoring-genericconcepts</rdfs:label>
+        <dc:title rdf:datatype="&xsd;string">Open-Multinet Monitoring GenericConcepts Ontology</dc:title>
+        <dc:description rdf:datatype="&xsd;string">The generic concepts ontology describes generic concepts such as measurement location, timestamp, transport protocols, etc.</dc:description>
+        <vann:preferredNamespaceUri>http://open-multinet.info/ontology/omn-monitoring-genericconcepts#</vann:preferredNamespaceUri>
+        <vann:preferredNamespacePrefix>omn-monitoring-genericconcepts</vann:preferredNamespacePrefix>
+        <dc:date>2015-05-30</dc:date>
+        <dc:contributor rdf:resource="http://alex.willner.ws/about#me"/>
+        <dcterms:license rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
+        <dc:publisher rdf:resource="http://open-multinet.info/"/>
+        <dc:contributor rdf:resource="http://www.commit-nl.nl/people/morsey"/>
+        <dc:contributor rdf:resource="https://staff.fnwi.uva.nl/p.grosso"/>
+        <dc:author rdf:resource="https://www.linkedin.com/in/yahyaalhazmi"/>
+        <dc:creator rdf:resource="https://www.linkedin.com/in/yahyaalhazmi"/>
+        <dc:contributor rdf:resource="mailto:chrisap@noc.ntua.gr"/>
+        <dc:contributor rdf:resource="mailto:jorge.lopez_vergara@uam.es"/>
+        <dc:contributor rdf:resource="mailto:lakis@inf.elte.hu"/>
+        <dc:contributor rdf:resource="mailto:steger@complex.elte.hu"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#locatedAt -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#locatedAt">
+        <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Location"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Service"/>
+                    <rdf:Description rdf:about="&omn-monitoring;Tool"/>
+                    <rdf:Description rdf:about="&omn-monitoring-data;Measurement"/>
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#MonitoringDomain"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#query -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#query">
+        <rdfs:domain rdf:resource="&omn-monitoring;Tool"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Service"/>
+                    <rdf:Description rdf:about="&omn-monitoring;Tool"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#usesProtocol -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#usesProtocol">
+        <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Protocol"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Service"/>
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Protocol"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#latitude -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#latitude">
+        <rdfs:comment rdf:datatype="&xsd;string">Determines the latitude coordinate of a physical location.</rdfs:comment>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#PhysicalLocation"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#longitude -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#longitude">
+        <rdfs:comment rdf:datatype="&xsd;string">Determines the longitude coordinate of a physical location.</rdfs:comment>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#PhysicalLocation"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#Service -->
+
+    <owl:Class rdf:about="&omn;Service"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-federation#Infrastructure -->
+
+    <owl:Class rdf:about="&omn-federation;Infrastructure"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#Request -->
+
+    <owl:Class rdf:about="&omn-lifecycle;Request"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring#Tool -->
+
+    <owl:Class rdf:about="&omn-monitoring;Tool"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-data#Measurement -->
+
+    <owl:Class rdf:about="&omn-monitoring-data;Measurement"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#ApplicationProtocol -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#ApplicationProtocol">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Protocol"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents protocols used to transport data at the application level such as IPFIX, SNMP, OMSP, etc.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#AuthenticationMethod -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#AuthenticationMethod">
+        <rdfs:comment rdf:datatype="&xsd;string">Represents the method used for authentications in order to either read or write data.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#BatchQuery -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#BatchQuery">
+        <rdfs:comment rdf:datatype="&xsd;string">Represents batch of queries to retrieve data about multiple metrics of multiple resources.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#ConditionalNotSatisfiedEvent -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#ConditionalNotSatisfiedEvent">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Event"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents an event that occurs if a condition is not satisified.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Event -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Event">
+        <rdfs:comment rdf:datatype="&xsd;string">Represents any event occurs during a processing phase.</rdfs:comment>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents monitoring related events or notifications within a system, e.g CPU load is over a defined threshold, a resource is created or deleted, etc..</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#EventAtMeasurementPhase -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#EventAtMeasurementPhase">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Event"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents an event that occurs during a measurement phase.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Location -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Location">
+        <rdfs:comment rdf:datatype="&xsd;string">Represents location of monitoring and measurement related concepts, such as location measurements (i.e. measured metric), data collectors, etc.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#LogicalLocation -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#LogicalLocation">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Location"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents logical location, (e.g. URI) of FTPservice, SPARQLEndpoint, SQLServer, WebResource, Webservice (REST, SOAP, SQREME), collectionEndpoint.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#MonitoringDomain -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#MonitoringDomain">
+        <rdfs:subClassOf rdf:resource="&omn-federation;Infrastructure"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents the domain or the area that is being monitored.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#NoToolConfiguredToMeasureMetric -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#NoToolConfiguredToMeasureMetric">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#EventAtMeasurementPhase"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents an event that occurs if there is no tool is configured to measure the concered metric(s).</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#PhysicalLocation -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#PhysicalLocation">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Location"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents physical location.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Protocol -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Protocol">
+        <rdfs:comment rdf:datatype="&xsd;string">Represents protocols used for measurement data exchange and reporting.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Query -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Query">
+        <rdfs:subClassOf rdf:resource="&omn-lifecycle;Request"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents queries used to retrieve data.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#SingleQuery -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#SingleQuery">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Query"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents one single query to retrieve data about particular metric of one or more resources.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#ToolUnavailableEvent -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#ToolUnavailableEvent">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#EventAtMeasurementPhase"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents an event that occurs if a contacted tool is not available.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#TransportProtocol -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#TransportProtocol">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Protocol"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents protocol used by a measurement tool or framework at the transport layer, e.g. TCP, UDP, SCTP, etc.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#IPFIX -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#IPFIX">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#ApplicationProtocol"/>
+        <rdfs:comment rdf:datatype="&xsd;string">IPFIX protocol is used to export IP traffic flow information over the network.</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#OMSP -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#OMSP">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#ApplicationProtocol"/>
+        <rdfs:comment rdf:datatype="&xsd;string">The OML Measurement Stream Protocol (OMSP) is used by the Orbit Measurement Library (OML) to describe and transport measurement tuples between injection points (OML clients) and processing/collection points (OML servers).</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#SCTP -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#SCTP">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#TransportProtocol"/>
+        <rdfs:comment rdf:datatype="&xsd;string">The Stream Control Transmission Protocol (SCTP) is a transport-layer protocol. It serves similar to the Transmission Control Protocol (TCP) and User Datagram Protocol (UDP). It provides some of the same features of UDP and TCP, it is message-oriented like UDP and ensures reliable, in-sequence transport of messages with congestion control like TCP. SCTP specification @https://tools.ietf.org/html/rfc6525</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#SNMP -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#SNMP">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#ApplicationProtocol"/>
+        <rdfs:comment rdf:datatype="&xsd;string">The Simple Network Management Protocol (SNMP) that is used within the OML framework for transfering the data between the OML clients and server.</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#TCP -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#TCP">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#TransportProtocol"/>
+        <rdfs:comment rdf:datatype="&xsd;string">The Transmission Control Protocol (TCP) is a transport-layer protocol, which is one of the core members of the Internet protocol suite.</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#UDP -->
+
+    <owl:NamedIndividual rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#UDP">
+        <rdf:type rdf:resource="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#TransportProtocol"/>
+        <rdfs:comment rdf:datatype="&xsd;string">The User Datagram Protocol (UDP) is a transport-layer protocol, which is one of the core members of the Internet protocol suite.</rdfs:comment>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net -->
+

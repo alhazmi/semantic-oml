@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY dcterms "http://purl.org/dc/terms/" >
+    <!ENTITY foaf "http://xmlns.com/foaf/0.1/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY omn "http://open-multinet.info/ontology/omn#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://open-multinet.info/ontology/omn-component#"
+     xml:base="http://open-multinet.info/ontology/omn-component"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:omn="http://open-multinet.info/ontology/omn#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:dcterms="http://purl.org/dc/terms/">
+    <owl:Ontology rdf:about="http://open-multinet.info/ontology/omn-component">
+        <rdfs:label xml:lang="en">omn</rdfs:label>
+        <dc:date rdf:datatype="&xsd;date">2014-11-11</dc:date>
+        <dcterms:modified rdf:datatype="&xsd;date">2015-04-27</dcterms:modified>
+        <owl:versionInfo rdf:datatype="&xsd;string">2015-04-27</owl:versionInfo>
+        <dc:title rdf:datatype="&xsd;string">Open-Multinet Upper Component Ontology</dc:title>
+        <dc:description rdf:datatype="&xsd;string">This ontology expands the notion of component as defined in the main OMN ontology. A component is an Entity that is part of a Resource/Service. It does not need to be a Resource or a Service itself.</dc:description>
+        <dc:creator rdf:resource="http://alex.willner.ws/about#me"/>
+        <dcterms:license rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
+        <dc:publisher rdf:resource="http://open-multinet.info/"/>
+        <dc:contributor rdf:resource="http://users.ntua.gr/c.papagianni"/>
+        <dc:contributor rdf:resource="http://www.commit-nl.nl/people/morsey"/>
+        <dc:description rdf:resource="https://raw.githubusercontent.com/open-multinet/playground-rspecs-ontology/robyn-ontology-changes/ontologies/pics/omn-component.png"/>
+        <dc:contributor rdf:resource="https://staff.fnwi.uva.nl/p.grosso"/>
+        <dc:contributor rdf:resource="mailto:brecht.vermeulen@iminds.be"/>
+        <dc:contributor rdf:resource="mailto:ibaldin@renci.org"/>
+        <dc:contributor rdf:resource="mailto:jorge.lopez_vergara@uam.es"/>
+        <dc:contributor rdf:resource="mailto:loughnane@campus.tu-berlin.de"/>
+        <dc:contributor rdf:resource="mailto:thijs.walcarius@intec.ugent.be"/>
+        <dc:contributor rdf:resource="mailto:yahya.al-hazmi@tu-berlin.de"/>
+        <dc:contributor rdf:resource="mailto:yxin@renci.org"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#Component -->
+
+    <owl:Class rdf:about="&omn;Component"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-component#CPU -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-component#CPU">
+        <rdfs:label xml:lang="en">central processing unit</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-component#ProcessingComponent"/>
+        <rdfs:comment xml:lang="en">central processing unit</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-component#MemoryComponent -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-component#MemoryComponent">
+        <rdfs:label xml:lang="en">Memory Component</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&omn;Component"/>
+        <rdfs:comment xml:lang="en">memory component</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-component#ProcessingComponent -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-component#ProcessingComponent">
+        <rdfs:label xml:lang="en">Processing Component</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&omn;Component"/>
+        <rdfs:comment xml:lang="en">Processing Component</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-component#StorageComponent -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-component#StorageComponent">
+        <rdfs:label xml:lang="en">Storage Component</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&omn;Component"/>
+        <rdfs:comment xml:lang="en">Storage Component</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#AllDisjointClasses -->
+
+    <owl:Class rdf:about="&owl;AllDisjointClasses"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Person -->
+
+    <owl:Class rdf:about="&foaf;Person"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://alex.willner.ws/about#me -->
+
+    <owl:NamedIndividual rdf:about="http://alex.willner.ws/about#me">
+        <rdf:type rdf:resource="&foaf;Person"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-component#MemoryComponent"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-component#ProcessingComponent"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-component#StorageComponent"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net -->
+

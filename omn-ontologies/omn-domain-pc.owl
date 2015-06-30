@@ -1,0 +1,444 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY schema "http://schema.org/" >
+    <!ENTITY dcterms "http://purl.org/dc/terms/" >
+    <!ENTITY novi "http://fp7-novi.eu/im.owl#" >
+    <!ENTITY foaf "http://xmlns.com/foaf/0.1/" >
+    <!ENTITY vann "http://purl.org/vocab/vann/" >
+    <!ENTITY time "http://www.w3.org/2006/time#" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY voaf "http://purl.org/vocommons/voaf#" >
+    <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY omn "http://open-multinet.info/ontology/omn#" >
+    <!ENTITY nml "http://schemas.ogf.org/nml/2013/05/base#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY indl "http://www.science.uva.nl/research/sne/indl#" >
+    <!ENTITY color "http://geni-orca.renci.org/owl/app-color.owl#" >
+    <!ENTITY collections "http://geni-orca.renci.org/owl/collections.owl#" >
+    <!ENTITY omn-service "http://open-multinet.info/ontology/omn-service#" >
+    <!ENTITY omn-resource "http://open-multinet.info/ontology/omn-resource#" >
+    <!ENTITY omn-lifecycle "http://open-multinet.info/ontology/omn-lifecycle#" >
+    <!ENTITY move "http://www.ontologydesignpatterns.org/cp/owl/move.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://open-multinet.info/ontology/omn-domain-pc#"
+     xml:base="http://open-multinet.info/ontology/omn-domain-pc"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:omn-lifecycle="http://open-multinet.info/ontology/omn-lifecycle#"
+     xmlns:indl="http://www.science.uva.nl/research/sne/indl#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:omn-resource="http://open-multinet.info/ontology/omn-resource#"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:nml="http://schemas.ogf.org/nml/2013/05/base#"
+     xmlns:omn-service="http://open-multinet.info/ontology/omn-service#"
+     xmlns:dcterms="http://purl.org/dc/terms/"
+     xmlns:schema="http://schema.org/"
+     xmlns:voaf="http://purl.org/vocommons/voaf#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:time="http://www.w3.org/2006/time#"
+     xmlns:omn="http://open-multinet.info/ontology/omn#"
+     xmlns:color="http://geni-orca.renci.org/owl/app-color.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:novi="http://fp7-novi.eu/im.owl#"
+     xmlns:move="http://www.ontologydesignpatterns.org/cp/owl/move.owl#"
+     xmlns:collections="http://geni-orca.renci.org/owl/collections.owl#">
+    <owl:Ontology rdf:about="http://open-multinet.info/ontology/omn-domain-pc">
+        <rdfs:label xml:lang="en">omn-domain-pc</rdfs:label>
+        <dc:date rdf:datatype="&xsd;date">2015-03-15</dc:date>
+        <dcterms:modified rdf:datatype="&xsd;date">2015-04-27</dcterms:modified>
+        <owl:versionInfo rdf:datatype="&xsd;string">2015-04-27</owl:versionInfo>
+        <dc:title rdf:datatype="&xsd;string">Open-Multinet Domain PC Ontology</dc:title>
+        <dc:description rdf:datatype="&xsd;string">This ontology defines the a common physical or virtual PC with SSH login.</dc:description>
+        <vann:preferredNamespaceUri>http://open-multinet.info/ontology/omn-domain-pc#</vann:preferredNamespaceUri>
+        <vann:preferredNamespacePrefix>omn-domain-pc</vann:preferredNamespacePrefix>
+        <dc:creator rdf:resource="http://alex.willner.ws/about#me"/>
+        <dcterms:license rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
+        <dc:publisher rdf:resource="http://open-multinet.info/"/>
+        <dc:contributor rdf:resource="http://users.ntua.gr/c.papagianni"/>
+        <dc:contributor rdf:resource="http://www.commit-nl.nl/people/morsey"/>
+        <dc:contributor rdf:resource="https://staff.fnwi.uva.nl/p.grosso"/>
+        <dc:contributor rdf:resource="mailto:brecht.vermeulen@iminds.be"/>
+        <dc:contributor rdf:resource="mailto:ibaldin@renci.org"/>
+        <dc:contributor rdf:resource="mailto:jorge.lopez_vergara@uam.es"/>
+        <dc:contributor rdf:resource="mailto:loughnane@campus.tu-berlin.de"/>
+        <dc:contributor rdf:resource="mailto:thijs.walcarius@intec.ugent.be"/>
+        <dc:contributor rdf:resource="mailto:yahya.al-hazmi@tu-berlin.de"/>
+        <dc:contributor rdf:resource="mailto:yxin@renci.org"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-domain-pc#hasDiskImage -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-domain-pc#hasDiskImage">
+        <rdfs:label xml:lang="en">has disk image</rdfs:label>
+        <rdfs:comment xml:lang="en">has disk image</rdfs:comment>
+        <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn-domain-pc#DiskImage"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-domain-pc#isDiskImageOf -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-domain-pc#isDiskImageOf">
+        <rdfs:label xml:lang="en">is disk image of</rdfs:label>
+        <rdfs:comment xml:lang="en">is disk image of</rdfs:comment>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-domain-pc#DiskImage"/>
+        <owl:inverseOf rdf:resource="http://open-multinet.info/ontology/omn-domain-pc#hasDiskImage"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-domain-pc#hasCPU -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-domain-pc#hasCPU">
+        <rdfs:label xml:lang="en">has CPU</rdfs:label>
+        <rdfs:comment xml:lang="en">Gives the number of CPUs available.</rdfs:comment>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-domain-pc#PC"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-domain-pc#hasDiskimageDescription -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-domain-pc#hasDiskimageDescription">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">has disk image description</rdfs:label>
+        <rdfs:comment xml:lang="en">has disk image description</rdfs:comment>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-domain-pc#DiskImage"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-domain-pc#hasDiskimageLabel -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-domain-pc#hasDiskimageLabel">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">has disk image label</rdfs:label>
+        <rdfs:comment xml:lang="en">has disk image label</rdfs:comment>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-domain-pc#DiskImage"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointProperties"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-domain-pc#hasDiskimageLabel"/>
+        </owl:members>
+    </rdf:Description>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-domain-pc#hasDiskimageOS -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-domain-pc#hasDiskimageOS">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">has disk image OS</rdfs:label>
+        <rdfs:comment xml:lang="en">has disk image OS</rdfs:comment>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-domain-pc#DiskImage"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    <owl:Axiom>
+        <rdfs:comment xml:lang="en">Should not be a String but an object here.</rdfs:comment>
+        <owl:annotatedSource rdf:resource="http://open-multinet.info/ontology/omn-domain-pc#hasDiskimageOS"/>
+        <owl:annotatedProperty rdf:resource="&rdfs;range"/>
+        <owl:annotatedTarget rdf:resource="&xsd;string"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-domain-pc#hasDiskimageURI -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-domain-pc#hasDiskimageURI">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">has disk image URI.</rdfs:label>
+        <rdfs:comment xml:lang="en">has disk image URI.</rdfs:comment>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-domain-pc#DiskImage"/>
+        <rdfs:range rdf:resource="&xsd;anyURI"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-domain-pc#hasDiskimageVersion -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-domain-pc#hasDiskimageVersion">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:label xml:lang="en">has disk image version</rdfs:label>
+        <rdfs:comment xml:lang="en">has disk image version</rdfs:comment>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-domain-pc#DiskImage"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-domain-pc#hasUUID -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-domain-pc#hasUUID">
+        <rdfs:label xml:lang="en">has UUID</rdfs:label>
+        <rdfs:comment xml:lang="en">has UUID</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&omn-lifecycle;hasID"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Group"/>
+                    <rdf:Description rdf:about="&omn;Resource"/>
+                    <rdf:Description rdf:about="&omn;Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-domain-pc#hasVMID -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-domain-pc#hasVMID">
+        <rdfs:label xml:lang="en">has VM ID</rdfs:label>
+        <rdfs:comment xml:lang="en">Unique identifier set by the management system of a virtual machine.</rdfs:comment>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-domain-pc#VM"/>
+        <rdfs:subPropertyOf rdf:resource="&omn-lifecycle;hasID"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-domain-pc#routableControlIp -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-domain-pc#routableControlIp">
+        <rdfs:label xml:lang="en">has routable control IP</rdfs:label>
+        <rdfs:comment xml:lang="en">Indicates that the user requires a routable IP on the control interface.</rdfs:comment>
+        <rdfs:domain rdf:resource="&omn-resource;Node"/>
+        <rdfs:seeAlso rdf:resource="http://www.protogeni.net/resources/rspec/ext/emulab/1"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-domain-pc#vlanTag -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-domain-pc#vlanTag">
+        <rdfs:label xml:lang="en">has VLAN tag</rdfs:label>
+        <rdfs:comment xml:lang="en">has VLAN tag</rdfs:comment>
+        <rdfs:domain rdf:resource="&omn-resource;Link"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-lifecycle#hasID -->
+
+    <owl:DatatypeProperty rdf:about="&omn-lifecycle;hasID"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#Group -->
+
+    <owl:Class rdf:about="&omn;Group"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#Resource -->
+
+    <owl:Class rdf:about="&omn;Resource"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#Service -->
+
+    <owl:Class rdf:about="&omn;Service"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-domain-pc#DiskImage -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-domain-pc#DiskImage">
+        <rdfs:label xml:lang="en">Disk Image</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&omn;Resource"/>
+        <rdfs:comment xml:lang="en">Disk Image</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-domain-pc#OpenStack -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-domain-pc#OpenStack">
+        <rdfs:label xml:lang="en">Open Stack</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-domain-pc#VM"/>
+        <rdfs:comment xml:lang="en">Open Stack</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-domain-pc#PC -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-domain-pc#PC">
+        <rdfs:label xml:lang="en">personal computer</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&omn-resource;Node"/>
+        <rdfs:comment xml:lang="en">personal computer</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-domain-pc#VM -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-domain-pc#VM">
+        <rdfs:label xml:lang="en">Virtual Machine</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-domain-pc#PC"/>
+        <rdfs:comment xml:lang="en">Virtual Machine</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-domain-pc#VMServer -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-domain-pc#VMServer">
+        <rdfs:label xml:lang="en">VM Server</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-domain-pc#PC"/>
+        <rdfs:comment xml:lang="en">Virtual Machine Server</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-resource#Link -->
+
+    <owl:Class rdf:about="&omn-resource;Link"/>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-resource#Node -->
+
+    <owl:Class rdf:about="&omn-resource;Node"/>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#AllDisjointClasses -->
+
+    <owl:Class rdf:about="&owl;AllDisjointClasses"/>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#AllDisjointProperties -->
+
+    <owl:Class rdf:about="&owl;AllDisjointProperties"/>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#Axiom -->
+
+    <owl:Class rdf:about="&owl;Axiom"/>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#versionInfo -->
+
+    <owl:Class rdf:about="&owl;versionInfo"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Person -->
+
+    <owl:Class rdf:about="&foaf;Person"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://alex.willner.ws/about#me -->
+
+    <owl:NamedIndividual rdf:about="http://alex.willner.ws/about#me">
+        <rdf:type rdf:resource="&foaf;Person"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-domain-pc#DiskImage"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-domain-pc#VM"/>
+            <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-domain-pc#VMServer"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net -->
+
