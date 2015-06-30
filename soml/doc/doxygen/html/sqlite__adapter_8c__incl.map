@@ -1,0 +1,16 @@
+<map id="sqlite_adapter.c" name="sqlite_adapter.c">
+<area shape="rect" id="node23" href="$o__log_8h.html" title="ocomm/o_log.h" alt="" coords="227,469,336,499"/>
+<area shape="rect" id="node27" href="$mem_8h.html" title="mem.h" alt="" coords="307,392,368,421"/>
+<area shape="rect" id="node33" href="$mstring_8h.html" title="mstring.h" alt="" coords="872,392,947,421"/>
+<area shape="rect" id="node36" href="$htonll_8h.html" title="Macros for converting 64 bit integers between host and network representation." alt="" coords="1620,83,1684,112"/>
+<area shape="rect" id="node40" href="$json_8h.html" title="json.h" alt="" coords="404,315,460,344"/>
+<area shape="rect" id="node46" href="$guid_8h.html" title="guid.h" alt="" coords="535,315,591,344"/>
+<area shape="rect" id="node61" href="$oml__value_8h.html" title="oml_value.h" alt="" coords="141,315,232,344"/>
+<area shape="rect" id="node67" href="$oml__util_8h.html" title="oml_util.h" alt="" coords="1708,83,1785,112"/>
+<area shape="rect" id="node69" href="$schema_8h.html" title="schema.h" alt="" coords="808,315,885,344"/>
+<area shape="rect" id="node73" href="$database_8h.html" title="Interface that storage backend need to implement to be usable by the server." alt="" coords="860,160,945,189"/>
+<area shape="rect" id="node77" href="$table__descr_8h.html" title="table_descr.h" alt="" coords="767,237,865,267"/>
+<area shape="rect" id="node82" href="$database__adapter_8h.html" title="Generic functions for database adapters." alt="" coords="977,83,1113,112"/>
+<area shape="rect" id="node86" href="$sqlite__adapter_8h.html" title="sqlite_adapter.h" alt="" coords="788,83,903,112"/>
+<area shape="rect" id="node50" href="$omlc_8h.html" title="Public API of the OML client library." alt="" coords="659,392,752,421"/>
+</map>

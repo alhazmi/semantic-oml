@@ -1,0 +1,14 @@
+The OML Server
+==============
+
+This directory contains the source code for the OML server. This
+implements the functionality that receives measurement tuples from the
+clients and commits them to the SQL database (either PostgreSQL or
+SQLite3).
+
+Please refer to the boilerplate in each file to get their description.
+You can get a summary by running
+
+  grep "brief" *.{c,h}
+
+in this directory.

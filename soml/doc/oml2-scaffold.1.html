@@ -1,0 +1,1567 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.7" />
+<title>oml2-scaffold(1)</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+pre {
+  padding: 0;
+  margin: 0;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+tt {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+}
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+.monospaced {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+}
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>oml2-scaffold(1)</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_name">NAME</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>oml2-scaffold - OML2 instrumentation code generator</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_synopsis">SYNOPSIS</h2>
+<div class="sectionbody">
+<div class="verseblock">
+<pre class="content"><strong>oml2-scaffold</strong> [OPTIONS] [--oml|--opts|--main|--make] <em>appfile</em>
+<strong>oml2-scaffold</strong> [OPTIONS] --app <em>appname</em></pre>
+<div class="attribution">
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description">DESCRIPTION</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>oml2-scaffold</strong> generates skeleton OML application source code based
+on a template provided by the user (the file named <em>appfile</em>). When
+invoked with the <strong>--oml</strong> options, a C header is generated describing
+the application&#8217;s OML measurement points and providing helper
+functions based on <a href="omlc_inject.3.html">omlc_inject(3)</a> for each of them; when
+<strong>--opts</strong> is used, another C header is generated that describes the
+command line options that the program accepts, using the functions and
+data structures provided by the <a href="http://linux.die.net/man/3/popt">popt(3)</a> library; when <strong>--main</strong> is
+used, a C file is generated that provides a skeleton <strong>main</strong>() function
+and run loop, with an example of how to inject measurement samples
+using the helpers functions defined in the header for every defined
+measurement point; and when <strong>--make</strong> is used, <strong>oml2-scaffold</strong> creates
+a Makefile that can be used to build the generated program.</p></div>
+<div class="paragraph"><p>In fact, the generated program can be built and run as-is with no
+further modifications required.  This can serve as an example OML
+application to play with, however the data that it measures is
+not very interesting.  The programmer must supply that part of the
+application, unfortunately.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_options">OPTIONS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>oml2-scaffold</strong> recognises the following command line options:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+--oml
+</dt>
+<dd>
+<p>
+Create OML header file <em>APPNAME_oml.h</em> defining all measurement points,
+as well as registration and injection helper functions
+(<a href="liboml2.3.html">oml_register_mps(3)</a> and
+<a href="liboml2.3.html">oml_inject_MPNAME(3)</a>). The registration helper is
+only available when defining <a href="http://linux.die.net/man/1/cpp">cpp(1)</a> macro <em>OML_FROM_MAIN</em> prior
+to the <em>#include</em> statement for <em>APPNAME_oml.h</em>.  This should only be
+done in the file calling <a href="liboml2.3.html">oml_register_mps(3)</a>
+(usually in the <strong>main</strong>() function).
+</p>
+</dd>
+<dt class="hdlist1">
+--opts
+</dt>
+<dd>
+<p>
+Create the <a href="http://linux.die.net/man/3/popt">popt(3)</a> header file <em>APPNAME_popt.h</em> for
+application command-line parsing.
+</p>
+</dd>
+<dt class="hdlist1">
+--make
+</dt>
+<dd>
+<p>
+Create a skeleton Makefile for this application.
+</p>
+</dd>
+<dt class="hdlist1">
+--main
+</dt>
+<dd>
+<p>
+Create skeleton main file <em>APPNAME.c</em> for this application.
+</p>
+</dd>
+<dt class="hdlist1">
+-a
+</dt>
+<dt class="hdlist1">
+--app <em>name</em>
+</dt>
+<dd>
+<p>
+Create a skeleton application definition file <em>name.rb</em> for an
+application with the given <em>name</em>. Other files generated from this
+application definition will use <em>name</em> as <em>APPNAME</em>.
+</p>
+</dd>
+<dt class="hdlist1">
+-f
+</dt>
+<dt class="hdlist1">
+--force
+</dt>
+<dd>
+<p>
+Do not check if a file would be overwritten.  Otherwise
+<strong>oml2-scaffold</strong> checks for an existing file before trying to write to it,
+and aborts if it already exists.
+</p>
+</dd>
+<dt class="hdlist1">
+-l
+</dt>
+<dt class="hdlist1">
+--long
+</dt>
+<dd>
+<p>
+Use the <em>:long</em> type as the underlying type for the <em>:int</em> and
+<em>:integer</em> aliases.  This overrides the default of <em>:int32</em>
+</p>
+</dd>
+<dt class="hdlist1">
+-i
+</dt>
+<dt class="hdlist1">
+--int32
+</dt>
+<dd>
+<p>
+Use the <em>:int32</em> type as the underlying type for the <em>:int</em>, <em>:integer</em>
+and <em>:long</em> aliases. This is the default behaviour.
+</p>
+</dd>
+<dt class="hdlist1">
+-v
+</dt>
+<dt class="hdlist1">
+--version
+</dt>
+<dd>
+<p>
+Print the version number of <strong>oml2-scaffold</strong>.
+</p>
+</dd>
+<dt class="hdlist1">
+-h
+</dt>
+<dt class="hdlist1">
+--help
+</dt>
+<dd>
+<p>
+Print a brief usage message.
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><p>It is permitted to issue multiple of <strong>--oml</strong>, <strong>--opts</strong>, <strong>--main</strong>, and
+<strong>--make</strong> on the same command line.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_template_language">TEMPLATE LANGUAGE</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The template language is based on Ruby syntax.  Here is a simple
+example:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>defApplication('oml:man:foo', 'foo') do |app|
+  app.version(1,0)
+  app.shortDescription = "Monitoring the system's foo"
+  app.description = %{
+'foo' is an application to measure the 'foo' of a network and
+its computers. }
+  app.path = "/PATH/TO/BINARY"
+
+  app.defProperty('cpu', 'Report CPU foo', '-c',
+               :type =&gt; :boolean, :var_name =&gt; 'report_cpu')
+  app.defProperty('mem', 'Report memory foo', "--mem",
+               :type =&gt; :boolean, :unit =&gt; "bytes",
+               :mnemonic =&gt; 'm',
+               :var_name =&gt; 'report_memory')
+
+  app.defMeasurement("memory") do |mp|
+    mp.defMetric('ram', :string)
+    mp.defMetric('total', :uint32)
+    mp.defMetric('free', :uint32)
+    mp.defMetric('used', :uint32)
+    mp.defMetric('free_percent', :double)
+    mp.defMetric('used_percent', :double)
+  end
+
+  app.defMeasurement("cpu") do |mp|
+    mp.defMetric('user', :uint64)
+    mp.defMetric('sys', :uint64)
+    mp.defMetric('nice', :uint64)
+    mp.defMetric('idle', :uint64)
+    mp.defMetric('wait', :uint64)
+    mp.defMetric('irq', :uint64)
+    mp.defMetric('soft_irq', :uint64)
+    mp.defMetric('stolen', :uint64)
+    mp.defMetric('total', :uint64)
+  end
+end</tt></pre>
+</div></div>
+<div class="paragraph"><p>The <em>defApplication</em> command begins the template, and it takes two
+arguments:  a <em>uri</em> and a <em>name</em>.  It also takes a Ruby block that
+can create the features of the application.  The <em>uri</em> must be a
+string containing a colon-separated set of components.  The <em>uri</em> is
+mandatory, but the <em>name</em> is optional.  If the <em>name</em> is not supplied
+then it is taken from the final component of the <em>uri</em>.  For example,</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>defApplication('oml:man:bar') do |a|
+...
+end</tt></pre>
+</div></div>
+<div class="paragraph"><p>will create an application named <em>bar</em>.  The application name is used
+to name the files that <strong>oml2-scaffold</strong> generates.  Note that
+<em>defApplication</em> must be followed by a block in either of Ruby&#8217;s two
+syntaxes for blocks, either using do&#8230;end as above, or the C-like
+curly brace syntax:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>defApplication('oml:man:bar') { |a|
+...
+}</tt></pre>
+</div></div>
+<div class="paragraph"><p>The <em>defApplication</em> block is given an application object as a parameter
+(that&#8217;s the do |a| part).  The application object supports a number of
+operations that are described below.</p></div>
+<div class="sect2">
+<h3 id="_app_version_major_minor_0_revision_0">app.version(major, minor = 0, revision = 0)</h3>
+<div class="paragraph"><p>The <em>version</em> command specifies the application&#8217;s version number.  The
+<em>minor</em> and <em>revision</em> can be omitted.  The arguments are assumed to
+be integers.  The version information is output as a string in the
+file <em>version.h</em>.  As an example, the following version declaration:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>app.version(2, 4, 0)</tt></pre>
+</div></div>
+<div class="paragraph"><p>will result in a <em>version.h</em> file containing the following C
+preprocessor #define:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>#define VERSION "2.4.0"</tt></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_app_shortdescription_lt_string_gt">app.shortDescription = &lt;string&gt;</h3>
+<div class="paragraph"><p>This should be a one-line description of the application.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_app_description_lt_string_gt">app.description = &lt;string&gt;</h3>
+<div class="paragraph"><p>This should be a longer description of the application.  It can use
+Ruby&#8217;s multi-line string syntaxes to allow a string that breaks over
+multiple lines, as in the example above.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_app_path_lt_string_gt">app.path = &lt;string&gt;</h3>
+<div class="paragraph"><p>This is the path where the application is expected to be installed. This
+is particularly useful when generationg the Makefile with the <strong>--make</strong>
+option. OMF also uses this information.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_app_defproperty_name_description_parameter_options">app.defProperty(name, description, parameter, options = {})</h3>
+<div class="paragraph"><p>The <em>defProperty</em> command provides a way to describe the options that
+the program accepts on the command line.  The code generated by the
+<strong>--opts</strong> option to <strong>oml2-scaffold</strong> uses the <em>defProperty</em> commands to
+construct a <a href="http://linux.die.net/man/3/popt">popt(3)</a> table and function to parse the options that
+they define.</p></div>
+<div class="paragraph"><p>The <em>name</em> parameter identifies the option.</p></div>
+<div class="paragraph"><p>The <em>description</em> parameter is used by <a href="http://linux.die.net/man/3/popt">popt(3)</a> when generating
+the help message for the <strong>--help</strong> option (<em>descrip</em>).</p></div>
+<div class="paragraph"><p>The <em>parameter</em> is the string that needs to be added before introducing
+the option. It can be either a short of a long option depending on how
+many dashes prefix it.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+One dash
+</dt>
+<dd>
+<p>
+<em>-</em> identifies a single-letter parameter. The following character will
+be used as the <em>shortName</em> by <a href="http://linux.die.net/man/3/popt">popt(3)</a> (in this case, <em>longName</em>
+is taken to be <em>name</em>).
+</p>
+</dd>
+<dt class="hdlist1">
+Two dashes
+</dt>
+<dd>
+<p>
+<strong>--</strong> identifies a long option. The following string will be used as the
+<em>longName</em> by <a href="http://linux.die.net/man/3/popt">popt(3)</a> (in this case, <em>shortName</em> is taken to be
+the same as <em>:mnemonic</em> below, or nothing).
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><p>The <em>options</em> parameter should be a Ruby hash, but can be introduced
+straight after the above options. It allows the user to describe further
+behaviour for the option. The possible keys are as follows.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>:type</strong>
+</dt>
+<dd>
+<p>
+The <em>:type</em> option specifies what type of argument this option accepts.
+If <em>:type</em> is omitted then <em>:int</em> is assumed.  The <em>:type</em> option
+should be one of:
+</p>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<em>:boolean</em>
+</dt>
+<dd>
+<p>
+This property is a flag that can be represented as a boolean value; it
+does not require an argument.  For instance, a <em>-q</em> option for
+enabling a quiet mode of operation could use the <em>:boolean</em> option.
+<em>:flag</em> is a deprecated OMF-incompatible synonym.
+</p>
+</dd>
+<dt class="hdlist1">
+<em>:string</em>
+</dt>
+<dd>
+<p>
+This property accepts a string argument.
+</p>
+</dd>
+<dt class="hdlist1">
+<em>:int</em>
+</dt>
+<dt class="hdlist1">
+<em>:integer</em>
+</dt>
+<dt class="hdlist1">
+<em>:long</em>
+</dt>
+<dt class="hdlist1">
+<em>:long_long</em>
+</dt>
+<dd>
+<p>
+This property accepts an integer argument that is either a C <em>int</em>, a
+C <em>long</em>, or a C <em>long long</em> value. The <em>:integer</em> variant is a synonym
+for <em>:int</em>.
+</p>
+</dd>
+<dt class="hdlist1">
+<em>:double</em>
+</dt>
+<dt class="hdlist1">
+<em>:float</em>
+</dt>
+<dd>
+<p>
+This property accepts a floating point argument that is either a C
+<em>double</em> or a C <em>float</em>. When in doubt, prefer <em>double</em>.
+</p>
+</dd>
+</dl></div>
+</dd>
+<dt class="hdlist1">
+<strong>:mnemonic</strong>
+</dt>
+<dd>
+<p>
+A character which is returned by <a href="http://linux.die.net/man/3/popt">popt(3)</a><em>s
+'poptGetNextOpt</em> when this option is found. When <em>parameter</em> starts
+with two dashes, the <strong>:mnemonic</strong> is also used as the <em>shortName</em>.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:unit</strong>
+</dt>
+<dd>
+<p>
+The unit for this property.  This is used by <a href="http://linux.die.net/man/3/popt">popt(3)</a> when generating
+the help message for the <strong>--help</strong> option (<em>argDescrip</em>).
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:default</strong>
+</dt>
+<dd>
+<p>
+A default value for this property if it is not specified on the
+command line by the user of the application.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:var_name</strong>
+</dt>
+<dd>
+<p>
+Used to name the C variable that will store the value of
+this command line option&#8217;s argument. Otherwise a sanitised version of
+the <em>name</em> is used. The option arguments are all stored in
+variables within the <em>g_opts_storage</em> struct in the generated C program.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="_app_defmeasurement_name">app.defMeasurement(name)</h3>
+<div class="paragraph"><p>The <em>defMeasurement</em> command defines a new, named measurement point.
+(For more information about what a measurement point is, see
+<a href="liboml2.1.html">liboml2(1)</a> and <a href="liboml2.3.html">liboml2(3)</a>.)  The command accepts a block that
+takes a single parameter, the MP itself; this block is used to
+define the fields of the measurement point.  Each field is defined
+using the <em>defMetric</em> command.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_mp_defmetric_name_type">mp.defMetric(name, type)</h3>
+<div class="paragraph"><p><em>defMetric</em> defines a single field of a measurement point.  Each field
+must have a <em>name</em> and a <em>type</em>.  The <em>type</em> must be a string equal to
+one of the following, which correspond with the defined OML types:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<strong>:int32</strong>
+</dt>
+<dd>
+<p>
+This field will record 32-bit signed integer data. <em>:long</em> is a
+deprecated synonym. <em>:int</em> and <em>:integer</em> also map to this type, but
+their use is not recommended.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:uint32</strong>
+</dt>
+<dd>
+<p>
+This field will record 32-bit unsigned integer data.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:int64</strong>
+</dt>
+<dd>
+<p>
+This field will record 64-bit signed integer data.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:uint64</strong>
+</dt>
+<dd>
+<p>
+This field will record 64-bit unsigned integer data.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:double</strong>
+</dt>
+<dd>
+<p>
+This field will record floating point data in C <em>double</em> format.
+<em>:float</em> and <em>:real</em> are deprecated synonyms.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:string</strong>
+</dt>
+<dd>
+<p>
+This field will record string data.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:blob</strong>
+</dt>
+<dd>
+<p>
+This field will record binary data.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:guid</strong>
+</dt>
+<dd>
+<p>
+This field will record a globally unique identifier allowing to group
+tuples together, or to link them accross <em>MPs</em>. See
+<a href="liboml2.3.html">omlc_guid_generate(3)</a> for more details.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:boolean</strong>
+</dt>
+<dd>
+<p>
+This field will record a boolean value.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:vector_int32</strong>
+</dt>
+<dd>
+<p>
+This field will hold a vector of 32-bit signed integer values.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:vector_uint32</strong>
+</dt>
+<dd>
+<p>
+This field will hold a vector of 32-bit unsigned integer values.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:vector_int64</strong>
+</dt>
+<dd>
+<p>
+This field will hold a vector of 64-bit signed integer values.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:vector_uint64</strong>
+</dt>
+<dd>
+<p>
+This field will hold a vector of 64-bit unsigned integer values.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:vector_double</strong>
+</dt>
+<dd>
+<p>
+This field will hold a vector of C <em>double</em> values.
+</p>
+</dd>
+<dt class="hdlist1">
+<strong>:vector_bool</strong>
+</dt>
+<dd>
+<p>
+This field will hold a vector of C <em>bool</em> values.
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><p>The integer types <em>:int32</em>, <em>:uint32</em> <em>:int64</em>, and <em>:uint64</em> are
+implemented in the application as the corresponding types from
+<strong>stdint.h</strong>, namely <em>int32_t</em>, <em>uint32_t</em>, <em>int64_t</em>, and <em>uint64_t</em>
+respectively.</p></div>
+<div class="paragraph"><p>The <em>defMetric</em> command also recognizes the type <em>:long</em>, which
+corresponds to the C <em>long</em> type. However, this type is deprecated
+because <em>long</em> changes size between 32-bit and 64-bit platforms. New
+programs should use one of <em>:int32</em> or <em>:int64</em> instead.  See the <strong>OML
+TYPES</strong> section of the <a href="liboml2.3.html">liboml2(3)</a> man page for more information.</p></div>
+<div class="paragraph"><p>The types <em>:float</em> and <em>:real</em> are synonyms for the type <em>:double</em>.
+In OML v2.5 and earlier, the types <em>:int</em> and <em>:integer</em> were synonyms
+for <em>:long</em>.  Because <em>:long</em> is deprecated, these aliases are now
+mapped to <em>:int32</em> from OML 2.6 and onwards.  To give developers a
+chance to migrate their applications, we provide switches <strong>--int32</strong>
+and <strong>--long</strong>.  Each one selects what the underlying type will be for
+the <em>:int</em> and <em>:integer</em> aliases.  In OML 2.5, the default behaviour
+if neither was specified was <em>:long</em>, which could be overridden with
+the --int32 switch.  In OML 2.6 and later the default is for <em>:int</em>
+and <em>:integer</em> to map to <em>:int32</em>, which developers can override using
+the <strong>--long</strong> switch.</p></div>
+<div class="paragraph"><p>It is also permissible to use strings to specify the type of a metric,
+i.e., <em>"int32"</em> instead of <em>:int32</em>, <em>"double"</em> instead of <em>:double</em>.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_but_i_don_8217_t_know_ruby">BUT I DON&#8217;T KNOW RUBY!</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Although the template language uses Ruby syntax, you shouldn&#8217;t need to
+know Ruby in order to define applications using <strong>oml2-scaffold</strong>.  All
+of the most useful features of the template language are illustrated
+in the example above.  It should be sufficient to copy and paste the
+example and then modify it to suit your own needs.  Two things are
+worth mentioning about Ruby syntax:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Ruby strings can use either single quotes 'foo', double quotes
+"bar", or any of several multi-line syntaxes.  The main difference
+between the first two is in their behaviour when interpolating values
+from Ruby variables, but this is not required for most purposes when
+using <strong>oml2-scaffold</strong>.  The multi-line string syntaxes in Ruby are
+even more esoteric; the one used above should be sufficient.
+</p>
+</li>
+<li>
+<p>
+Ruby hash table literals are introduced using curly braces:
+</p>
+<div class="listingblock">
+<div class="content">
+<pre><tt>myhash = { 'a' =&gt; 1, 'b' =&gt; 2 }</tt></pre>
+</div></div>
+<div class="paragraph"><p>This example constructs a hash in which the key 'a' maps to the value
+1, and the key 'b' maps to the value 2.  Each key-value pair is
+separated by a comma.</p></div>
+<div class="paragraph"><p>Ruby has a special rule for hashes that appear as arguments in a
+method call:  you can omit the curly braces on a literal hash that
+appears as the final argument in a method call.  This means that the
+following two are equivalent:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>myobj1.foo(42, "hello", { 'a' =&gt; 1, 'b' =&gt; 2 })
+
+myobj1.foo(42, "hello", 'a' =&gt; 1, 'b' =&gt; 2)</tt></pre>
+</div></div>
+<div class="paragraph"><p>The example application definition given above uses the second
+syntax.  However, if one of the values of the hash is itself a hash,
+then you have to include the curly braces on the value hash:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>myobj1.foo(42, "hello", 'a' =&gt; 1, 'b' =&gt; { :var_name =&gt; 'report_cpu' })</tt></pre>
+</div></div>
+</li>
+</ol></div>
+<div class="paragraph"><p>If you do want to find out more about Ruby syntax, there are many good
+tutorials on the Internet. This one is a good starting point:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>http://www.ruby-lang.org/en/documentation/quickstart/</tt></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_restrictions_on_names">RESTRICTIONS ON NAMES</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The application name, the measurement point names (<em>defMeasurement</em>),
+and the measurement point field names (<em>defMetric</em>) should be
+constrained to alpha-numeric names with a leading underscore or
+letter.  This is because they can appear in the names of tables and
+columns in the databases generated by the OML server, and therefore
+both the client library and the server reject names that are not
+easily used as SQL table and column names.</p></div>
+<div class="paragraph"><p><strong>oml2-scaffold</strong> currently does not impose any restrictions on names,
+but a future version probably will.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_uri_format">URI FORMAT</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The <em>defApplication</em> command accepts a <em>uri</em> parameter as documented
+above.  The URI can be chosen according to user needs, and does not
+have to start with 'omf:app' as in the example above.  When using the
+<strong>--app</strong> option to generate a skeleton application definition,
+<strong>oml2-scaffold</strong> will use the environment variable <strong>USER</strong> as the first
+component of the uri, and 'app' as the second, so for a user named
+bob, the following command line will result in an application with a
+uri of 'bob:app:foo':</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>$ oml2-scaffold --app foo</tt></pre>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_files">FILES</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The <strong>oml2-scaffold</strong> program generates a single output file for each
+possible command.  The files generated are named as follows:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+--oml
+</dt>
+<dd>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+&lt;app-name&gt;_oml.h
+</dt>
+<dd>
+<p>
+The header defining the OML measurement points and helper
+functions.
+</p>
+</dd>
+</dl></div>
+</dd>
+<dt class="hdlist1">
+--opts
+</dt>
+<dd>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+&lt;app-name&gt;_popt.h
+</dt>
+<dd>
+<p>
+The header file defining the command line options
+for <a href="http://linux.die.net/man/3/popt">popt(3)</a>
+</p>
+</dd>
+</dl></div>
+</dd>
+<dt class="hdlist1">
+--main
+</dt>
+<dd>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+&lt;app-name&gt;.c
+</dt>
+<dd>
+<p>
+The main C header file;
+</p>
+</dd>
+<dt class="hdlist1">
+version.h
+</dt>
+<dd>
+<p>
+A file defining version information for the
+application.
+</p>
+</dd>
+</dl></div>
+</dd>
+<dt class="hdlist1">
+--make
+</dt>
+<dd>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+Makefile
+</dt>
+<dd>
+<p>
+A Makefile for building the program with <strong>make</strong>(1).
+</p>
+</dd>
+</dl></div>
+</dd>
+<dt class="hdlist1">
+--app &lt;app-name&gt;
+</dt>
+<dd>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+&lt;app-name&gt;.rb
+</dt>
+<dd>
+<p>
+A skeleton application definition file.
+</p>
+</dd>
+</dl></div>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_notes">NOTES</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>This program used to be called <em>oml2_scaffold</em> (with an underscore).
+It was renamed to be more consistent with the other OML binaries,
+which use the prefix <em>oml2-</em> (with a hyphen).  The installation process
+installs a link from <em>oml2_scaffold</em> to <em>oml2-scaffold</em> so as not to
+break old scripts, but users should use the new name for new scripts,
+and should try to migrate their old scripts to use the new name over
+time.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bugs">BUGS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>If a problem you are experiencing is not addressed in the FAQ
+(<a href="http://oml.mytestbed.net/projects/oml/wiki/FAQ_and_Support">http://oml.mytestbed.net/projects/oml/wiki/FAQ_and_Support</a>) nor already
+present in the list of know bugs
+(<a href="http://oml.mytestbed.net/projects/oml/issues">http://oml.mytestbed.net/projects/oml/issues</a>). You could discuss it on
+the mailing list (details and archives at
+<a href="http://oml.mytestbed.net/tab/show?id=oml">http://oml.mytestbed.net/tab/show?id=oml</a>).</p></div>
+<div class="paragraph"><p>It is however advisable to open a ticket on our issue tracker at
+<a href="http://oml.mytestbed.net/projects/oml/issues/new">http://oml.mytestbed.net/projects/oml/issues/new</a>. Don&#8217;t forget to
+include details such as client and server logs (at <em>[--oml-log-level|-d]
+2</em>). It also helps if you can share the source code of a (minimal, if
+possible) example reliably triggering the problem.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_see_also">SEE ALSO</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_manual_pages">Manual Pages</h3>
+<div class="paragraph"><p><a href="oml2-server.1.html">oml2-server(1)</a>, <a href="liboml2.1.html">liboml2(1)</a>, <a href="liboml2.3.html">liboml2(3)</a>,
+<a href="liboml2.conf.5.html">liboml2.conf(5)</a>, <a href="omlc_inject.3.html">omlc_inject(3)</a></p></div>
+<div class="paragraph"><p><a href="http://linux.die.net/man/3/popt">popt(3)</a></p></div>
+</div>
+<div class="sect2">
+<h3 id="_oml_user_manual">OML User Manual</h3>
+<div class="paragraph"><p><a href="http://oml.mytestbed.net/projects/oml/wiki/Documentation">http://oml.mytestbed.net/projects/oml/wiki/Documentation</a></p></div>
+</div>
+<div class="sect2">
+<h3 id="_ruby">Ruby</h3>
+<div class="paragraph"><p><a href="http://www.ruby-lang.org">http://www.ruby-lang.org</a></p></div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+OML 2.12.0pre.79-58cf-dirty<br />
+Last updated 2015-04-16 15:28:57 CEST
+</div>
+<div id="footer-badges">
+<a href="http://validator.w3.org/check?uri=referer">
+  <img style="border:0;width:88px;height:31px"
+    src="http://www.w3.org/Icons/valid-xhtml11-blue"
+    alt="Valid XHTML 1.1" height="31" width="88" />
+</a>
+<a href="http://jigsaw.w3.org/css-validator/">
+  <img style="border:0;width:88px;height:31px"
+    src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+    alt="Valid CSS!" />
+</a>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+<map id="session.h" name="session.h">
+<area shape="rect" id="node3" href="$oml2-proxy-server_8c.html" title="Implement the proxy server&#39;s top&#45;level main() and its supporting functions." alt="" coords="5,83,141,112"/>
+<area shape="rect" id="node5" href="$sender_8c.html" title="Implements half&#45;async sender which uses a background thread to send messages to the OML server..." alt="" coords="165,83,237,112"/>
+<area shape="rect" id="node7" href="$session_8c.html" title="Session management functions." alt="" coords="261,83,339,112"/>
+</map>

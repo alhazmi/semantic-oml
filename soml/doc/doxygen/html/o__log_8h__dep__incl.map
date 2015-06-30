@@ -1,0 +1,51 @@
+<map id="o_log.h" name="o_log.h">
+<area shape="rect" id="node3" href="$omlc_8h.html" title="Public API of the OML client library." alt="" coords="1579,83,1640,112"/>
+<area shape="rect" id="node5" href="$api_8c.html" title="Implement the user&#45;visible API of OML." alt="" coords="1264,247,1315,276"/>
+<area shape="rect" id="node7" href="$bin__writer_8c.html" title="An implementation of the OmlWriter interface functions (see oml2/oml_writer.h) that writes messages u..." alt="" coords="677,160,765,189"/>
+<area shape="rect" id="node9" href="$buffered__writer_8c.html" title="A non&#45;blocking, self&#45;draining FIFO queue using threads." alt="" coords="789,160,907,189"/>
+<area shape="rect" id="node11" href="$file__stream_8c.html" title="An OmlOutStream implementation that writer that writes measurement tuples to a file on the local file..." alt="" coords="1144,247,1240,276"/>
+<area shape="rect" id="node13" href="$average__filter_8c.html" title="Implements a filter which calculates the average over all the samples it received over the sample per..." alt="" coords="520,247,629,276"/>
+<area shape="rect" id="node15" href="$delta__filter_8c.html" title="Implements a filter which returns the difference between the previously reported and current sample v..." alt="" coords="653,247,747,276"/>
+<area shape="rect" id="node17" href="$factory_8c.html" title="Implements the functions to create and manage filters." alt="" coords="1339,247,1411,276"/>
+<area shape="rect" id="node19" href="$first__filter_8c.html" title="Implements a filter which captures the first value presented." alt="" coords="771,247,856,276"/>
+<area shape="rect" id="node21" href="$histogram__filter_8c.html" title="Implements a filter which calculates." alt="" coords="880,247,1003,276"/>
+<area shape="rect" id="node23" href="$last__filter_8c.html" title="Implements a filter which captures the last value presented." alt="" coords="168,247,253,276"/>
+<area shape="rect" id="node25" href="$stddev__filter_8c.html" title="Implements a filter that calculates the standard deviation (and variance) over all samples it receive..." alt="" coords="277,247,381,276"/>
+<area shape="rect" id="node27" href="$sum__filter_8c.html" title="Implements a filter which sums all the samples it received over the sample period." alt="" coords="405,247,496,276"/>
+<area shape="rect" id="node29" href="$filter_8c.html" title="OML&#39;s client side filter engine." alt="" coords="931,160,989,189"/>
+<area shape="rect" id="node31" href="$init_8c.html" title="Implement the user&#45;visible initialisation routines of the user&#45;visible OML API." alt="" coords="1557,247,1608,276"/>
+<area shape="rect" id="node33" href="$misc_8c.html" title="Implements various common utility functions (XXX: Only mutex lock/unlock)." alt="" coords="2496,160,2557,189"/>
+<area shape="rect" id="node35" href="$net__stream_8c.html" title="An OmlOutStream implementation that writer that sends measurement tuples over the network..." alt="" coords="1435,247,1533,276"/>
+<area shape="rect" id="node37" href="$text__writer_8c.html" title="An implementation of the OmlWriter interface functions (see oml2/oml_writer.h) that serializes measur..." alt="" coords="1027,247,1120,276"/>
+<area shape="rect" id="node39" href="$oml__value_8h.html" title="oml_value.h" alt="" coords="1976,160,2067,189"/>
+<area shape="rect" id="node51" href="$parse__config_8c.html" title="The XML configuration file parser functions." alt="" coords="3464,247,3571,276"/>
+<area shape="rect" id="node54" href="$marshal_8c.html" title="Binary mode OMSP (OML Measurement Stream Protocol (OMSP) OMSP Binary Marshalling) marhsalling and unm..." alt="" coords="1632,247,1709,276"/>
+<area shape="rect" id="node56" href="$marshal2_8c.html" title="marshal2.c" alt="" coords="1733,247,1819,276"/>
+<area shape="rect" id="node58" href="$oml__value_8c.html" title="Support functions for manipulating OmlValue objects." alt="" coords="1843,247,1933,276"/>
+<area shape="rect" id="node60" href="$schema_8c.html" title="Manipulate schema structures, and convert to/from string or SQL representation." alt="" coords="3227,247,3304,276"/>
+<area shape="rect" id="node62" href="$client__handler_8c.html" title="The client handler receives callbacks from the eventloop and processes messages in either OML&#39;s text ..." alt="" coords="3328,247,3440,276"/>
+<area shape="rect" id="node64" href="$database_8c.html" title="Generic interface for database backends." alt="" coords="3595,247,3680,276"/>
+<area shape="rect" id="node66" href="$fuseki__adapter-new-yahya_8c.html" title="fuseki_adapter&#45;new\l&#45;yahya.c" alt="" coords="1957,238,2091,285"/>
+<area shape="rect" id="node68" href="$fuseki__adapter_8c.html" title="fuseki_adapter.c" alt="" coords="2115,247,2232,276"/>
+<area shape="rect" id="node70" href="$fuseki__adapter__beforeyahyachanges_8c.html" title="fuseki_adapter_beforeyahyachanges.c" alt="" coords="2256,247,2501,276"/>
+<area shape="rect" id="node72" href="$fuseki__adapter__in__progress_8c.html" title="fuseki_adapter_in_progress.c" alt="" coords="2525,247,2717,276"/>
+<area shape="rect" id="node74" href="$fuseki__adapter__working_8c.html" title="fuseki_adapter_working.c" alt="" coords="2741,247,2912,276"/>
+<area shape="rect" id="node76" href="$psql__adapter_8c.html" title="Adapter code for the PostgreSQL database backend." alt="" coords="3704,247,3811,276"/>
+<area shape="rect" id="node78" href="$sqlite__adapter_8c.html" title="Adapter code for the SQLite3 database backend." alt="" coords="3088,247,3203,276"/>
+<area shape="rect" id="node80" href="$virtuoso__adapter_8c.html" title="virtuoso_adapter.c" alt="" coords="2936,247,3064,276"/>
+<area shape="rect" id="node82" href="$check__liboml2__api_8c.html" title="Test the user&#45;visible OML API." alt="" coords="5,247,144,276"/>
+<area shape="rect" id="node92" href="$oml2-server_8c.html" title="Main oml2&#45;server functions." alt="" coords="3835,247,3936,276"/>
+<area shape="rect" id="node114" href="$eventloop_8c.html" title="Callback&#45;based event loop supporting file descriptors, socket and timers." alt="" coords="3960,247,4048,276"/>
+<area shape="rect" id="node116" href="$log_8c.html" title="Logging functions, including the implementation for logerror(), logwarn(), loginfo() and logdebug()..." alt="" coords="3427,83,3477,112"/>
+<area shape="rect" id="node118" href="$socket_8c.html" title="OComm Socket (OSocket) are a thin abstraction layer that manages sockets and provides some additional..." alt="" coords="4072,247,4144,276"/>
+<area shape="rect" id="node120" href="$socket__group_8c.html" title="socket_group.c" alt="" coords="4168,247,4277,276"/>
+<area shape="rect" id="node123" href="$mem_8h.html" title="mem.h" alt="" coords="2987,160,3048,189"/>
+<area shape="rect" id="node136" href="$mem_8c.html" title="mem.c" alt="" coords="4301,247,4363,276"/>
+<area shape="rect" id="node138" href="$oml__util_8c.html" title="Various utility functions, mainly strings and memory&#45;buffer related." alt="" coords="4387,247,4464,276"/>
+<area shape="rect" id="node142" href="$proxy__client_8c.html" title="Functions to manage the Client structure." alt="" coords="4488,247,4589,276"/>
+<area shape="rect" id="node144" href="$receiver_8c.html" title="Functions responsible for implementing the receive loop that reads stores meessages in the message qu..." alt="" coords="4613,247,4691,276"/>
+<area shape="rect" id="node146" href="$sender_8c.html" title="Implements half&#45;async sender which uses a background thread to send messages to the OML server..." alt="" coords="4715,247,4787,276"/>
+<area shape="rect" id="node165" href="$oml2-proxy-server_8c.html" title="Implement the proxy server&#39;s top&#45;level main() and its supporting functions." alt="" coords="3907,83,4043,112"/>
+<area shape="rect" id="node177" href="$hook_8c.html" title="Implements the event hook so that an external program can be called by the OML server." alt="" coords="4067,83,4128,112"/>
+<area shape="rect" id="node183" href="$check__liboml2_8c.html" title="check_liboml2.c" alt="" coords="4152,83,4267,112"/>
+</map>

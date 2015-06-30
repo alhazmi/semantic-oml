@@ -1,0 +1,14 @@
+<map id="msgloop.c" name="msgloop.c">
+<area shape="rect" id="node17" href="$o__log_8h.html" title="ocomm/o_log.h" alt="" coords="835,469,945,499"/>
+<area shape="rect" id="node21" href="$proxy__client_8h.html" title="proxy_client.h" alt="" coords="345,83,446,112"/>
+<area shape="rect" id="node26" href="$mbuf_8h.html" title="mbuf.h" alt="" coords="243,392,305,421"/>
+<area shape="rect" id="node31" href="$cbuf_8h.html" title="cbuf.h" alt="" coords="402,237,461,267"/>
+<area shape="rect" id="node33" href="$headers_8h.html" title="headers.h" alt="" coords="43,392,121,421"/>
+<area shape="rect" id="node36" href="$message_8h.html" title="Defines a container for either a text or binary message (struct oml_message) and the associated inter..." alt="" coords="265,237,350,267"/>
+<area shape="rect" id="node56" href="$o__socket_8h.html" title="Header file for the OComm Socket library. OSockets are a thin abstraction layer that manages sockets ..." alt="" coords="603,237,737,267"/>
+<area shape="rect" id="node65" href="$o__eventloop_8h.html" title="ocomm/o_eventloop.h" alt="" coords="483,160,633,189"/>
+<area shape="rect" id="node70" href="$message__queue_8h.html" title="message_queue.h" alt="" coords="281,160,409,189"/>
+<area shape="rect" id="node39" href="$omlc_8h.html" title="Public API of the OML client library." alt="" coords="769,392,862,421"/>
+<area shape="rect" id="node49" href="$schema_8h.html" title="schema.h" alt="" coords="331,315,409,344"/>
+<area shape="rect" id="node52" href="$mstring_8h.html" title="mstring.h" alt="" coords="145,392,219,421"/>
+</map>

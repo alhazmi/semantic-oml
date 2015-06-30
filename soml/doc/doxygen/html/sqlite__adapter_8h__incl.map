@@ -1,0 +1,8 @@
+<map id="sqlite_adapter.h" name="sqlite_adapter.h">
+<area shape="rect" id="node5" href="$database_8h.html" title="Interface that storage backend need to implement to be usable by the server." alt="" coords="408,83,493,112"/>
+<area shape="rect" id="node7" href="$omlc_8h.html" title="Public API of the OML client library." alt="" coords="309,315,403,344"/>
+<area shape="rect" id="node25" href="$mstring_8h.html" title="mstring.h" alt="" coords="543,315,617,344"/>
+<area shape="rect" id="node28" href="$table__descr_8h.html" title="table_descr.h" alt="" coords="444,160,543,189"/>
+<area shape="rect" id="node30" href="$schema_8h.html" title="schema.h" alt="" coords="424,237,501,267"/>
+<area shape="rect" id="node21" href="$o__log_8h.html" title="ocomm/o_log.h" alt="" coords="464,392,573,421"/>
+</map>

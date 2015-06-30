@@ -1,0 +1,8 @@
+<map id="Database" name="Database">
+<area shape="rect" id="node2" href="$structMString.html" title="MString" alt="" coords="5,293,72,323"/>
+<area shape="rect" id="node5" href="$structDbTable.html" title="DbTable" alt="" coords="96,293,165,323"/>
+<area shape="rect" id="node7" href="$structschema.html" title="schema" alt="" coords="156,197,223,227"/>
+<area shape="rect" id="node15" href="$structTableDescr.html" title="TableDescr" alt="" coords="243,293,331,323"/>
+<area shape="rect" id="node9" href="$structschema__field.html" title="schema_field" alt="" coords="140,101,239,131"/>
+<area shape="rect" id="node11" href="$structOMLSemDef.html" title="OMLSemDef" alt="" coords="140,5,239,35"/>
+</map>

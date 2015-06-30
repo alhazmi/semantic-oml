@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['value',['value',['../structOmlValue.html#ab606b56595b2e5357a4b3d7bf40d6260',1,'OmlValue::value()'],['../structheader.html#aff7c052082e6af1ae4c152d27c1a5748',1,'header::value()']]],
+  ['values',['values',['../structOmlMStream.html#a402144fee9027b0fb067c12c45fe62ff',1,'OmlMStream::values()'],['../structOmlBinaryHeader.html#a3d0aea253e7297a378da0ae9931bf3f7',1,'OmlBinaryHeader::values()'],['../struct__omlTestWriter.html#a3bc9238d1760b73b02e4dd774033fc3a',1,'_omlTestWriter::values()']]],
+  ['values_5fvector_5fcounts',['values_vector_counts',['../struct__clientHandler.html#acf4e8ddba929d37e840effff3512ff8b',1,'_clientHandler']]],
+  ['values_5fvectors',['values_vectors',['../struct__clientHandler.html#abf6e2c1fc2a8620d8eba920ee623a429',1,'_clientHandler']]],
+  ['varboolean',['varboolean',['../structopts__t.html#a974f43adfa2afa605a2a35430c2b8c28',1,'opts_t']]],
+  ['vardouble',['vardouble',['../structopts__t.html#af298375bca67613400ad7803712bc78d',1,'opts_t']]],
+  ['varint32',['varint32',['../structopts__t.html#a68568bd93966a7b72cf7f642313e1994',1,'opts_t']]],
+  ['varint64',['varint64',['../structopts__t.html#aa40ecaaf5c2eb12a957174a8ffbea748',1,'opts_t']]],
+  ['varlong',['varlong',['../structopts__t.html#a7ac40ce62b0e713bb94af14467b36fbf',1,'opts_t']]],
+  ['varstring',['varstring',['../structopts__t.html#aae08159e4d59aee060c41a7fca42b753',1,'opts_t']]],
+  ['varuint32',['varuint32',['../structopts__t.html#a5a445ec7dad16bb58b445fdf36f7ba37',1,'opts_t']]],
+  ['varuint64',['varuint64',['../structopts__t.html#a23cf82ca98d97295ac65b5110cfa3f80',1,'opts_t']]],
+  ['vector',['vector',['../structTestVector.html#a80cb63717ddd4e2e17f22bfdff2ac5ec',1,'TestVector']]],
+  ['vectorvalue',['vectorValue',['../unionOmlValueU.html#ae31c7fc57c07ff8ab8f2a704de414e1b',1,'OmlValueU']]],
+  ['vir_5fhost',['vir_host',['../oml2-server_8c.html#ad4532dd88ad06fd5f8ca1a7e622a4494',1,'vir_host():&#160;virtuoso_adapter.c'],['../virtuoso__adapter_8c.html#ad4532dd88ad06fd5f8ca1a7e622a4494',1,'vir_host():&#160;virtuoso_adapter.c']]],
+  ['vir_5fpass',['vir_pass',['../oml2-server_8c.html#ae7995c70c2014e6ac1f6c19911a18d47',1,'vir_pass():&#160;virtuoso_adapter.c'],['../virtuoso__adapter_8c.html#ae7995c70c2014e6ac1f6c19911a18d47',1,'vir_pass():&#160;virtuoso_adapter.c']]],
+  ['vir_5fport',['vir_port',['../oml2-server_8c.html#a769835214a8789d02c4efa8993edd20e',1,'vir_port():&#160;virtuoso_adapter.c'],['../virtuoso__adapter_8c.html#a769835214a8789d02c4efa8993edd20e',1,'vir_port():&#160;virtuoso_adapter.c']]],
+  ['vir_5fuser',['vir_user',['../oml2-server_8c.html#ad0b76fbd8f63c68eb4296ec5b5b801b8',1,'vir_user():&#160;virtuoso_adapter.c'],['../virtuoso__adapter_8c.html#ad0b76fbd8f63c68eb4296ec5b5b801b8',1,'vir_user():&#160;virtuoso_adapter.c']]]
+];

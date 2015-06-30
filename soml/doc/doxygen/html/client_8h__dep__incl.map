@@ -1,0 +1,14 @@
+<map id="client.h" name="client.h">
+<area shape="rect" id="node3" href="$api_8c.html" title="Implement the user&#45;visible API of OML." alt="" coords="5,83,56,112"/>
+<area shape="rect" id="node5" href="$bin__writer_8c.html" title="An implementation of the OmlWriter interface functions (see oml2/oml_writer.h) that writes messages u..." alt="" coords="80,83,168,112"/>
+<area shape="rect" id="node7" href="$buffered__writer_8c.html" title="A non&#45;blocking, self&#45;draining FIFO queue using threads." alt="" coords="192,83,309,112"/>
+<area shape="rect" id="node9" href="$file__stream_8c.html" title="An OmlOutStream implementation that writer that writes measurement tuples to a file on the local file..." alt="" coords="333,83,429,112"/>
+<area shape="rect" id="node11" href="$filter_8c.html" title="OML&#39;s client side filter engine." alt="" coords="453,83,512,112"/>
+<area shape="rect" id="node13" href="$init_8c.html" title="Implement the user&#45;visible initialisation routines of the user&#45;visible OML API." alt="" coords="536,83,587,112"/>
+<area shape="rect" id="node15" href="$misc_8c.html" title="Implements various common utility functions (XXX: Only mutex lock/unlock)." alt="" coords="611,83,672,112"/>
+<area shape="rect" id="node17" href="$net__stream_8c.html" title="An OmlOutStream implementation that writer that sends measurement tuples over the network..." alt="" coords="696,83,795,112"/>
+<area shape="rect" id="node19" href="$parse__config_8c.html" title="The XML configuration file parser functions." alt="" coords="819,83,925,112"/>
+<area shape="rect" id="node21" href="$text__writer_8c.html" title="An implementation of the OmlWriter interface functions (see oml2/oml_writer.h) that serializes measur..." alt="" coords="949,83,1043,112"/>
+<area shape="rect" id="node23" href="$check__liboml2__api_8c.html" title="Test the user&#45;visible OML API." alt="" coords="1067,83,1205,112"/>
+<area shape="rect" id="node25" href="$check__liboml2__writers_8c.html" title="check_liboml2_writers.c" alt="" coords="1229,83,1392,112"/>
+</map>

@@ -1,0 +1,468 @@
+'\" t
+.\"     Title: liboml2.conf
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.76.1 <http://docbook.sf.net/>
+.\"      Date: 2015-04-16
+.\"    Manual: The OML Manual
+.\"    Source: OML 2.12.0pre.79-58cf-dirty
+.\"  Language: English
+.\"
+.TH "LIBOML2\&.CONF" "5" "2015\-04\-16" "OML 2\&.12\&.0pre\&.79\-58cf\-" "The OML Manual"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+liboml2.conf \- OML2 client library configuration file format
+.SH "SYNOPSIS"
+.sp
+.nf
+\fB<oml2\-enabled\-app>\fR [APP\-OPTIONS] \-\-oml\-config <config\-file>
+.fi
+.SH "DESCRIPTION"
+.sp
+\fBliboml2\fR is the client library for OML2\&. It provides an API for application writers to collect measurements from their applications via user\-defined \fIMeasurement Points\fR (MPs)\&. It also provides a flexible filtering and collection mechanism that allows application users to customize how measurements are processed and stored by an OML\-enabled application\&.
+.sp
+This man page documents the format of the configuration file that \fBliboml2\fR uses to configure itself at runtime\&. Application writers who want to learn how to write an application using the \fBliboml2\fR API should consult \fBliboml2\fR(3)\&. OML also supports simpler but less powerful configuration via the command line, for testing and debugging\&. It is documented in \fBliboml2\fR(1)\&.
+.sp
+When an OML application starts up, it passes the command line arguments to \fBliboml2\fR, which scans them for options that it understands, and uses those to configure itself\&. \fBliboml2\fR then removes its own options from the command line so that the application proper does not get confused by them\&. All OML options start with the \fB\-\-oml\-\fR prefix\&. For more information, see \fBliboml2\fR(1)\&.
+.sp
+The \fB\-\-oml\-config\fR command line option accepts the name of a configuration file\&. If specified, this file is used to configure the library internally\&. All other \fB\-\-oml\-\fR* command line options are ignored when it is specified\&. The file is an XML document\&. The configuration file serves two main purposes: configuring the destinations for measurement outputs, and configuring the filtering of the MP inputs prior to sending them to their destinations\&. It is therefore important to understand how OML filters work\&.
+.sp
+The data path between a measurement point and the measurement destination looks like this:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+        \-\-\-> F1 \-\-\-
+       /           \e
+MP *\-\-\- \-\-\-> F2 \-\-\- \-\-\-> [ Collector ]\-\-\-> [ File/Network ]
+       \e           /
+        |   \&.\&.\&.   |
+        |         |
+         \-\-> FN \-\-
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+The samples injected to the MP are sent to N filters\&. The outputs of all the filters are then multiplexed together into a combined output stream by a collector\&. A "collector" takes measurement streams from the output of the filters, multiplexes them together, and then sends the combined measurement stream on to the destination, which is either a file on the local disk or a remote OML server (see \fBoml2-server\fR(1))\&. Each collector sends measurements to just one destination, but the configuration can specify multiple collectors, each with a different destination\&.
+.sp
+Note that although the diagram above shows the outputs of the filters attached to one MP being sent to one collector, that same collector may be accepting the output streams of filters attached to several MPs\&. Further, the samples injected to an MP can be sent to a second (or third, etc\&.) set of filters and then on to another collector\&. This will become clear in the description of the configuration file format below\&.
+.sp
+Note that there is no round\-robin scheme operating among the filters; all injected samples are sent to all filters attached to the MP\&.
+.sp
+There are two mechanisms available for generating outputs from filters\&. The first is the "samples" method\&. It causes a filter output sample to be generated for every \fIn\fR\-th sample injected into the filter\&. The second is the "interval" method\&. It causes a filter output sample to be generated every \fIt\fR seconds\&. The parameters \fIt\fR and \fIn\fR can be specified in the configuration file\&. The output mechanism can be selected independently for each MP (or more accurately, for each <stream/> element in the configuration file)\&.
+.sp
+An OML filter is a processing block that accepts a stream of typed tuples from an MP on its input, computes a function of the input tuples, and outputs the result as another stream of tuples\&. The schema of the input tuples can be different from the schema of the output tuples, i\&.e\&. they can differ in number, name and type\&. Further, the output samples can be generated at a different rate to the input samples\&. For instance, an output might be generated only on every tenth input sample\&. For more on MP and filter schemas and how measurement outputs are generated, see the section \fBMEASUREMENT OUTPUT AND SCHEMAS\fR below\&.
+.SH "CONFIGURATION FILE FORMAT"
+.sp
+The configuration file must be an XML file\&. The root element must be \fIomlc\fR, and its children must be \fIcollect\fR elements\&. The following example shows the skeleton of an OML config file:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+    <omlc domain="my_experiment" id="my_source_id">
+        <collect url="\&.\&.\&." encoding="binary">
+           \&.\&.\&.
+        </collect>
+
+        \&.\&.\&.
+
+        <collect url="\&.\&.\&.">
+           \&.\&.\&.
+        </collect>
+    </omlc>
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+The \fIomlc\fR element recognizes two attributes: \fIexperiment\fR and \fIid\fR\&. The \fIdomain\fR attribute names the experimental domain that the client wants to join\&. It names the database that the measurements will be stored in by the \fBoml2-server\fR(1) if one of the destinations is a server\&. This is the same as the \fB\-\-oml\-domain\fR flag on the command line\&. The obsolescent \fIexperiment\fR attribute can still be used for this purpose\&.
+.sp
+The \fIid\fR attribute identifies the source of these measurements\&. Typically it is used to identify the machine, but it is up to the experimenter what to put in the \fIid\fR field\&. This is the same as the \fB\-\-oml\-id\fR flag on the command line\&.
+.sp
+The \fIencoding\fR attribute can be use to specify which protocol mode to use\&. \fIbinary\fR is the default binary marshalling mechanism, while \fItext\fR switches to text mode\&.
+.sp
+The \fIcollect\fR elements identify separate destinations for the measurements generated by the client programme\&. The \fIurl\fR attribute identifies the destination\&. It can be either a file, or the IP address (or hostname) and port of an \fBoml2-server\fR(1)\&. See \fBURI FORMAT\fR in \fBliboml2\fR(1)\&. Within the \fIcollect\fR element should be a sequence of \fIstream\fR elements\&. Each \fIstream\fR element defines the sampling policy and filtering to apply to a measurement stream derived form a particular named MP\&. Here is an example of a configuration with two \fIstream\fR elements:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+    <omlc domain="my_experiment" id="my_source_id">
+        <collect url="tcp:192\&.0\&.2\&.200">
+           <stream mp="radiotap" interval="2">
+              <filter field="sig_strength_dBm" />
+              <filter field="noise_strength_dBm" />
+              <filter field="power" />
+           </stream>
+           <stream mp="udp" samples="10">
+              <filter field="udp_len" />
+           </stream>
+        </collect>
+    </omlc>
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+This example connects to a server on the default TCP port (3003) at IP address 192\&.0\&.2\&.200, and extracts measurements from two of the application\(cqs defined measurement points, named \fIradiotap\fR and \fIudp\fR, respectively\&. The \fIradiotap\fR measurements are sampled every two seconds, and the \fIudp\fR measurements are sampled every 10 samples\&. For the \fIradiotap\fR measurements, three filters are defined: one for the \fIsig_strength_dBm\fR field, one for the \fInoise_strength_dBm\fR field, and one for the \fIpower\fR field\&. For the \fIudp\fR measurements, a single filter is established on the \fIudp_len\fR field\&.
+.sp
+The \fIstream\fR element also accepts a \fIname\fR attribute that allows the stream name to be controlled by the user\&. If \fIname\fR is omitted then the stream is named according to <app\-name>_<mp\-name>, where <app\-name> is the application name as set by the application developer, and <mp\-name> is the name of the MP\&. If \fIname\fR is used then its value is used to construct the stream name as <app\-name>_<stream\-name>\&. A stream must have a unique name, so if the user wants to create two streams from the same MP then at least one of them must have a \fIname\fR attribute\&. Omitting it, or having two streams with identical \fIname\fR attributes, will result in the \fBliboml2\fR configuration process aborting with an error message about the duplicate stream in the OML client log file\&.
+.sp
+Filters operate on a single scalar input value\&. The \fIfilter\fR element establishes a filter and the \fIfield\fR attribute selects the field of the MP that should form the input for the filter\&. The \fIfield\fR attribute is mandatory\&.
+.sp
+Without any further attributes, the \fIfilter\fR element establishes a default filter\&. The default filter type is \fIavg\fR for numeric values and \fIfirst\fR for non\-numeric values such as strings\&.
+.sp
+The \fIfilter\fR element also recognizes the \fIoperation\fR attribute, which allows the user to select what type of filter to apply\&. For instance, the following selects a standard deviation filter, \fIstddev\fR:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+<filter field="udp_len" operation="stddev"/>
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+The \fIrename\fR attribute allows the user to name the stream output from this filter:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+<filter field="udp_len" operation="stddev" rename="udp_measurements"/>
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+It is possible to include several \fIstream\fR elements using the same \fImp\fR attribute value\&. In that case, to avoid ambiguity the second will be internally renamed to "<name>_2", the third to "<name>_3", etc\&. This renaming will appear in the schema of the measurement outputs (either in the local file or the database on the server end)\&. This behaviour may be augmented in a future version to give more control of the renaming to the user\&.
+.SH "CONFIGURATION WITHOUT XML FILE"
+.sp
+When no configuration file is given, \fBliboml2\fR provides a basic set of filters for each measurement point, and sends measurements to just one collection URI (given by either the \fB\-\-oml\-collect\fR command line option)\&. For each measurement point, each element of the measurement point\(cqs injected tuple is given its own filter\&. The filter created depends on the type of the element and the current sampling policy\&.
+.sp
+For instance, suppose a measurement point is defined with a measurement tuple as follows:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+("source"      : OML_UINT64_VALUE,
+ "destination" : OML_UINT64_VALUE,
+ "length"      : OML_INT32_VALUE,
+ "snr"         : OML_DOUBLE_VALUE,
+ "name"        : OML_STRING_VALUE)
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+Then \fBliboml2\fR will create a separate filter for each of "source", "destination", "length", "snr", and "name"\&. The filters for the first four numeric elements will be an averaging filter (filter type \fIavg\fR), and the last string element will be given a \fIfirst\fR filter\&. The \fIfirst\fR filter keeps the first injected value in the current sampling period and throws away all others, passing the first value on to the measurement output stage\&.
+.sp
+For more information on measurement points and how they are defined, see \fBliboml\fR(3) and \fBomlc_add_mp\fR(3)\&.
+.SH "MEASUREMENT OUTPUT AND SCHEMAS"
+.sp
+The measurement output of an OML program goes either to an SQL database (if using a network address in the \fIcollect\fR element\(cqs \fIurl\fR attribute) or a file (if using the \fIfile://\fR url protocol)\&. Measurement points are created with a \fIschema\fR, as above, a schema being an ordered list of (name, type) pairs\&.
+.sp
+OML filters also generate output with a declared schema\&. For each measurement stream, \fBliboml2\fR generates a single output measurement that is the union of the outputs of all filters attached to the MP\&. The names of the fields (or columns) of the schema are derived from the names of the original MP fields, and the output schemas of the filters\&. The schemas can be observed directly in the file output (identical schemas are sent to the server when a server is used)\&. For instance, here is the output schema for stream that takes its inputs from a simple example MP that measures a string ("label") and an integer ("seq_no"):
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+schema: 1 generator_lin label:string seq_no:uint32
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+The schema name is "generator_lin" \(em a combination of the application name ("generator") and the stream name ("lin")\&. (The number \fI1\fR on this line is an index used in the output columns to identify a line of measurement with the schema to which it conforms\&.) This output can be generated using an \fImp\fR element with \fIsamples="1"\fR and no explicit filter:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+<omlc domain="my_experiment" id="my_source_id">
+ <collect url="file:\-">
+   <stream mp="lin" samples="1" />
+ </collect>
+</omlc>
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+This creates a \fIfirst\fR filter for both of the fields of the measurement point\&. The \fIfirst\fR filter outputs a single value that has the same type as the filter\(cqs input\&.
+.sp
+If we change the configuration file to use \fIsamples="2"\fR, then an averaging filter is used for the numeric "seq_no" field ("label" is unchanged)\&. The schema therefore changes as well:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+schema: 1 generator_lin label:string seq_no_avg:double seq_no_min:double seq_no_max:double
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+An \fIavg\fR filter picks one field of the MP to filter (in this case "seq_no") and then produces a 3\-tuple as output (avg, min, max)\&. Therefore \fBliboml2\fR creates a schema for this filter output that looks like:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+("seq_no_avg" : OML_DOUBLE_VALUE,
+ "seq_no_min" : OML_DOUBLE_VALUE,
+ "seq_no_max" : OML_DOUBLE_VALUE)
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+This is the general pattern for filters: their output schemas are formed by appending the name of the source MP with the name of the filter output field\&. (The \fIfirst\fR filter is an exception in that it just takes the name of the input field and uses that as the output field name\&.)
+.sp
+When output is sent to a server, a database table is created for each measurement point using the combined OML output schema as schema for the table\&. For instance, the above example would translate to an SQL CREATE statement like:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+CREATE TABLE generator_lin (label TEXT, seq_no_avg REAL, seq_no_min REAL, seq_no_max REAL);
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+Note that even though an MP field may have an integral type, it may be represented as a floating point type in the output because the filter may output floating point values\&. For instance, the average of a set of integers is real valued because of the division in the averaging operation\&.
+.sp
+If we use the \fIname\fR attribute of the <stream/> element, the name of the schema will follow the \fIname\fR attribute rather than the name of the source MP\&. For instance consider this configuration file:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+<omlc domain="my_experiment" id="my_source_id">
+ <collect url="file:\-">
+   <stream mp="lin" samples="1" name="foo"/>
+ </collect>
+</omlc>
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+It will generate the following schema declaration:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+schema: 1 generator_foo label:string seq_no:uint32
+.fi
+.if n \{\
+.RE
+.\}
+.SH "AVAILABLE FILTERS"
+.sp
+The following lists the filters that are available in OML, and describes how they should be used\&. We plan to add more filters with each release of OML\&.
+.SS "First Filter (first)"
+.sp
+This filter saves the first sample in a sample set and throws away all the rest, outputting just the first sample\&. It accepts any type of value as its input\&. It outputs a single value:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+("first" : OML_INPUT_VALUE)
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+The pseudo\-type OML_INPUT_VALUE indicates that this filter\(cqs output has the same type as its input\&.
+.sp
+To use this filter, use \fIoperation="first"\fR in the \fIfilter\fR element\&.
+.SS "Last Filter (last)"
+.sp
+This filter saves the last sample in a sample set and throws away all the rest, outputting just the last sample\&. It accepts any type of value as its input\&. It outputs a single value:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+("last" : OML_INPUT_VALUE)
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+The pseudo\-type OML_INPUT_VALUE indicates that this filter\(cqs output has the same type as its input\&.
+.sp
+To use this filter, use \fIoperation="last"\fR in the \fIfilter\fR element\&.
+.SS "Averaging Filter (avg)"
+.sp
+This filter computes the average of its input samples\&. It accepts numeric inputs only (one of the OML integer types or OML_DOUBLE_VALUE)\&. It outputs a pair of values, namely:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+("avg" : OML_DOUBLE_VALUE,
+ "min" : OML_DOUBLE_VALUE,
+ "max" : OML_DOUBLE_VALUE)
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+where \fIavg\fR is the average over the current sample set, \fImin\fR is the minimum value of the current sample set, and \fImax\fR is the maximum value of the current sample set\&.
+.sp
+To use this filter, use \fIoperation="avg"\fR in the \fIfilter\fR element\&.
+.SS "Standard Deviation Filter (stddev)"
+.sp
+This filter computes the standard deviation and variance of its inputs samples\&. It accepts numeric inputs only (one of the OML integer types or OML_DOUBLE_VALUE)\&. It outputs a pair of values, namely:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+("stddev"   : OML_DOUBLE_VALUE,
+ "variance" : OML_DOUBLE_VALUE)
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+where \fIstddev\fR is the standard deviation over the current sample set and \fIvariance\fR is the variance (i\&.e\&. the square of \fIstddev\fR)\&.
+.sp
+To use this filter, put \fIoperation="stddev"\fR in the \fIfilter\fR element\&.
+.SS "Sum Filter (sum)"
+.sp
+This filter computes the sum of its input samples\&. It accepts numeric inputs only (one of the OML integer types or OML_DOUBLE_VALUE)\&. It outputs a single value, namely:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+("sum" : OML_DOUBLE_VALUE)
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+where \fIsum\fR is the sum all the sample values in the current sample set\&.
+.sp
+To use this filter, use \fIoperation="sum"\fR in the \fIfilter\fR element\&.
+.SS "Delta Filter (delta)"
+.sp
+This filter computes the change in its input value between the end of the previous sample set and the start of the current one\&. If the value at the end of the previous sample set was \fIlast\fR and the value at the end of the current sample set was \fIcurrent\fR, then the filter computes \fIdelta=current\-last\fR\&. It accepts numeric inputs only (one of the OML integer types or OML_DOUBLE_VALUE)\&. It outputs a pair of values, namely:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+("delta" : OML_DOUBLE_VALUE,
+ "last   : OML_DOUBLE_VALUE)
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+where \fIdelta\fR is the change in the input over the current sample set and \fIlast\fR is the value that the input had at the end of the current sample set\&.
+.sp
+The value of \fIdelta\fR in the first sample set is computed as \fIcurrent\-first\fR, where \fIfirst\fR is the first value in the sample set and \fIcurrent\fR is the final value\&.
+.sp
+To use this filter, use \fIoperation="delta"\fR in the \fIfilter\fR element\&.
+.SH "NOTES"
+.sp
+Prior to OML 2\&.6, the configuration file format was identical in structure but used a different set of names for the XML attributes and elements\&. These old names were very confusing, so they have been replaced names that better reflect the underlying concepts\&. The old names are still supported so old configuration files and tools will not break\&. Here is a summary of the old names and how they relate to the new ones:
+.TS
+allbox tab(:);
+ct ct
+lt lt
+lt lt
+lt lt
+lt lt
+lt lt.
+T{
+.sp
+OLD
+T}:T{
+.sp
+NEW
+T}
+T{
+.sp
+<omlc exp_id="abc" \&...>
+T}:T{
+.sp
+<omlc domain="abc" \&... >
+T}
+T{
+.sp
+<mp name="def" rename="bar"\&...>
+T}:T{
+.sp
+<stream mp="def" name="bar"\&...>
+T}
+T{
+.sp
+<f fname="avg" \&...>
+T}:T{
+.sp
+<filter operation="avg" \&...>
+T}
+T{
+.sp
+<f pname="foo" \&...>
+T}:T{
+.sp
+<filter field="foo" \&...>
+T}
+T{
+.sp
+<f sname="bar" \&...>
+T}:T{
+.sp
+<filter rename="bar" \&...>
+T}
+.TE
+.sp 1
+.SH "BUGS"
+.sp
+The selection of the \fIfirst\fR filter when \fIsamples=1\fR is used can be confusing for numeric MP fields because it results in a different schema in the measurement output compared to other possible configurations available from the command line, which use the \fIavg\fR filter\&. It is not clear whether this is a feature or a bug\&.
+.sp
+If a problem you are experiencing is not addressed in the FAQ (http://oml\&.mytestbed\&.net/projects/oml/wiki/FAQ_and_Support) nor already present in the list of know bugs (http://oml\&.mytestbed\&.net/projects/oml/issues)\&. You could discuss it on the mailing list (details and archives at http://oml\&.mytestbed\&.net/tab/show?id=oml)\&.
+.sp
+It is however advisable to open a ticket on our issue tracker at http://oml\&.mytestbed\&.net/projects/oml/issues/new\&. Don\(cqt forget to include details such as client and server logs (at \fI[\-\-oml\-log\-level|\-d] 2\fR)\&. It also helps if you can share the source code of a (minimal, if possible) example reliably triggering the problem\&.
+.SH "SECURITY CONSIDERATIONS"
+.sp
+\fIoml2\-server\fR does not use any authentication, and should thus be considered insecure\&. It is intended to be deployed behind firewalls on a dedicated testbed network\&. It should not be run as a daemon on an open network\&. Future versions of OML may be re\-designed to be suitable for use in insecure environments\&.
+.SH "SEE ALSO"
+.SS "Manual Pages"
+.sp
+\fBoml2-server\fR(1), \fBliboml2\fR(1), \fBliboml2\fR(3), \fBomlc_add_mp\fR(3)
+.SS "OML User Manual"
+.sp
+http://oml\&.mytestbed\&.net/projects/oml/wiki/Documentation

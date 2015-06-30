@@ -1,0 +1,28 @@
+var struct__client =
+[
+    [ "cbuf", "struct__client.html#a0d2bfbe20b90920972a7612d0b88f369", null ],
+    [ "condvar", "struct__client.html#aea55ded0a1ad83fcaf33eeb50e2e54b7", null ],
+    [ "content", "struct__client.html#aa4acb4be416225833618e19738be0d3f", null ],
+    [ "domain", "struct__client.html#a6e6713aaa2f447cb41a3639f0b524050", null ],
+    [ "downstream_addr", "struct__client.html#ab47cc00c019037707fd1c6cbb59e5976", null ],
+    [ "downstream_port", "struct__client.html#a6151ca6d2bc0282bbc2978fb6b905394", null ],
+    [ "fd_file", "struct__client.html#ae5022944fca0b853b69e3ce5b4598c9b", null ],
+    [ "file", "struct__client.html#a392dffe94892f31de10c8846b8eddb34", null ],
+    [ "file_name", "struct__client.html#abfc7d10555023f86fca188fb39af8c79", null ],
+    [ "header_table", "struct__client.html#a16b6787c585ac7c8cb16d851c23872fd", null ],
+    [ "headers", "struct__client.html#ac26950582d1b1f44bee860273abf20db", null ],
+    [ "mbuf", "struct__client.html#a783ee704d1d58b9540f35551ff8fbe2e", null ],
+    [ "messages", "struct__client.html#abc32c7d05cc2d8200653229687c05b1e", null ],
+    [ "msg_start", "struct__client.html#ae9259ecdda0bba173efce8b3f14f5ccd", null ],
+    [ "mutex", "struct__client.html#aaf0a1fc03a0da21247122a080bf53da6", null ],
+    [ "name", "struct__client.html#ad1b2efdccc4d8037e2cba726ab1ca054", null ],
+    [ "next", "struct__client.html#a3de5d1e6525d18b373906c2259b86ebd", null ],
+    [ "recv_event", "struct__client.html#acae7f11fd01e970f118723409a5356a5", null ],
+    [ "recv_socket", "struct__client.html#ac8e04edc05f30e30c8bb27949ca538e8", null ],
+    [ "send_socket", "struct__client.html#a66338ba37185c4825ea7ad032dfc75b8", null ],
+    [ "sender_connected", "struct__client.html#a2837954835d22a93b75795a271d15376", null ],
+    [ "sender_id", "struct__client.html#a2054ca22aa2eafe5161a95babd6a290f", null ],
+    [ "session", "struct__client.html#a97ab583f1fde5791522319fa02b19b47", null ],
+    [ "state", "struct__client.html#a42c195e1d36d935f56c87888e35cd3df", null ],
+    [ "thread", "struct__client.html#a22dd92bbac40e690542603ea9783df09", null ]
+];

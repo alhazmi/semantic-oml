@@ -1,0 +1,21 @@
+<map id="oml2&#45;server.c" name="oml2&#45;server.c">
+<area shape="rect" id="node21" href="$omlc_8h.html" title="Public API of the OML client library." alt="" coords="661,392,755,421"/>
+<area shape="rect" id="node32" href="$o__log_8h.html" title="ocomm/o_log.h" alt="" coords="749,469,859,499"/>
+<area shape="rect" id="node36" href="$oml__writer_8h.html" title="Abstract interface for writers." alt="" coords="813,160,939,189"/>
+<area shape="rect" id="node40" href="$o__socket_8h.html" title="Header file for the OComm Socket library. OSockets are a thin abstraction layer that manages sockets ..." alt="" coords="1416,237,1549,267"/>
+<area shape="rect" id="node49" href="$o__eventloop_8h.html" title="ocomm/o_eventloop.h" alt="" coords="1267,160,1416,189"/>
+<area shape="rect" id="node54" href="$mem_8h.html" title="mem.h" alt="" coords="779,392,840,421"/>
+<area shape="rect" id="node59" href="$oml__util_8h.html" title="oml_util.h" alt="" coords="1053,83,1131,112"/>
+<area shape="rect" id="node61" href="$hook_8h.html" title="hook.h" alt="" coords="1155,83,1216,112"/>
+<area shape="rect" id="node63" href="$client__handler_8h.html" title="client_handler.h" alt="" coords="1240,83,1352,112"/>
+<area shape="rect" id="node74" href="$database_8h.html" title="Interface that storage backend need to implement to be usable by the server." alt="" coords="1056,160,1141,189"/>
+<area shape="rect" id="node88" href="$sqlite__adapter_8h.html" title="sqlite_adapter.h" alt="" coords="864,83,979,112"/>
+<area shape="rect" id="node93" href="$monitoring__server_8h.html" title="monitoring_server.h" alt="" coords="1477,83,1613,112"/>
+<area shape="rect" id="node95" href="$fuseki__adapter_8h.html" title="fuseki_adapter.h" alt="" coords="1637,83,1755,112"/>
+<area shape="rect" id="node104" href="$virtuoso__adapter_8h.html" title="virtuoso_adapter.h" alt="" coords="1779,83,1907,112"/>
+<area shape="rect" id="node69" href="$mbuf_8h.html" title="mbuf.h" alt="" coords="1031,392,1092,421"/>
+<area shape="rect" id="node77" href="$mstring_8h.html" title="mstring.h" alt="" coords="927,392,1001,421"/>
+<area shape="rect" id="node80" href="$table__descr_8h.html" title="table_descr.h" alt="" coords="915,237,1013,267"/>
+<area shape="rect" id="node82" href="$schema_8h.html" title="schema.h" alt="" coords="925,315,1003,344"/>
+<area shape="rect" id="node99" href="$oml__out__stream_8h.html" title="Abstract interface for output streams." alt="" coords="1764,160,1921,189"/>
+</map>

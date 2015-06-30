@@ -1,0 +1,18 @@
+<map id="message.h" name="message.h">
+<area shape="rect" id="node3" href="$binary_8c.html" title="Functions for reading oml_message objects from an MBuffer using the OML binary format (OMSP Binary Ma..." alt="" coords="299,83,365,112"/>
+<area shape="rect" id="node5" href="$binary_8h.html" title="binary.h" alt="" coords="829,83,896,112"/>
+<area shape="rect" id="node7" href="$receiver_8c.html" title="Functions responsible for implementing the receive loop that reads stores meessages in the message qu..." alt="" coords="655,237,732,267"/>
+<area shape="rect" id="node15" href="$text_8c.html" title="Text mode OMSP (OML Measurement Stream Protocol (OMSP) OMSP Text Protocol) serialisation of OML tuple..." alt="" coords="1120,83,1173,112"/>
+<area shape="rect" id="node17" href="$text_8h.html" title="text.h" alt="" coords="1043,83,1096,112"/>
+<area shape="rect" id="node21" href="$message__queue_8c.html" title="Implement a FIFO message queue containing CBuffer objects." alt="" coords="528,160,656,189"/>
+<area shape="rect" id="node23" href="$message__queue_8h.html" title="message_queue.h" alt="" coords="440,83,568,112"/>
+<area shape="rect" id="node26" href="$proxy__client_8h.html" title="proxy_client.h" alt="" coords="301,160,403,189"/>
+<area shape="rect" id="node9" href="$client__handler_8c.html" title="The client handler receives callbacks from the eventloop and processes messages in either OML&#39;s text ..." alt="" coords="968,160,1080,189"/>
+<area shape="rect" id="node11" href="$check__libshared__headers_8c.html" title="check_libshared_headers.c" alt="" coords="1104,160,1283,189"/>
+<area shape="rect" id="node13" href="$check__binary__protocol_8c.html" title="check_binary_protocol.c" alt="" coords="781,160,944,189"/>
+<area shape="rect" id="node30" href="$proxy__client_8c.html" title="Functions to manage the Client structure." alt="" coords="469,237,571,267"/>
+<area shape="rect" id="node28" href="$oml2-proxy-server_8c.html" title="Implement the proxy server&#39;s top&#45;level main() and its supporting functions." alt="" coords="5,237,141,267"/>
+<area shape="rect" id="node33" href="$sender_8c.html" title="Implements half&#45;async sender which uses a background thread to send messages to the OML server..." alt="" coords="165,237,237,267"/>
+<area shape="rect" id="node35" href="$session_8c.html" title="Session management functions." alt="" coords="261,237,339,267"/>
+<area shape="rect" id="node37" href="$msgloop_8c.html" title="msgloop.c" alt="" coords="363,237,445,267"/>
+</map>

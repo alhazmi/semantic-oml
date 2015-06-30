@@ -1,0 +1,12 @@
+<map id="_omlTestWriter" name="_omlTestWriter">
+<area shape="rect" id="node2" href="$structOmlValue.html" title="OmlValue" alt="" coords="204,360,281,389"/>
+<area shape="rect" id="node4" href="$unionOmlValueU.html" title="OmlValueU" alt="" coords="120,219,208,248"/>
+<area shape="rect" id="node6" href="$structOmlString.html" title="OmlString" alt="" coords="5,104,85,133"/>
+<area shape="rect" id="node8" href="$structOmlVector.html" title="OmlVector" alt="" coords="119,104,201,133"/>
+<area shape="rect" id="node10" href="$structOmlBlob.html" title="OmlBlob" alt="" coords="228,104,300,133"/>
+<area shape="rect" id="node12" href="$structOmlWriter.html" title="OmlWriter" alt="" coords="313,360,393,389"/>
+<area shape="rect" id="node14" href="$structBufferedWriter.html" title="BufferedWriter" alt="" coords="336,219,443,248"/>
+<area shape="rect" id="node16" href="$structBufferChunk.html" title="BufferChunk" alt="" coords="431,104,524,133"/>
+<area shape="rect" id="node19" href="$structMBuffer.html" title="MBuffer" alt="" coords="357,5,424,35"/>
+<area shape="rect" id="node22" href="$structOmlOutStream.html" title="OmlOutStream" alt="" coords="601,104,711,133"/>
+</map>

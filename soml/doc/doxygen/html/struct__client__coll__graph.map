@@ -1,0 +1,13 @@
+<map id="_client" name="_client">
+<area shape="rect" id="node10" href="$struct__session.html" title="_session" alt="" coords="317,533,392,563"/>
+<area shape="rect" id="node2" href="$structSocket.html" title="Socket" alt="" coords="17,227,79,256"/>
+<area shape="rect" id="node13" href="$struct__sockEvtSource.html" title="_sockEvtSource" alt="" coords="101,325,219,355"/>
+<area shape="rect" id="node5" href="$struct__cbuffer.html" title="_cbuffer" alt="" coords="225,171,295,200"/>
+<area shape="rect" id="node7" href="$structcbuffer__page.html" title="cbuffer_page" alt="" coords="251,5,347,35"/>
+<area shape="rect" id="node29" href="$structcbuffer__cursor.html" title="cbuffer_cursor" alt="" coords="301,117,405,147"/>
+<area shape="rect" id="node16" href="$structoml__message.html" title="oml_message" alt="" coords="443,117,544,147"/>
+<area shape="rect" id="node27" href="$structmsg__queue__node.html" title="msg_queue_node" alt="" coords="293,227,416,256"/>
+<area shape="rect" id="node19" href="$structMBuffer.html" title="MBuffer" alt="" coords="544,325,611,355"/>
+<area shape="rect" id="node22" href="$structheader.html" title="header" alt="" coords="688,325,749,355"/>
+<area shape="rect" id="node25" href="$structmsg__queue.html" title="msg_queue" alt="" coords="311,325,399,355"/>
+</map>

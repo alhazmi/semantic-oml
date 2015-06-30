@@ -1,0 +1,279 @@
+'\" t
+.\"     Title: oml2-server
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.76.1 <http://docbook.sf.net/>
+.\"      Date: 2015-04-16
+.\"    Manual: The OML Manual
+.\"    Source: OML 2.12.0pre.79-58cf-dirty
+.\"  Language: English
+.\"
+.TH "OML2\-SERVER" "1" "2015\-04\-16" "OML 2\&.12\&.0pre\&.79\-58cf\-" "The OML Manual"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+oml2-server \- OML2 server daemon
+.SH "SYNOPSIS"
+.sp
+.nf
+\fBoml2\-server\fR [\-D dir | \-\-data\-dir=dir] [\-H hook | \-\-event\-hook=hook]
+            [\-l port | \-\-listen=port] [\-\-user=UID] [\-\-group=GID]
+            [\-t idleto | \-\-timeout=idleto]
+            [\-d loglevel | \-\-debug\-level=loglevel] [\-\-logfile=file]
+            [\-\-usage] [\-\-version | \-v] [\-? | \-\-help]
+            [OML\-OPTIONS]
+.fi
+.SH "DESCRIPTION"
+.sp
+\fBoml2\-server\fR (OML2 Server) is the daemon program for OML\&. It collects measurements from client applications and stores them in a measurement database\&.
+.sp
+\fBoml2\-server\fR listens for connections from clients\&. It is normally started at boot as a system service\&. Each client declares which experiment it belongs to (using the \-\-oml\-exp\-id option of the linkoml:liboml2 client library), and then sends a stream of measurement packets\&. The measurements for each client are stored in the experiment database belonging to the client\(cqs experiment\&.
+.sp
+If the client declares that it belongs to experiment \fIA\fR, then \fBoml2\-server\fR will look for an existing experiment database named \fIA\fR and add measurement data to that database\&. Otherwise it will attempt to create a new database of that name, initialize it for use, and append new measurements to it\&. Measurement streams from subsequent clients for experiment \fIA\fR will also be appended to the new database\&.
+.sp
+Finally, runtime statistics about the server can be reported over OML, either to the server itself or, better, to another \fBoml2\-server\fR\&. The available measurements points are described below, in section RUNTIME MEASUREMENT POINTS\&.
+.SH "OPTIONS"
+.PP
+\-D directory, \-\-data\-dir=directory
+.RS 4
+Store SQLite3 measurement databases for all experiments in the specified directory, when the SQLite3 backend is selected\&. The default on this system is /usr/local/var/oml2\&.
+\fB\-\-data\-dir\fR
+overrides the
+\fBOML_SQLITE_DIR\fR
+environment variable\&. If
+\fBoml2\-server\fR
+is run with an effective user id that does not have the right to create files in the directory, the server will exit with an error message in its log file\&. The SQLite3 database file name for an experiment is chosen by appending the suffix "\&.sq3" to the experiment name\&.
+.RE
+.PP
+\-H hook, \-\-event\-hook=hook
+.RS 4
+Specify an external hook program to call on specific events\&. This hook should take commands on
+\fIstdin\fR, and write reports on
+\fIstdout\fR\&. The hook\(cqs
+\fIstderr\fR
+is the same as the
+\fBoml2\-server\fR\*(Aqs\&. When first started, it should identify itself to the
+\fBoml2\-server\fR
+by printing the following banner line\&.
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+OML HOOK READY
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+It should then process its input in a loop, looking for the commands described in the
+HOOK COMMANDS
+section, below\&. Apart from its banner, the
+\fBoml2\-server\fR
+does not currently read anything the hook program outputs on its
+\fIstdout\fR\&.
+.sp
+A simple example hook,
+\fBoml2\-server\-hook\&.sh\fR, is available in /usr/local/share/oml2, which pushes the SQL dump of a just\-finished experiment to IRODS\&.
+.RE
+.PP
+\-l port, \-\-listen=port
+.RS 4
+Listen for measurement client connections on the given port\&. The default port is 3003\&.
+.RE
+.PP
+\-\-user=UID, \-\-group=GID
+.RS 4
+Try to change the server\(cqs user id and group id before starting to serve clients\&. OML only needs access to a single directory in which it has the right to create the SQLite3 experiment database files, plus the right to open and write to its log file (creating it if necessary)\&. The
+\fB\-\-user\fR
+and
+\fB\-\-group\fR
+options allow the system administrator to run
+\fBoml2\-server\fR
+under a non\-privileged account, thereby lessening its potential as a security risk\&. If only
+\fB\-\-user\fR
+is given, the gid will be set to the primary group id for the given user\&.
+\fB\-\-user\fR
+and
+\fB\-\-group\fR
+accept user and group names as arguments; numeric user and group ids are not supported\&.
+.RE
+.PP
+\-d, \-\-debug\-level=level
+.RS 4
+Set the verbosity of log output to level\&. The level should be an integer from 1 to 4 (1=ERROR, 2=WARNING, 3=INFO, 4=DEBUG)\&. The default log verbosity is 3, INFO\&.
+.RE
+.PP
+\-t idleto, \-\-timeout=idleto
+.RS 4
+Set the time, in seconds, after which an idle (i\&.e\&., not receiving data) client socket is reaped\&. This is useful to preserve system resources in the case of long running experiments, intermittent reporting or faulty reporting nodes or network\&. Defaults to 60s\&.
+.RE
+.PP
+\-\-logfile=file
+.RS 4
+Output log messages to
+\fIfile\fR
+rather than
+\fIstderr\fR\&.
+.RE
+.PP
+\-\-logfile=file
+.RS 4
+Write log messages to
+\fIfile\fR\&.
+.RE
+.PP
+\-\-usage
+.RS 4
+Print a brief usage message\&.
+.RE
+.PP
+\-v, \-\-version
+.RS 4
+Print the version number of
+\fBoml2\-server\fR\&.
+.RE
+.PP
+\-?, \-\-help
+.RS 4
+Print a summary of options\&.
+.RE
+.PP
+OML\-OPTIONS
+.RS 4
+These options control the reporting of runtime metrics over OML\&. They are documented in
+\fBliboml2\fR(1)\&. The avaialble
+\fIMPs\fR
+are documented in section
+RUNTIME MEASUREMENT POINTS, below\&.
+.RE
+.SH "RUNTIME MEASUREMENT POINTS"
+.sp
+The \fBoml2\-server\fR is able to expose some internal parameters and events over OML\&. While the server should be able to report these to itself, it is recommended to use a second \fBoml2\-server\fR for the purpose of monitoring\&.
+.sp
+Currently, the following \fIMPs\fR are available\&.
+.PP
+clients
+.RS 4
+This measurement point records client events, and reports their
+\fIaddress\fR, remote
+\fIport\fR, OML
+\fInode_id\fR, experimental
+\fIdomain\fR,
+\fIappname\fR, as well as the observed
+\fIevent\fR
+(e\&.g\&., connection or disconnection), and a potential
+\fImessage\fR\&.
+.RE
+.sp
+An \fBoml2-scaffold\fR(3) application description listing these \fIMPs\fR can also be found in /usr/local/share/oml2\&.
+.SH "HOOK COMMANDS"
+.sp
+The external event hook program should expect some of the following commands on its standard input\&.
+.PP
+EXIT
+.RS 4
+Command the hook to cleanup and terminate\&. This command has no argument\&.
+.RE
+.PP
+DBCREATED \fIuri\fR
+.RS 4
+New database
+\fIuri\fR
+(see
+DATABASE URI SCHEMES
+below) has been created ("New" here means that the database didn\(cqt have a
+\fIstart_time\fR
+metadatum; this is an idiosyncracy of the current code, but this essentially behaves as one would expect)\&. Tasks such as giving permissions to specific user groups can be performed in response to this event\&.
+.RE
+.PP
+DBOPENED \fIuri\fR
+.RS 4
+Database
+\fIuri\fR
+was re\-opened\&.
+.RE
+.PP
+DBCLOSED \fIuri\fR
+.RS 4
+The last client for database
+\fIuri\fR
+has now exited and cleanup tasks on the data can be performed\&.
+.RE
+.SH "DATABASE URI SCHEMES"
+.sp
+Database URI schemes vary with the backend, and are as follows\&.
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+SQLite3:
+\fIfile:fullpath\fR
+where
+\fIfullpath\fR
+is the full path to the database in the
+\fBoml2\-server\fR\*(Aqs local filesystem\&.
+.RE
+.SH "ENVIRONMENT VARIABLES"
+.PP
+OML_SQLITE_DIR
+.RS 4
+Create SQLite3 experiment measurement databases in this directory\&. This environment variable is overridden by the
+\fB\-\-data\-dir\fR
+command line option\&.
+.RE
+.SH "SIGNALS"
+.sp
+The \fBoml2\-server\fR reacts to some signals\&.
+.PP
+SIGUSR
+.RS 4
+Log an information message reporting the status of its allocated memory
+.RE
+.PP
+SIGINT & SIGTERM
+.RS 4
+Gracefully terminate, emptying the buffers and closing client connections\&.
+.RE
+.SH "SECURITY CONSIDERATIONS"
+.sp
+\fBoml2\-server\fR does not use any authentication, and should thus be considered insecure\&. It is intended to be deployed behind firewalls on a dedicated testbed network\&. It should not be run as a daemon on an open network\&. Future versions of OML may be re\-designed to be suitable for use in insecure environments\&.
+.SH "BUGS"
+.sp
+If a problem you are experiencing is not addressed in the FAQ (http://oml\&.mytestbed\&.net/projects/oml/wiki/FAQ_and_Support) nor already present in the list of know bugs (http://oml\&.mytestbed\&.net/projects/oml/issues)\&. You could discuss it on the mailing list (details and archives at http://oml\&.mytestbed\&.net/tab/show?id=oml)\&.
+.sp
+It is however advisable to open a ticket on our issue tracker at http://oml\&.mytestbed\&.net/projects/oml/issues/new\&. Don\(cqt forget to include details such as client and server logs (at \fI[\-\-oml\-log\-level|\-d] 2\fR)\&. It also helps if you can share the source code of a (minimal, if possible) example reliably triggering the problem\&.
+.SH "SEE ALSO"
+.SS "Manual Pages"
+.sp
+\fBoml2-proxy-server\fR(1), \fBliboml2\fR(1), \fBliboml2\fR(3)
+.SS "OML User Manual"
+.sp
+http://oml\&.mytestbed\&.net/projects/oml/wiki/Documentation
+.SS "SQLite3"
+.sp
+http://www\&.sqlite\&.org
+.SS "IRODS"
+.sp
+http://www\&.irods\&.org/

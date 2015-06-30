@@ -1,0 +1,11 @@
+<map id="message_queue.c" name="message_queue.c">
+<area shape="rect" id="node5" href="$mem_8h.html" title="mem.h" alt="" coords="189,315,251,344"/>
+<area shape="rect" id="node15" href="$cbuf_8h.html" title="cbuf.h" alt="" coords="396,160,455,189"/>
+<area shape="rect" id="node17" href="$message_8h.html" title="Defines a container for either a text or binary message (struct oml_message) and the associated inter..." alt="" coords="259,160,344,189"/>
+<area shape="rect" id="node44" href="$message__queue_8h.html" title="message_queue.h" alt="" coords="275,83,403,112"/>
+<area shape="rect" id="node11" href="$o__log_8h.html" title="ocomm/o_log.h" alt="" coords="264,392,373,421"/>
+<area shape="rect" id="node20" href="$omlc_8h.html" title="Public API of the OML client library." alt="" coords="388,315,481,344"/>
+<area shape="rect" id="node33" href="$schema_8h.html" title="schema.h" alt="" coords="325,237,403,267"/>
+<area shape="rect" id="node39" href="$mbuf_8h.html" title="mbuf.h" alt="" coords="5,315,67,344"/>
+<area shape="rect" id="node36" href="$mstring_8h.html" title="mstring.h" alt="" coords="91,315,165,344"/>
+</map>

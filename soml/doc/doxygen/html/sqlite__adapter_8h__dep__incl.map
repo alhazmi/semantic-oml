@@ -1,0 +1,7 @@
+<map id="sqlite_adapter.h" name="sqlite_adapter.h">
+<area shape="rect" id="node3" href="$database_8c.html" title="Generic interface for database backends." alt="" coords="5,83,91,112"/>
+<area shape="rect" id="node5" href="$oml2-server_8c.html" title="Main oml2&#45;server functions." alt="" coords="115,83,216,112"/>
+<area shape="rect" id="node7" href="$sqlite__adapter_8c.html" title="Adapter code for the SQLite3 database backend." alt="" coords="240,83,355,112"/>
+<area shape="rect" id="node9" href="$check__binary__protocol_8c.html" title="check_binary_protocol.c" alt="" coords="379,83,541,112"/>
+<area shape="rect" id="node11" href="$check__text__protocol_8c.html" title="check_text_protocol.c" alt="" coords="565,83,715,112"/>
+</map>

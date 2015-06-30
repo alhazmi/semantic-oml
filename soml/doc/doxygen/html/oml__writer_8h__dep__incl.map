@@ -1,0 +1,47 @@
+<map id="oml_writer.h" name="oml_writer.h">
+<area shape="rect" id="node3" href="$oml__filter_8h.html" title="Abstract interface for filters." alt="" coords="1329,83,1415,112"/>
+<area shape="rect" id="node7" href="$client_8h.html" title="Defines various structures and functions used by various parts." alt="" coords="465,169,529,199"/>
+<area shape="rect" id="node10" href="$bin__writer_8c.html" title="An implementation of the OmlWriter interface functions (see oml2/oml_writer.h) that writes messages u..." alt="" coords="5,256,93,285"/>
+<area shape="rect" id="node16" href="$filter_8c.html" title="OML&#39;s client side filter engine." alt="" coords="965,256,1024,285"/>
+<area shape="rect" id="node18" href="$init_8c.html" title="Implement the user&#45;visible initialisation routines of the user&#45;visible OML API." alt="" coords="1179,256,1229,285"/>
+<area shape="rect" id="node26" href="$text__writer_8c.html" title="An implementation of the OmlWriter interface functions (see oml2/oml_writer.h) that serializes measur..." alt="" coords="117,256,211,285"/>
+<area shape="rect" id="node43" href="$check__liboml2__filters_8c.html" title="check_liboml2_filters.c" alt="" coords="1512,256,1667,285"/>
+<area shape="rect" id="node58" href="$fuseki__adapter-new-yahya_8c.html" title="fuseki_adapter&#45;new\l&#45;yahya.c" alt="" coords="1825,161,1959,207"/>
+<area shape="rect" id="node60" href="$fuseki__adapter_8c.html" title="fuseki_adapter.c" alt="" coords="1983,169,2100,199"/>
+<area shape="rect" id="node62" href="$fuseki__adapter__beforeyahyachanges_8c.html" title="fuseki_adapter_beforeyahyachanges.c" alt="" coords="2124,169,2369,199"/>
+<area shape="rect" id="node64" href="$fuseki__adapter__in__progress_8c.html" title="fuseki_adapter_in_progress.c" alt="" coords="2393,169,2585,199"/>
+<area shape="rect" id="node66" href="$fuseki__adapter__working_8c.html" title="fuseki_adapter_working.c" alt="" coords="2609,169,2780,199"/>
+<area shape="rect" id="node68" href="$virtuoso__adapter_8c.html" title="virtuoso_adapter.c" alt="" coords="2804,169,2932,199"/>
+<area shape="rect" id="node84" href="$check__util_8c.html" title="Miscellaneous functions and macros used elsewhere in testing." alt="" coords="2779,256,2869,285"/>
+<area shape="rect" id="node87" href="$buffered__writer_8h.html" title="buffered_writer.h" alt="" coords="252,169,369,199"/>
+<area shape="rect" id="node97" href="$client__handler_8c.html" title="The client handler receives callbacks from the eventloop and processes messages in either OML&#39;s text ..." alt="" coords="3057,169,3169,199"/>
+<area shape="rect" id="node99" href="$client__handler_8h.html" title="client_handler.h" alt="" coords="3276,83,3388,112"/>
+<area shape="rect" id="node102" href="$oml2-server_8c.html" title="Main oml2&#45;server functions." alt="" coords="3193,169,3295,199"/>
+<area shape="rect" id="node5" href="$api_8c.html" title="Implement the user&#45;visible API of OML." alt="" coords="376,256,427,285"/>
+<area shape="rect" id="node33" href="$average__filter_8c.html" title="Implements a filter which calculates the average over all the samples it received over the sample per..." alt="" coords="705,169,815,199"/>
+<area shape="rect" id="node35" href="$delta__filter_8c.html" title="Implements a filter which returns the difference between the previously reported and current sample v..." alt="" coords="839,169,932,199"/>
+<area shape="rect" id="node37" href="$factory_8h.html" title="factory.h" alt="" coords="1372,169,1444,199"/>
+<area shape="rect" id="node45" href="$first__filter_8c.html" title="Implements a filter which captures the first value presented." alt="" coords="956,169,1041,199"/>
+<area shape="rect" id="node47" href="$histogram__filter_8c.html" title="Implements a filter which calculates." alt="" coords="1065,169,1188,199"/>
+<area shape="rect" id="node49" href="$last__filter_8c.html" title="Implements a filter which captures the last value presented." alt="" coords="1212,169,1297,199"/>
+<area shape="rect" id="node51" href="$stddev__filter_8c.html" title="Implements a filter that calculates the standard deviation (and variance) over all samples it receive..." alt="" coords="1468,169,1572,199"/>
+<area shape="rect" id="node53" href="$sum__filter_8c.html" title="Implements a filter which sums all the samples it received over the sample period." alt="" coords="1596,169,1687,199"/>
+<area shape="rect" id="node70" href="$check__util_8h.html" title="check_util.h" alt="" coords="1711,169,1801,199"/>
+<area shape="rect" id="node12" href="$buffered__writer_8c.html" title="A non&#45;blocking, self&#45;draining FIFO queue using threads." alt="" coords="235,256,352,285"/>
+<area shape="rect" id="node14" href="$file__stream_8c.html" title="An OmlOutStream implementation that writer that writes measurement tuples to a file on the local file..." alt="" coords="637,256,733,285"/>
+<area shape="rect" id="node20" href="$misc_8c.html" title="Implements various common utility functions (XXX: Only mutex lock/unlock)." alt="" coords="757,256,819,285"/>
+<area shape="rect" id="node22" href="$net__stream_8c.html" title="An OmlOutStream implementation that writer that sends measurement tuples over the network..." alt="" coords="843,256,941,285"/>
+<area shape="rect" id="node24" href="$parse__config_8c.html" title="The XML configuration file parser functions." alt="" coords="1048,256,1155,285"/>
+<area shape="rect" id="node28" href="$check__liboml2__api_8c.html" title="Test the user&#45;visible OML API." alt="" coords="1349,256,1488,285"/>
+<area shape="rect" id="node30" href="$check__liboml2__writers_8c.html" title="check_liboml2_writers.c" alt="" coords="451,256,613,285"/>
+<area shape="rect" id="node39" href="$factory_8c.html" title="Implements the functions to create and manage filters." alt="" coords="1253,256,1325,285"/>
+<area shape="rect" id="node73" href="$check__liboml2__bswap_8c.html" title="check_liboml2_bswap.c" alt="" coords="2421,256,2581,285"/>
+<area shape="rect" id="node75" href="$check__liboml2__cbuf_8c.html" title="check_liboml2_cbuf.c" alt="" coords="1691,256,1837,285"/>
+<area shape="rect" id="node77" href="$check__liboml2__config_8c.html" title="Test the client&#45;side XML configuration parsing." alt="" coords="1861,256,2019,285"/>
+<area shape="rect" id="node80" href="$check__liboml2__mbuf_8c.html" title="check_liboml2_mbuf.c" alt="" coords="2043,256,2195,285"/>
+<area shape="rect" id="node82" href="$check__libshared__marshal_8c.html" title="check_libshared_marshal.c" alt="" coords="2219,256,2397,285"/>
+<area shape="rect" id="node104" href="$check__binary__protocol_8c.html" title="check_binary_protocol.c" alt="" coords="3551,256,3713,285"/>
+<area shape="rect" id="node106" href="$check__server_8h.html" title="check_server.h" alt="" coords="3420,169,3529,199"/>
+<area shape="rect" id="node109" href="$check__server_8c.html" title="check_server.c" alt="" coords="3244,256,3353,285"/>
+<area shape="rect" id="node111" href="$check__text__protocol_8c.html" title="check_text_protocol.c" alt="" coords="3377,256,3527,285"/>
+</map>

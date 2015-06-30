@@ -1,0 +1,8 @@
+<map id="proxy_client.h" name="proxy_client.h">
+<area shape="rect" id="node3" href="$oml2-proxy-server_8c.html" title="Implement the proxy server&#39;s top&#45;level main() and its supporting functions." alt="" coords="5,83,141,112"/>
+<area shape="rect" id="node5" href="$proxy__client_8c.html" title="Functions to manage the Client structure." alt="" coords="165,83,267,112"/>
+<area shape="rect" id="node7" href="$receiver_8c.html" title="Functions responsible for implementing the receive loop that reads stores meessages in the message qu..." alt="" coords="291,83,368,112"/>
+<area shape="rect" id="node9" href="$sender_8c.html" title="Implements half&#45;async sender which uses a background thread to send messages to the OML server..." alt="" coords="392,83,464,112"/>
+<area shape="rect" id="node11" href="$session_8c.html" title="Session management functions." alt="" coords="488,83,565,112"/>
+<area shape="rect" id="node13" href="$msgloop_8c.html" title="msgloop.c" alt="" coords="589,83,672,112"/>
+</map>

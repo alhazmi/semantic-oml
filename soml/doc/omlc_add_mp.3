@@ -1,0 +1,139 @@
+'\" t
+.\"     Title: omlc_add_mp
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.76.1 <http://docbook.sf.net/>
+.\"      Date: 2015-04-16
+.\"    Manual: The OML Manual
+.\"    Source: OML 2.12.0pre.79-58cf-dirty
+.\"  Language: English
+.\"
+.TH "OMLC_ADD_MP" "3" "2015\-04\-16" "OML 2\&.12\&.0pre\&.79\-58cf\-" "The OML Manual"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+omlc_add_mp \- register the definition of a new Measurement Point
+.SH "SYNOPSIS"
+.sp
+.nf
+\fB#include <oml2/omlc\&.h>\fR
+.fi
+.sp
+.nf
+\fIOmlMP\fR* \fBomlc_add_mp\fR(\fIconst char\fR *name, \fIOmlMPDef\fR *definition);
+.fi
+.SH "DESCRIPTION"
+.sp
+\fBomlc_add_mp\fR registers the definition of a new \fIMeasurement Point\fR (MP) with the OML client API and returns a handle to it\&. An \fIMP\fR accepts typed tuples as input\&. For most cases, it is recommended to use \fBoml2-scaffold\fR(1) to generate code in charge of declaring and registering \fIMPs\fR\&. This creates the \fBoml_register_mps\fR(3) function\&. The following describes how to manually declare and add MPs, much in the same way as \fBoml_register_mps\fR(3) does\&.
+.sp
+The \fIdefinition\fR parameter of \fBomlc_add_mp\fR() defines this tuple\&. It must be an array of \fIOmlMPDef\fR objects, terminated with a sentinel\&. Here is an example:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+OmlMPDef mp_def [] =
+{
+  { "source", OML_UINT32_VALUE },
+  { "destination", OML_UINT32_VALUE },
+  { "length", OML_UINT32_VALUE },
+  { "weight", OML_DOUBLE_VALUE },
+  { "protocol", OML_STRING_VALUE },
+  { NULL, (OmlValueT)0 } /* Sentinel */
+};
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+This definition would then be passed to \fBomlc_add_mp\fR() like so:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+OmlMP* mp = omlc_add_mp("myMP", mp_def);
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+The \fIMP\fR must be given a name (the \fIname\fR parameter, "myMP" in this example), which is used to identify the source \fIMP\fR in the measurement output (either to the \fBoml2-server\fR(1) or a file)\&. The name of each field of the tuple is the first element of the \fIOmlMPDef\fR object, the type is the second\&. The available types are described in \fBliboml2\fR(3)\&.
+.sp
+This tuple of (name, type) pairs constitutes a declaration of what type of data will be injected into the \fIMP\fR, and what the data means\&. In this sense it is a schema or data definition for the measurement point\&. For more information, including an overview of how filters work and how \fBliboml2\fR outputs measurements, see \fBliboml2.conf\fR(5)\&.
+.sp
+\fBomlc_add_mp\fR() can only be called after \fBomlc_init\fR(3) has been called, and cannot be called once \fBomlc_start\fR(3) has been called\&. See \fBliboml2\fR(3) for more details on the phases of an OML\-enabled application\&.
+.SH "RETURN VALUE"
+.sp
+\fBomlc_add_mp\fR() returns NULL if an error occurs\&. If the call succeeds, it returns a pointer to an \fIOmlMP\fR object that should be used in subsequent calls to \fBomlc_inject\fR(3)\&. The \fIOmlMP\fR pointer should be treated as an opaque handle\&.
+.SH "ERRORS"
+.sp
+\fBomlc_add_mp\fR() will return NULL if:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+the
+\fIname\fR
+of the MP contains whitespace or is NULL;
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+the library cannot allocate memory for the MP;
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fBliboml2\fR
+has not yet been initialized via a call to
+\fBomlc_init\fR(3)\&.
+.RE
+.SH "BUGS"
+.sp
+If a problem you are experiencing is not addressed in the FAQ (http://oml\&.mytestbed\&.net/projects/oml/wiki/FAQ_and_Support) nor already present in the list of know bugs (http://oml\&.mytestbed\&.net/projects/oml/issues)\&. You could discuss it on the mailing list (details and archives at http://oml\&.mytestbed\&.net/tab/show?id=oml)\&.
+.sp
+It is however advisable to open a ticket on our issue tracker at http://oml\&.mytestbed\&.net/projects/oml/issues/new\&. Don\(cqt forget to include details such as client and server logs (at \fI[\-\-oml\-log\-level|\-d] 2\fR)\&. It also helps if you can share the source code of a (minimal, if possible) example reliably triggering the problem\&.
+.SH "SEE ALSO"
+.SS "Manual Pages"
+.sp
+\fBoml2-server\fR(1), \fBliboml2\fR(1), \fBliboml2\fR(3), \fBliboml2.conf\fR(5)
+.sp
+\fBomlc_init\fR(3), \fBomlc_start\fR(3), \fBomlc_inject\fR(3)
+.SS "OML User Manual"
+.sp
+http://oml\&.mytestbed\&.net/projects/oml/wiki/Documentation

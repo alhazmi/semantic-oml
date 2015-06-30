@@ -1,0 +1,21 @@
+<map id="client_handler.c" name="client_handler.c">
+<area shape="rect" id="node13" href="$oml__writer_8h.html" title="Abstract interface for writers." alt="" coords="1095,160,1220,189"/>
+<area shape="rect" id="node27" href="$o__log_8h.html" title="ocomm/o_log.h" alt="" coords="336,469,445,499"/>
+<area shape="rect" id="node32" href="$o__socket_8h.html" title="Header file for the OComm Socket library. OSockets are a thin abstraction layer that manages sockets ..." alt="" coords="933,237,1067,267"/>
+<area shape="rect" id="node41" href="$o__eventloop_8h.html" title="ocomm/o_eventloop.h" alt="" coords="672,160,821,189"/>
+<area shape="rect" id="node46" href="$mem_8h.html" title="mem.h" alt="" coords="360,392,421,421"/>
+<area shape="rect" id="node51" href="$monitoring__server_8h.html" title="monitoring_server.h" alt="" coords="827,83,963,112"/>
+<area shape="rect" id="node53" href="$mbuf_8h.html" title="mbuf.h" alt="" coords="1448,315,1509,344"/>
+<area shape="rect" id="node58" href="$oml__value_8h.html" title="oml_value.h" alt="" coords="1029,315,1120,344"/>
+<area shape="rect" id="node65" href="$oml__util_8h.html" title="oml_util.h" alt="" coords="1088,83,1165,112"/>
+<area shape="rect" id="node67" href="$validate_8h.html" title="validate.h" alt="" coords="1189,83,1267,112"/>
+<area shape="rect" id="node69" href="$marshal_8h.html" title="marshal.h" alt="" coords="1557,237,1635,267"/>
+<area shape="rect" id="node74" href="$binary_8h.html" title="binary.h" alt="" coords="1288,160,1355,189"/>
+<area shape="rect" id="node79" href="$schema_8h.html" title="schema.h" alt="" coords="576,315,653,344"/>
+<area shape="rect" id="node92" href="$client__handler_8h.html" title="client_handler.h" alt="" coords="691,83,803,112"/>
+<area shape="rect" id="node15" href="$omlc_8h.html" title="Public API of the OML client library." alt="" coords="1035,392,1128,421"/>
+<area shape="rect" id="node85" href="$message_8h.html" title="Defines a container for either a text or binary message (struct oml_message) and the associated inter..." alt="" coords="1245,237,1331,267"/>
+<area shape="rect" id="node82" href="$mstring_8h.html" title="mstring.h" alt="" coords="563,392,637,421"/>
+<area shape="rect" id="node99" href="$database_8h.html" title="Interface that storage backend need to implement to be usable by the server." alt="" coords="563,160,648,189"/>
+<area shape="rect" id="node103" href="$table__descr_8h.html" title="table_descr.h" alt="" coords="627,237,725,267"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="msg_queue" name="msg_queue">
+<area shape="rect" id="node2" href="$structmsg__queue__node.html" title="msg_queue_node" alt="" coords="85,197,208,227"/>
+<area shape="rect" id="node4" href="$structcbuffer__cursor.html" title="cbuffer_cursor" alt="" coords="5,101,109,131"/>
+<area shape="rect" id="node6" href="$structcbuffer__page.html" title="cbuffer_page" alt="" coords="9,5,105,35"/>
+<area shape="rect" id="node9" href="$structoml__message.html" title="oml_message" alt="" coords="133,101,235,131"/>
+</map>

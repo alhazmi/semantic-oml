@@ -1,0 +1,122 @@
+'\" t
+.\"     Title: oml2-proxy-server
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.76.1 <http://docbook.sf.net/>
+.\"      Date: 2015-04-16
+.\"    Manual: The OML Manual
+.\"    Source: OML 2.12.0pre.79-58cf-dirty
+.\"  Language: English
+.\"
+.TH "OML2\-PROXY\-SERVER" "1" "2015\-04\-16" "OML 2\&.12\&.0pre\&.79\-58cf\-" "The OML Manual"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+oml2-proxy-server \- Buffer OML client measurements for later replay to an upstream server\&.
+.SH "SYNOPSIS"
+.sp
+.nf
+\fBoml2\-proxy\-server\fR [\-l port | \-\-listen=port] [\-r file | \-\-resultfile=file]
+      [\-s size| \-\-size=size] [\-a addr | \-\-dstaddress=addr] [\-p port | \-\-dstport=port]
+          [\-d level | \-\-debug\-level=level] [\-\-logfile=file] [\-v | \-\-version]
+          [\-? | \-\-help]
+.fi
+.SH "DESCRIPTION"
+.sp
+\fBoml2\-proxy\-server\fR provides a buffered proxy for the \fBoml2-server\fR(1) for use in situations where either the normal \fBoml2\-server\fR is not reachable, or where using a reachable \fBoml2\-server\fR to store measurements as they are made would disturb the phenomena being measured\&.
+.sp
+The \fBoml2\-proxy\-server\fR listens for OML client connections on the port given with the \-l option, and buffers the subsequent measurement traffic in memory\&. When it receives an OML\-RESUME command (see below), \fBoml2\-proxy\-server\fR connects to the upstream \fBoml2\-server\fR daemon (specified with the \-a and \-p options) and then sends all buffered measurements to the upstream server\&.
+.sp
+The buffering scheme is very simple: the client measurement streams are stored in the buffer without translation, and then simply replayed to the upstream server when the proxy is resumed\&. This allows the \fBoml2\-proxy\-server\fR implementation to be very simple\&.
+.sp
+The \fBoml2\-proxy\-server\fR listens for the OMLPROXY\-PAUSE and OMLPROXY\-RESUME commands on its stdin file descriptor\&. The operator must therefore leave the process attached to an open terminal or pipe whilst it is running in order to control it\&. The commands must be typed in upper case as listed here, followed by a carriage return (ENTER key)\&.
+.sp
+The OMLPROXY\-PAUSE command pauses the transmission of measurements to the upstream server\&. When \fBoml2\-proxy\-server\fR starts, it is in this state\&.
+.sp
+The OMLPROXY\-RESUME command resumes transmission of measurements to the upstream server\&.
+.sp
+A typical usage scenario is to start the \fBoml2\-proxy\-server\fR and leave it in the paused state, then conduct measurements, and when measurement activities have finished, issue the OMLPROXY\-RESUME command to order the proxy server to send measurements to the upstream OML server\&.
+.sp
+As well as storing the measurement streams in memory, the \fBoml2\-proxy\-server\fR also saves them to a file on disk, whose name and location can be specified with the \fI\-r\fR option\&.
+.SH "OPTIONS"
+.PP
+\-l port, \-\-listen=port
+.RS 4
+Listen for connections from OML clients on port (default 3003)\&.
+.RE
+.PP
+\-d level, \-\-debug\-level=level
+.RS 4
+Set the verbosity of the log output to level\&. The level should be an integer from 1 to 4 (1=ERROR, 2=WARNING, 3=INFO, 4=DEBUG)\&. The default log verbosity is 3, INFO\&.
+.RE
+.PP
+\-\-logfile=file
+.RS 4
+Write log messages to the given file\&. The default file is oml_proxy_server\&.log\&.
+.RE
+.PP
+\-r file, \-\-resultfile=file
+.RS 4
+Save results into the given disk file\&. The default result file name is oml_result_proxy\&.log\&. If the result file already exists then a new one will be created with a unique name based on file\&.
+.RE
+.PP
+\-s bytes, \-\-size=bytes
+.RS 4
+Buffer page size in bytes\&.
+.RE
+.PP
+\-p port, \-\-dstport=port
+.RS 4
+Upstream server port number (default port is 3003)\&.
+.RE
+.PP
+\-a address, \-\-dstaddress=address
+.RS 4
+Upstream server address (default is localhost)\&.
+.RE
+.PP
+\-v, \-\-version
+.RS 4
+Print the version number of
+\fBoml2\-proxy\-server\fR\&.
+.RE
+.PP
+\-?, \-\-help
+.RS 4
+Print a summary of available options\&.
+.RE
+.PP
+\-\-usage
+.RS 4
+Display a brief usage message\&.
+.RE
+.SH "BUGS"
+.sp
+The \fBoml2\-proxy\-server\fR is still experimental software and under active development\&. It may contain bugs, and its interfaces may change without warning from version to version, even within the 2\&.x major release series\&. We will strive to keep the interface backwards compatible for patch\-level releases within a minor release series (i\&.e\&. version 2\&.3\&.5 should be backwards compatible with 2\&.3\&.4), but we may change the interface between minor release series (e\&.g\&. version 2\&.4\&.0 might not be backwards compatible with 2\&.3\&.5)\&.
+.sp
+If a problem you are experiencing is not addressed in the FAQ (http://oml\&.mytestbed\&.net/projects/oml/wiki/FAQ_and_Support) nor already present in the list of know bugs (http://oml\&.mytestbed\&.net/projects/oml/issues)\&. You could discuss it on the mailing list (details and archives at http://oml\&.mytestbed\&.net/tab/show?id=oml)\&.
+.sp
+It is however advisable to open a ticket on our issue tracker at http://oml\&.mytestbed\&.net/projects/oml/issues/new\&. Don\(cqt forget to include details such as client and server logs (at \fI[\-\-oml\-log\-level|\-d] 2\fR)\&. It also helps if you can share the source code of a (minimal, if possible) example reliably triggering the problem\&.
+.SH "SEE ALSO"
+.SS "Manual Pages"
+.sp
+\fBoml2-server\fR(1), \fBliboml2\fR(1), \fBliboml2\fR(3)
+.SS "OML User Manual"
+.sp
+http://oml\&.mytestbed\&.net/projects/oml/wiki/Documentation

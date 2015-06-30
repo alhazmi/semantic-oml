@@ -1,0 +1,10 @@
+<map id="message_queue.h" name="message_queue.h">
+<area shape="rect" id="node3" href="$message__queue_8c.html" title="Implement a FIFO message queue containing CBuffer objects." alt="" coords="5,83,133,112"/>
+<area shape="rect" id="node5" href="$proxy__client_8h.html" title="proxy_client.h" alt="" coords="272,83,373,112"/>
+<area shape="rect" id="node9" href="$proxy__client_8c.html" title="Functions to manage the Client structure." alt="" coords="57,160,159,189"/>
+<area shape="rect" id="node11" href="$receiver_8c.html" title="Functions responsible for implementing the receive loop that reads stores meessages in the message qu..." alt="" coords="183,160,260,189"/>
+<area shape="rect" id="node7" href="$oml2-proxy-server_8c.html" title="Implement the proxy server&#39;s top&#45;level main() and its supporting functions." alt="" coords="492,160,628,189"/>
+<area shape="rect" id="node13" href="$sender_8c.html" title="Implements half&#45;async sender which uses a background thread to send messages to the OML server..." alt="" coords="652,160,724,189"/>
+<area shape="rect" id="node15" href="$session_8c.html" title="Session management functions." alt="" coords="284,160,361,189"/>
+<area shape="rect" id="node17" href="$msgloop_8c.html" title="msgloop.c" alt="" coords="385,160,468,189"/>
+</map>

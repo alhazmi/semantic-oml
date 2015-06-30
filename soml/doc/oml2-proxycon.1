@@ -1,0 +1,56 @@
+'\" t
+.\"     Title: oml2-proxycon
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.76.1 <http://docbook.sf.net/>
+.\"      Date: 2015-04-16
+.\"    Manual: The OML Manual
+.\"    Source: OML 2.12.0pre.79-58cf-dirty
+.\"  Language: English
+.\"
+.TH "OML2\-PROXYCON" "1" "2015\-04\-16" "OML 2\&.12\&.0pre\&.79\-58cf\-" "The OML Manual"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+oml2-proxycon \- Control script for the oml2\-proxy\-server\&.
+.SH "SYNOPSIS"
+.sp
+.nf
+\fBoml2\-proxycon\fR PROXY_HOST PROXY_PORT
+.fi
+.SH "DESCRIPTION"
+.sp
+\fBoml2\-proxycon\fR provides a local interface to control the \fBoml2-proxy-server\fR(1) status\&. The The \fBoml2\-proxy\-server\fR running on \fIPROXY_HOST\fR (e\&.g\&., \fIlocalhost\fR) listens for OML client connections on network port \fIPROXY_PORT\fR (3004 by default)\&. The \fBoml2\-proxycon\fR expects commands on its \fIstdin\fR, and forwards them to the proxy server\&.
+.sp
+This is particularly useful within an OMF\-based experiment, where resources can be controlled through messages written on applications\*(Aq standard input\&.
+.SH "BUGS"
+.sp
+If a problem you are experiencing is not addressed in the FAQ (http://oml\&.mytestbed\&.net/projects/oml/wiki/FAQ_and_Support) nor already present in the list of know bugs (http://oml\&.mytestbed\&.net/projects/oml/issues)\&. You could discuss it on the mailing list (details and archives at http://oml\&.mytestbed\&.net/tab/show?id=oml)\&.
+.sp
+It is however advisable to open a ticket on our issue tracker at http://oml\&.mytestbed\&.net/projects/oml/issues/new\&. Don\(cqt forget to include details such as client and server logs (at \fI[\-\-oml\-log\-level|\-d] 2\fR)\&. It also helps if you can share the source code of a (minimal, if possible) example reliably triggering the problem\&.
+.SH "SEE ALSO"
+.SS "Manual Pages"
+.sp
+\fBoml2-proxy-server\fR(1)
+.SS "OML User Manual"
+.sp
+http://oml\&.mytestbed\&.net/projects/oml/wiki/Documentation
+.SS "OMF"
+.sp
+http://omf\&.mytestbed\&.net

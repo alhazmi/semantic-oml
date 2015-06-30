@@ -1,0 +1,9 @@
+<map id="factory.c" name="factory.c">
+<area shape="rect" id="node7" href="$omlc_8h.html" title="Public API of the OML client library." alt="" coords="181,315,275,344"/>
+<area shape="rect" id="node19" href="$o__log_8h.html" title="ocomm/o_log.h" alt="" coords="464,392,573,421"/>
+<area shape="rect" id="node24" href="$mem_8h.html" title="mem.h" alt="" coords="488,315,549,344"/>
+<area shape="rect" id="node29" href="$oml__value_8h.html" title="oml_value.h" alt="" coords="365,237,456,267"/>
+<area shape="rect" id="node36" href="$factory_8h.html" title="factory.h" alt="" coords="297,83,369,112"/>
+<area shape="rect" id="node38" href="$oml__filter_8h.html" title="Abstract interface for filters." alt="" coords="263,160,380,189"/>
+<area shape="rect" id="node41" href="$oml__writer_8h.html" title="Abstract interface for writers." alt="" coords="165,237,291,267"/>
+</map>

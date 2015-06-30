@@ -1,0 +1,16 @@
+<map id="sender.c" name="sender.c">
+<area shape="rect" id="node25" href="$o__log_8h.html" title="ocomm/o_log.h" alt="" coords="621,469,731,499"/>
+<area shape="rect" id="node29" href="$mem_8h.html" title="mem.h" alt="" coords="827,392,888,421"/>
+<area shape="rect" id="node35" href="$session_8h.html" title="session.h" alt="" coords="1059,83,1136,112"/>
+<area shape="rect" id="node37" href="$proxy__client_8h.html" title="proxy_client.h" alt="" coords="933,83,1035,112"/>
+<area shape="rect" id="node42" href="$mbuf_8h.html" title="mbuf.h" alt="" coords="1095,392,1156,421"/>
+<area shape="rect" id="node47" href="$cbuf_8h.html" title="cbuf.h" alt="" coords="1141,237,1200,267"/>
+<area shape="rect" id="node49" href="$headers_8h.html" title="headers.h" alt="" coords="1360,160,1437,189"/>
+<area shape="rect" id="node52" href="$message_8h.html" title="Defines a container for either a text or binary message (struct oml_message) and the associated inter..." alt="" coords="937,237,1023,267"/>
+<area shape="rect" id="node72" href="$o__socket_8h.html" title="Header file for the OComm Socket library. OSockets are a thin abstraction layer that manages sockets ..." alt="" coords="645,237,779,267"/>
+<area shape="rect" id="node79" href="$o__eventloop_8h.html" title="ocomm/o_eventloop.h" alt="" coords="797,160,947,189"/>
+<area shape="rect" id="node84" href="$message__queue_8h.html" title="message_queue.h" alt="" coords="1021,160,1149,189"/>
+<area shape="rect" id="node55" href="$omlc_8h.html" title="Public API of the OML client library." alt="" coords="644,392,737,421"/>
+<area shape="rect" id="node65" href="$schema_8h.html" title="schema.h" alt="" coords="863,315,940,344"/>
+<area shape="rect" id="node68" href="$mstring_8h.html" title="mstring.h" alt="" coords="996,392,1071,421"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="database_adapter.h" name="database_adapter.h">
+<area shape="rect" id="node3" href="$database__adapter_8c.html" title="database_adapter.c" alt="" coords="5,92,141,121"/>
+<area shape="rect" id="node5" href="$fuseki__adapter-new-yahya_8c.html" title="fuseki_adapter&#45;new\l&#45;yahya.c" alt="" coords="165,83,299,130"/>
+<area shape="rect" id="node7" href="$fuseki__adapter_8c.html" title="fuseki_adapter.c" alt="" coords="323,92,440,121"/>
+<area shape="rect" id="node9" href="$fuseki__adapter__beforeyahyachanges_8c.html" title="fuseki_adapter_beforeyahyachanges.c" alt="" coords="464,92,709,121"/>
+<area shape="rect" id="node11" href="$fuseki__adapter__in__progress_8c.html" title="fuseki_adapter_in_progress.c" alt="" coords="733,92,925,121"/>
+<area shape="rect" id="node13" href="$fuseki__adapter__working_8c.html" title="fuseki_adapter_working.c" alt="" coords="949,92,1120,121"/>
+<area shape="rect" id="node15" href="$psql__adapter_8c.html" title="Adapter code for the PostgreSQL database backend." alt="" coords="1144,92,1251,121"/>
+<area shape="rect" id="node17" href="$sqlite__adapter_8c.html" title="Adapter code for the SQLite3 database backend." alt="" coords="1275,92,1389,121"/>
+<area shape="rect" id="node19" href="$virtuoso__adapter_8c.html" title="virtuoso_adapter.c" alt="" coords="1413,92,1541,121"/>
+</map>

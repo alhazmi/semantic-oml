@@ -1,0 +1,36 @@
+var o__eventloop_8h =
+[
+    [ "_TimerEvtSource", "struct__TimerEvtSource.html", "struct__TimerEvtSource" ],
+    [ "_sockEvtSource", "struct__sockEvtSource.html", "struct__sockEvtSource" ],
+    [ "o_el_monitor_socket_callback", "o__eventloop_8h.html#a8c31a7c37ae71a853bcb1fd3de2cf21a", null ],
+    [ "o_el_read_socket_callback", "o__eventloop_8h.html#aa9d559820eb607fcd57861960cd6b244", null ],
+    [ "o_el_state_socket_callback", "o__eventloop_8h.html#a9de4addeab0021b31ea314fb4f0df6e7", null ],
+    [ "o_el_timer_callback", "o__eventloop_8h.html#a733f21784c10a082418e714bc49ff59d", null ],
+    [ "SocketStatus", "o__eventloop_8h.html#a579723a800874d33587042781a60af86", null ],
+    [ "SockEvtSource", "o__eventloop_8h.html#ac2b8421423a2691d90489400dc948fb3", null ],
+    [ "TimerEvtSource", "o__eventloop_8h.html#a69ccb1d41842c4521908f2a87a1c4516", null ],
+    [ "_SockStatus", "o__eventloop_8h.html#ad4b72d4e70e1ef536d14bf0543890a29", [
+      [ "SOCKET_UNKNOWN", "o__eventloop_8h.html#ad4b72d4e70e1ef536d14bf0543890a29a43ab64a7bd7e3173e5f65203d28f1c93", null ],
+      [ "SOCKET_WRITEABLE", "o__eventloop_8h.html#ad4b72d4e70e1ef536d14bf0543890a29a6dad79a3e1614d8a599fe02701689299", null ],
+      [ "SOCKET_CONN_CLOSED", "o__eventloop_8h.html#ad4b72d4e70e1ef536d14bf0543890a29adc51a996c8067046c7bb75ff6591dc74", null ],
+      [ "SOCKET_CONN_REFUSED", "o__eventloop_8h.html#ad4b72d4e70e1ef536d14bf0543890a29add457ce25f1904fe8dd9fae79657c58f", null ],
+      [ "SOCKET_DROPPED", "o__eventloop_8h.html#ad4b72d4e70e1ef536d14bf0543890a29a704eefbe39ac96f64426944661b2a626", null ],
+      [ "SOCKET_IDLE", "o__eventloop_8h.html#ad4b72d4e70e1ef536d14bf0543890a29aa78a3802f09a9c7a0361f52fc743c038", null ]
+    ] ],
+    [ "eventloop_every", "o__eventloop_8h.html#af83b5f2beb881a21ef75171d072ff7f8", null ],
+    [ "eventloop_init", "o__eventloop_8h.html#a61363e92c10f69d4e3839d2ae38b5e9e", null ],
+    [ "eventloop_on_monitor_in_channel", "o__eventloop_8h.html#a157aac6cff6a7846642262957a7b7b92", null ],
+    [ "eventloop_on_out_channel", "o__eventloop_8h.html#ad867a2d07ee0caff7cff417c495a39b4", null ],
+    [ "eventloop_on_read_in_channel", "o__eventloop_8h.html#a38c2768f989f1c537db87db9d2fee016", null ],
+    [ "eventloop_on_stdin", "o__eventloop_8h.html#a7976bcaf2ec18816b4ecf3d13509e1a3", null ],
+    [ "eventloop_report", "o__eventloop_8h.html#a833ccf1602c1aceb3212b4803d1ba4e0", null ],
+    [ "eventloop_run", "o__eventloop_8h.html#a560818d86a02ed2ba93715aa3a13466e", null ],
+    [ "eventloop_set_socket_timeout", "o__eventloop_8h.html#a60c04e3ab6cdc2f705115ab382dc47c9", null ],
+    [ "eventloop_socket_activate", "o__eventloop_8h.html#a99ee2a1e2528b25fe3ccde5f6d475a06", null ],
+    [ "eventloop_socket_release", "o__eventloop_8h.html#ac5492e61cfa3174503923e3ed541a3a1", null ],
+    [ "eventloop_socket_remove", "o__eventloop_8h.html#a5a3644a8f05609def4e6c259ebc4d68b", null ],
+    [ "eventloop_stop", "o__eventloop_8h.html#a8b8ce3652087cc77534f7e4b6a346435", null ],
+    [ "eventloop_terminate", "o__eventloop_8h.html#a9905b32a4a5d3a24c90f44ecb5e0e459", null ],
+    [ "eventloop_timer_stop", "o__eventloop_8h.html#a1dcf3cfdfad5652d9b323f41edb5d491", null ],
+    [ "socket_status_string", "o__eventloop_8h.html#a3a481ec84bd7470fc132207e78f58329", null ]
+];

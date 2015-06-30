@@ -1,0 +1,147 @@
+'\" t
+.\"     Title: omlc_init
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.76.1 <http://docbook.sf.net/>
+.\"      Date: 2015-04-16
+.\"    Manual: The OML Manual
+.\"    Source: OML 2.12.0pre.79-58cf-dirty
+.\"  Language: English
+.\"
+.TH "OMLC_INIT" "3" "2015\-04\-16" "OML 2\&.12\&.0pre\&.79\-58cf\-" "The OML Manual"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+omlc_init \- initialize the liboml2 measurement API\&.
+.SH "SYNOPSIS"
+.sp
+.nf
+\fB#include <oml2/omlc\&.h>\fR
+.fi
+.sp
+.nf
+\fIint\fR \fBomlc_init\fR(\fIconst char\fR *appname, \fIint\fR *pargc, \fIconst char\fR **argv, \fIo_log_fn\fR log_fn);
+.fi
+.SH "DESCRIPTION"
+.sp
+\fBomlc_init\fR initializes the OML client library API\&. It must be called before any other function in the API can be called\&.
+.sp
+The \fIappname\fR argument is a string name for this application that the library uses when declaring schemata for measurement output to local file storage or to an \fBoml2-server\fR(1)\&.
+.sp
+The \fIpargc\fR and \fIargv\fR parameters should refer to the program\(cqs command line arguments, described in \fBliboml2\fR(1)\&. \fIpargc\fR should be a pointer to the \fIargc\fR parameter of the program\(cqs \fBmain\fR() function, and \fIargv\fR should be identical to the \fBmain\fR() function\(cqs \fIargv\fR parameter\&. \fBomlc_init\fR scans the command line options for options starting with \fB\-\-oml\-\fR, and uses them to configure the API\&. The \fB\-\-oml\-\fR options and their arguments are then removed from the \fIargv\fR array, and *\fIpargc\fR is adjusted to account for their removal\&. This allows the application using \fBliboml2\fR to do its own option parsing without getting confused by the \fB\-\-oml\-\fR options\&. The available \fB\-\-oml\-\fR options are listed in \fBliboml2\fR(1)\&.
+.sp
+If the \fB\-\-oml\-config\fR option is specified then \fBliboml2\fR reads its configuration from an external configuration file (the format is documented in \fBliboml2.conf\fR(5))\&. \fBomlc_init\fR also recognizes several environment variables, see \fBliboml2\fR(1)\&. Generally, if an option can be configured on the command line or an environment variable, the command line option takes precedence\&. If an option can also be set using the config file, then the config file takes precedence\&.
+.SH "USING A CUSTOM LOGGING FUNCTION"
+.sp
+The \fIlog_fn\fR parameter allows the user to supply a custom logging function\&. If \fIlog_fn\fR is \fINULL\fR then \fBliboml2\fR uses its own logging function (the output file is specified by the user in the \fB\-\-oml\-log\-file\fR command line argument, and defaults to \fBstderr\fR)\&.
+.sp
+This allows to integrate OML log messages into the standard log system of the instrumented application\&. The expected prototype of the function is as follows\&.
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+void (*o_log_fn)(int log_level, const char* format, \&.\&.\&.)
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+In short, that function should take a \fIlog_level\fR as its first argument, a \fBprintf\fR(3)\-like \fIformat\fR string as the second, and expect a variable number of arguments to render, depending on the format string\&.
+.sp
+Filtering messages based on \fIlog_level\fR according to the \fB\-\-oml\-log\-level\fR option is already done by the library\&. However, the \fIlog_level\fR of the message is provided to the custom logging function so the message can be directed to the appropriate logging facility if relevant\&.
+.sp
+Assuming the existence of an application\-wide \fBvlog()\fR function taking variadic arguments (see \fBstdarg\fR(3)), the \fBlog_fn\fR can be as simple as the following example\&.
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+#ifdef HAVE_LIBOML2             /* Only declare when OML is enabled at compile time */
+static void log_fn(int log_level, const char *format, \&.\&.\&.)
+{
+  va_list ap;                   /* For variadiac arguments parsing */
+  int pri;                      /* Logging facility to use for the application */
+  switch(log_level) {           /* Map OML log levels to the applications\*(Aqs */
+  case O_LOG_ERROR:
+  case O_LOG_WARN:
+    pri = LOG_CRIT;
+    break;
+  case O_LOG_DEBUG:
+  case O_LOG_DEBUG2:
+  case O_LOG_DEBUG3:
+  case O_LOG_DEBUG4:
+    pri = LOG_DEBUG;
+    break;
+  case O_LOG_INFO:
+  default:
+    pri = LOG_INFO;
+    break;
+  }
+  va_start(ap, format);         /* Get ready to extract arguments from the va_list */
+  vlog(pri, format, ap);        /* Application\*(Aqs own variadic logging function */
+  va_end(ap);                   /* Done */
+}
+#endif
+.fi
+.if n \{\
+.RE
+.\}
+.SH "RETURN VALUE"
+.sp
+\fBomlc_init\fR() returns 0 on success\&. On error, \-1 is returned and an error message will be written to the log file describing the error\&. If OML reporting is disabled by other means (e\&.g\&., the \-\-oml\-noop command line option), 1 is returned\&. If the function returns non\-zero the API will be unusable\&. The application should either refrain from calling any other functions in the API, or it should terminate\&.
+.SH "ERRORS"
+.sp
+\fBomlc_init\fR() will return \-1 if:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+the
+\fIappname\fR
+contains whitespace or is NULL;
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+an OML command line option that expects an argument is missing its argument\&.
+.RE
+.SH "BUGS"
+.sp
+If a problem you are experiencing is not addressed in the FAQ (http://oml\&.mytestbed\&.net/projects/oml/wiki/FAQ_and_Support) nor already present in the list of know bugs (http://oml\&.mytestbed\&.net/projects/oml/issues)\&. You could discuss it on the mailing list (details and archives at http://oml\&.mytestbed\&.net/tab/show?id=oml)\&.
+.sp
+It is however advisable to open a ticket on our issue tracker at http://oml\&.mytestbed\&.net/projects/oml/issues/new\&. Don\(cqt forget to include details such as client and server logs (at \fI[\-\-oml\-log\-level|\-d] 2\fR)\&. It also helps if you can share the source code of a (minimal, if possible) example reliably triggering the problem\&.
+.SH "SEE ALSO"
+.SS "Manual Pages"
+.sp
+\fBoml2-server\fR(1), \fBliboml2\fR(1), \fBliboml2\fR(3), \fBliboml2.conf\fR(5)
+.SS "OML User Manual"
+.sp
+http://oml\&.mytestbed\&.net/projects/oml/wiki/Documentation

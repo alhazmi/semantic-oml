@@ -1,0 +1,7 @@
+<map id="TestData" name="TestData">
+<area shape="rect" id="node2" href="$structTestVector.html" title="TestVector" alt="" coords="117,213,203,243"/>
+<area shape="rect" id="node4" href="$unionOmlValueU.html" title="OmlValueU" alt="" coords="116,117,204,147"/>
+<area shape="rect" id="node6" href="$structOmlString.html" title="OmlString" alt="" coords="5,5,85,35"/>
+<area shape="rect" id="node8" href="$structOmlVector.html" title="OmlVector" alt="" coords="119,5,201,35"/>
+<area shape="rect" id="node10" href="$structOmlBlob.html" title="OmlBlob" alt="" coords="228,5,300,35"/>
+</map>

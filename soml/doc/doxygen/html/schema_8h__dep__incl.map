@@ -1,0 +1,43 @@
+<map id="schema.h" name="schema.h">
+<area shape="rect" id="node3" href="$binary_8c.html" title="Functions for reading oml_message objects from an MBuffer using the OML binary format (OMSP Binary Ma..." alt="" coords="241,160,308,189"/>
+<area shape="rect" id="node5" href="$message_8h.html" title="Defines a container for either a text or binary message (struct oml_message) and the associated inter..." alt="" coords="583,83,668,112"/>
+<area shape="rect" id="node8" href="$binary_8h.html" title="binary.h" alt="" coords="972,160,1039,189"/>
+<area shape="rect" id="node12" href="$client__handler_8c.html" title="The client handler receives callbacks from the eventloop and processes messages in either OML&#39;s text ..." alt="" coords="1033,324,1145,353"/>
+<area shape="rect" id="node18" href="$text_8c.html" title="Text mode OMSP (OML Measurement Stream Protocol (OMSP) OMSP Text Protocol) serialisation of OML tuple..." alt="" coords="332,160,385,189"/>
+<area shape="rect" id="node20" href="$text_8h.html" title="text.h" alt="" coords="760,160,813,189"/>
+<area shape="rect" id="node47" href="$schema_8c.html" title="Manipulate schema structures, and convert to/from string or SQL representation." alt="" coords="1393,83,1471,112"/>
+<area shape="rect" id="node52" href="$table__descr_8h.html" title="table_descr.h" alt="" coords="2503,83,2601,112"/>
+<area shape="rect" id="node54" href="$database_8h.html" title="Interface that storage backend need to implement to be usable by the server." alt="" coords="2111,160,2196,189"/>
+<area shape="rect" id="node77" href="$sqlite__adapter_8c.html" title="Adapter code for the SQLite3 database backend." alt="" coords="2197,324,2312,353"/>
+<area shape="rect" id="node84" href="$fuseki__adapter-new-yahya_8c.html" title="fuseki_adapter&#45;new\l&#45;yahya.c" alt="" coords="2353,315,2487,362"/>
+<area shape="rect" id="node86" href="$fuseki__adapter_8c.html" title="fuseki_adapter.c" alt="" coords="2511,324,2628,353"/>
+<area shape="rect" id="node88" href="$fuseki__adapter__beforeyahyachanges_8c.html" title="fuseki_adapter_beforeyahyachanges.c" alt="" coords="2652,324,2897,353"/>
+<area shape="rect" id="node90" href="$fuseki__adapter__in__progress_8c.html" title="fuseki_adapter_in_progress.c" alt="" coords="2921,324,3113,353"/>
+<area shape="rect" id="node92" href="$fuseki__adapter__working_8c.html" title="fuseki_adapter_working.c" alt="" coords="3137,324,3308,353"/>
+<area shape="rect" id="node99" href="$virtuoso__adapter_8c.html" title="virtuoso_adapter.c" alt="" coords="1687,324,1815,353"/>
+<area shape="rect" id="node101" href="$database__adapter_8c.html" title="database_adapter.c" alt="" coords="3332,324,3468,353"/>
+<area shape="rect" id="node103" href="$database__adapter_8h.html" title="Generic functions for database adapters." alt="" coords="2636,237,2772,267"/>
+<area shape="rect" id="node135" href="$table__descr_8c.html" title="Functions for managing table description (TableDescr) structures." alt="" coords="2927,160,3025,189"/>
+<area shape="rect" id="node10" href="$receiver_8c.html" title="Functions responsible for implementing the receive loop that reads stores meessages in the message qu..." alt="" coords="637,324,715,353"/>
+<area shape="rect" id="node24" href="$message__queue_8c.html" title="Implement a FIFO message queue containing CBuffer objects." alt="" coords="511,237,639,267"/>
+<area shape="rect" id="node26" href="$message__queue_8h.html" title="message_queue.h" alt="" coords="460,160,588,189"/>
+<area shape="rect" id="node29" href="$proxy__client_8h.html" title="proxy_client.h" alt="" coords="284,237,385,267"/>
+<area shape="rect" id="node14" href="$check__libshared__headers_8c.html" title="check_libshared_headers.c" alt="" coords="764,237,943,267"/>
+<area shape="rect" id="node16" href="$check__binary__protocol_8c.html" title="check_binary_protocol.c" alt="" coords="1152,411,1315,440"/>
+<area shape="rect" id="node33" href="$proxy__client_8c.html" title="Functions to manage the Client structure." alt="" coords="469,324,571,353"/>
+<area shape="rect" id="node31" href="$oml2-proxy-server_8c.html" title="Implement the proxy server&#39;s top&#45;level main() and its supporting functions." alt="" coords="309,324,445,353"/>
+<area shape="rect" id="node36" href="$sender_8c.html" title="Implements half&#45;async sender which uses a background thread to send messages to the OML server..." alt="" coords="5,324,77,353"/>
+<area shape="rect" id="node38" href="$session_8c.html" title="Session management functions." alt="" coords="101,324,179,353"/>
+<area shape="rect" id="node40" href="$msgloop_8c.html" title="msgloop.c" alt="" coords="203,324,285,353"/>
+<area shape="rect" id="node56" href="$client__handler_8h.html" title="client_handler.h" alt="" coords="1228,237,1340,267"/>
+<area shape="rect" id="node59" href="$oml2-server_8c.html" title="Main oml2&#45;server functions." alt="" coords="1839,324,1940,353"/>
+<area shape="rect" id="node67" href="$check__text__protocol_8c.html" title="check_text_protocol.c" alt="" coords="1695,411,1844,440"/>
+<area shape="rect" id="node71" href="$database_8c.html" title="Generic interface for database backends." alt="" coords="2065,324,2151,353"/>
+<area shape="rect" id="node73" href="$sqlite__adapter_8h.html" title="sqlite_adapter.h" alt="" coords="1951,237,2065,267"/>
+<area shape="rect" id="node81" href="$fuseki__adapter_8h.html" title="fuseki_adapter.h" alt="" coords="2495,237,2612,267"/>
+<area shape="rect" id="node95" href="$virtuoso__adapter_8h.html" title="virtuoso_adapter.h" alt="" coords="1697,237,1825,267"/>
+<area shape="rect" id="node111" href="$psql__adapter_8c.html" title="Adapter code for the PostgreSQL database backend." alt="" coords="1556,324,1663,353"/>
+<area shape="rect" id="node122" href="$psql__adapter_8h.html" title="psql_adapter.h" alt="" coords="1364,237,1471,267"/>
+<area shape="rect" id="node62" href="$check__server_8h.html" title="check_server.h" alt="" coords="1372,324,1481,353"/>
+<area shape="rect" id="node65" href="$check__server_8c.html" title="check_server.c" alt="" coords="1355,411,1464,440"/>
+</map>
