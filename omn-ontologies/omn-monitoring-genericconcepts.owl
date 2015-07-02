@@ -8,47 +8,49 @@
     <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace#" >
     <!ENTITY omn "http://open-multinet.info/ontology/omn#" >
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
     <!ENTITY omn-service "http://open-multinet.info/ontology/omn-service#" >
     <!ENTITY omn-resource "http://open-multinet.info/ontology/omn-resource#" >
-    <!ENTITY omn-component "http://open-multinet.info/ontology/omn-component#" >
     <!ENTITY omn-lifecycle "http://open-multinet.info/ontology/omn-lifecycle#" >
-    <!ENTITY omn-federation "http://open-multinet.info/ontology/omn-federation#" >
+    <!ENTITY omn-component "http://open-multinet.info/ontology/omn-component#" >
     <!ENTITY omn-monitoring "http://open-multinet.info/ontology/omn-monitoring#" >
+    <!ENTITY omn-federation "http://open-multinet.info/ontology/omn-federation#" >
+    <!ENTITY omn-monitoring-tool "http://open-multinet.info/ontology/omn-monitoring-tool#" >
     <!ENTITY omn-monitoring-unit "http://open-multinet.info/ontology/omn-monitoring-unit#" >
     <!ENTITY omn-monitoring-data "http://open-multinet.info/ontology/omn-monitoring-data#" >
-    <!ENTITY omn-monitoring-tool "http://open-multinet.info/ontology/omn-monitoring-tool#" >
     <!ENTITY omn-monitoring-metric "http://open-multinet.info/ontology/omn-monitoring-metric#" >
 ]>
 
 
 <rdf:RDF xmlns="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#"
      xml:base="http://open-multinet.info/ontology/omn-monitoring-genericconcepts"
-     xmlns:dc="http://purl.org/dc/elements/1.1/"
-     xmlns:omn-lifecycle="http://open-multinet.info/ontology/omn-lifecycle#"
+     xmlns:omn-federation="http://open-multinet.info/ontology/omn-federation#"
      xmlns:omn-monitoring-unit="http://open-multinet.info/ontology/omn-monitoring-unit#"
      xmlns:omn-resource="http://open-multinet.info/ontology/omn-resource#"
-     xmlns:vann="http://purl.org/vocab/vann/"
-     xmlns:omn-monitoring-metric="http://open-multinet.info/ontology/omn-monitoring-metric#"
-     xmlns:omn-component="http://open-multinet.info/ontology/omn-component#"
-     xmlns:omn-monitoring-data="http://open-multinet.info/ontology/omn-monitoring-data#"
-     xmlns:omn-service="http://open-multinet.info/ontology/omn-service#"
-     xmlns:omn-monitoring-tool="http://open-multinet.info/ontology/omn-monitoring-tool#"
-     xmlns:dcterms="http://purl.org/dc/terms/"
-     xmlns:omn-federation="http://open-multinet.info/ontology/omn-federation#"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:omn="http://open-multinet.info/ontology/omn#"
+     xmlns:omn-monitoring="http://open-multinet.info/ontology/omn-monitoring#"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:omn-monitoring-tool="http://open-multinet.info/ontology/omn-monitoring-tool#"
+     xmlns:omn-component="http://open-multinet.info/ontology/omn-component#"
+     xmlns:omn="http://open-multinet.info/ontology/omn#"
+     xmlns:omn-monitoring-data="http://open-multinet.info/ontology/omn-monitoring-data#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:omn-monitoring="http://open-multinet.info/ontology/omn-monitoring#">
+     xmlns:omn-lifecycle="http://open-multinet.info/ontology/omn-lifecycle#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace#"
+     xmlns:omn-service="http://open-multinet.info/ontology/omn-service#"
+     xmlns:dcterms="http://purl.org/dc/terms/"
+     xmlns:omn-monitoring-metric="http://open-multinet.info/ontology/omn-monitoring-metric#"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/">
     <owl:Ontology rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts">
         <rdfs:label xml:lang="en">omn-monitoring-genericconcepts</rdfs:label>
         <dc:title rdf:datatype="&xsd;string">Open-Multinet Monitoring GenericConcepts Ontology</dc:title>
         <dc:description rdf:datatype="&xsd;string">The generic concepts ontology describes generic concepts such as measurement location, timestamp, transport protocols, etc.</dc:description>
-        <vann:preferredNamespaceUri>http://open-multinet.info/ontology/omn-monitoring-genericconcepts#</vann:preferredNamespaceUri>
         <vann:preferredNamespacePrefix>omn-monitoring-genericconcepts</vann:preferredNamespacePrefix>
+        <vann:preferredNamespaceUri>http://open-multinet.info/ontology/omn-monitoring-genericconcepts#</vann:preferredNamespaceUri>
         <dc:date>2015-05-30</dc:date>
         <dc:contributor rdf:resource="http://alex.willner.ws/about#me"/>
         <dcterms:license rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
@@ -235,8 +237,7 @@
     <!-- http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Event -->
 
     <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-genericconcepts#Event">
-        <rdfs:comment rdf:datatype="&xsd;string">Represents any event occurs during a processing phase.</rdfs:comment>
-        <rdfs:comment rdf:datatype="&xsd;string">Represents monitoring related events or notifications within a system, e.g CPU load is over a defined threshold, a resource is created or deleted, etc..</rdfs:comment>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents any event or notification within a system during processing phase, e.g CPU load is over a defined threshold, a resource is created or deleted, etc..</rdfs:comment>
     </owl:Class>
     
 
@@ -404,5 +405,5 @@
 
 
 
-<!-- Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net -->
+<!-- Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net -->
 

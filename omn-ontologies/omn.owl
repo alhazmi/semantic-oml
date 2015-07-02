@@ -7,16 +7,17 @@
     <!ENTITY novi "http://fp7-novi.eu/im.owl#" >
     <!ENTITY foaf "http://xmlns.com/foaf/0.1/" >
     <!ENTITY vann "http://purl.org/vocab/vann/" >
-    <!ENTITY dctype "http://purl.org/dc/dcmitype/" >
     <!ENTITY time "http://www.w3.org/2006/time#" >
+    <!ENTITY dctype "http://purl.org/dc/dcmitype/" >
     <!ENTITY cc "http://creativecommons.org/ns#" >
     <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
     <!ENTITY voaf "http://purl.org/vocommons/voaf#" >
     <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
+    <!ENTITY gr "http://purl.org/goodrelations/v1#" >
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
     <!ENTITY service "http://purl.org/ontology/service#" >
-    <!ENTITY gr "http://purl.org/goodrelations/v1#" >
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace#" >
     <!ENTITY nml "http://schemas.ogf.org/nml/2013/05/base#" >
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
     <!ENTITY indl "http://www.science.uva.nl/research/sne/indl#" >
@@ -29,28 +30,29 @@
 
 <rdf:RDF xmlns="http://open-multinet.info/ontology/omn#"
      xml:base="http://open-multinet.info/ontology/omn"
+     xmlns:schema="http://schema.org/"
+     xmlns:color="http://geni-orca.renci.org/owl/app-color.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:novi="http://fp7-novi.eu/im.owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:nml="http://schemas.ogf.org/nml/2013/05/base#"
+     xmlns:collections="http://geni-orca.renci.org/owl/collections.owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace#"
+     xmlns:dcterms="http://purl.org/dc/terms/"
      xmlns:indl="http://www.science.uva.nl/research/sne/indl#"
      xmlns:vann="http://purl.org/vocab/vann/"
-     xmlns:dcterms="http://purl.org/dc/terms/"
-     xmlns:schema="http://schema.org/"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:time="http://www.w3.org/2006/time#"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:novi="http://fp7-novi.eu/im.owl#"
-     xmlns:move="http://www.ontologydesignpatterns.org/cp/owl/move.owl#"
-     xmlns:collections="http://geni-orca.renci.org/owl/collections.owl#"
-     xmlns:dc="http://purl.org/dc/elements/1.1/"
-     xmlns:owl-s="http://www.daml.org/services/owl-s/1.0DL/Service.owl#"
      xmlns:foaf="http://xmlns.com/foaf/0.1/"
-     xmlns:nml="http://schemas.ogf.org/nml/2013/05/base#"
+     xmlns:cc="http://creativecommons.org/ns#"
+     xmlns:move="http://www.ontologydesignpatterns.org/cp/owl/move.owl#"
      xmlns:voaf="http://purl.org/vocommons/voaf#"
-     xmlns:dctype="http://purl.org/dc/dcmitype/"
-     xmlns:color="http://geni-orca.renci.org/owl/app-color.owl#"
-     xmlns:service="http://purl.org/ontology/service#"
-     xmlns:owl="http://www.w3.org/2002/07/owl#"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:gr="http://purl.org/goodrelations/v1#"
-     xmlns:cc="http://creativecommons.org/ns#">
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:service="http://purl.org/ontology/service#"
+     xmlns:dctype="http://purl.org/dc/dcmitype/"
+     xmlns:owl-s="http://www.daml.org/services/owl-s/1.0DL/Service.owl#"
+     xmlns:time="http://www.w3.org/2006/time#"
+     xmlns:dc="http://purl.org/dc/elements/1.1/">
     <owl:Ontology rdf:about="http://open-multinet.info/ontology/omn">
         <rdfs:label xml:lang="en">omn</rdfs:label>
         <dc:date rdf:datatype="&xsd;date">2014-11-11</dc:date>
@@ -60,11 +62,11 @@
         <dc:title xml:lang="en">Open-Multinet Upper Ontology</dc:title>
         <dc:description xml:lang="en">This ontology defines the most abstract concepts and properties that are needed to semantically manage resource within federated infrastructures.</dc:description>
         <dc:creator rdf:resource="http://alex.willner.ws/about#me"/>
-        <cc:license rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
         <dc:rights rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
         <dcterms:license rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
-        <foaf:homepage rdf:resource="http://open-multinet.info/"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/by/4.0/"/>
         <dc:publisher rdf:resource="http://open-multinet.info/"/>
+        <foaf:homepage rdf:resource="http://open-multinet.info/"/>
         <vann:preferredNamespaceUri rdf:resource="http://open-multinet.info/ontology/omn#"/>
         <dc:description rdf:resource="http://raw.githubusercontent.com/open-multinet/playground-rspecs-ontology/master/ontologies/pics/omn.png"/>
         <dc:contributor rdf:resource="http://users.ntua.gr/c.papagianni"/>
@@ -97,8 +99,9 @@
     <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn#adaptableFrom">
         <rdfs:label xml:lang="en">adaptable from</rdfs:label>
         <rdfs:comment xml:lang="en">determines the resource from which this resource can be adapted from - e.g. from an Ethernet to a FDDI port.</rdfs:comment>
-        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn#Layer"/>
         <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn#Layer"/>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn#Layer"/>
+        <owl:inverseOf rdf:resource="http://open-multinet.info/ontology/omn#adaptableTo"/>
     </owl:ObjectProperty>
     
 
@@ -108,9 +111,8 @@
     <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn#adaptableTo">
         <rdfs:label xml:lang="en">adaptable to</rdfs:label>
         <rdfs:comment xml:lang="en">determines to which resource this resource can adapts to - e.g. from an Ethernet to a FDDI port.</rdfs:comment>
-        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn#Layer"/>
         <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn#Layer"/>
-        <owl:inverseOf rdf:resource="http://open-multinet.info/ontology/omn#adaptableFrom"/>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn#Layer"/>
     </owl:ObjectProperty>
     
 
@@ -121,7 +123,6 @@
         <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
         <rdfs:label xml:lang="en">adapts from</rdfs:label>
         <rdfs:comment xml:lang="en">determines from which resource this resource adapts - e.g. from an Ethernet to a FDDI port.</rdfs:comment>
-        <owl:inverseOf rdf:resource="http://open-multinet.info/ontology/omn#adaptsTo"/>
         <rdfs:range>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -152,6 +153,7 @@
         <rdf:type rdf:resource="&owl;IrreflexiveProperty"/>
         <rdfs:label xml:lang="en">adapts to</rdfs:label>
         <rdfs:comment xml:lang="en">determines to which resource this resource adapts - e.g. from an Ethernet to a FDDI port.</rdfs:comment>
+        <owl:inverseOf rdf:resource="http://open-multinet.info/ontology/omn#adaptsFrom"/>
         <rdfs:domain>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -182,16 +184,6 @@
         <rdfs:label xml:lang="en">depends on</rdfs:label>
         <rdfs:comment xml:lang="en">claims dependency</rdfs:comment>
         <rdfs:subPropertyOf rdf:resource="http://open-multinet.info/ontology/omn#relatesTo"/>
-        <rdfs:range>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn#Component"/>
-                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn#Group"/>
-                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn#Resource"/>
-                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn#Service"/>
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:range>
         <rdfs:domain>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -202,6 +194,16 @@
                 </owl:unionOf>
             </owl:Class>
         </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn#Component"/>
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn#Group"/>
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn#Resource"/>
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn#Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
     </owl:ObjectProperty>
     
 
@@ -233,6 +235,7 @@
         <rdfs:label xml:lang="en">has attribute</rdfs:label>
         <rdfs:comment xml:lang="en">link to a general attribute of the resource - e.g. to a ReadOnly class</rdfs:comment>
         <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn#Attribute"/>
+        <owl:inverseOf rdf:resource="http://open-multinet.info/ontology/omn#isAttributeOf"/>
         <rdfs:domain>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -272,8 +275,8 @@
     <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn#hasGroup">
         <rdfs:label xml:lang="en">has group</rdfs:label>
         <rdfs:comment xml:lang="en">a group that is related to this resource - e.g. a reserved topology within an infrastructure</rdfs:comment>
-        <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn#Group"/>
         <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn#Group"/>
+        <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn#Group"/>
         <owl:inverseOf rdf:resource="http://open-multinet.info/ontology/omn#isGroupOf"/>
     </owl:ObjectProperty>
     
@@ -336,7 +339,6 @@
         <rdfs:label xml:lang="en">is attribute of</rdfs:label>
         <rdfs:comment xml:lang="en">a general attribute of a resource - e.g. to a ReadOnly class</rdfs:comment>
         <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn#Attribute"/>
-        <owl:inverseOf rdf:resource="http://open-multinet.info/ontology/omn#hasAttribute"/>
         <rdfs:range>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -376,8 +378,8 @@
     <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn#isGroupOf">
         <rdfs:label xml:lang="en">is group of</rdfs:label>
         <rdfs:comment xml:lang="en">a group that is related to a resource - e.g. a reserved topology within an infrastructure</rdfs:comment>
-        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn#Group"/>
         <rdfs:range rdf:resource="http://open-multinet.info/ontology/omn#Group"/>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn#Group"/>
     </owl:ObjectProperty>
     
 
@@ -440,16 +442,6 @@
     <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn#relatesTo">
         <rdfs:label xml:lang="en">relates to</rdfs:label>
         <rdfs:comment xml:lang="en">claims a general dependency</rdfs:comment>
-        <rdfs:range>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn#Component"/>
-                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn#Group"/>
-                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn#Resource"/>
-                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn#Service"/>
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:range>
         <rdfs:domain>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -460,6 +452,16 @@
                 </owl:unionOf>
             </owl:Class>
         </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn#Component"/>
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn#Group"/>
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn#Resource"/>
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn#Service"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
     </owl:ObjectProperty>
     
 
@@ -535,6 +537,15 @@
         <rdfs:comment xml:lang="en">information/attribute that is not writable</rdfs:comment>
         <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn#Attribute"/>
         <rdfs:range rdf:resource="&xsd;boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn#sequenceNumber -->
+
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn#sequenceNumber">
+        <rdfs:comment xml:lang="en">represents the sequence number</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;integer"/>
     </owl:DatatypeProperty>
     
 
@@ -766,5 +777,5 @@
 
 
 
-<!-- Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net -->
+<!-- Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net -->
 
