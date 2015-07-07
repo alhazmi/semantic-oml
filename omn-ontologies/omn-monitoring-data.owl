@@ -372,7 +372,7 @@
 
     <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-data#Duration">
         <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-data#ConfigurationParameter"/>
-        <rdfs:comment rdf:datatype="&xsd;string">Duration set in advance of the measurement.</rdfs:comment>
+        <rdfs:comment rdf:datatype="&xsd;string">Duration set in advance of the measurement or monitoring service.</rdfs:comment>
     </owl:Class>
     
 
