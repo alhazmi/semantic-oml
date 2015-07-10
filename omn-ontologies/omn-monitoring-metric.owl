@@ -211,6 +211,15 @@
     
 
 
+    <!-- http://open-multinet.info/ontology/omn-monitoring-metric#AvailableMemory -->
+
+    <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-metric#AvailableMemory">
+        <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-metric#MemoryUtilization"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents the available memory that can be used by the system (programs).</rdfs:comment>
+    </owl:Class>
+    
+
+
     <!-- http://open-multinet.info/ontology/omn-monitoring-metric#BandwidthUtilization -->
 
     <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-metric#BandwidthUtilization">
@@ -721,6 +730,7 @@
 
     <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring-metric#UsedMemory">
         <rdfs:subClassOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-metric#MemoryUtilization"/>
+        <rdfs:comment rdf:datatype="&xsd;string">Represents the available momory that is unused by the system (programs).</rdfs:comment>
     </owl:Class>
     
 
