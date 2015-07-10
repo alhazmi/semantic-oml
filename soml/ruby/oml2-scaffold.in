@@ -841,7 +841,8 @@ class AppDefinition
         concept.include? "http://open-multinet.info/ontology/omn-policy#" or \
         concept.include? "http://open-multinet.info/ontology/omn-service#" or \
         concept.include? "http://www.w3.org/2000/01/rdf-schema#" or \
-       concept.include? "http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+       concept.include? "http://www.w3.org/1999/02/22-rdf-syntax-ns#" or \
+	concept.include? "http://www.w3.org/2006/time#"
       var = concept.gsub("http://open-multinet.info/ontology/omn-monitoring-data#","omn-monitoring-data:")
       var = var.gsub("http://open-multinet.info/ontology/omn-monitoring-genericconcepts#","omn-monitoring-genericconcepts:")
       var = var.gsub("http://open-multinet.info/ontology/omn-monitoring-metric#","omn-monitoring-metric:")
@@ -858,6 +859,7 @@ class AppDefinition
         var = var.gsub("http://open-multinet.info/ontology/omn-service#","omn-service:")
         var = var.gsub("http://www.w3.org/2000/01/rdf-schema#","rdfs:")
        var = var.gsub("http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdf:")
+	var = var.gsub("http://www.w3.org/2006/time#","time:")
 	return var
     end
     return nil
@@ -905,6 +907,8 @@ class AppDefinition
                 return "rdf.owl"
         when "rdfs"
                 return "rdfs.owl"
+	when "time"
+                return "time.owl"
 	end
     return ""
   end

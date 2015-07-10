@@ -61,7 +61,7 @@ oml_register_mps(void)
   char*** concept;// = (char***)oml_malloc(sizeof(char**)*);
   concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[0][0]=strdup("omn-monitoring:Measurement");
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
   concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
   concept[0][2]=strdup("omn-monitoring-metric:PacketLoss");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
@@ -130,7 +130,7 @@ oml_register_mps(void)
   g_oml_mps_ping->packet_loss = omlc_add_mp("packet_loss", oml_packet_loss_def);
   concept = (char***)oml_malloc(sizeof(char**)*6);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[0][0]=strdup("omn-monitoring:Measurement");
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
   concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
   concept[0][2]=strdup("omn-monitoring-metric:Delay");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);

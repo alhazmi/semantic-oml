@@ -60,19 +60,20 @@ run(opts_t *opts, oml_mps_t *oml_mps)
     FILE *cmd = popen ("ping -c 5 -q 185.63.147.10 | grep -oP \'\\d+(?=% packet loss)\'", "r" ) ;
     char *packetloss = malloc ( sizeof ( char ) * 200 );
     fgets ( packetloss, sizeof ( char )*200, cmd );
-    printf ( "%s", packetloss); //show outcome
+    //printf ( "%s", packetloss); //show outcome
     pclose ( cmd );
+    
     FILE *cmd2 = popen("ping -c 5 -q 185.63.147.10 | grep rtt | cut -d\"/\" -f5", "r") ;
     char *avgdelay = malloc ( sizeof ( char ) * 200 );
     fgets ( avgdelay, sizeof ( char )*200, cmd2 );
-    printf ( "%s", avgdelay);
+    //printf ( "%s", avgdelay);
     pclose ( cmd2 );
 
-    FILE *cmd3 = popen ("ping -c 5 -q 185.63.147.10 | grep \"rtt\" -A 1", "r" ) ;
+    /*FILE *cmd3 = popen ("ping -c 5 -q 185.63.147.10 | grep \"rtt\" -A 1", "r" ) ;
     char *output = malloc ( sizeof ( char ) * 400 );
     fgets ( output, sizeof ( char )*400, cmd3 );
-    printf ( "%s", output);
-    pclose ( cmd3 );
+    //printf ( "%s", output);
+    pclose ( cmd3 );*/
 
     time_t     now;
     struct tm  ts;
@@ -82,7 +83,7 @@ run(opts_t *opts, oml_mps_t *oml_mps)
     // Format time, "ddd yyyy-mm-dd hh:mm:ss zzz"
     ts = *localtime(&now);
     strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", &ts);
-    printf("%s\n", buf);
+    //printf("%s\n", buf);
 
   long val = 1;
   struct sigaction sa;
@@ -154,8 +155,10 @@ main(int argc, const char *argv[])
   omlc_reset_string(v);
 
   /* Inject measurements */
-  run(g_opts, g_oml_mps_ping); /* Do some work and injections, see above */
-
+  while(true){
+  	run(g_opts, g_oml_mps_ping); /* Do some work and injections, see above */
+	sleep(30) ;
+  }
   omlc_close();
 
   return 0;

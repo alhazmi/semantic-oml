@@ -24,7 +24,7 @@ defApplication('oml:ping', 'ping') do |app|
 
 app.defMeasurement("packet_loss"){ |m|
     m.defMetric('packet_loss', :int, 'Packet Loss value of host',
-    [['omn-monitoring:Measurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:PacketLoss'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:PacketLoss'],
     ['omn-monitoring-metric:PacketLoss','omn-monitoring:isMeasurementMetricOf', 'omn-resource:Link'],
     ['omn-monitoring-metric:PacketLoss','omn-monitoring-data:hasMeasurementData','omn-monitoring-data:MeasurementData'],
     ['omn-monitoring-data:MeasurementData','omn-monitoring-data:hasMeasurementDataValue','%value%'],
@@ -47,7 +47,7 @@ app.defMeasurement("packet_loss"){ |m|
 
 app.defMeasurement("delay"){ |m|
     m.defMetric('delay', :double, 'Delay value of host',
-    [['omn-monitoring:Measurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:Delay'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:Delay'],
     ['omn-monitoring-metric:Delay','omn-monitoring:isMeasurementMetricOf', 'omn-resource:Link'],
     ['omn-monitoring-metric:Delay','omn-monitoring-data:hasMeasurementData','omn-monitoring-data:MeasurementData'],
     ['omn-monitoring-data:MeasurementData','omn-monitoring-data:hasMeasurementDataValue','%value%'],

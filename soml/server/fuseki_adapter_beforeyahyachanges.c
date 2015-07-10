@@ -3,13 +3,10 @@
  * Author: mpoyato
  *
  * Created on 8 de junio de 2014, 19:47
- * Modified by Andisa Dewi, Yahya Al-Hazmi, Technische Universitaet Berlin, 2015
- *  to support OMN Ontology
  */
 
 #include <stdio.h>
 #include <stdlib.h>
- #include <stdarg.h>
 #include <limits.h>
 #include <string.h>
 #include <inttypes.h>
@@ -38,7 +35,6 @@
 #include "table_descr.h"
 #include "database_adapter.h"
 #include "fuseki_adapter.h"
-#include "cJSON.h"
 
 /** Mapping between OML and SQLite3 data types
  * \see sq3_type_to_oml, sq3_oml_to_type
@@ -65,11 +61,6 @@ static db_typemap sem_type_pair [] = {
   { OML_DATETIME_VALUE,   "xsd:dateTime" },
 };
 
-struct string {
-  char *ptr;
-  size_t len;
-};
-
 #define HEADER_INSERT "prefix afn: <http://jena.hpl.hp.com/ARQ/function#> \
  prefix fn: <http://www.w3.org/2005/xpath-functions#> \
  prefix owl: <http://www.w3.org/2002/07/owl#> \
@@ -77,21 +68,13 @@ struct string {
  prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> \
  prefix time: <http://www.w3.org/2006/time#> \
  prefix xsd: <http://www.w3.org/2001/XMLSchema#> \
- prefix omn-monitoring-data: <http://open-multinet.info/ontology/omn-monitoring-data#> \
- prefix omn-monitoring-genericconcepts: <http://open-multinet.info/ontology/omn-monitoring-genericconcepts#> \
- prefix omn-monitoring-metric: <http://open-multinet.info/ontology/omn-monitoring-metric#> \
- prefix omn-monitoring-tool: <http://open-multinet.info/ontology/omn-monitoring-tool#> \
- prefix omn-monitoring-unit: <http://open-multinet.info/ontology/omn-monitoring-unit#> \
- prefix omn-monitoring: <http://open-multinet.info/ontology/omn-monitoring#> \
+ prefix MOFID: <http://open-multinet.info/ontology/MOFI-Data.owl#> \
+ prefix MOFIGI: <http://open-multinet.info/ontology/MOFI-GeneralInformation.owl#> \
+ prefix MOFIU: <http://www.av.tu-berlin.de/MeMoIT-Unit.owl#> \
  prefix omn: <http://open-multinet.info/ontology/omn#> \
  prefix omn-resource: <http://open-multinet.info/ontology/omn-resource#> \
  prefix omn-lifecycle: <http://open-multinet.info/ontology/omn-lifecycle#> \
- prefix omn-component: <http://open-multinet.info/ontology/omn-domain-pc#> \
- prefix omn-federation: <http://open-multinet.info/ontology/omn-domain-pc#> \
- prefix omn-policy: <http://open-multinet.info/ontology/omn-domain-pc#> \
- prefix omn-service: <http://open-multinet.info/ontology/omn-domain-pc#> \
- prefix omn-domain-pc: <http://open-multinet.info/ontology/omn-domain-pc#> "
-
+ prefix omn-domain-pc: <http://open-multinet.info/ontology/omn-domain-pc#>"
 
 /* Functions needed by the Database struct */
 static OmlValueT sem_type_to_oml (const char *s);
@@ -103,15 +86,11 @@ static void sem_release(Database* db);
 static char* sem_prepared_var(Database *db, unsigned int order);
 static MString* sem_prepare(Database *db, DbTable* table);                     // TODO
 static int sem_insert(Database *db, DbTable *table, int sender_id, int seq_no, double time_stamp, OmlValue *values, int value_count); // TODO
-static char* sem_add_sender_id(Database* database, const char* sender_id);    // TODO
+static /*char**/int sem_add_sender_id(Database* database, const char* sender_id);    // TODO
 static int sem_set_metadata (Database* database, const char* key, const char* value); // TODO
 static char* sem_get_metadata (Database* database, const char* key);          // TODO
 static char* sem_get_uri(Database *db, char *uri, size_t size);                 // TODO
 static TableDescr* sem_get_table_list (Database *database, int *num_tables);    // TODO
-static int starttime_exists(Database *db, DbTable* table);
-void init_string(struct string *s) ;
-size_t writefunc(void *ptr, size_t size, size_t nmemb, struct string *s) ;
-char* parse_object(cJSON *root) ;
 //static char** str_split(char* a_str, const char a_delim) ;
 
 /*
@@ -132,8 +111,6 @@ char *fus_host = DEFAULT_FUS_HOST;
 char *fus_port = DEFAULT_FUS_PORT;
 char *fus_namespace = DEFAULT_FUS_NAMESPACE;
 
-char* sid ;
-int starttime = 0 ;
 
 #define MAXLINE 4096
 #define MAXSUB  2000
@@ -143,96 +120,9 @@ int starttime = 0 ;
 #define REPLACE_TS "#?#value_ts#?#" 
 /* Definition of the token to replace by time of the server */
 #define REPLACE_TC "#?#value_tc#?#"
-#define REPLACE_SID "#?#value_sid#?#"
-#define REPLACE_STARTTIME "#?#value_st#?#"
-
-// ######################################################################
-
-#define HASHSIZE 101
-static struct nlist *hashtab[HASHSIZE]; /* pointer table */
-
-/* hash: form hash value for string s */
-unsigned hash(char *s)
-{
-    unsigned hashval;
-    for (hashval = 0; *s != '\0'; s++)
-      hashval = *s + 31 * hashval;
-    return hashval % HASHSIZE;
-}
-
-/* lookup: look for s in hashtab */
-char* lookup(char *s)
-{
-    struct nlist *np;
-    for (np = hashtab[hash(s)]; np != NULL; np = np->next)
-        if (strcmp(s, np->name) == 0)
-          return np; /* found */
-    return NULL; /* not found */
-}
-
-char* lookup_char(char *s)
-{
-    struct nlist *np;
-    for (np = hashtab[hash(s)]; np != NULL; np = np->next)
-        if (strcmp(s, np->name) == 0)
-          return np->defn; /* found */
-    return NULL; /* not found */
-}
-
-
-char *strdupp(char *s) /* make a duplicate of s */
-{
-    char *p;
-    p = (char *) malloc(strlen(s)+1); /* +1 for ’\0’ */
-    if (p != NULL)
-       strcpy(p, s);
-    return p;
-}
-
-/* install: put (name, defn) in hashtab */
-struct nlist *install(char *name, char *defn)
-{
-    struct nlist *np;
-    unsigned hashval;
-    if ((np = lookup(name)) == NULL) { /* not found */
-        np = (struct nlist *) malloc(sizeof(*np));
-        if (np == NULL || (np->name = strdupp(name)) == NULL)
-          return NULL;
-        hashval = hash(name);
-        np->next = hashtab[hashval];
-        hashtab[hashval] = np;
-    } else /* already there */
-        free((void *) np->defn); /*free previous defn */
-    if ((np->defn = strdupp(defn)) == NULL)
-       return NULL;
-    return np;
-}
-
-void init_list()
-{
-  struct nlist *list = hashtab ;
-  list = install("omn-monitoring-data:MeasurementData","?data") ;
-}
-
-void free_list() 
-{
-    int i ;
-    for (i = 0; i < HASHSIZE; i++) {
-        free((void *) hashtab[i]->name);
-        free((void *) hashtab[i]->defn);
-    }
-    //free(hashtab);
-}
-
-// ###############################################################
-void handleValue(Database *db, int c, MString* insert, char *subject, char *predicate, char *pvar, int n){
-  pvar = sem_prepared_var(db,c);
-  n += mstring_sprintf(insert,"\t\t%s %s %s .\n", subject, predicate, pvar);
-  oml_free(pvar);
-}
-
-// ###############################################################
-
+#define REPLACE_URI "#?#value_uri#?#"
+#define REPLACE_URI_VM "#?#value_uri_vm#?#"
+#define REPLACE_URI_PM "#?#value_uri_pm#?#"
 /**
  * This function generates a new socket that connects with fuseki backend and send some data
  * \return int - 0 (OK) -1 (KO)
@@ -257,16 +147,16 @@ size_t logwrite(char *ptr, size_t size, size_t nmemb, void *userdata)
 int
 fuseki_create_database(Database* db)
 {
-  // MString* mstr = mstring_create ();
-  // CURL *curl;
-  // curl_global_init(CURL_GLOBAL_ALL);
-  // if (!(curl = curl_easy_init())) return -1;
-  // mstring_sprintf(mstr,"http://%s:%s/%s/update",fus_host, fus_port, fus_namespace);
-  // loginfo("%s\n",mstring_buf(mstr));
-  // curl_easy_setopt(curl, CURLOPT_URL, mstring_buf(mstr));
-  // curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &logwrite);
+  MString* mstr = mstring_create ();
+  CURL *curl;
+  curl_global_init(CURL_GLOBAL_ALL);
+  if (!(curl = curl_easy_init())) return -1;
+  mstring_sprintf(mstr,"http://%s:%s/%s/update",fus_host, fus_port, fus_namespace);
+  loginfo("%s\n",mstring_buf(mstr));
+  curl_easy_setopt(curl, CURLOPT_URL, mstring_buf(mstr));
+  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &logwrite);
   SemDB* self = oml_malloc(sizeof(SemDB));
-  // self->conn = curl;//conn;
+  self->conn = curl;//conn;
   self->last_commit = time (NULL);
   db->semantic = 1;
   db->backend_name = backend_name;
@@ -455,13 +345,10 @@ sem_prepared_var(Database *db, unsigned int order)
 static MString*
 sem_prepare(Database *db, DbTable* table)
 {
-  int n = 0, c, v = 1 ;
+  int n = 0, c, v = 1, r = 1;
   int max = table->schema->nfields;
-  char *first_concept = NULL, *first_concept_aux = NULL ;
+  char *first_concept = NULL, *first_concept_aux = NULL,  *vm = NULL, *pm = NULL, *second_concept = NULL;
   char *pvar;
-  char *subject = NULL, *object = NULL;
-  char temp[1024] ;
-  struct nlist *list ;
   MString* mstr = mstring_create ();
   MString* insert = mstring_create ();
   MString* where = mstring_create ();
@@ -481,130 +368,181 @@ sem_prepare(Database *db, DbTable* table)
     struct schema_field *field = table->schema->fields+c;
     OMLSemDef*osd=field->concepts;
     if (osd) {
-     
-        // =============================== omn-monitoring modification ===============================
-      if(!first_concept){
-	       memset(&hashtab, 0, sizeof(hashtab));
-        init_list() ;
-        char *metric = osd->object ;
-	list = install(osd->subject,"?measurement") ;
-        list = install(metric,"?metric") ;
-        first_concept = osd->subject ;
- 
-        n += mstring_sprintf(insert,"\t\t?measurement a %s .\n", osd->subject);
-        n += mstring_sprintf(insert,"\t\t?measurement %s ?metric .\n", osd->predicate);
+	printf("ok1");
+	if(!first_concept && strcmp(osd->predicate,"%value%")){
+	first_concept = osd->subject ;
+        n += mstring_sprintf(insert,"\t\t?measure a %s .\n", osd->subject);
+        n += mstring_sprintf(insert,"\t\t?measure MOFID:isMeasurementOf ?metric .\n");
         n += mstring_sprintf(insert,"\t\t?metric rdfs:label \"%s\"^^xsd:string .\n", table->schema->name);
-        n += mstring_sprintf(insert,"\t\t?metric a %s .\n", osd->object);
-        n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/\", ?struuid )) as ?measurement) .\n",fus_host,fus_port,"measurement",table->schema->name);
+        n += mstring_sprintf(insert,"\t\t?metric a %s .\n", osd->predicate);
+        n += mstring_sprintf(insert,"\t\t?measure MOFID:hasMeasurementData ?v_seq .\n", table->schema->name);
+        n += mstring_sprintf(insert,"\t\t?measure MOFID:hasMeasurementData ?v_ts .\n", table->schema->name);
+        n += mstring_sprintf(insert,"\t\t?measure MOFID:hasMeasurementData ?v_tc .\n", table->schema->name);
+        n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/\", ?struuid )) as ?measure) .\n",fus_host,fus_port,"measurement",table->schema->name);
         n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/\", ?struuid )) as ?metric) .\n",fus_host,fus_port,"metric",table->schema->name);
-        n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/\", ?struuid )) as ?data) .\n",fus_host,fus_port,"data",table->schema->name);
 
-	n += mstring_sprintf(insert,"\t\t?measurement omn:sequenceNumber %s .\n", REPLACE_SEQ);
-	n += mstring_sprintf(insert,"\t\t?measurement omn-monitoring:elapsedTimeAtClientSinceExperimentStarted %s .\n", REPLACE_TC);
-	 n += mstring_sprintf(insert,"\t\t?measurement omn-monitoring:elapsedTimeAtServerSinceExperimentStarted %s .\n", REPLACE_TS);
-       	n += mstring_sprintf(insert,"\t\t?measurement omn-monitoring:sentFrom ?domain .\n");
-	n += mstring_sprintf(insert,"\t\t?domain a omn-monitoring-genericconcepts:MonitoringDomain .\n");
-	n += mstring_sprintf(insert,"\t\t?domain rdfs:label \"%s\"^^xsd:string .\n", db->name);
-  n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/\", ?struuid )) as ?domain) .\n",fus_host,fus_port,"domain",table->schema->name);
+        // Build seq_no fuseki insertion
+        n += mstring_sprintf(insert,"\t\t?v_seq a MOFID:SequenceIndex .\n");
+        n += mstring_sprintf(insert,"\t\t?v_seq MOFID:SequenceIndexValue %s .\n", REPLACE_SEQ);
+        n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/seq_no/\", ?struuid )) as ?v_seq) .\n",fus_host,fus_port);
+        // Build current time (oml client) fuseki insertion
+        n += mstring_sprintf(insert,"\t\t?v_tc a MOFID:Time .\n");
+        n += mstring_sprintf(insert,"\t\t?v_tc MOFID:TimeValue %s .\n", REPLACE_TC);
+        n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/oml_ts_client/\", ?struuid )) as ?v_tc) .\n",fus_host,fus_port);
+        // Build current time (oml server) fuseki insertion
+        n += mstring_sprintf(insert,"\t\t?v_ts a MOFID:Time .\n");
+        n += mstring_sprintf(insert,"\t\t?v_ts MOFID:TimeValue ?now .\n");
+        n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/oml_ts_server/\", ?struuid )) as ?v_ts) .\n",fus_host,fus_port);
+        n += mstring_sprintf(where,"\tBIND (NOW() as ?now) .\n",fus_host,fus_port);
 
-  if(starttime_exists(db, table) == 0){
-  	n += mstring_sprintf(insert,"\t\t?domain omn:hasService ?monservice .\n") ;
-  	n += mstring_sprintf(insert,"\t\t?monservice a omn-monitoring:MonitoringService .\n");
-  	n += mstring_sprintf(insert,"\t\t?monservice omn-lifecycle:StartTime %s .\n", REPLACE_STARTTIME);
-  	n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/\", ?struuid )) as ?monservice) .\n",fus_host,fus_port,"monitoring_service",table->schema->name);
 	}
+
+	/*if (first_concept && strcmp(first_concept,osd->subject)) {
+        logerror("%s: Failed in specification of the concepts, subject: %s is different to subject: %s.\n",
+            db->backend_name, first_concept, osd->subject);
+        goto fail_exit;
+        }*/	
+	
+	printf("ok2");
+	
+	if (!strcmp(osd->predicate,"%value%") && !strcmp(osd->subject,"omn-domain-pc:PC") && !strcmp(osd->verb,"rdfs:label"))
+   	  {
+	printf("ok10");
+        pvar = sem_prepared_var(db,c);
+        n += mstring_sprintf(insert,"\t\t?pm a %s .\n", osd->subject);
+        n += mstring_sprintf(insert,"\t\t?pm %s %s .\n", osd->verb, pvar);
+        //n += mstring_sprintf(insert,"\t\t?pm rdfs:label \"%s\"^^xsd:string .\n", field->name);
+        n += mstring_sprintf(where,"\tBIND (URI(%s) as ?pm) .\n", REPLACE_URI_PM);
+        pm = osd->subject ;
+        oml_free(pvar);
+
         osd = osd->next ;
+        if(osd){
+        if (!strcmp(osd->predicate,"omn-domain-pc:PC") && !strcmp(osd->subject,"omn-domain-pc:VM") && !strcmp(osd->verb,"omn-lifecycle:childOf")){
+            n += mstring_sprintf(insert,"\t\t?vm omn-lifecycle:childOf ?pm .\n");
+        }}
+
       }
+
+      if (!strcmp(osd->predicate,"%value%") && !strcmp(osd->subject,"omn-domain-pc:VM") && !strcmp(osd->verb,"rdfs:label"))
+   	  {
+	printf("ok11");
+        pvar = sem_prepared_var(db,c);
+        n += mstring_sprintf(insert,"\t\t?vm a %s .\n", osd->subject);
+        n += mstring_sprintf(insert,"\t\t?vm %s %s .\n", osd->verb, pvar);
+        //n += mstring_sprintf(insert,"\t\t?vm rdfs:label \"%s\"^^xsd:string .\n", field->name);
+        n += mstring_sprintf(where,"\tBIND (URI(%s) as ?vm) .\n", REPLACE_URI_VM);
+        vm = osd->subject ;
+        oml_free(pvar);
+
+        osd = osd->next ;
+        if(osd){
+        if (!strcmp(osd->predicate,"omn-domain-pc:PC") && !strcmp(osd->subject,"omn-domain-pc:VM") && !strcmp(osd->verb,"omn-lifecycle:childOf")){
+            n += mstring_sprintf(insert,"\t\t?vm omn-lifecycle:childOf ?pm .\n");
+        }}
+      }	
+
+      if(pm && vm){
+        n += mstring_sprintf(insert,"\t\t?pm omn-lifecycle:implements ?vm .\n");
+        *pm = NULL ;
+        *vm = NULL ;
+      }
+
+      /*	
+      if (strcmp(first_concept,osd->subject)) {
+        logerror("%s: Failed in specification of the concepts, subject: %s is different to subject: %s.\n",
+            db->backend_name, first_concept, osd->subject);
+        goto fail_exit;
+	}*/
+	if(strcmp(osd->verb,"MOFID:hasMetricAttributes") && strcmp(osd->verb,"MOFID:timestamp") ){
+	osd = osd->next ;
+  } 
+	printf("ok3");
+      if(osd){
+	printf("ok4");
+	
+
+	if(!second_concept){
+	  printf("ok5");
+	  second_concept = osd->subject ;
+          while(strcmp(osd->verb,"MOFID:hasMetricAttributes")){
+            if(!strcmp(osd->verb,"MOFID:isMeasurementMetricOf")){
+                if(!strcmp(osd->predicate,"omn-domain-pc:PC")){
+                  n += mstring_sprintf(insert,"\t\t?metric %s ?pm .\n", osd->verb);
+                }
+                else if(!strcmp(osd->predicate,"omn-domain-pc:VM")){
+                  n += mstring_sprintf(insert,"\t\t?metric %s ?vm .\n", osd->verb);
+                }
+                else{
+                  n += mstring_sprintf(insert,"\t\t?metric %s ?r%d .\n", osd->verb, r);
+                  n += mstring_sprintf(insert,"\t\t?r%d a %s .\n", r, osd->predicate);
+                  n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/\", ?struuid )) as ?r%d) .\n",fus_host,fus_port,osd->predicate,r) ;
+                }
+            }
+            else{
+                if(!strcmp(osd->predicate,"omn-domain-pc:PC")){
+                  n += mstring_sprintf(insert,"\t\t?r%d %s ?pm .\n", r, osd->verb);
+                }
+                else if(!strcmp(osd->predicate,"omn-domain-pc:VM")){
+                  n += mstring_sprintf(insert,"\t\t?r%d %s ?vm .\n", r, osd->verb);
+                }
+                else{
+                  n += mstring_sprintf(insert,"\t\t?r%d %s ?r%d .\n", r, osd->verb, r++);
+                  n += mstring_sprintf(insert,"\t\t?r%d a %s .\n", r, osd->predicate);
+                  n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/\", ?struuid )) as ?r%d) .\n",fus_host,fus_port,osd->predicate,r);
+                }           
+            }
+            osd = osd->next ;
+          }  
+        }
+
+	while(strcmp(osd->verb,"MOFID:hasMetricAttributes") && strcmp(osd->verb,"MOFID:timestamp")){
+          osd = osd->next;
+        }
+	printf("ok6");
+	n += mstring_sprintf(insert,"\t\t?metric %s ?v%d .\n", osd->verb, v);  	
+      	first_concept_aux = osd->predicate;
+     	n += mstring_sprintf(insert,"\t\t?v%d a %s .\n", v, first_concept_aux);
+      	osd = osd->next;
+	//printf(mstring_buf(insert));
+      	if (!osd) {
+          logerror("%s: Failed in specification of the concepts, subject: %s doesnt have more info.\n",
+            db->backend_name, first_concept);
+        	goto fail_exit;
+      	}
+      	n += mstring_sprintf(insert,"\t\t?v%d rdfs:label \"%s\"^^xsd:string .\n", v, field->name);
+
+      	while (osd){
+		printf("ok7");
+	        /*if (strcmp(first_concept_aux,osd->subject)) {
+	          logerror("%s: Failed in specification of the concepts, subject: %s is different to subject: %s.\n",
+	              db->backend_name, first_concept_aux, osd->subject);
+	          goto fail_exit;
+	        }*/
+	        if (!strcmp(osd->predicate,"%value%"))
+	        {
+	            pvar = sem_prepared_var(db,c);
+	            n += mstring_sprintf(insert,"\t\t?v%d %s %s .\n", v, osd->verb, pvar);
+	            oml_free(pvar);
+	        }
+	        else
+	            n += mstring_sprintf(insert,"\t\t?v%d %s %s .\n", v, osd->verb, osd->predicate);
+	        osd = osd->next;
+		printf("ok8");
+      	}
+      }
+      printf(mstring_buf(insert));
       
-      while(osd){
-        subject = lookup_char(osd->subject) ;
-        object = lookup_char(osd->object) ;
-       
-	     if(subject && !object){
-          if(!strcmp(osd->object,"%value%")){
-            handleValue(db, c, insert, subject, osd->predicate, pvar, n) ;
-          }
-          else{
-            /*if(!strcmp(osd->predicate,"rdf:type")){
-              n += mstring_sprintf(insert,"\t\t%s a %s .\n", subject, osd->object);
-            }
-	          else{*/
-              snprintf(temp, sizeof(temp), "?v%d", v);
-              n += mstring_sprintf(insert,"\t\t%s %s ?v%d .\n", subject, osd->predicate, v);
-              n += mstring_sprintf(insert,"\t\t?v%d a %s .\n", v, osd->object);
-              list = install(osd->object,temp) ;
-  	          n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/v%d/\", ?struuid )) as ?v%d) .\n",fus_host,fus_port,table->schema->name,field->name,v,v);
-  	          v++ ;
-            //}
-          }
-        }
-
-        else if(!subject && object){
-          if(!strcmp(osd->object,"%value%")){
-            handleValue(db, c, insert, subject, osd->predicate, pvar, n) ;
-          }
-          else{
-            snprintf(temp, sizeof(temp), "?v%d", v) ;
-            n += mstring_sprintf(insert,"\t\t?v%d %s %s .\n", v, osd->predicate, object);
-            n += mstring_sprintf(insert,"\t\t?v%d a %s .\n", v, osd->subject);
-            list = install(osd->subject,temp) ;
-	    n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/v%d/\", ?struuid )) as ?v%d) .\n",fus_host,fus_port,table->schema->name,field->name,v,v);
-	    v++ ;
-          }
-        }
-
-        else if(!subject && !object){
-          snprintf(temp, sizeof(temp), "?v%d", v) ;
-          n += mstring_sprintf(insert,"\t\t?v%d a %s .\n", v, osd->subject);
-          list = install(osd->subject,temp) ;
-	         n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/v%d/\", ?struuid )) as ?v%d) .\n",fus_host,fus_port,table->schema->name,field->name,v,v);
-          if(!strcmp(osd->object,"%value%")){
-	           subject = lookup_char(osd->subject) ;
-             handleValue(db, c, insert, subject, osd->predicate, pvar, n) ;
-          }
-          else{
-            /*if(!strcmp(osd->predicate,"rdf:type")){
-              n += mstring_sprintf(insert,"\t\t?v%d a %s .\n", v, osd->object);
-            }
-            else{*/
-            n += mstring_sprintf(insert,"\t\t?v%d %s ?v%d .\n", v, osd->predicate, v++);
-            n += mstring_sprintf(insert,"\t\t?v%d a %s .\n", v, osd->object);
-            snprintf(temp, sizeof(temp), "?v%d", v) ;
-            list = install(osd->object,temp) ;
-	           n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/v%d/\", ?struuid )) as ?v%d) .\n",fus_host,fus_port,table->schema->name,field->name,v,v);
-	           v++ ;
-           //}
-          }
-        }
-
-        else if(subject && object){
-          if(!strcmp(osd->object,"%value%")){
-            handleValue(db, c, insert, subject, osd->predicate, pvar, n) ;
-          }
-          else{
-            n += mstring_sprintf(insert,"\t\t%s %s %s .\n", subject, osd->predicate, object);
-            n += mstring_sprintf(insert,"\t\t%s a %s .\n", object, osd->object);
-          }
-        }
-
-        osd = osd->next ;
-      }
-
-      // =====================================================================================
- 
-      //n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/\", ?struuid )) as ?v%d) .\n",fus_host,fus_port,table->schema->name,field->name,v);
-	//free_list() ;
-      //printf(mstring_buf(where));
+      n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/\", ?struuid )) as ?v%d) .\n",fus_host,fus_port,table->schema->name,field->name,v++);
+      printf(mstring_buf(where));
+      printf("ok11");
     }
   }
   if (mstring_buf(insert)&&mstring_buf(insert)[0]&&mstring_buf(where)&&mstring_buf(where)[0])
   {
       //loginfo("GRAPH: <http://%s:%s/%s>\n", fus_host,fus_port,db->name);
-      n += mstring_sprintf(mstr,"%s\nINSERT\n\n\t{\n%s\t}\n\nWHERE\n{\n\tBIND (STRUUID() as ?struuid) .\n%s} ",
-          HEADER_INSERT,mstring_buf(insert),mstring_buf(where));
-	//printf(mstring_buf(mstr));
-  //    n += mstring_sprintf(mstr,"%s\nINSERT\n{\n\tGRAPH <http://%s:%s/%s>\n\t{\n%s\t}\n}\nWHERE\n{\n\tBIND (STRUUID() as ?struuid) .\n%s} ",
-  //          HEADER_INSERT,fus_host,fus_port,db->name,mstring_buf(insert),mstring_buf(where));
+      n += mstring_sprintf(mstr,"%s\nINSERT\n{\n\tGRAPH <http://%s:%s/%s>\n\t{\n%s\t}\n}\nWHERE\n{\n\tBIND (STRUUID() as ?struuid) .\n%s} ",
+        HEADER_INSERT,fus_host,fus_port,db->name,mstring_buf(insert),mstring_buf(where));
       loginfo("====================================================\n%s\n====================================================\n", mstring_buf(mstr));
       fflush(stdout);
       fflush(stderr);
@@ -630,7 +568,7 @@ sem_insert(Database *db, DbTable *table, int sender_id, int seq_no, double time_
   //TODO table->schema->fields->concepts
   SemDB* semdb = (SemDB*)db->handle;
   SemTable* semtable = (SemTable*)table->handle;
- 
+  
   if (semtable && semtable->insert_stmt) {
     int i, res = 0;
     long http_code;
@@ -680,26 +618,11 @@ sem_insert(Database *db, DbTable *table, int sender_id, int seq_no, double time_
     }
     if ((tok = strstr(old_tok, REPLACE_TC))) {
         *tok = '\0';
-        res += mstring_sprintf(stmtend, "%s\"%f\"^^xsd:double", old_tok, time_stamp);
+        res += mstring_sprintf(stmtend, "%s\"%d\"^^xsd:double", old_tok, time_stamp);
         old_tok = tok+strlen(REPLACE_TC);
     }
-    if ((tok = strstr(old_tok, REPLACE_TS))) {
-        *tok = '\0';
-        res += mstring_sprintf(stmtend, "%s\"%f\"^^xsd:double", old_tok, time_stamp_server);
-        old_tok = tok+strlen(REPLACE_TS);
-    }
-    if ((tok = strstr(old_tok, REPLACE_SID))) {
-        *tok = '\0';
-        res += mstring_sprintf(stmtend, "%s\"%s\"^^xsd:string", old_tok, sid);
-        old_tok = tok+strlen(REPLACE_SID);
-    }
-    if ((tok = strstr(old_tok, REPLACE_STARTTIME))) {
-        *tok = '\0';
-        res += mstring_sprintf(stmtend, "%s\"%d\"^^xsd:integer", old_tok, starttime);
-        old_tok = tok+strlen(REPLACE_STARTTIME);
-    }
     pvar = sem_prepared_var(db,0);
-    for (i = 0; i < schema->nfields;i++) {
+    for (i = 0; i < schema->nfields+1;i++) {
       if ((tok = strstr(old_tok, pvar))) {
         if (oml_value_get_type(v+i) != schema->fields[i].type) {
           const char *expected = oml_type_to_s (schema->fields[i].type);
@@ -864,21 +787,29 @@ sem_insert(Database *db, DbTable *table, int sender_id, int seq_no, double time_
       oml_free(pvar);
       pvar = sem_prepared_var(db,i+1);
     } //end for
-    
+    if ((tok = strstr(old_tok, REPLACE_URI_PM))) {
+    	for (i = 0; i < schema->nfields;i++) {
+	      	if(!strcmp(schema->fields[i].name,"physicalresource")){
+	      		*tok = '\0';
+	      		res += mstring_sprintf(stmtend, "%s\"%s%s\"", old_tok, "http://", omlc_get_string_ptr(*oml_value_get_value(v+i)));
+	        	old_tok = tok+strlen(REPLACE_URI_PM);
+	        }
+	    }
+	} 
+	if ((tok = strstr(old_tok, REPLACE_URI_VM))) {
+    	for (i = 0; i < schema->nfields;i++) {
+	      	if(!strcmp(schema->fields[i].name,"virtualresource")){
+	      		*tok = '\0';
+	      		res += mstring_sprintf(stmtend, "%s\"%s\"", old_tok, omlc_get_string_ptr(*oml_value_get_value(v+i)));
+	        	old_tok = tok+strlen(REPLACE_URI_VM);
+	        }
+	    }
+	}
     oml_free(pvar);
     res += mstring_sprintf(stmtend, "%s", old_tok);
+    printf("STMTEND\n%s\n",mstring_buf(stmtend)) ;
     if (old_tok != stmt)
     {
-        MString* url = mstring_create ();
-        CURL *curl;
-        curl_global_init(CURL_GLOBAL_ALL);
-        if (!(curl = curl_easy_init())) return -1;
-        mstring_sprintf(url,"http://%s:%s/%s/update",fus_host, fus_port, fus_namespace);
-        loginfo("%s\n",mstring_buf(url));
-        curl_easy_setopt(curl, CURLOPT_URL, mstring_buf(url));
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &logwrite);
-        semdb->conn = curl ;
-
         curl_easy_setopt(semdb->conn, CURLOPT_POSTFIELDS, mstring_buf(stmtend));
         res = curl_easy_perform(semdb->conn);
         /* Check for errors */ 
@@ -898,11 +829,10 @@ sem_insert(Database *db, DbTable *table, int sender_id, int seq_no, double time_
 /** Add a new sender to the database, returning its index.
  * \see db_add_sender_id
  */
-static char*
+static int /*char*/
 sem_add_sender_id(Database* database, const char* sender_id)
 {
-  sid = strdup(sender_id) ;
-  return 0;
+  return -1;
 }
 
 /** Set data in the metadata table
@@ -911,9 +841,6 @@ sem_add_sender_id(Database* database, const char* sender_id)
 static int
 sem_set_metadata (Database* database, const char* key, const char* value)
 {
-  if(strcmp(key, "start-time") == 0 || strcmp(key, "start_time") == 0){
-	starttime = atoi(value) ;	
-  }
   return 0;
 }
 
@@ -945,110 +872,6 @@ static TableDescr*
 sem_get_table_list (Database *database, int *num_tables)
 {
     return NULL;
-}
-
-static int
-starttime_exists(Database *db, DbTable *table)
-{
-  CURL *curl; 
-  SemDB* semdb = (SemDB*)db->handle;
-  SemTable* semtable = (SemTable*)table->handle;
-  MString *query = mstring_create ();
-  MString *url = mstring_create ();
-  int res = 0;
-  long http_code;
-
-  struct string s;
-  init_string(&s);
-
-  mstring_sprintf(url,"http://%s:%s/%s/query",fus_host, fus_port, fus_namespace);
-  mstring_sprintf(query,"query=%s SELECT ?st {{?domain rdfs:label ?label .\n?domain omn:hasService ?monservice .\n?monservice omn-lifecycle:StartTime ?st .\nfilter(regex(?label,\"%s\"))}} ",HEADER_INSERT, db->name );
-
-  if ((curl = curl_easy_init()) == NULL) return -1 ;
-  curl_easy_setopt(curl, CURLOPT_URL, mstring_buf(url));
-  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writefunc);
-  curl_easy_setopt(curl, CURLOPT_WRITEDATA, &s);
-  semdb->conn = curl ;
-  curl_easy_setopt(semdb->conn, CURLOPT_POSTFIELDS, mstring_buf(query));
-  res = curl_easy_perform(semdb->conn);
-
-  /* cleanup curl handle */
-  curl_easy_cleanup(curl);
-
-  if(res == CURLE_OK || http_code == 200L){
-    //parse
-    cJSON *root = cJSON_Parse(s.ptr);
-    char* value = parse_object(root);
-    if (value != NULL){
-      starttime = atoi(value) ;
-      cJSON_Delete(root);
-      free(s.ptr);
-    return 1 ;
-    }
-    else return 0 ;
-  } 
-  /* Check for errors */ 
-  else{
-    logerror("fuseki:%s: starttime Semantic query failed: %s\n", db->name, curl_easy_strerror(res));
-    return 0 ;
-  }
-  curl_easy_getinfo (semdb->conn, CURLINFO_RESPONSE_CODE, &http_code);
-  if (http_code != 200L){
-    logerror("fuseki:%s: starttime Semantic query failed. HTTP code status: %ld\n", db->name, http_code);
-    return 0 ;
-  }
-
-  return 0 ;
-}
-
-void init_string(struct string *s) {
-  s->len = 0;
-  s->ptr = malloc(s->len+1);
-  if (s->ptr == NULL) {
-    fprintf(stderr, "malloc() failed\n");
-    exit(EXIT_FAILURE);
-  }
-  s->ptr[0] = '\0';
-}
-
-size_t writefunc(void *ptr, size_t size, size_t nmemb, struct string *s)
-{
-  size_t new_len = s->len + size*nmemb;
-  s->ptr = realloc(s->ptr, new_len+1);
-  if (s->ptr == NULL) {
-    fprintf(stderr, "realloc() failed\n");
-    exit(EXIT_FAILURE);
-  }
-  memcpy(s->ptr+s->len, ptr, size*nmemb);
-  s->ptr[new_len] = '\0';
-  s->len = new_len;
-
-  return size*nmemb;
-}
-
-char* parse_object(cJSON *root)
-{
-  //cJSON* results = NULL;
-  //cJSON* bindings = NULL;
-  cJSON* st = NULL ;
-  char* value = NULL;
-  int i;
-
-  cJSON *results = cJSON_CreateObject();
-  results = cJSON_GetObjectItem(root,"results");
-  cJSON *bindings = cJSON_CreateArray();
-  bindings = cJSON_GetObjectItem(results,"bindings");
-
-  if(cJSON_GetArraySize(bindings) != 0){
-    for (i = 0 ; i < cJSON_GetArraySize(bindings) ; i++)
-    {
-       cJSON * subitem = cJSON_GetArrayItem(bindings, i);
-       st = cJSON_GetObjectItem(subitem, "st") ;
-       value = cJSON_GetObjectItem(st, "value")->valuestring;
-    }
-  }
-
-  return value ;
 }
 
 /*
@@ -1096,8 +919,6 @@ char** str_split(char* a_str, const char a_delim)
     return result;
 }
 */
-
-
 
 
 

@@ -14,6 +14,8 @@ libshared_la_SOURCES = \
 	mbuf.h \
 	cbuf.c \
 	cbuf.h \
+	cJSON.c \
+	cJSON.h \
 	mstring.c \
 	mstring.h \
 	mem.c \

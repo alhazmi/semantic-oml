@@ -645,21 +645,18 @@ omlc_close(void)
     OmlMP* mp = omlc_instance->mpoints;
 
     install_close_handler(SIG_DFL);
-
     while( (mp = destroy_mp(mp)) );
     if (w) {
       while( (w =  w->close(w)) );
     }
 
     unregister_filters ();
-
     oml_free(omlc_instance);
   }
 
   omlc_instance = NULL;
 
   oml_memreport(O_LOG_DEBUG);
-
   return 0;
 }
 
