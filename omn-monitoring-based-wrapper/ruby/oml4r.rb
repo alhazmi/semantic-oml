@@ -4,6 +4,7 @@
 # By downloading or using this software you accept the terms and the liability disclaimer in the License.
 
 # Modified by Andisa Dewi, Yahya Al-Hazmi, Technische Universitaet Berlin, 2015
+#	to support semantic data format
 # ------------------
 #
 # = oml4r.rb
@@ -630,7 +631,8 @@ module OML4R
 
     def build_schema(mp_name, add_prefix, pdefs)
       @index += 1
-      line = [@index, (!@@default_domain.nil? && add_prefix)? "#{@@default_domain}_#{mp_name}" : mp_name]
+      #line = [@index, (!@@appName.nil? && add_prefix)? "#{@@appName}_#{mp_name}" : mp_name]
+      line = [@index, (!@@appName.nil? && add_prefix)? "#{mp_name}" : mp_name]
 
       pdefs.each do |d|
       	if !d[:relation].nil?
