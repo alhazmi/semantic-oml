@@ -416,8 +416,9 @@ omlc_add_mp (const char* mp_name, OmlMPDef* mp_def)
      * concatenation happens anyway on the client side, when creating the
      * default filter configuration, and we don't want too many discrepancies
      * between the client and servers views at this stage. See #1055. */
-    mstring_sprintf(meta, "%d %s_%s%s",
-        omlc_instance->next_ms_idx, omlc_instance->app_name, mp_name, schemastr);
+    /*mstring_sprintf(meta, "%d %s_%s%s",
+        omlc_instance->next_ms_idx, omlc_instance->app_name, mp_name, schemastr);*/
+     mstring_sprintf(meta, "%d %s%s", omlc_instance->next_ms_idx,  mp_name, schemastr);
     oml_free(schemastr);
 
     logdebug("omlc_start already called, adding MP through schema 0: %s\n",
@@ -980,8 +981,9 @@ create_mstream (const char *name, OmlMP* mp, OmlWriter* writer, double sample_in
    */
   namestr = mstring_create();
   if ((mp != schema0) && (mp != omlc_instance->client_instr)) {
-    mstring_set (namestr, omlc_instance->app_name);
-    mstring_cat (namestr, "_");
+    /*mstring_set (namestr, omlc_instance->app_name);
+    mstring_cat (namestr, "_");*/
+    mstring_set (namestr, "") ;
   }
   if (name) {
     mstring_cat (namestr, name);
@@ -1400,7 +1402,8 @@ write_schema(OmlMStream *ms, int index)
           if (name == NULL)
             n = snprintf(s, bufsize, "%s:%s:%s ", prefix, type_s, c);
           else
-            n = snprintf(s, bufsize, "%s_%s:%s:%s ", prefix, name, type_s, c);
+            //n = snprintf(s, bufsize, "%s_%s:%s:%s ", prefix, name, type_s, c);
+	    n = snprintf(s, bufsize, "%s:%s:%s ", name, type_s, c);
           oml_free(c);
         }
         else
@@ -1408,7 +1411,8 @@ write_schema(OmlMStream *ms, int index)
             if (name == NULL)
               n = snprintf(s, bufsize, "%s:%s ", prefix, type_s);
             else
-              n = snprintf(s, bufsize, "%s_%s:%s ", prefix, name, type_s);
+              //n = snprintf(s, bufsize, "%s_%s:%s ", prefix, name, type_s);
+	     n = snprintf(s, bufsize, "%s:%s ", name, type_s);
         }
 
         if (n >= bufsize) {

@@ -320,7 +320,8 @@ class OMLBase:
         if mpname == "_experiment_metadata":
             target = mpname
         else:
-            target = self._appname + "_" + mpname
+	    target = mpname
+            #target = self._appname + "_" + mpname
         self._schema_str += "schema: " + str(self._streams) + " " + target + " " + schema_str + "\n"
         self._schemas[mpname] = (self._streams, names, schema, schema_str, 0)
         self._streams += 1

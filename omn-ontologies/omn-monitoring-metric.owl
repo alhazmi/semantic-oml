@@ -8,7 +8,6 @@
     <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
-    <!ENTITY xml "http://www.w3.org/XML/1998/namespace#" >
     <!ENTITY omn "http://open-multinet.info/ontology/omn#" >
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
     <!ENTITY omn-service "http://open-multinet.info/ontology/omn-service#" >
@@ -40,7 +39,6 @@
      xmlns:omn-monitoring-data="http://open-multinet.info/ontology/omn-monitoring-data#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:omn-lifecycle="http://open-multinet.info/ontology/omn-lifecycle#"
-     xmlns:xml="http://www.w3.org/XML/1998/namespace#"
      xmlns:omn-service="http://open-multinet.info/ontology/omn-service#"
      xmlns:dcterms="http://purl.org/dc/terms/"
      xmlns:vann="http://purl.org/vocab/vann/"

@@ -57,6 +57,7 @@ void
 run(opts_t *opts, oml_mps_t *oml_mps)
 {
 
+ while(loop == 1){
     FILE *cmd = popen ("ping -c 5 -q 185.63.147.10 | grep -oP \'\\d+(?=% packet loss)\'", "r" ) ;
     char *packetloss = malloc ( sizeof ( char ) * 200 );
     fgets ( packetloss, sizeof ( char )*200, cmd );
@@ -102,6 +103,9 @@ run(opts_t *opts, oml_mps_t *oml_mps)
       logwarn("Failed to inject data into MP 'delay'\n");
     }
  sleep(1);
+
+sleep(30) ;
+}
 
 }
 
@@ -155,10 +159,10 @@ main(int argc, const char *argv[])
   omlc_reset_string(v);
 
   /* Inject measurements */
-  while(true){
+  //while(true){
   	run(g_opts, g_oml_mps_ping); /* Do some work and injections, see above */
-	sleep(30) ;
-  }
+//	sleep(30) ;
+ // }
   omlc_close();
 
   return 0;

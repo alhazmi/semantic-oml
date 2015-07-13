@@ -153,19 +153,19 @@ while True :
 
 			#metrics
 			item = zapi.item.get({"output": "extend","hostids":hostid,"search":{"name":"Total memory"}}).pop()
-			totalmemory = float(item['lastvalue']) / (1024)**3
+			totalmemory = float(item['lastvalue']) / (1000)**3
 			totalmemory_ts = datetime.fromtimestamp(int(item['lastclock']),pytz.timezone("Europe/Berlin"))
 
 			item = zapi.item.get({"output": "extend","hostids":hostid,"search":{"name":"Used memory"}}).pop()
-			usedmemory = float(item['lastvalue']) / (1024)**3
+			usedmemory = float(item['lastvalue']) / (1000)**3
 			usedmemory_ts = datetime.fromtimestamp(int(item['lastclock']),pytz.timezone("Europe/Berlin"))
 
 			item = zapi.item.get({"output": "extend","hostids":hostid,"search":{"name":"Available memory"}}).pop()
-			availablememory = float(item['lastvalue']) / (1024)**3
+			availablememory = float(item['lastvalue']) / (1000)**3
 			availablememory_ts = datetime.fromtimestamp(int(item['lastclock']),pytz.timezone("Europe/Berlin"))
 			
 			item = zapi.item.get({"output": "extend","hostids":hostid,"search":{"key_":"net.if.in[eth2]"}}).pop()
-			usedbandwidth = float(item['lastvalue']) / (1024)**2
+			usedbandwidth = float(item['lastvalue']) / (1000)**2
 			usedbandwidth_ts = datetime.fromtimestamp(int(item['lastclock']),pytz.timezone("Europe/Berlin"))
 
 			item = zapi.item.get({"output": "extend","hostids":hostid,"search":{"key_":"system.cpu.load[percpu,avg5]"}}).pop()
@@ -177,8 +177,8 @@ while True :
 			logger.error("cannot fetch data from Zabbix.")
 			sys.exit()
 
-		omlInst.inject("used_memory", [totalmemory, totalmemory_ts, row[0], row[2]])
-		omlInst.inject("total_memory", [usedmemory, usedmemory_ts, row[0], row[2]])
+		omlInst.inject("total_memory", [totalmemory, totalmemory_ts, row[0], row[2]])
+		omlInst.inject("used_memory", [usedmemory, usedmemory_ts, row[0], row[2]])
 		omlInst.inject("available_memory", [availablememory, availablememory_ts, row[0], row[2]])
 		omlInst.inject("used_bandwidth", [usedbandwidth, usedbandwidth_ts, row[0], row[2]])
 		omlInst.inject("cpu_load", [cpuload, cpuload_ts, row[0], row[2]])

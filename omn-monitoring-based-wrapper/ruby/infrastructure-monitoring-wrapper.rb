@@ -180,7 +180,7 @@ while true
 			)
 			unless total_memory.empty?
 			  total_memory_ts = total_memory[0]["lastclock"].to_i
-			  total_memory = total_memory[0]["lastvalue"].to_f / (1024)**3
+			  total_memory = total_memory[0]["lastvalue"].to_f / (1000)**3
 			  TOTAL_MEMORY_MP.inject(total_memory, Time.at(total_memory_ts).localtime.strftime("%Y-%m-%dT%H:%M:%S"), row[0], row[2])
 			end
 
@@ -196,7 +196,7 @@ while true
 			)
 			unless used_memory.empty?
 			  used_memory_ts = used_memory[0]["lastclock"].to_i
-			  used_memory = used_memory[0]["lastvalue"].to_f / (1024)**3
+			  used_memory = used_memory[0]["lastvalue"].to_f / (1000)**3
 			  USED_MEMORY_MP.inject(used_memory, Time.at(used_memory_ts).localtime.strftime("%Y-%m-%dT%H:%M:%S"), row[0], row[2])
 			end
 
@@ -212,7 +212,7 @@ while true
 			)
 			unless available_memory.empty?
 			  available_memory_ts = available_memory[0]["lastclock"].to_i
-			  available_memory = available_memory[0]["lastvalue"].to_f / (1024)**3
+			  available_memory = available_memory[0]["lastvalue"].to_f / (1000)**3
 			  AVAILABLE_MEMORY_MP.inject(available_memory, Time.at(available_memory_ts).localtime.strftime("%Y-%m-%dT%H:%M:%S"), row[0], row[2])
 			end
 
@@ -228,7 +228,7 @@ while true
 			)
 			unless used_bandwidth.empty?
 			  used_bandwidth_ts = used_bandwidth[0]["lastclock"].to_i
-			  used_bandwidth = used_bandwidth[0]["lastvalue"].to_f / (1024)**2
+			  used_bandwidth = used_bandwidth[0]["lastvalue"].to_f / (1000)**2
 			  USED_BANDWIDTH_MP.inject(used_bandwidth, Time.at(used_bandwidth_ts).localtime.strftime("%Y-%m-%dT%H:%M:%S"), row[0], row[2])
 			end
 		

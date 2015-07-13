@@ -867,6 +867,7 @@ sem_insert(Database *db, DbTable *table, int sender_id, int seq_no, double time_
     
     oml_free(pvar);
     res += mstring_sprintf(stmtend, "%s", old_tok);
+    printf("\n%s\n\n", mstring_buf(stmtend)); 
     if (old_tok != stmt)
     {
         MString* url = mstring_create ();
