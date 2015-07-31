@@ -4,7 +4,6 @@
 <!DOCTYPE rdf:RDF [
     <!ENTITY dcterms "http://purl.org/dc/terms/" >
     <!ENTITY vann "http://purl.org/vocab/vann/" >
-    <!ENTITY time "http://www.w3.org/2006/time#" >
     <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
     <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
@@ -34,7 +33,6 @@
      xmlns:xml="http://www.w3.org/XML/1998/namespace#"
      xmlns:omn-service="http://open-multinet.info/ontology/omn-service#"
      xmlns:dcterms="http://purl.org/dc/terms/"
-     xmlns:time="http://www.w3.org/2006/time#"
      xmlns:vann="http://purl.org/vocab/vann/"
      xmlns:dc="http://purl.org/dc/elements/1.1/">
     <owl:Ontology rdf:about="http://open-multinet.info/ontology/omn-monitoring">
@@ -281,14 +279,6 @@
     <!-- http://open-multinet.info/ontology/omn-monitoring#sentFrom -->
 
     <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring#sentFrom">
-        <rdfs:range>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&omn-federation;Infrastructure"/>
-                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring#Tool"/>
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:range>
         <rdfs:domain>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -297,6 +287,14 @@
                 </owl:unionOf>
             </owl:Class>
         </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn-federation;Infrastructure"/>
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring#Tool"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
     </owl:ObjectProperty>
     
 
@@ -397,12 +395,6 @@
         <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-monitoring#Lifetime"/>
         <rdfs:range rdf:resource="&xsd;dateTime"/>
     </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.w3.org/2006/time#second -->
-
-    <owl:DatatypeProperty rdf:about="&time;second"/>
     
 
 
