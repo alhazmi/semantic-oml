@@ -411,6 +411,11 @@ database_find_or_create_table(Database *database, struct schema *schema)
     if (table) {
       diff = schema_diff (s, table->schema);
       if (!diff) {
+        if(database->semantic){
+          if (database->table_create (database, table, 0)) {
+              logerror ("%s: Couldn't create table '%s'\n", database->name, schema->name);
+            }
+        }
         schema_free(s);
         return table;
 
@@ -573,3 +578,4 @@ database_init (Database *database)
  End:
  vim: sw=2:sts=2:expandtab
 */
+
