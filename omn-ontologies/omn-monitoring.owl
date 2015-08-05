@@ -4,11 +4,11 @@
 <!DOCTYPE rdf:RDF [
     <!ENTITY dcterms "http://purl.org/dc/terms/" >
     <!ENTITY vann "http://purl.org/vocab/vann/" >
-    <!ENTITY time "http://www.w3.org/2006/time#" >
     <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
     <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace#" >
     <!ENTITY omn "http://open-multinet.info/ontology/omn#" >
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
     <!ENTITY omn-service "http://open-multinet.info/ontology/omn-service#" >
@@ -30,9 +30,9 @@
      xmlns:omn="http://open-multinet.info/ontology/omn#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:omn-lifecycle="http://open-multinet.info/ontology/omn-lifecycle#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace#"
      xmlns:omn-service="http://open-multinet.info/ontology/omn-service#"
      xmlns:dcterms="http://purl.org/dc/terms/"
-     xmlns:time="http://www.w3.org/2006/time#"
      xmlns:vann="http://purl.org/vocab/vann/"
      xmlns:dc="http://purl.org/dc/elements/1.1/">
     <owl:Ontology rdf:about="http://open-multinet.info/ontology/omn-monitoring">
@@ -65,22 +65,6 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    
-
-
-    <!-- http://open-multinet.info/ontology/omn-monitoring#elapsedTimeAtClientSinceExperimentStarted -->
-
-    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring#elapsedTimeAtClientSinceExperimentStarted">
-        <rdfs:range rdf:resource="&time;second"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://open-multinet.info/ontology/omn-monitoring#elapsedTimeAtServerSinceExperimentStarted -->
-
-    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring#elapsedTimeAtServerSinceExperimentStarted">
-        <rdfs:range rdf:resource="&time;second"/>
-    </owl:ObjectProperty>
     
 
 
@@ -256,14 +240,6 @@
     <!-- http://open-multinet.info/ontology/omn-monitoring#sendTo -->
 
     <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring#sendTo">
-        <rdfs:range>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&omn;Service"/>
-                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring#Tool"/>
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:range>
         <rdfs:domain>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -272,6 +248,14 @@
                 </owl:unionOf>
             </owl:Class>
         </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn;Service"/>
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring#Tool"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
     </owl:ObjectProperty>
     
 
@@ -295,14 +279,6 @@
     <!-- http://open-multinet.info/ontology/omn-monitoring#sentFrom -->
 
     <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring#sentFrom">
-        <rdfs:range>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&omn-federation;Infrastructure"/>
-                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring#Tool"/>
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:range>
         <rdfs:domain>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -311,6 +287,14 @@
                 </owl:unionOf>
             </owl:Class>
         </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&omn-federation;Infrastructure"/>
+                    <rdf:Description rdf:about="http://open-multinet.info/ontology/omn-monitoring#Tool"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
     </owl:ObjectProperty>
     
 
@@ -326,15 +310,19 @@
     
 
 
-    <!-- http://open-multinet.info/ontology/omn-monitoring#elapsedTimeAtClientSinceExperimentStarted -->
+    <!-- http://open-multinet.info/ontology/omn-monitoring#elapsedTimeAtClientSinceExperimentStartedInSeconds -->
 
-    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring#elapsedTimeAtClientSinceExperimentStarted"/>
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring#elapsedTimeAtClientSinceExperimentStartedInSeconds">
+        <rdfs:range rdf:resource="&xsd;decimal"/>
+    </owl:DatatypeProperty>
     
 
 
-    <!-- http://open-multinet.info/ontology/omn-monitoring#elapsedTimeAtServerSinceExperimentStarted -->
+    <!-- http://open-multinet.info/ontology/omn-monitoring#elapsedTimeAtServerSinceExperimentStartedInSeconds -->
 
-    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring#elapsedTimeAtServerSinceExperimentStarted"/>
+    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring#elapsedTimeAtServerSinceExperimentStartedInSeconds">
+        <rdfs:range rdf:resource="&xsd;decimal"/>
+    </owl:DatatypeProperty>
     
 
 
@@ -567,12 +555,6 @@
     <owl:Class rdf:about="http://open-multinet.info/ontology/omn-monitoring#Unit">
         <rdfs:comment rdf:datatype="&xsd;string">Unit represents the unit of the measurement and monitoring data such as Bytes, Bitspersecond, etc.</rdfs:comment>
     </owl:Class>
-    
-
-
-    <!-- http://www.w3.org/2006/time#second -->
-
-    <owl:Class rdf:about="&time;second"/>
 </rdf:RDF>
 
 
