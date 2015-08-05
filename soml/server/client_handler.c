@@ -470,6 +470,13 @@ process_meta(ClientHandler* self, char* key, char* value)
         char s[64];
         snprintf (s, LENGTH(s), "%u", start_time);
         self->database->set_metadata (self->database, "start_time", s);
+      }else{
+        if(self->database->semantic){
+          self->database->start_time = start_time;
+          char s[64];
+          snprintf (s, LENGTH(s), "%u", start_time);
+          self->database->set_metadata (self->database, "start_time", s);
+        }
       }
       self->time_offset = start_time - self->database->start_time;
       return 0;
