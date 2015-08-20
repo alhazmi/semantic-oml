@@ -8,6 +8,7 @@
     <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace#" >
     <!ENTITY omn "http://open-multinet.info/ontology/omn#" >
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
     <!ENTITY omn-service "http://open-multinet.info/ontology/omn-service#" >
@@ -38,6 +39,7 @@
      xmlns:omn="http://open-multinet.info/ontology/omn#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:omn-lifecycle="http://open-multinet.info/ontology/omn-lifecycle#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace#"
      xmlns:omn-service="http://open-multinet.info/ontology/omn-service#"
      xmlns:dcterms="http://purl.org/dc/terms/"
      xmlns:omn-monitoring-metric="http://open-multinet.info/ontology/omn-monitoring-metric#"
@@ -155,6 +157,17 @@
         <rdfs:comment rdf:datatype="&xsd;string">Represents the unit of the measurement data</rdfs:comment>
         <rdfs:range rdf:resource="&omn-monitoring;Unit"/>
         <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-monitoring-data#MeasurementData"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://open-multinet.info/ontology/omn-monitoring-data#isMeasurementDataOf -->
+
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-data#isMeasurementDataOf">
+        <rdfs:comment rdf:datatype="&xsd;string">Reprenets a measurement data of a particular metric</rdfs:comment>
+        <rdfs:range rdf:resource="&omn-monitoring;Metric"/>
+        <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-monitoring-data#MeasurementData"/>
+        <owl:inverseOf rdf:resource="http://open-multinet.info/ontology/omn-monitoring-data#hasMeasurementData"/>
     </owl:ObjectProperty>
     
 
