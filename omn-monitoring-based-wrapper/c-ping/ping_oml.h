@@ -59,29 +59,25 @@ oml_register_mps(void)
 {
   int i,j;
   char*** concept;// = (char***)oml_malloc(sizeof(char**)*);
-  concept = (char***)oml_malloc(sizeof(char**)*5);
+  concept = (char***)oml_malloc(sizeof(char**)*4);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:PacketLoss");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:PacketLoss");
   concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
   concept[1][2]=strdup("omn-resource:Link");
   concept[2] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[2][0]=strdup("omn-monitoring-metric:PacketLoss");
-  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementData");
-  concept[2][2]=strdup("omn-monitoring-data:MeasurementData");
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
   concept[3] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[3][0]=strdup("omn-monitoring-data:MeasurementData");
-  concept[3][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
-  concept[3][2]=strdup("%value%");
-  concept[4] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[4][0]=strdup("omn-monitoring-data:MeasurementData");
-  concept[4][1]=strdup("omn-monitoring:hasUnit");
-  concept[4][2]=strdup("omn-monitoring-unit:percent");
-  oml_packet_loss_def[0].relations = oml_sem_register_concepts(concept, 5);
-  for (i=0;i<5;i++)
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:percent");
+  oml_packet_loss_def[0].relations = oml_sem_register_concepts(concept, 4);
+  for (i=0;i<4;i++)
   {
     for (j=0;j<3;j++)
       free(concept[i][j]);
@@ -90,7 +86,7 @@ oml_register_mps(void)
   oml_free(concept);
   concept = (char***)oml_malloc(sizeof(char**)*1);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[0][0]=strdup("omn-monitoring-data:MeasurementData");
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
   concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
   concept[0][2]=strdup("%value%");
   oml_packet_loss_def[1].relations = oml_sem_register_concepts(concept, 1);
@@ -128,33 +124,29 @@ oml_register_mps(void)
   }
   oml_free(concept);
   g_oml_mps_ping->packet_loss = omlc_add_mp("packet_loss", oml_packet_loss_def);
-  concept = (char***)oml_malloc(sizeof(char**)*6);
+  concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:Delay");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:Delay");
   concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
   concept[1][2]=strdup("omn-resource:Link");
   concept[2] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[2][0]=strdup("omn-monitoring-metric:Delay");
-  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementData");
-  concept[2][2]=strdup("omn-monitoring-data:MeasurementData");
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
   concept[3] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[3][0]=strdup("omn-monitoring-data:MeasurementData");
-  concept[3][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
-  concept[3][2]=strdup("%value%");
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:second");
   concept[4] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[4][0]=strdup("omn-monitoring-data:MeasurementData");
-  concept[4][1]=strdup("omn-monitoring:hasUnit");
-  concept[4][2]=strdup("omn-monitoring-unit:second");
-  concept[5] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[5][0]=strdup("omn-monitoring-unit:second");
-  concept[5][1]=strdup("omn-monitoring-unit:hasPrefix");
-  concept[5][2]=strdup("omn-monitoring-unit:milli");
-  oml_delay_def[0].relations = oml_sem_register_concepts(concept, 6);
-  for (i=0;i<6;i++)
+  concept[4][0]=strdup("omn-monitoring-unit:second");
+  concept[4][1]=strdup("omn-monitoring-unit:hasPrefix");
+  concept[4][2]=strdup("omn-monitoring-unit:milli");
+  oml_delay_def[0].relations = oml_sem_register_concepts(concept, 5);
+  for (i=0;i<5;i++)
   {
     for (j=0;j<3;j++)
       free(concept[i][j]);
@@ -163,7 +155,7 @@ oml_register_mps(void)
   oml_free(concept);
   concept = (char***)oml_malloc(sizeof(char**)*1);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[0][0]=strdup("omn-monitoring-data:MeasurementData");
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
   concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
   concept[0][2]=strdup("%value%");
   oml_delay_def[1].relations = oml_sem_register_concepts(concept, 1);

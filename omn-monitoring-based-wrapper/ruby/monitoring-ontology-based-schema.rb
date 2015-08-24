@@ -54,16 +54,15 @@ defApplication('oml:infrastructure-monitoring', 'infrastructure_monitoring') do 
 
 app.defMeasurement("used_memory"){ |m|
     m.defMetric('used_memory', :double, 'Used memory value of host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:UsedMemory'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:UsedMemory'],
     ['omn-monitoring-metric:UsedMemory','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
-    ['omn-monitoring-metric:UsedMemory','omn-monitoring-data:hasMeasurementData','omn-monitoring-data:MeasurementData'],
-    ['omn-monitoring-data:MeasurementData','omn-monitoring-data:hasMeasurementDataValue','%value%'],
-    ['omn-monitoring-data:MeasurementData','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
+    ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
+    ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
     ['omn-monitoring-unit:Byte','omn-monitoring-unit:hasPrefix','omn-monitoring-unit:giga']])
 
 
     m.defMetric('timestamp', :datetime, 'Time when the metric is measured',
-    [['omn-monitoring-data:MeasurementData','omn-monitoring-data:hasTimestamp','%value%']])
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasTimestamp','%value%']])
 
 
     m.defMetric('physicalresource', :string, 'Name of monitored physical host',
@@ -77,16 +76,15 @@ app.defMeasurement("used_memory"){ |m|
 
 app.defMeasurement("total_memory"){ |m|
     m.defMetric('total_memory', :double, 'Total memory value of host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:TotalMemory'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:TotalMemory'],
     ['omn-monitoring-metric:TotalMemory','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
-    ['omn-monitoring-metric:TotalMemory','omn-monitoring-data:hasMeasurementData','omn-monitoring-data:MeasurementData'],
-    ['omn-monitoring-data:MeasurementData','omn-monitoring-data:hasMeasurementDataValue','%value%'],
-    ['omn-monitoring-data:MeasurementData','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
+    ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
+    ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
     ['omn-monitoring-unit:Byte','omn-monitoring-unit:hasPrefix','omn-monitoring-unit:giga']])
 
 
     m.defMetric('timestamp', :datetime, 'Time when the metric is measured',
-    [['omn-monitoring-data:MeasurementData','omn-monitoring-data:hasTimestamp','%value%']])
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasTimestamp','%value%']])
 
 
     m.defMetric('physicalresource', :string, 'Name of monitored physical host',
@@ -100,16 +98,15 @@ app.defMeasurement("total_memory"){ |m|
 
 app.defMeasurement("available_memory"){ |m|
     m.defMetric('available_memory', :double, 'Available memory value of host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:AvailableMemory'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:AvailableMemory'],
     ['omn-monitoring-metric:AvailableMemory','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
-    ['omn-monitoring-metric:AvailableMemory','omn-monitoring-data:hasMeasurementData','omn-monitoring-data:MeasurementData'],
-    ['omn-monitoring-data:MeasurementData','omn-monitoring-data:hasMeasurementDataValue','%value%'],
-    ['omn-monitoring-data:MeasurementData','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
+    ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
+    ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
     ['omn-monitoring-unit:Byte','omn-monitoring-unit:hasPrefix','omn-monitoring-unit:giga']])
 
 
     m.defMetric('timestamp', :datetime, 'Time when the metric is measured',
-    [['omn-monitoring-data:MeasurementData','omn-monitoring-data:hasTimestamp','%value%']])
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasTimestamp','%value%']])
 
 
     m.defMetric('physicalresource', :string, 'Name of monitored physical host',
@@ -123,16 +120,15 @@ app.defMeasurement("available_memory"){ |m|
 
 app.defMeasurement("used_bandwidth"){ |m|
     m.defMetric('used_bandwidth', :double, 'used bandwidth of monitored host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:UsedBandwidth'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:UsedBandwidth'],
     ['omn-monitoring-metric:UsedBandwidth','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
-    ['omn-monitoring-metric:UsedBandwidth','omn-monitoring-data:hasMeasurementData','omn-monitoring-data:MeasurementData'],
-    ['omn-monitoring-data:MeasurementData','omn-monitoring-data:hasMeasurementDataValue','%value%'],
-    ['omn-monitoring-data:MeasurementData','omn-monitoring:hasUnit','omn-monitoring-unit:bitpersecond'],
+    ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
+    ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:bitpersecond'],
     ['omn-monitoring-unit:bitpersecond','omn-monitoring-unit:hasPrefix','omn-monitoring-unit:mega']])
 
 
     m.defMetric('timestamp', :datetime, 'Time when the metric is measured',
-    [['omn-monitoring-data:MeasurementData','omn-monitoring-data:hasTimestamp','%value%']])
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasTimestamp','%value%']])
 
 
     m.defMetric('physicalresource', :string, 'Name of monitored physical host',
@@ -146,14 +142,13 @@ app.defMeasurement("used_bandwidth"){ |m|
 
 app.defMeasurement("availability"){ |m|
     m.defMetric('availability', :double, '1 if host is available, else 0',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:Availability'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:Availability'],
     ['omn-monitoring-metric:Availability','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
-    ['omn-monitoring-metric:Availability','omn-monitoring-data:hasMeasurementData','omn-monitoring-data:MeasurementData'],
-    ['omn-monitoring-data:MeasurementData','omn-monitoring-data:hasMeasurementDataValue','%value%']])
+    ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%']])
 
 
     m.defMetric('timestamp', :datetime, 'Time when the metric is measured',
-    [['omn-monitoring-data:MeasurementData','omn-monitoring-data:hasTimestamp','%value%']])
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasTimestamp','%value%']])
 
 
     m.defMetric('physicalresource', :string, 'Name of monitored physical host',
@@ -166,14 +161,13 @@ app.defMeasurement("availability"){ |m|
 
 app.defMeasurement("cpu_load"){ |m|
     m.defMetric('cpu_load', :double, 'CPU Load of monitored host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:CPULoad'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:CPULoad'],
     ['omn-monitoring-metric:CPULoad','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
-    ['omn-monitoring-metric:CPULoad','omn-monitoring-data:hasMeasurementData','omn-monitoring-data:MeasurementData'],
-    ['omn-monitoring-data:MeasurementData','omn-monitoring-data:hasMeasurementDataValue','%value%']])
+    ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%']])
 
 
     m.defMetric('timestamp', :datetime, 'Time when the metric is measured',
-    [['omn-monitoring-data:MeasurementData','omn-monitoring-data:hasTimestamp','%value%']])
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasTimestamp','%value%']])
 
 
     m.defMetric('physicalresource', :string, 'Name of monitored physical host',
