@@ -86,12 +86,11 @@ struct string {
  prefix omn: <http://open-multinet.info/ontology/omn#> \
  prefix omn-resource: <http://open-multinet.info/ontology/omn-resource#> \
  prefix omn-lifecycle: <http://open-multinet.info/ontology/omn-lifecycle#> \
- prefix omn-component: <http://open-multinet.info/ontology/omn-domain-pc#> \
- prefix omn-federation: <http://open-multinet.info/ontology/omn-domain-pc#> \
- prefix omn-policy: <http://open-multinet.info/ontology/omn-domain-pc#> \
- prefix omn-service: <http://open-multinet.info/ontology/omn-domain-pc#> \
+ prefix omn-component: <http://open-multinet.info/ontology/omn-component#> \
+ prefix omn-federation: <http://open-multinet.info/ontology/omn-federation#> \
+ prefix omn-policy: <http://open-multinet.info/ontology/omn-policy#> \
+ prefix omn-service: <http://open-multinet.info/ontology/omn-service#> \
  prefix omn-domain-pc: <http://open-multinet.info/ontology/omn-domain-pc#> "
-
 
 /* Functions needed by the Database struct */
 static OmlValueT sem_type_to_oml (const char *s);
@@ -224,7 +223,7 @@ struct nlist *install(char *name, char *defn)
 void init_list()
 {
   struct nlist *list = hashtab ;
-  list = install("omn-monitoring-data:MeasurementData","?data") ;
+  //list = install("omn-monitoring-data:MeasurementData","?data") ;
 }
 
 void free_list() 
@@ -510,7 +509,7 @@ sem_prepare(Database *db, DbTable* table)
         n += mstring_sprintf(insert,"\t\t?metric rdfs:label \"%s\"^^xsd:string .\n", table->schema->name);
         n += mstring_sprintf(insert,"\t\t?metric a %s .\n", osd->object);
         n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/\", ?struuid )) as ?measurement) .\n",fus_host,fus_port,"measurement",table->schema->name);
-        n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/\", ?struuid )) as ?data) .\n",fus_host,fus_port,"measurement_data",table->schema->name);
+        //n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/\", ?struuid )) as ?data) .\n",fus_host,fus_port,"measurement_data",table->schema->name);
 
         if(sender_exist(db, table) == 0){
           sender_uri = mstring_create () ;
