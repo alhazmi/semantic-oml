@@ -9,7 +9,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
- #include <stdarg.h>
+#include <stdarg.h>
 #include <limits.h>
 #include <string.h>
 #include <inttypes.h>
@@ -92,6 +92,7 @@ struct string {
  prefix omn-service: <http://open-multinet.info/ontology/omn-service#> \
  prefix omn-domain-pc: <http://open-multinet.info/ontology/omn-domain-pc#> "
 
+
 /* Functions needed by the Database struct */
 static OmlValueT sem_type_to_oml (const char *s);
 static const char *sem_oml_to_type (OmlValueT T);
@@ -108,14 +109,10 @@ static char* sem_get_metadata (Database* database, const char* key);          //
 static char* sem_get_uri(Database *db, char *uri, size_t size);                 // TODO
 static TableDescr* sem_get_table_list (Database *database, int *num_tables);    // TODO
 static int update_starttime(Database *db, DbTable *table) ;
-static int starttime_exist(Database *db, DbTable* table);
-static int service_exist(Database *db, DbTable* table);
-static int sender_exist(Database *db, DbTable* table);
-static int domain_exist(Database *db, DbTable *table) ;
+static int domain_service_sender_exist(Database *db, DbTable *table) ;
 void init_string(struct string *s) ;
 size_t writefunc(void *ptr, size_t size, size_t nmemb, struct string *s) ;
 char* parse_object(cJSON *root, char* res_name) ;
-//static char** str_split(char* a_str, const char a_delim) ;
 
 /*
 static int sq3_insert(Database *db, DbTable *table, int sender_id, int seq_no, double time_stamp, OmlValue *values, int value_count);
@@ -135,6 +132,8 @@ char *fus_host = DEFAULT_FUS_HOST;
 char *fus_port = DEFAULT_FUS_PORT;
 char *fus_namespace = DEFAULT_FUS_NAMESPACE;
 
+struct timeval start;
+int num = 1 ;
 char* sid ;
 MString* sender_uri ;
 MString* domain_uri ;
@@ -223,7 +222,6 @@ struct nlist *install(char *name, char *defn)
 void init_list()
 {
   struct nlist *list = hashtab ;
-  //list = install("omn-monitoring-data:MeasurementData","?data") ;
 }
 
 void free_list() 
@@ -269,16 +267,16 @@ size_t logwrite(char *ptr, size_t size, size_t nmemb, void *userdata)
 int
 fuseki_create_database(Database* db)
 {
-  // MString* mstr = mstring_create ();
-  // CURL *curl;
-  // curl_global_init(CURL_GLOBAL_ALL);
-  // if (!(curl = curl_easy_init())) return -1;
-  // mstring_sprintf(mstr,"http://%s:%s/%s/update",fus_host, fus_port, fus_namespace);
-  // loginfo("%s\n",mstring_buf(mstr));
-  // curl_easy_setopt(curl, CURLOPT_URL, mstring_buf(mstr));
-  // curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &logwrite);
+  MString* mstr = mstring_create ();
+  CURL *curl;
+  curl_global_init(CURL_GLOBAL_ALL);
+  if (!(curl = curl_easy_init())) return -1;
+  mstring_sprintf(mstr,"http://%s:%s/%s/update",fus_host, fus_port, fus_namespace);
+  loginfo("%s\n",mstring_buf(mstr));
+  curl_easy_setopt(curl, CURLOPT_URL, mstring_buf(mstr));
+  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &logwrite);
   SemDB* self = oml_malloc(sizeof(SemDB));
-  // self->conn = curl;//conn;
+  self->conn = curl;//conn;
   self->last_commit = time (NULL);
   db->semantic = 1;
   db->backend_name = backend_name;
@@ -466,7 +464,11 @@ sem_prepared_var(Database *db, unsigned int order)
 
 static MString*
 sem_prepare(Database *db, DbTable* table)
-{
+{ 
+  //struct timeval start;
+  //gettimeofday(&start,0);
+  //struct timeval endfirstcon;
+  //struct timeval firstcon; 
   int n = 0, c, v = 1 ;
   int max = table->schema->nfields;
   char *first_concept = NULL, *first_concept_aux = NULL ;
@@ -497,7 +499,8 @@ sem_prepare(Database *db, DbTable* table)
      
         // =============================== omn-monitoring modification ===============================
       if(!first_concept){
-	       memset(&hashtab, 0, sizeof(hashtab));
+  	//gettimeofday(&firstcon, 0);
+	memset(&hashtab, 0, sizeof(hashtab));
         init_list() ;
         char *metric = osd->object ;
 	list = install(osd->subject,"?measurement") ;
@@ -509,49 +512,130 @@ sem_prepare(Database *db, DbTable* table)
         n += mstring_sprintf(insert,"\t\t?metric rdfs:label \"%s\"^^xsd:string .\n", table->schema->name);
         n += mstring_sprintf(insert,"\t\t?metric a %s .\n", osd->object);
         n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/\", ?struuid )) as ?measurement) .\n",fus_host,fus_port,"measurement",table->schema->name);
-        //n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/\", ?struuid )) as ?data) .\n",fus_host,fus_port,"measurement_data",table->schema->name);
 
-        if(sender_exist(db, table) == 0){
-          sender_uri = mstring_create () ;
-          mstring_sprintf(sender_uri, "http://%s:%s/%s", fus_host,fus_port, sid);
+        int check_db = domain_service_sender_exist(db, table) ;
+        switch (check_db){
+          case 7 : // nothing exists
+            sender_uri = mstring_create () ;
+            mstring_sprintf(sender_uri, "http://%s:%s/%s", fus_host,fus_port, sid);
+	    n += mstring_sprintf(insert,"\t\t?sender a omn-federation:Infrastructure .\n");
+            n += mstring_sprintf(insert,"\t\t?sender rdfs:label \"%s\"^^xsd:string .\n", sid);
+
+            domain_uri = mstring_create () ;
+            mstring_sprintf(domain_uri, "http://%s:%s/%s", fus_host,fus_port, db->name);
+	    n += mstring_sprintf(insert,"\t\t?domain a omn-monitoring-genericconcepts:MonitoringDomain .\n");
+            n += mstring_sprintf(insert,"\t\t?domain rdfs:label \"%s\"^^xsd:string .\n", db->name);
+
+            service_uri = mstring_create () ;
+            mstring_sprintf(service_uri, "http://%s:%s/%s_%s/%s", fus_host,fus_port, sid, db->name, "monitoring_service");
+
+            n += mstring_sprintf(insert,"\t\t?domain omn:hasService ?monservice .\n") ;
+            n += mstring_sprintf(insert,"\t\t?monservice a omn-monitoring:MonitoringService .\n");
+            n += mstring_sprintf(insert,"\t\t?monservice omn:isServiceOf ?sender .\n");
+            n += mstring_sprintf(insert,"\t\t?monservice omn-lifecycle:StartTime \"%d\"^^xsd:integer .\n", starttime);
+            n += mstring_sprintf(where,"\tBIND (URI(\"%s\") as ?monservice) .\n",mstring_buf(service_uri));
+            break ;
+
+          case 0 :  //sender & service don't exist
+            sender_uri = mstring_create () ;
+            mstring_sprintf(sender_uri, "http://%s:%s/%s", fus_host,fus_port, sid);
+	    n += mstring_sprintf(insert,"\t\t?sender a omn-federation:Infrastructure .\n");
+            n += mstring_sprintf(insert,"\t\t?sender rdfs:label \"%s\"^^xsd:string .\n", sid);
+
+            service_uri = mstring_create () ;
+            mstring_sprintf(service_uri, "http://%s:%s/%s_%s/%s", fus_host,fus_port, sid, db->name, "monitoring_service");
+
+            n += mstring_sprintf(insert,"\t\t?domain omn:hasService ?monservice .\n") ;
+            n += mstring_sprintf(insert,"\t\t?monservice a omn-monitoring:MonitoringService .\n");
+            n += mstring_sprintf(insert,"\t\t?monservice omn:isServiceOf ?sender .\n");
+            n += mstring_sprintf(insert,"\t\t?monservice omn-lifecycle:StartTime \"%d\"^^xsd:integer .\n", starttime);
+            n += mstring_sprintf(where,"\tBIND (URI(\"%s\") as ?monservice) .\n",mstring_buf(service_uri));
+            break ;
+
+          case 1 : //domain and sender don't exist
+            domain_uri = mstring_create () ;
+            mstring_sprintf(domain_uri, "http://%s:%s/%s", fus_host,fus_port, db->name);
+	    n += mstring_sprintf(insert,"\t\t?domain a omn-monitoring-genericconcepts:MonitoringDomain .\n");
+            n += mstring_sprintf(insert,"\t\t?domain rdfs:label \"%s\"^^xsd:string .\n", db->name);
+
+            sender_uri = mstring_create () ;
+            mstring_sprintf(sender_uri, "http://%s:%s/%s", fus_host,fus_port, sid);
+	    n += mstring_sprintf(insert,"\t\t?sender a omn-federation:Infrastructure .\n");
+            n += mstring_sprintf(insert,"\t\t?sender rdfs:label \"%s\"^^xsd:string .\n", sid);
+
+            update_starttime(db, table) ;
+            break ;
+
+          case 2 : // domain and service don't exist
+            domain_uri = mstring_create () ;
+            mstring_sprintf(domain_uri, "http://%s:%s/%s", fus_host,fus_port, db->name);
+	    n += mstring_sprintf(insert,"\t\t?domain a omn-monitoring-genericconcepts:MonitoringDomain .\n");
+            n += mstring_sprintf(insert,"\t\t?domain rdfs:label \"%s\"^^xsd:string .\n", db->name);
+
+            service_uri = mstring_create () ;
+            mstring_sprintf(service_uri, "http://%s:%s/%s_%s/%s", fus_host,fus_port, sid, db->name, "monitoring_service");
+
+            n += mstring_sprintf(insert,"\t\t?domain omn:hasService ?monservice .\n") ;
+            n += mstring_sprintf(insert,"\t\t?monservice a omn-monitoring:MonitoringService .\n");
+            n += mstring_sprintf(insert,"\t\t?monservice omn:isServiceOf ?sender .\n");
+            n += mstring_sprintf(insert,"\t\t?monservice omn-lifecycle:StartTime \"%d\"^^xsd:integer .\n", starttime);
+            n += mstring_sprintf(where,"\tBIND (URI(\"%s\") as ?monservice) .\n",mstring_buf(service_uri));
+            break ;
+
+          case 3 : //sender doesn't exist
+            sender_uri = mstring_create () ;
+            mstring_sprintf(sender_uri, "http://%s:%s/%s", fus_host,fus_port, sid);
+	    n += mstring_sprintf(insert,"\t\t?sender a omn-federation:Infrastructure .\n");
+            n += mstring_sprintf(insert,"\t\t?sender rdfs:label \"%s\"^^xsd:string .\n", sid);
+
+            update_starttime(db, table) ;
+            break ;
+
+          case 4 : //service doesn't exist
+            service_uri = mstring_create () ;
+            mstring_sprintf(service_uri, "http://%s:%s/%s_%s/%s", fus_host,fus_port, sid, db->name, "monitoring_service");
+
+            n += mstring_sprintf(insert,"\t\t?domain omn:hasService ?monservice .\n") ;
+            n += mstring_sprintf(insert,"\t\t?monservice a omn-monitoring:MonitoringService .\n");
+            n += mstring_sprintf(insert,"\t\t?monservice omn:isServiceOf ?sender .\n");
+            n += mstring_sprintf(insert,"\t\t?monservice omn-lifecycle:StartTime \"%d\"^^xsd:integer .\n", starttime);
+            n += mstring_sprintf(where,"\tBIND (URI(\"%s\") as ?monservice) .\n",mstring_buf(service_uri));
+            break ;
+
+          case 5 : //domain doesn't exist
+            domain_uri = mstring_create () ;
+            mstring_sprintf(domain_uri, "http://%s:%s/%s", fus_host,fus_port, db->name);
+	    n += mstring_sprintf(insert,"\t\t?domain a omn-monitoring-genericconcepts:MonitoringDomain .\n");
+            n += mstring_sprintf(insert,"\t\t?domain rdfs:label \"%s\"^^xsd:string .\n", db->name);
+
+            update_starttime(db, table) ;
+            break ;
+
+          case 6 : //all exist
+            break ;
+
+          default :
+            logerror("%d: Failed to connect to Fuseki Server to retrieve metadata.\n",db->backend_name);
         }
+         
         n += mstring_sprintf(where,"\tBIND (URI(\"%s/%s/%s\") as ?metric) .\n", mstring_buf(sender_uri),"metric",table->schema->name) ;
 
-	n += mstring_sprintf(insert,"\t\t?measurement omn:sequenceNumber %s .\n", REPLACE_SEQ);
-	n += mstring_sprintf(insert,"\t\t?measurement omn-monitoring:elapsedTimeAtClientSinceExperimentStartedInSeconds %s .\n", REPLACE_TC);
-	n += mstring_sprintf(insert,"\t\t?measurement omn-monitoring:elapsedTimeAtServerSinceExperimentStartedInSeconds %s .\n", REPLACE_TS);
-   	n += mstring_sprintf(insert,"\t\t?measurement omn-monitoring:sentFrom ?sender .\n");
-   	n += mstring_sprintf(insert,"\t\t?sender a omn-federation:Infrastructure .\n");
-   	n += mstring_sprintf(insert,"\t\t?sender rdfs:label \"%s\"^^xsd:string .\n", sid);
-   	n += mstring_sprintf(where,"\tBIND (URI(\"%s\") as ?sender) .\n",mstring_buf(sender_uri));
-       	n += mstring_sprintf(insert,"\t\t?measurement omn-monitoring:sentFrom ?domain .\n");
-	n += mstring_sprintf(insert,"\t\t?domain a omn-monitoring-genericconcepts:MonitoringDomain .\n");
-	n += mstring_sprintf(insert,"\t\t?domain rdfs:label \"%s\"^^xsd:string .\n", db->name);
+      	n += mstring_sprintf(insert,"\t\t?measurement omn:sequenceNumber %s .\n", REPLACE_SEQ);
+      	n += mstring_sprintf(insert,"\t\t?measurement omn-monitoring:elapsedTimeAtClientSinceExperimentStartedInSeconds %s .\n", REPLACE_TC);
+      	 n += mstring_sprintf(insert,"\t\t?measurement omn-monitoring:elapsedTimeAtServerSinceExperimentStartedInSeconds %s .\n", REPLACE_TS);
+         n += mstring_sprintf(insert,"\t\t?measurement omn-monitoring:sentFrom ?sender .\n");
+         n += mstring_sprintf(where,"\tBIND (URI(\"%s\") as ?sender) .\n",mstring_buf(sender_uri));
+        n += mstring_sprintf(insert,"\t\t?measurement omn-monitoring:sentFrom ?domain .\n");
 
-        if(domain_exist(db, table) == 0){
-          domain_uri = mstring_create () ;
-          mstring_sprintf(domain_uri, "http://%s:%s/%s", fus_host,fus_port, db->name);
-        }
         n += mstring_sprintf(where,"\tBIND (URI(\"%s\") as ?domain) .\n",mstring_buf(domain_uri));
 
-  	if(service_exist(db, table) == 0){
-          	service_uri = mstring_create () ;
-          	mstring_sprintf(service_uri, "http://%s:%s/%s_%s/%s", fus_host,fus_port, sid, db->name, "monitoring_service");
-        	n += mstring_sprintf(insert,"\t\t?domain omn:hasService ?monservice .\n") ;
-        	n += mstring_sprintf(insert,"\t\t?monservice a omn-monitoring:MonitoringService .\n");
-          	n += mstring_sprintf(insert,"\t\t?monservice omn:isServiceOf ?sender .\n");
-         	n += mstring_sprintf(insert,"\t\t?monservice omn-lifecycle:StartTime \"%d\"^^xsd:integer .\n", starttime);
-          	n += mstring_sprintf(where,"\tBIND (URI(\"%s\") as ?monservice) .\n",mstring_buf(service_uri));
-	}else{
-          update_starttime(db, table) ;
-  }
         osd = osd->next ;
       }
       
       while(osd){
         subject = lookup_char(osd->subject) ;
         object = lookup_char(osd->object) ;  
-       
+ 
 	     if(subject && !object){
           if(!strcmp(osd->predicate,"omn-monitoring:isMeasurementMetricOf")){
               snprintf(temp, sizeof(temp), "?v%d", v);
@@ -560,7 +644,7 @@ sem_prepare(Database *db, DbTable* table)
               list = install(osd->object,temp) ;
               v++;
           }
-          else if(subject && !strcmp(osd->predicate,"rdfs:label") && !strcmp(osd->object,"%value%")){
+          else if(subject && !strcmp(osd->subject,"omn-domain-pc:PC")  && !strcmp(osd->predicate,"rdfs:label") && !strcmp(osd->object,"%value%")){
             handleValue(db, c, insert, subject, osd->predicate, pvar, n) ;
             n += mstring_sprintf(where,"\tBIND (URI(%s) as %s) .\n", REPLACE_PHYRESOURCE, subject);
           } else if(!strcmp(osd->object,"%value%")){
@@ -600,8 +684,9 @@ sem_prepare(Database *db, DbTable* table)
           n += mstring_sprintf(insert,"\t\t?v%d a %s .\n", v, osd->subject);
           list = install(osd->subject,temp) ;
 
-          if(!strcmp(osd->predicate,"rdfs:label") && !strcmp(osd->object,"%value%")){
+          if( !strcmp(osd->subject,"omn-domain-pc:VM") && !strcmp(osd->predicate,"rdfs:label") && !strcmp(osd->object,"%value%")){
               n += mstring_sprintf(where,"\tBIND (URI(%s) as %s) .\n", REPLACE_VIRRESOURCE, temp);
+	      v++; //
           }else{
 	         n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/v%d/\", ?struuid )) as ?v%d) .\n",fus_host,fus_port,table->schema->name,field->name,v,v);
           }
@@ -631,7 +716,7 @@ sem_prepare(Database *db, DbTable* table)
           }
           else{
             n += mstring_sprintf(insert,"\t\t%s %s %s .\n", subject, osd->predicate, object);
-            n += mstring_sprintf(insert,"\t\t%s a %s .\n", object, osd->object);
+            //n += mstring_sprintf(insert,"\t\t%s a %s .\n", object, osd->object);
           }
         }
 
@@ -642,7 +727,6 @@ sem_prepare(Database *db, DbTable* table)
  
       //n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/\", ?struuid )) as ?v%d) .\n",fus_host,fus_port,table->schema->name,field->name,v);
 	//free_list() ;
-      //printf(mstring_buf(where));
     }
   }
   if (mstring_buf(insert)&&mstring_buf(insert)[0]&&mstring_buf(where)&&mstring_buf(where)[0])
@@ -650,19 +734,20 @@ sem_prepare(Database *db, DbTable* table)
       //loginfo("GRAPH: <http://%s:%s/%s>\n", fus_host,fus_port,db->name);
       n += mstring_sprintf(mstr,"%s\nINSERT\n\n\t{\n%s\t}\n\nWHERE\n{\n\tBIND (STRUUID() as ?struuid) .\n%s} ",
           HEADER_INSERT,mstring_buf(insert),mstring_buf(where));
-	//printf(mstring_buf(mstr));
   //    n += mstring_sprintf(mstr,"%s\nINSERT\n{\n\tGRAPH <http://%s:%s/%s>\n\t{\n%s\t}\n}\nWHERE\n{\n\tBIND (STRUUID() as ?struuid) .\n%s} ",
   //          HEADER_INSERT,fus_host,fus_port,db->name,mstring_buf(insert),mstring_buf(where));
       loginfo("====================================================\n%s\n====================================================\n", mstring_buf(mstr));
       fflush(stdout);
       fflush(stderr);
+
   }
   if (n != 0) {
     /* mstring_* return -1 on error, with no error, the sum in n should be 0 */
     goto fail_exit;
   }
-  return mstr;
 
+  return mstr;
+ 
  fail_exit:
   if (mstr) mstring_delete (mstr);
   return NULL;
@@ -678,9 +763,7 @@ sem_insert(Database *db, DbTable *table, int sender_id, int seq_no, double time_
   //TODO table->schema->fields->concepts
   SemDB* semdb = (SemDB*)db->handle;
   SemTable* semtable = (SemTable*)table->handle;
-  printf("trying to insert....") ;
   if (semtable && semtable->insert_stmt) {
-    printf("inserting....") ;
     int i, res = 0;
     long http_code;
     char* tok = NULL, *old_tok = NULL,*pvar, tok2 = NULL;
@@ -741,12 +824,6 @@ sem_insert(Database *db, DbTable *table, int sender_id, int seq_no, double time_
         *tok = '\0';
         res += mstring_sprintf(stmtend, "%s\"%s\"^^xsd:string", old_tok, sid);
         old_tok = tok+strlen(REPLACE_SID);
-    }
-    if ((tok = strstr(old_tok, REPLACE_STARTTIME))) {
-        starttime_exist(db, table) ;
-        *tok = '\0';
-        res += mstring_sprintf(stmtend, "%s\"%d\"^^xsd:integer", old_tok, starttime);
-        old_tok = tok+strlen(REPLACE_STARTTIME);
     }
     pvar = sem_prepared_var(db,0);
     for (i = 0; i < schema->nfields;i++) {
@@ -930,23 +1007,14 @@ sem_insert(Database *db, DbTable *table, int sender_id, int seq_no, double time_
 
     oml_free(pvar);
     res += mstring_sprintf(stmtend, "%s", old_tok);
-    printf("STMTEND\n%s\n",mstring_buf(stmtend)) ;
+    
+    //printf("STMTEND\n%s\n",mstring_buf(stmtend)) ;
     if (old_tok != stmt)
     {
-        MString* url = mstring_create ();
-        CURL *curl;
-        curl_global_init(CURL_GLOBAL_ALL);
-        if (!(curl = curl_easy_init())) return -1;
-        mstring_sprintf(url,"http://%s:%s/%s/update",fus_host, fus_port, fus_namespace);
-        loginfo("%s\n",mstring_buf(url));
-        curl_easy_setopt(curl, CURLOPT_URL, mstring_buf(url));
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &logwrite);
-        semdb->conn = curl ;
-
         curl_easy_setopt(semdb->conn, CURLOPT_POSTFIELDS, mstring_buf(stmtend));
         res = curl_easy_perform(semdb->conn);
-        /* Check for errors */ 
-        if (res != CURLE_OK)
+	
+ 	if (res != CURLE_OK)
           logerror("fuseki:%s: Semantic insertion failed: %s\n", db->name, curl_easy_strerror(res));
         curl_easy_getinfo (semdb->conn, CURLINFO_RESPONSE_CODE, &http_code);
         if (http_code != 200L)
@@ -1054,219 +1122,6 @@ update_starttime(Database *db, DbTable *table)
   return 0 ;
 }
 
-static int
-starttime_exist(Database *db, DbTable *table)
-{
-  CURL *curl; 
-  SemDB* semdb = (SemDB*)db->handle;
-  SemTable* semtable = (SemTable*)table->handle;
-  MString *query = mstring_create ();
-  MString *url = mstring_create ();
-  int res = 0;
-  long http_code;
-
-  struct string s;
-  init_string(&s);
-
-  mstring_sprintf(url,"http://%s:%s/%s/query",fus_host, fus_port, fus_namespace);
-  mstring_sprintf(query,"query=%s SELECT ?st {{?domain rdfs:label ?label_dom .\n?domain omn:hasService ?monservice .\n?monservice omn:isServiceOf ?sender . \n?sender rdfs:label ?label_send .\n?monservice omn-lifecycle:StartTime ?st .\nfilter(str(?label_dom) = \"%s\") .\nfilter(str(?label_send) = \"%s\")}} limit 1",HEADER_INSERT, db->name, sid);
-
-  if ((curl = curl_easy_init()) == NULL) return -1 ;
-  curl_easy_setopt(curl, CURLOPT_URL, mstring_buf(url));
-  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writefunc);
-  curl_easy_setopt(curl, CURLOPT_WRITEDATA, &s);
-  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, mstring_buf(query));
-  res = curl_easy_perform(curl);
-
-  /* cleanup curl handle */
-  curl_easy_cleanup(curl);
-
-  if(res == CURLE_OK || http_code == 200L){
-    //parse
-    cJSON *root = cJSON_Parse(s.ptr);
-    char* value = parse_object(root, "st");
-    if (value != NULL){
-      starttime = atoi(value) ;
-      cJSON_Delete(root);
-      free(s.ptr);
-    return 1 ;
-    }
-    else return 0 ;
-  } 
-  /* Check for errors */ 
-  else{
-    logerror("fuseki:%s: starttime Semantic query failed: %s\n", db->name, curl_easy_strerror(res));
-    return 0 ;
-  }
-  curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
-  if (http_code != 200L){
-    logerror("fuseki:%s: starttime Semantic query failed. HTTP code status: %ld\n", db->name, http_code);
-    return 0 ;
-  }
-
-  return 0 ;
-}
-
-static int
-sender_exist(Database *db, DbTable *table)
-{
-  CURL *curl; 
-  SemDB* semdb = (SemDB*)db->handle;
-  SemTable* semtable = (SemTable*)table->handle;
-  MString *query = mstring_create ();
-  MString *url = mstring_create ();
-  int res = 0;
-  long http_code;
-
-  struct string s;
-  init_string(&s);
-
-  mstring_sprintf(url,"http://%s:%s/%s/query",fus_host, fus_port, fus_namespace);
-  mstring_sprintf(query,"query=%s SELECT ?sender {{?sender rdfs:label ?label .\n?sender rdf:type omn:Infrastructure .\nfilter(str(?label) = \"%s\")}} ",HEADER_INSERT, sid);
-
-  if ((curl = curl_easy_init()) == NULL) return -1 ;
-  curl_easy_setopt(curl, CURLOPT_URL, mstring_buf(url));
-  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writefunc);
-  curl_easy_setopt(curl, CURLOPT_WRITEDATA, &s);
-  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, mstring_buf(query));
-  res = curl_easy_perform(curl);
-
-  /* cleanup curl handle */
-  curl_easy_cleanup(curl);
-
-  if(res == CURLE_OK || http_code == 200L){
-    //parse
-    cJSON *root = cJSON_Parse(s.ptr);
-    char* value = parse_object(root, "sender");
-    if (value != NULL){
-      sender_uri = mstring_create () ;
-      mstring_sprintf(sender_uri, "%s", value) ;
-      cJSON_Delete(root);
-      free(s.ptr);
-    return 1 ;
-    }
-    else return 0 ;
-  } 
-  /* Check for errors */ 
-  else{
-    logerror("fuseki:%s: sender-id Semantic query failed: %s\n", db->name, curl_easy_strerror(res));
-    return 0 ;
-  }
-  curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
-  if (http_code != 200L){
-    logerror("fuseki:%s: sender-id Semantic query failed. HTTP code status: %ld\n", db->name, http_code);
-    return 0 ;
-  }
-
-  return 0 ;
-}
-
-static int
-domain_exist(Database *db, DbTable *table)
-{
-  CURL *curl; 
-  SemDB* semdb = (SemDB*)db->handle;
-  SemTable* semtable = (SemTable*)table->handle;
-  MString *query = mstring_create ();
-  MString *url = mstring_create ();
-  int res = 0;
-  long http_code;
-
-  struct string s;
-  init_string(&s);
-  mstring_sprintf(url,"http://%s:%s/%s/query",fus_host, fus_port, fus_namespace);
-  mstring_sprintf(query,"query=%s SELECT ?domain {{?domain rdfs:label ?label .\n?domain rdf:type omn-monitoring-genericconcepts:MonitoringDomain .\nfilter(str(?label) = \"%s\")}} limit 1 ",HEADER_INSERT, db->name);
-  if ((curl = curl_easy_init()) == NULL) return -1 ;
-  curl_easy_setopt(curl, CURLOPT_URL, mstring_buf(url));
-  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writefunc);
-  curl_easy_setopt(curl, CURLOPT_WRITEDATA, &s);
-  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, mstring_buf(query));
-  res = curl_easy_perform(curl);
-  /* cleanup curl handle */
-  curl_easy_cleanup(curl);
-  if(res == CURLE_OK || http_code == 200L){
-    //parse
-    cJSON *root = cJSON_Parse(s.ptr);
-    char* value = parse_object(root, "domain");
-    if (value != NULL){
-      domain_uri = mstring_create () ;
-      mstring_sprintf(domain_uri, "%s", value) ;
-      domain_uri_exist = 1 ;
-      cJSON_Delete(root);
-      free(s.ptr);
-    return 1 ;
-    }
-    else return 0 ;
-  } 
-  /* Check for errors */ 
-  else{
-    logerror("fuseki:%s: domain Semantic query failed: %s\n", db->name, curl_easy_strerror(res));
-    return 0 ;
-  }
-  curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
-  if (http_code != 200L){
-    logerror("fuseki:%s: domain Semantic query failed. HTTP code status: %ld\n", db->name, http_code);
-    return 0 ;
-  }
-
-  return 0 ;
-}
-
-static int
-service_exist(Database *db, DbTable *table)
-{
-  CURL *curl; 
-  SemDB* semdb = (SemDB*)db->handle;
-  SemTable* semtable = (SemTable*)table->handle;
-  MString *query = mstring_create ();
-  MString *url = mstring_create ();
-  int res = 0;
-  long http_code;
-
-  struct string s;
-  init_string(&s);
-
-  mstring_sprintf(url,"http://%s:%s/%s/query",fus_host, fus_port, fus_namespace);
-  mstring_sprintf(query,"query=%s SELECT ?monservice {{?domain rdfs:label ?label_dom .\n?domain omn:hasService ?monservice .\n?monservice omn:isServiceOf ?sender . \n?sender rdfs:label ?label_send .\nfilter(str(?label_dom) = \"%s\") .\nfilter(str(?label_send) = \"%s\")}} ",HEADER_INSERT, db->name, sid);
-
-  if ((curl = curl_easy_init()) == NULL) return -1 ;
-  curl_easy_setopt(curl, CURLOPT_URL, mstring_buf(url));
-  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writefunc);
-  curl_easy_setopt(curl, CURLOPT_WRITEDATA, &s);
-  semdb->conn = curl ;
-  curl_easy_setopt(semdb->conn, CURLOPT_POSTFIELDS, mstring_buf(query));
-  res = curl_easy_perform(semdb->conn);
-
-  /* cleanup curl handle */
-  curl_easy_cleanup(curl);
-
-  if(res == CURLE_OK || http_code == 200L){
-    //parse
-    cJSON *root = cJSON_Parse(s.ptr);
-    char* value = parse_object(root,"monservice");
-    if (value != NULL){
-      service_uri = mstring_create () ;
-      mstring_sprintf(service_uri, "%s", value) ;
-      service_uri_exist = 1 ;
-      cJSON_Delete(root);
-      free(s.ptr);
-    return 1 ;
-    }
-    else return 0 ;
-  } 
-  /* Check for errors */ 
-  else{
-    logerror("fuseki:%s: service Semantic query failed: %s\n", db->name, curl_easy_strerror(res));
-    return 0 ;
-  }
-  curl_easy_getinfo (semdb->conn, CURLINFO_RESPONSE_CODE, &http_code);
-  if (http_code != 200L){
-    logerror("fuseki:%s: service Semantic query failed. HTTP code status: %ld\n", db->name, http_code);
-    return 0 ;
-  }
-
-  return 0 ;
-}
 
 void init_string(struct string *s) {
   s->len = 0;
@@ -1318,52 +1173,124 @@ char* parse_object(cJSON *root, char* res_name)
   return value ;
 }
 
-/*
-char** str_split(char* a_str, const char a_delim)
+static int
+domain_service_sender_exist(Database *db, DbTable *table)
 {
-    char** result    = 0;
-    size_t count     = 0;
-    char* tmp        = a_str;
-    char* last_comma = 0;
-    char delim[2];
-    delim[0] = a_delim;
-    delim[1] = 0;
+  CURL *curl; 
+  SemDB* semdb = (SemDB*)db->handle;
+  SemTable* semtable = (SemTable*)table->handle;
+  MString *query = mstring_create ();
+  MString *url = mstring_create ();
+  int res = 0;
+  long http_code;
 
-    while (*tmp)
-    {
-        if (a_delim == *tmp)
-        {
-            count++;
-            last_comma = tmp;
-        }
-        tmp++;
-    }
+  struct string s;
+  init_string(&s);
 
-    count += last_comma < (a_str + strlen(a_str) - 1);
+  mstring_sprintf(url,"http://%s:%s/%s/query",fus_host, fus_port, fus_namespace);
+  mstring_sprintf(query,"query=%s SELECT ?domain ?sender ?monservice {{?domain rdfs:label ?label_dom .\n?domain omn:hasService ?monservice .\n?monservice omn:isServiceOf ?sender . \n?sender rdfs:label ?label_send .\nfilter(str(?label_dom) = \"%s\") .\nfilter(str(?label_send) = \"%s\")}} ",HEADER_INSERT, db->name, sid);
 
-    count++;
+  if ((curl = curl_easy_init()) == NULL) return -1 ;
+  curl_easy_setopt(curl, CURLOPT_URL, mstring_buf(url));
+  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writefunc);
+  curl_easy_setopt(curl, CURLOPT_WRITEDATA, &s);
+  //semdb->conn = curl ;
+  curl_easy_setopt(curl, CURLOPT_POSTFIELDS, mstring_buf(query));
+  res = curl_easy_perform(curl);
 
-    result = malloc(sizeof(char*) * count);
+  /* cleanup curl handle */
+  curl_easy_cleanup(curl);
 
-    if (result)
-    {
-        size_t idx  = 0;
-        char* token = strtok(a_str, delim);
+  if(res == CURLE_OK || http_code == 200L){
+    //parse
+    cJSON *root = cJSON_Parse(s.ptr);
+    char* monservice = parse_object(root,"monservice");
+    char* domain = parse_object(root,"domain");
+    char* sender = parse_object(root,"sender");
 
-        while (token)
-        {
-            assert(idx < count);
-            *(result + idx++) = strdup(token);
-            token = strtok(0, delim);
-        }
-        assert(idx == count - 1);
-        *(result + idx) = 0;
-    }
+    if(domain == NULL && sender == NULL && monservice == NULL){
+      cJSON_Delete(root);
+      free(s.ptr);
+      return 7 ;
+    }else if(domain != NULL && sender == NULL && monservice == NULL){
+      domain_uri = mstring_create () ;
+      mstring_sprintf(domain_uri, "%s", domain) ;
+      domain_uri_exist = 1 ;
+      cJSON_Delete(root);
+      free(s.ptr);
+      return 0 ;
+    }else if (domain == NULL && sender == NULL && monservice != NULL){
+      service_uri = mstring_create () ;
+      mstring_sprintf(service_uri, "%s", monservice) ;
+      service_uri_exist = 1 ;
+      cJSON_Delete(root);
+      free(s.ptr);
+      return 1 ;
+    }else if (domain == NULL && sender != NULL && monservice == NULL){
+      sender_uri = mstring_create () ;
+      mstring_sprintf(sender_uri, "%s", sender) ;
+      sender_uri_exist = 1 ;
+      cJSON_Delete(root);
+      free(s.ptr);
+      return 2 ;
+    }else if (domain != NULL && sender == NULL && monservice != NULL){
+      domain_uri = mstring_create () ;
+      mstring_sprintf(domain_uri, "%s", domain) ;
+      domain_uri_exist = 1 ;
+      service_uri = mstring_create () ;
+      mstring_sprintf(service_uri, "%s", monservice) ;
+      service_uri_exist = 1 ;
+      cJSON_Delete(root);
+      free(s.ptr);
+      return 3 ;
+    }else if (domain != NULL && sender != NULL && monservice == NULL){
+      domain_uri = mstring_create () ;
+      mstring_sprintf(domain_uri, "%s", domain) ;
+      domain_uri_exist = 1 ;
+      sender_uri = mstring_create () ;
+      mstring_sprintf(sender_uri, "%s", sender) ;
+      sender_uri_exist = 1 ;
+      cJSON_Delete(root);
+      free(s.ptr);
+      return 4 ;
+    }else if (domain == NULL && sender != NULL && monservice != NULL){
+      service_uri = mstring_create () ;
+      mstring_sprintf(service_uri, "%s", monservice) ;
+      service_uri_exist = 1 ;
+      sender_uri = mstring_create () ;
+      mstring_sprintf(sender_uri, "%s", sender) ;
+      sender_uri_exist = 1 ;
+      cJSON_Delete(root);
+      free(s.ptr);
+      return 5 ;
+    }else if (domain != NULL && sender != NULL && monservice != NULL){
+      domain_uri = mstring_create () ;
+      mstring_sprintf(domain_uri, "%s", domain) ;
+      domain_uri_exist = 1 ;
+      service_uri = mstring_create () ;
+      mstring_sprintf(service_uri, "%s", monservice) ;
+      service_uri_exist = 1 ;
+      sender_uri = mstring_create () ;
+      mstring_sprintf(sender_uri, "%s", sender) ;
+      sender_uri_exist = 1 ;
+      cJSON_Delete(root);
+      free(s.ptr);
+      return 6 ;
+    } else return -1 ;
+  } 
+  /* Check for errors */ 
+  else{
+    logerror("fuseki:%s: service Semantic query failed: %s\n", db->name, curl_easy_strerror(res));
+    return -1 ;
+  }
+  curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
+  if (http_code != 200L){
+    logerror("fuseki:%s: service Semantic query failed. HTTP code status: %ld\n", db->name, http_code);
+    return -1 ;
+  }
 
-    return result;
+  return -1 ;
 }
-*/
-
 
 
 

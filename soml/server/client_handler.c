@@ -17,7 +17,8 @@
 #include <string.h>
 #include <ctype.h>
 #include <assert.h>
-
+#include <time.h>
+#include <errno.h>
 #include "oml2/oml_writer.h"
 #include "ocomm/o_log.h"
 #include "ocomm/o_socket.h"
@@ -207,7 +208,7 @@ client_handler_new(Socket* new_sock)
 {
   ClientHandler* self = oml_malloc(sizeof(ClientHandler));
   if (!self) return NULL;
-
+ 
   memset(self, 0, sizeof(*self));
   self->state = C_HEADER;
   self->content = C_TEXT_DATA;
@@ -464,6 +465,7 @@ process_meta(ClientHandler* self, char* key, char* value)
        */
 
       start_time = atoi(value);
+
       if (self->database->start_time == 0) {
         // seed it with a time in the past
         self->database->start_time = start_time;// - 100;
@@ -824,6 +826,8 @@ process_bin_message(ClientHandler* self, MBuffer* mbuf)
 static void
 process_text_data_message(ClientHandler* self, char** msg, int count)
 {
+
+
   double ts;
   int table_index;
   int seqno;
@@ -927,6 +931,8 @@ process_text_data_message(ClientHandler* self, char** msg, int count)
       self->name, table_index, table->schema->name, seqno, ts);
   self->database->insert(self->database, table, self->sender_id, seqno,
       ts, self->values_vectors[table_index], count - 3); /* Ignore first 3 elements */
+  
+
 }
 
 /** Process as many lines of data as possible from an MBuffer.
@@ -940,7 +946,6 @@ process_text_message(ClientHandler* self, MBuffer* mbuf)
 {
   char* line;
   int len;
-
   while (C_TEXT_DATA == self->state) {
     if (read_line(&line, &len, mbuf) == 0) {
       return 0;
@@ -993,7 +998,7 @@ process_text_message(ClientHandler* self, MBuffer* mbuf)
  */
   void
 client_callback(SockEvtSource* source, void* handle, void* buf, int buf_size)
-{
+{  
   char *in;
   ClientHandler* self = (ClientHandler*)handle;
   MBuffer* mbuf = self->mbuf;
