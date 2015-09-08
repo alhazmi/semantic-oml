@@ -85,25 +85,6 @@
     
 
 
-    <!-- http://open-multinet.info/ontology/omn-service#hasURI -->
-
-    <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-service#hasURI">
-        <rdfs:label xml:lang="en">has URI</rdfs:label>
-        <rdfs:comment xml:lang="en">Uniform Resource Identifier</rdfs:comment>
-        <rdfs:range rdf:resource="&xsd;string"/>
-        <rdfs:domain>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="&omn;Group"/>
-                    <rdf:Description rdf:about="&omn;Resource"/>
-                    <rdf:Description rdf:about="&omn;Service"/>
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:domain>
-    </owl:DatatypeProperty>
-    
-
-
     <!-- http://open-multinet.info/ontology/omn-service#hostname -->
 
     <owl:DatatypeProperty rdf:about="http://open-multinet.info/ontology/omn-service#hostname">
@@ -220,18 +201,6 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    
-
-
-    <!-- http://open-multinet.info/ontology/omn#Group -->
-
-    <owl:Class rdf:about="&omn;Group"/>
-    
-
-
-    <!-- http://open-multinet.info/ontology/omn#Resource -->
-
-    <owl:Class rdf:about="&omn;Resource"/>
     
 
 
