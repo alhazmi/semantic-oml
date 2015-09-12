@@ -1,8 +1,0 @@
-<map id="database_adapter.h" name="database_adapter.h">
-<area shape="rect" id="node3" href="$schema_8h.html" title="schema.h" alt="" coords="392,237,469,267"/>
-<area shape="rect" id="node26" href="$database_8h.html" title="Interface that storage backend need to implement to be usable by the server." alt="" coords="363,83,448,112"/>
-<area shape="rect" id="node5" href="$omlc_8h.html" title="Public API of the OML client library." alt="" coords="308,315,401,344"/>
-<area shape="rect" id="node23" href="$mstring_8h.html" title="mstring.h" alt="" coords="541,315,616,344"/>
-<area shape="rect" id="node19" href="$o__log_8h.html" title="ocomm/o_log.h" alt="" coords="365,392,475,421"/>
-<area shape="rect" id="node30" href="$table__descr_8h.html" title="table_descr.h" alt="" coords="443,160,541,189"/>
-</map>

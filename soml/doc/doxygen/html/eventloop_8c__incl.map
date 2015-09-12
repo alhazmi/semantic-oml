@@ -1,6 +1,0 @@
-<map id="eventloop.c" name="eventloop.c">
-<area shape="rect" id="node23" href="$mem_8h.html" title="mem.h" alt="" coords="192,83,253,112"/>
-<area shape="rect" id="node28" href="$o__log_8h.html" title="ocomm/o_log.h" alt="" coords="128,160,237,189"/>
-<area shape="rect" id="node33" href="$o__socket_8h.html" title="Header file for the OComm Socket library. OSockets are a thin abstraction layer that manages sockets ..." alt="" coords="312,160,445,189"/>
-<area shape="rect" id="node41" href="$o__eventloop_8h.html" title="ocomm/o_eventloop.h" alt="" coords="328,83,477,112"/>
-</map>

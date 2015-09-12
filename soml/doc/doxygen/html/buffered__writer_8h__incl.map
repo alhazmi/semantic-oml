@@ -1,7 +1,0 @@
-<map id="buffered_writer.h" name="buffered_writer.h">
-<area shape="rect" id="node3" href="$oml__out__stream_8h.html" title="Abstract interface for output streams." alt="" coords="5,83,163,112"/>
-<area shape="rect" id="node7" href="$oml__writer_8h.html" title="Abstract interface for writers." alt="" coords="245,83,371,112"/>
-<area shape="rect" id="node26" href="$mbuf_8h.html" title="mbuf.h" alt="" coords="145,160,207,189"/>
-<area shape="rect" id="node9" href="$omlc_8h.html" title="Public API of the OML client library." alt="" coords="319,160,412,189"/>
-<area shape="rect" id="node22" href="$o__log_8h.html" title="ocomm/o_log.h" alt="" coords="476,237,585,267"/>
-</map>

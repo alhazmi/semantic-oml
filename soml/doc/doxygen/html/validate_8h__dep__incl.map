@@ -1,7 +1,0 @@
-<map id="validate.h" name="validate.h">
-<area shape="rect" id="node3" href="$api_8c.html" title="Implement the user&#45;visible API of OML." alt="" coords="5,83,56,112"/>
-<area shape="rect" id="node5" href="$init_8c.html" title="Implement the user&#45;visible initialisation routines of the user&#45;visible OML API." alt="" coords="80,83,131,112"/>
-<area shape="rect" id="node7" href="$validate_8c.html" title="Implements the validation of OML identifiers." alt="" coords="155,83,232,112"/>
-<area shape="rect" id="node9" href="$client__handler_8c.html" title="The client handler receives callbacks from the eventloop and processes messages in either OML&#39;s text ..." alt="" coords="256,83,368,112"/>
-<area shape="rect" id="node11" href="$check__liboml2__api_8c.html" title="Test the user&#45;visible OML API." alt="" coords="392,83,531,112"/>
-</map>

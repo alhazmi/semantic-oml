@@ -1,8 +1,0 @@
-<map id="stddev_filter.c" name="stddev_filter.c">
-<area shape="rect" id="node9" href="$omlc_8h.html" title="Public API of the OML client library." alt="" coords="308,237,401,267"/>
-<area shape="rect" id="node21" href="$o__log_8h.html" title="ocomm/o_log.h" alt="" coords="580,315,689,344"/>
-<area shape="rect" id="node25" href="$oml__filter_8h.html" title="Abstract interface for filters." alt="" coords="251,83,368,112"/>
-<area shape="rect" id="node32" href="$oml__value_8h.html" title="oml_value.h" alt="" coords="443,160,533,189"/>
-<area shape="rect" id="node39" href="$stddev__filter_8h.html" title="stddev_filter.h" alt="" coords="669,83,773,112"/>
-<area shape="rect" id="node28" href="$oml__writer_8h.html" title="Abstract interface for writers." alt="" coords="192,160,317,189"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="OmlBinWriter" name="OmlBinWriter">
-<area shape="rect" id="node2" href="$structOmlOutStream.html" title="OmlOutStream" alt="" coords="43,104,152,133"/>
-<area shape="rect" id="node10" href="$structBufferedWriter.html" title="BufferedWriter" alt="" coords="191,219,297,248"/>
-<area shape="rect" id="node5" href="$structMBuffer.html" title="MBuffer" alt="" coords="249,5,316,35"/>
-<area shape="rect" id="node12" href="$structBufferChunk.html" title="BufferChunk" alt="" coords="236,104,329,133"/>
-<area shape="rect" id="node8" href="$structOmlWriter.html" title="OmlWriter" alt="" coords="153,360,233,389"/>
-</map>

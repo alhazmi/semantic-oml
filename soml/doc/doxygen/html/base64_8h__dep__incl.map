@@ -1,6 +1,0 @@
-<map id="base64.h" name="base64.h">
-<area shape="rect" id="node3" href="$text__writer_8c.html" title="An implementation of the OmlWriter interface functions (see oml2/oml_writer.h) that serializes measur..." alt="" coords="5,83,99,112"/>
-<area shape="rect" id="node5" href="$base64_8c.html" title="Source code for converting to/from BASE64 format (used for binary marshalling of blobs." alt="" coords="123,83,197,112"/>
-<area shape="rect" id="node7" href="$oml__value_8c.html" title="Support functions for manipulating OmlValue objects." alt="" coords="221,83,312,112"/>
-<area shape="rect" id="node9" href="$check__libshared__base64_8c.html" title="check_libshared_base64.c" alt="" coords="336,83,512,112"/>
-</map>

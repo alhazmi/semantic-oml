@@ -1,8 +1,0 @@
-<map id="average_filter.c" name="average_filter.c">
-<area shape="rect" id="node9" href="$omlc_8h.html" title="Public API of the OML client library." alt="" coords="300,237,393,267"/>
-<area shape="rect" id="node21" href="$o__log_8h.html" title="ocomm/o_log.h" alt="" coords="631,315,740,344"/>
-<area shape="rect" id="node25" href="$oml__filter_8h.html" title="Abstract interface for filters." alt="" coords="247,83,364,112"/>
-<area shape="rect" id="node32" href="$oml__value_8h.html" title="oml_value.h" alt="" coords="576,160,667,189"/>
-<area shape="rect" id="node39" href="$average__filter_8h.html" title="average_filter.h" alt="" coords="392,160,501,189"/>
-<area shape="rect" id="node28" href="$oml__writer_8h.html" title="Abstract interface for writers." alt="" coords="243,160,368,189"/>
-</map>

@@ -1,9 +1,0 @@
-<map id="message_queue.h" name="message_queue.h">
-<area shape="rect" id="node3" href="$message_8h.html" title="Defines a container for either a text or binary message (struct oml_message) and the associated inter..." alt="" coords="99,83,185,112"/>
-<area shape="rect" id="node35" href="$cbuf_8h.html" title="cbuf.h" alt="" coords="209,83,267,112"/>
-<area shape="rect" id="node7" href="$omlc_8h.html" title="Public API of the OML client library." alt="" coords="242,237,335,267"/>
-<area shape="rect" id="node24" href="$schema_8h.html" title="schema.h" alt="" coords="142,160,219,189"/>
-<area shape="rect" id="node30" href="$mbuf_8h.html" title="mbuf.h" alt="" coords="58,237,119,267"/>
-<area shape="rect" id="node20" href="$o__log_8h.html" title="ocomm/o_log.h" alt="" coords="397,315,506,344"/>
-<area shape="rect" id="node27" href="$mstring_8h.html" title="mstring.h" alt="" coords="143,237,218,267"/>
-</map>

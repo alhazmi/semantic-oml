@@ -1,9 +1,0 @@
-<map id="misc.c" name="misc.c">
-<area shape="rect" id="node13" href="$omlc_8h.html" title="Public API of the OML client library." alt="" coords="452,315,545,344"/>
-<area shape="rect" id="node23" href="$o__log_8h.html" title="ocomm/o_log.h" alt="" coords="733,392,843,421"/>
-<area shape="rect" id="node28" href="$client_8h.html" title="Defines various structures and functions used by various parts." alt="" coords="327,83,391,112"/>
-<area shape="rect" id="node35" href="$oml__filter_8h.html" title="Abstract interface for filters." alt="" coords="144,160,261,189"/>
-<area shape="rect" id="node38" href="$oml__writer_8h.html" title="Abstract interface for writers." alt="" coords="355,237,480,267"/>
-<area shape="rect" id="node42" href="$oml__out__stream_8h.html" title="Abstract interface for output streams." alt="" coords="101,237,259,267"/>
-<area shape="rect" id="node45" href="$mstring_8h.html" title="mstring.h" alt="" coords="43,315,117,344"/>
-</map>

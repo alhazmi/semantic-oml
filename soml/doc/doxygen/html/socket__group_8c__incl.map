@@ -1,6 +1,0 @@
-<map id="socket_group.c" name="socket_group.c">
-<area shape="rect" id="node7" href="$mem_8h.html" title="mem.h" alt="" coords="144,83,205,112"/>
-<area shape="rect" id="node12" href="$o__log_8h.html" title="ocomm/o_log.h" alt="" coords="120,160,229,189"/>
-<area shape="rect" id="node16" href="$o__socket_8h.html" title="Header file for the OComm Socket library. OSockets are a thin abstraction layer that manages sockets ..." alt="" coords="293,83,427,112"/>
-<area shape="rect" id="node25" href="$o__socket__group_8h.html" title="Header file for socket groups." alt="" coords="451,83,621,112"/>
-</map>
