@@ -1,0 +1,13 @@
+OML Communications Library (ocomm)
+==================================
+
+This directory contains the source code for the ocomm library which
+provides an abstraction layer for socket-based communications. The
+code here contains both client and server functionality.
+
+Please refer to the boilerplate in each file to get their description.
+You can get a summary by running
+
+  grep "brief" *.{c,h}
+
+in this directory.

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1410124227955" name="http://www.etsi.org/isg/moi.owl" uri="Moment.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1410124227955" name="http://www.etsi.org/isg/moi/GeneralConcepts.owl" uri="MomentGeneralConcepts.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1410124227955" name="http://www.etsi.org/isg/moi/Metadata.owl" uri="MomentMetadata.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1410124227955" name="http://www.etsi.org/isg/moi/Units.owl" uri="MomentUnits.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1410124227955" name="http://www.etsi.org/isg/moi/data.owl" uri="MomentDataV2.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1410124227955" name="http://www.etsi.org/isg/moi/tools.owl" uri="tools.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1410124227955" name="http://www.fp7-moment.eu/MomentData.owl" uri="MomentData.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1410124227955" name="http://www.fp7-moment.eu/anonymization.owl" uri="anonymization.owl"/>
+    </group>
+</catalog>

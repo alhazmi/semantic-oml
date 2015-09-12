@@ -1,0 +1,426 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+    xmlns:MD="http://www.etsi.org/isg/moi/data.owl#"
+    xmlns:nasaunits="http://sweet.jpl.nasa.gov/ontology/units.owl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:Tools="http://www.etsi.org/isg/moi/tools.owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:MU="http://www.etsi.org/isg/moi/Units.owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:MO="http://www.etsi.org/isg/moi.owl#"
+    xmlns:MM="http://www.etsi.org/isg/moi/Metadata.owl#"
+    xmlns:MGC="http://www.etsi.org/isg/moi/GeneralConcepts.owl#"
+  xml:base="http://www.etsi.org/isg/moi.owl">
+  <owl:Ontology rdf:about="">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >An ontology that import all MOMENT ontologies</rdfs:comment>
+    <owl:imports rdf:resource="http://www.etsi.org/isg/moi/data.owl"/>
+    <owl:imports rdf:resource="http://www.etsi.org/isg/moi/Units.owl"/>
+    <owl:imports rdf:resource="http://www.etsi.org/isg/moi/Metadata.owl"/>
+    <owl:imports rdf:resource="http://www.etsi.org/isg/moi/GeneralConcepts.owl"/>
+  </owl:Ontology>
+  <rdfs:Class rdf:about="http://www.w3.org/2000/01/rdf-schema#Property"/>
+  <rdfs:Class rdf:about="http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#PropertyBridge"/>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#IPFIXMeasurement">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.etsi.org/isg/moi/GeneralConcepts.owl#Protocol"/>
+        <owl:onProperty>
+          <rdf:Description rdf:about="http://www.etsi.org/isg/moi/data.owl#hasMetricAttributes">
+            <owl:inverseOf>
+              <owl:ObjectProperty rdf:about="http://www.etsi.org/isg/moi/data.owl#hasMetric"/>
+            </owl:inverseOf>
+            <rdfs:domain>
+              <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                  <rdf:Description rdf:about="http://www.etsi.org/isg/moi/data.owl#Metric"/>
+                  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#IPFIXMeasurement"/>
+                </owl:unionOf>
+              </owl:Class>
+            </rdfs:domain>
+          </rdf:Description>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.etsi.org/isg/moi/data.owl#hasMetricAttributes"/>
+        <owl:someValuesFrom rdf:resource="http://www.etsi.org/isg/moi/data.owl#SourceIP"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Measurement of IPFIX data</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.etsi.org/isg/moi/data.owl#SourcePort"/>
+        <owl:onProperty rdf:resource="http://www.etsi.org/isg/moi/data.owl#hasMetricAttributes"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.etsi.org/isg/moi/data.owl#PacketsCount"/>
+        <owl:onProperty rdf:resource="http://www.etsi.org/isg/moi/data.owl#hasMetricAttributes"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="http://www.etsi.org/isg/moi/data.owl#TrafficMeasurement"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#TCPEndReason"/>
+        </owl:someValuesFrom>
+        <owl:onProperty rdf:resource="http://www.etsi.org/isg/moi/data.owl#hasMetricAttributes"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.etsi.org/isg/moi/data.owl#hasMetricAttributes"/>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#OctetsCount"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.etsi.org/isg/moi/data.owl#Duration"/>
+        <owl:onProperty rdf:resource="http://www.etsi.org/isg/moi/data.owl#hasMetricAttributes"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#TCPSeqIndex"/>
+        </owl:someValuesFrom>
+        <owl:onProperty rdf:resource="http://www.etsi.org/isg/moi/data.owl#hasMetricAttributes"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#TCPFlags"/>
+        </owl:someValuesFrom>
+        <owl:onProperty rdf:resource="http://www.etsi.org/isg/moi/data.owl#hasMetricAttributes"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <rdf:Description rdf:about="http://www.etsi.org/isg/moi/GeneralConcepts.owl#TimeStamp">
+            <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+            <rdfs:subClassOf>
+              <owl:Restriction>
+                <owl:onProperty>
+                  <rdf:Description rdf:about="http://www.etsi.org/isg/moi/data.owl#defaultUnit">
+                    <rdfs:domain>
+                      <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                          <rdf:Description rdf:about="http://www.etsi.org/isg/moi/data.owl#MeasurementData"/>
+                          <rdf:Description rdf:about="http://www.etsi.org/isg/moi/GeneralConcepts.owl#TimeStamp"/>
+                        </owl:unionOf>
+                      </owl:Class>
+                    </rdfs:domain>
+                  </rdf:Description>
+                </owl:onProperty>
+                <owl:hasValue rdf:resource="http://www.etsi.org/isg/moi/Units.owl#second"/>
+              </owl:Restriction>
+            </rdfs:subClassOf>
+          </rdf:Description>
+        </owl:someValuesFrom>
+        <owl:onProperty rdf:resource="http://www.etsi.org/isg/moi/data.owl#hasMetricAttributes"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.etsi.org/isg/moi/data.owl#DestinationPort"/>
+        <owl:onProperty rdf:resource="http://www.etsi.org/isg/moi/data.owl#hasMetricAttributes"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="http://www.etsi.org/isg/moi/data.owl#DestinationIP"/>
+        <owl:onProperty rdf:resource="http://www.etsi.org/isg/moi/data.owl#hasMetricAttributes"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#ReceiverInterface">
+    <rdfs:subClassOf rdf:resource="http://www.etsi.org/isg/moi/data.owl#Interface"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#TCPFlags">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#TCPMeasurement"/>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#TCPSeqIndex"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#TCPEndReason"/>
+    </owl:disjointWith>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#BindIP">
+    <rdfs:subClassOf rdf:resource="http://www.etsi.org/isg/moi/data.owl#NodeIP"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.etsi.org/isg/moi/data.owl#defaultUnit"/>
+        <owl:hasValue rdf:resource="http://www.etsi.org/isg/moi/Units.owl#ipv4int"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:about="http://www.etsi.org/isg/moi/data.owl#isListeningMulticast"/>
+        </owl:onProperty>
+        <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+        >false</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#VLANTag">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#MACMeasurement"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >802.1q VLAN tag in hexadecimal format.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#TCPSeqIndex">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#TCPMeasurement"/>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="http://www.etsi.org/isg/moi/data.owl#TCPFlags"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#TCPEndReason"/>
+    </owl:disjointWith>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >TCP sequence number in hexadecimal format.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#PowerMeasurement">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#WLANMeasurement"/>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#NoiseFloorMeasurement"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#RSSIMeasurement"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#LQIMeasurement"/>
+    </owl:disjointWith>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/Units.owl#TCPFlagTypes"/>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#OctetsCount">
+    <rdfs:subClassOf rdf:resource="http://www.etsi.org/isg/moi/data.owl#SimpleMeasurement"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Octets count in decimal format.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#LQIMeasurement">
+    <owl:disjointWith>
+      <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#NoiseFloorMeasurement"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#RSSIMeasurement"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="http://www.etsi.org/isg/moi/data.owl#PowerMeasurement"/>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#WLANMeasurement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#RSSIMeasurement">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#WLANMeasurement"/>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#NoiseFloorMeasurement"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="http://www.etsi.org/isg/moi/data.owl#LQIMeasurement"/>
+    <owl:disjointWith rdf:resource="http://www.etsi.org/isg/moi/data.owl#PowerMeasurement"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#SenderInterface">
+    <rdfs:subClassOf rdf:resource="http://www.etsi.org/isg/moi/data.owl#Interface"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#NoiseFloorMeasurement">
+    <owl:disjointWith rdf:resource="http://www.etsi.org/isg/moi/data.owl#RSSIMeasurement"/>
+    <owl:disjointWith rdf:resource="http://www.etsi.org/isg/moi/data.owl#LQIMeasurement"/>
+    <owl:disjointWith rdf:resource="http://www.etsi.org/isg/moi/data.owl#PowerMeasurement"/>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#WLANMeasurement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#WLANMeasurement">
+    <rdfs:subClassOf rdf:resource="http://www.etsi.org/isg/moi/data.owl#SimpleMeasurement"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#TCPMeasurement">
+    <rdfs:subClassOf rdf:resource="http://www.etsi.org/isg/moi/data.owl#SimpleMeasurement"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Measurements of the TCP layer</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#Channel">
+    <rdfs:subClassOf rdf:resource="http://www.etsi.org/isg/moi/data.owl#WLANMeasurement"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#TCPEndReason">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >If not present, the flow ended normally (i.e., by TCP RST or FIN). Otherwise, the end-reason is one of the following strings: idle, active, eof, rsrc, force</rdfs:comment>
+    <owl:disjointWith rdf:resource="http://www.etsi.org/isg/moi/data.owl#TCPFlags"/>
+    <owl:disjointWith rdf:resource="http://www.etsi.org/isg/moi/data.owl#TCPSeqIndex"/>
+    <rdfs:subClassOf rdf:resource="http://www.etsi.org/isg/moi/data.owl#TCPMeasurement"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/data.owl#MACMeasurement">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Measurements of the MAC layer</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.etsi.org/isg/moi/data.owl#SimpleMeasurement"/>
+  </owl:Class>
+  <owl:ObjectProperty rdf:ID="ObjectProperty_9"/>
+  <owl:ObjectProperty rdf:ID="ObjectProperty_2"/>
+  <owl:ObjectProperty rdf:about="http://www.etsi.org/isg/moi/data.owl#hasTCPFlags">
+    <rdfs:range rdf:resource="http://www.etsi.org/isg/moi/Units.owl#TCPFlagTypes"/>
+    <rdfs:domain rdf:resource="http://www.etsi.org/isg/moi/data.owl#TCPFlags"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="ObjectProperty_11"/>
+  <owl:ObjectProperty rdf:about="http://www.etsi.org/isg/moi/data.owl#hasMetric">
+    <rdfs:domain rdf:resource="http://www.etsi.org/isg/moi/data.owl#Metric"/>
+    <owl:inverseOf rdf:resource="http://www.etsi.org/isg/moi/data.owl#hasMetricAttributes"/>
+    <rdfs:range rdf:resource="http://www.etsi.org/isg/moi/data.owl#MeasurementData"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="inverse_of_ObjectProperty_9"/>
+  <owl:ObjectProperty rdf:ID="ObjectProperty_5">
+    <rdfs:domain rdf:resource="http://www.etsi.org/isg/moi/data.owl#Metric"/>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:about="http://www.etsi.org/isg/moi/data.owl#LQIMeasurementValue">
+    <rdfs:domain rdf:resource="http://www.etsi.org/isg/moi/data.owl#LQIMeasurement"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.etsi.org/isg/moi/data.owl#PowerMeasurementValue">
+    <rdfs:domain rdf:resource="http://www.etsi.org/isg/moi/data.owl#PowerMeasurement"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.etsi.org/isg/moi/data.owl#ChannelValue">
+    <rdfs:domain rdf:resource="http://www.etsi.org/isg/moi/data.owl#Channel"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.etsi.org/isg/moi/data.owl#VLANTagValue">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >802.1q VLAN tag in hexadecimal format.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.etsi.org/isg/moi/data.owl#VLANTag"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.etsi.org/isg/moi/data.owl#RSSIMeasurementValue">
+    <rdfs:domain rdf:resource="http://www.etsi.org/isg/moi/data.owl#RSSIMeasurement"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.etsi.org/isg/moi/data.owl#NoiseFloorMeasurementValue">
+    <rdfs:domain rdf:resource="http://www.etsi.org/isg/moi/data.owl#NoiseFloorMeasurement"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.etsi.org/isg/moi/data.owl#TCPSeqIndexValue">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdfs:domain rdf:resource="http://www.etsi.org/isg/moi/data.owl#TCPSeqIndex"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.etsi.org/isg/moi/data.owl#TCPEndReasonValue">
+    <rdfs:domain rdf:resource="http://www.etsi.org/isg/moi/data.owl#TCPEndReason"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >If not present, the flow ended normally (i.e., by TCP RST or FIN). Otherwise, the end-reason is one of the following strings: idle, active, eof, rsrc, force</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:about="http://www.etsi.org/isg/moi/data.owl#TCPEndReasonValuesqwe">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >If not present, the flow ended normally (i.e., by TCP RST or FIN). Otherwise, the end-reason is one of the following strings: idle, active, eof, rsrc, force</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:about="http://www.etsi.org/isg/moi/data.owl#BindIPValue">
+    <rdfs:subPropertyOf rdf:resource="http://www.etsi.org/isg/moi/data.owl#NodeInformationValue"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value for the bind IP of the node</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.etsi.org/isg/moi/data.owl#BindIP"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:about="http://www.etsi.org/isg/moi/data.owl#isListeningMulticast">
+    <rdfs:domain rdf:resource="http://www.etsi.org/isg/moi/data.owl#BindIP"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.etsi.org/isg/moi/data.owl#BindIPValue"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:AllDisjointClasses/>
+  <owl:AllDisjointClasses/>
+  <MU:TCPFlagTypes rdf:about="http://www.etsi.org/isg/moi/data.owl#UrgFlag">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Indicates that the Urgent pointer field is significant</rdfs:comment>
+  </MU:TCPFlagTypes>
+  <MU:TCPFlagTypes rdf:about="http://www.etsi.org/isg/moi/data.owl#RstFlag">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Reset the connection</rdfs:comment>
+  </MU:TCPFlagTypes>
+  <owl:AllDisjointClasses/>
+  <owl:AllDisjointClasses/>
+  <owl:AllDisjointClasses/>
+  <owl:AllDisjointClasses/>
+  <MU:TCPFlagTypes rdf:about="http://www.etsi.org/isg/moi/data.owl#PshFlag">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Push function. Asks to push the buffered data to the receiving application.</rdfs:comment>
+  </MU:TCPFlagTypes>
+  <owl:AllDisjointClasses/>
+  <MU:TCPFlagTypes rdf:about="http://www.etsi.org/isg/moi/data.owl#FinFlag">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >No more data from sender</rdfs:comment>
+  </MU:TCPFlagTypes>
+  <owl:AllDisjointClasses/>
+  <rdf:Description rdf:about="http://www.etsi.org/isg/moi/data.owl#SourceName">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Name or address of the source node</rdfs:comment>
+  </rdf:Description>
+  <MU:TCPFlagTypes rdf:about="http://www.etsi.org/isg/moi/data.owl#AckFlag">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >indicates that the Acknowledgment field is significant. All packets after 
+    the initial SYN packet sent by the client should have this flag set.</rdfs:comment>
+  </MU:TCPFlagTypes>
+  <owl:AllDisjointClasses/>
+  <owl:AllDisjointClasses/>
+  <owl:AllDisjointClasses/>
+  <rdf:Description rdf:about="http://www.etsi.org/isg/moi/data.owl#isMeasuredIn">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="http://www.etsi.org/isg/moi/data.owl#MeasurementData"/>
+          <rdf:Description rdf:about="http://www.etsi.org/isg/moi/GeneralConcepts.owl#TimeStamp"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+  </rdf:Description>
+  <MU:TCPFlagTypes rdf:about="http://www.etsi.org/isg/moi/data.owl#SynFlag">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Synchronize sequence numbers. Only the first packet sent from each end 
+    should have this flag set. Some other flags change meaning based on this  
+    flag, and some are only valid for when it is set, and others when it is  
+    clear.</rdfs:comment>
+  </MU:TCPFlagTypes>
+  <owl:AllDisjointClasses/>
+  <rdf:Description rdf:about="http://www.etsi.org/isg/moi/GeneralConcepts.owl#RESTService">
+    <owl:disjointWith>
+      <rdf:Description rdf:about="http://www.etsi.org/isg/moi/GeneralConcepts.owl#SOAPService">
+        <owl:disjointWith rdf:resource="http://www.etsi.org/isg/moi/GeneralConcepts.owl#RESTService"/>
+        <owl:disjointWith>
+          <rdf:Description rdf:about="http://www.etsi.org/isg/moi/GeneralConcepts.owl#SQREMEService">
+            <owl:disjointWith rdf:resource="http://www.etsi.org/isg/moi/GeneralConcepts.owl#RESTService"/>
+            <owl:disjointWith rdf:resource="http://www.etsi.org/isg/moi/GeneralConcepts.owl#SOAPService"/>
+          </rdf:Description>
+        </owl:disjointWith>
+      </rdf:Description>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="http://www.etsi.org/isg/moi/GeneralConcepts.owl#SQREMEService"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.etsi.org/isg/moi/GeneralConcepts.owl#FTPService">
+    <owl:disjointWith>
+      <rdf:Description rdf:about="http://www.etsi.org/isg/moi/GeneralConcepts.owl#WebService">
+        <owl:disjointWith>
+          <rdf:Description rdf:about="http://www.etsi.org/isg/moi/GeneralConcepts.owl#SqlServer">
+            <owl:disjointWith rdf:resource="http://www.etsi.org/isg/moi/GeneralConcepts.owl#WebService"/>
+            <owl:disjointWith rdf:resource="http://www.etsi.org/isg/moi/GeneralConcepts.owl#FTPService"/>
+          </rdf:Description>
+        </owl:disjointWith>
+        <owl:disjointWith rdf:resource="http://www.etsi.org/isg/moi/GeneralConcepts.owl#FTPService"/>
+      </rdf:Description>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="http://www.etsi.org/isg/moi/GeneralConcepts.owl#SqlServer"/>
+  </rdf:Description>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.5, Build 649)  http://protege.stanford.edu -->

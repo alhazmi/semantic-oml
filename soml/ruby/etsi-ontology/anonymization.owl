@@ -1,0 +1,875 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:anonymization="http://www.fp7-moment.eu/anonymization.owl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xml:base="http://www.fp7-moment.eu/anonymization.owl">
+  <owl:Ontology rdf:about="">
+    <dc:publisher rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >MOMENT FP7 EU project</dc:publisher>
+    <dc:contributor rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Vincenzo Failla</dc:contributor>
+    <dc:contributor rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Nicola Blefari-Melazzi</dc:contributor>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This is a model to support anonymization and obfuscation of Internet traffic measurements</rdfs:comment>
+    <dc:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Giuseppe Tropea</dc:creator>
+  </owl:Ontology>
+  <owl:Class rdf:ID="StringScrambleBackend">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="AlgorithmicBackends"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Sobstitute characters with other characters</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="PRISM_ANONYMIZATIONBACKEND">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ExternalBackends"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="StrongObfuscationBackend">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="AnonymizationBackend"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This backend is configured so that all of its targets are completely randomized.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="LightObfuscationBackend">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#AnonymizationBackend"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This backend is configured so that it tries to preserve structure of data as much as possible, by using byte masks to preserve prefixes when randomizing data or by offsetting data. Payloads, if present, are MD5 hashed.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="MeasurementSetScope">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="PrivacyScope"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="LATITUDE_ANONYMIZATIONTARGET">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="AnonymizationTarget"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Geographic information about latitude of the data generator or the information piece</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="AnonymizationStrategy">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The strategy is a link between a set of anonymization targets and the backend to use in order to anonymize them</rdfs:comment>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Restriction>
+            <owl:allValuesFrom>
+              <owl:Class rdf:about="#AnonymizationBackend"/>
+            </owl:allValuesFrom>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:ID="hasAnonymizationBackend"/>
+            </owl:onProperty>
+          </owl:Restriction>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="#hasAnonymizationBackend"/>
+            </owl:onProperty>
+            <owl:someValuesFrom>
+              <owl:Class rdf:about="#AnonymizationBackend"/>
+            </owl:someValuesFrom>
+          </owl:Restriction>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:ID="hasAnonymizationTarget"/>
+            </owl:onProperty>
+            <owl:allValuesFrom>
+              <owl:Class rdf:about="#AnonymizationTarget"/>
+            </owl:allValuesFrom>
+          </owl:Restriction>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+            </owl:onProperty>
+            <owl:someValuesFrom>
+              <owl:Class rdf:about="#AnonymizationTarget"/>
+            </owl:someValuesFrom>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="PolicyObject">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:ID="isValidForUsagePurpose"/>
+            </owl:onProperty>
+            <owl:someValuesFrom>
+              <owl:Class rdf:ID="UsagePurpose"/>
+            </owl:someValuesFrom>
+          </owl:Restriction>
+          <owl:Restriction>
+            <owl:someValuesFrom>
+              <owl:Class rdf:ID="UserRole"/>
+            </owl:someValuesFrom>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:ID="isValidForUserRole"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >N-ary relation between the user context. i.e.: the UserRole and UsagePurpose, and the obfuscation strategy to be used when a user with such a role and such a usage purpose is requesting the data</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="PAYLOADS_ANONYMIZATIONTARGET">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Extra information carried inside the data traces not related to the measurement itself</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#AnonymizationTarget"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AAPI_ANONYMIZATIONBACKEND">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ExternalBackends"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="MeasurementScope">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PrivacyScope"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="BRO_ANONYMIZATIONBACKEND">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ExternalBackends"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="BUSINESS_USERROLE">
+    <rdfs:subClassOf rdf:resource="#UserRole"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RESEARCHER_USERROLE">
+    <rdfs:subClassOf rdf:resource="#UserRole"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NetworkAnalysisPolicies">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="StrongStrategies"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="hasAnonymizationStrategy"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Class rdf:ID="BusinessPolicies"/>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="#isValidForUsagePurpose"/>
+            </owl:onProperty>
+            <owl:someValuesFrom>
+              <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                  <owl:Class rdf:ID="NETWORK_PERFORMANCE_USAGEPURPOSE"/>
+                  <owl:Class rdf:ID="NETWORK_TOMOGRAPHY_USAGEPURPOSE"/>
+                </owl:unionOf>
+              </owl:Class>
+            </owl:someValuesFrom>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="DEANONYMIZATION_USAGEPURPOSE">
+    <rdfs:subClassOf rdf:resource="#UsagePurpose"/>
+  </owl:Class>
+  <owl:Class rdf:ID="StrongAgeingPrivacy">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="DATE_ANONYMIZATIONTARGET"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#StrongStrategies"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="STUDY_HOST_CHARACTERISTICS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="CLASSIFY_TRAFFIC_USAGEPURPOSE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="DataAge">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Represents the aging of the data collection. This class is covered by a value partition that covers all possible semantic values of data aging.</rdfs:comment>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:ID="NEW_DATAAGE"/>
+          <owl:Class rdf:ID="OLD_DATAAGE"/>
+          <owl:Class rdf:ID="RECENT_DATAAGE"/>
+          <owl:Class rdf:ID="UNINFLUENTIAL_DATAAGE"/>
+        </owl:unionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="PACKET_TIMESTAMPS_ANONYMIZATIONTARGET">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#AnonymizationTarget"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Timing information associated with the data trace</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="MediumObfuscationBackend">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This backend is configured so as to employ perturbation algorithms on the privacy data. Payloads, if present, are MD5 hashed.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#AnonymizationBackend"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NO_PROFIT_USERROLE">
+    <rdfs:subClassOf rdf:resource="#UserRole"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ALL_USERROLE">
+    <rdfs:subClassOf rdf:resource="#UserRole"/>
+  </owl:Class>
+  <owl:Class rdf:ID="BIT_FIELD_ANONYMIZATIONTARGET">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="GENERIC_ANONYMIZATIONTARGET"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.w3.org/2002/07/owl#Thing"/>
+  <owl:Class rdf:about="#BusinessPolicies">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Policies relatd to profit users</rdfs:comment>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="#isValidForUserRole"/>
+            </owl:onProperty>
+            <owl:someValuesFrom>
+              <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                  <owl:Class rdf:about="#BUSINESS_USERROLE"/>
+                  <owl:Class rdf:ID="NETWORK_OPERATOR_USERROLE"/>
+                  <owl:Class rdf:ID="NETWORK_PROVIDER_USERROLE"/>
+                </owl:unionOf>
+              </owl:Class>
+            </owl:someValuesFrom>
+          </owl:Restriction>
+          <owl:Class rdf:about="#PolicyObject"/>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="LONGITUDE_ANONYMIZATIONTARGET">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Geographic information about longitude of the data generator or the information piece</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#AnonymizationTarget"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="LightAgeingPrivacy">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Age of data is taken into account</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#DATE_ANONYMIZATIONTARGET"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="LightStrategies"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="RESPONSIVENESS_USAGEPURPOSE">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#NETWORK_PERFORMANCE_USAGEPURPOSE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#NETWORK_OPERATOR_USERROLE">
+    <rdfs:subClassOf rdf:resource="#UserRole"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MarketingPolicies">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationStrategy"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="LightFullPrivacy"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Gather and analyze traffic measurements in order to understand trends in market</rdfs:comment>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#BusinessPolicies"/>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="#isValidForUsagePurpose"/>
+            </owl:onProperty>
+            <owl:someValuesFrom>
+              <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                  <owl:Class rdf:about="#CLASSIFY_TRAFFIC_USAGEPURPOSE"/>
+                  <owl:Class rdf:ID="AGGREGATE_TRAFFIC_TYPES"/>
+                </owl:unionOf>
+              </owl:Class>
+            </owl:someValuesFrom>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:about="#CLASSIFY_TRAFFIC_USAGEPURPOSE">
+    <rdfs:subClassOf rdf:resource="#UsagePurpose"/>
+  </owl:Class>
+  <owl:Class rdf:ID="StrongFullPrivacy">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="IDENTIFIER_ANONYMIZATIONTARGET"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="PORT_ANONYMIZATIONTARGET"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#PAYLOADS_ANONYMIZATIONTARGET"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#LONGITUDE_ANONYMIZATIONTARGET"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#LATITUDE_ANONYMIZATIONTARGET"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#StrongStrategies"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#PACKET_TIMESTAMPS_ANONYMIZATIONTARGET"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >All privacy indicators affected</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#AGGREGATE_TRAFFIC_TYPES">
+    <rdfs:subClassOf rdf:resource="#CLASSIFY_TRAFFIC_USAGEPURPOSE"/>
+    <owl:disjointWith rdf:resource="#STUDY_HOST_CHARACTERISTICS"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ADDRESSES_ANONYMIZATIONTARGET">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#AnonymizationTarget"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >An identifier of a node in the space of network addresses. Generally an IP address</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="RESEARCH_UNIT_MEMBER">
+    <rdfs:subClassOf rdf:resource="#RESEARCHER_USERROLE"/>
+  </owl:Class>
+  <owl:Class rdf:about="#AnonymizationBackend">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The software/configuration algorithms used to perform the real obfuscation of data</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="RandomizeBackend">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Randomize the bytes representing the data value, preserving some of them via a byte mask</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#AlgorithmicBackends"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="TCPDPRIV_ANONYMIZATIONBACKEND">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ExternalBackends"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NoProfitPolicies">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationStrategy"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#LightAgeingPrivacy"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Policies related to non-profit users</rdfs:comment>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#PolicyObject"/>
+          <owl:Restriction>
+            <owl:someValuesFrom>
+              <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                  <owl:Class rdf:about="#RESEARCHER_USERROLE"/>
+                  <owl:Class rdf:about="#NO_PROFIT_USERROLE"/>
+                </owl:unionOf>
+              </owl:Class>
+            </owl:someValuesFrom>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="#isValidForUserRole"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="SelfDefencePolicies">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="SecurityStrategy"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationStrategy"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#BusinessPolicies"/>
+          <owl:Restriction>
+            <owl:someValuesFrom>
+              <owl:Class rdf:ID="INFERRING_SECURITY_ATTACKS_USAGEPURPOSE"/>
+            </owl:someValuesFrom>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="#isValidForUsagePurpose"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Analysis of traffic data in order to detect intrusions and attaks to own private network</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#IDENTIFIER_ANONYMIZATIONTARGET">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Unique ID of a piece of information</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#AnonymizationTarget"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="TEXT_ANONYMIZATIONTARGET">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GENERIC_ANONYMIZATIONTARGET"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#AnonymizationTarget">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The taxonomy of possible data fields to obfuscate</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#GENERIC_ANONYMIZATIONTARGET">
+    <rdfs:subClassOf rdf:resource="#AnonymizationTarget"/>
+  </owl:Class>
+  <owl:Class rdf:about="#PORT_ANONYMIZATIONTARGET">
+    <rdfs:subClassOf rdf:resource="#AnonymizationTarget"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >An identifier of a service endpoint in the space of network services. Generally an IP port number.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#ExternalBackends">
+    <rdfs:subClassOf rdf:resource="#AnonymizationBackend"/>
+  </owl:Class>
+  <owl:Class rdf:ID="FULL_PROFESSOR_USERROLE">
+    <rdfs:subClassOf rdf:resource="#RESEARCHER_USERROLE"/>
+  </owl:Class>
+  <owl:Class rdf:about="#OLD_DATAAGE">
+    <rdfs:subClassOf rdf:resource="#DataAge"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#RECENT_DATAAGE"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#UNINFLUENTIAL_DATAAGE"/>
+    </owl:disjointWith>
+  </owl:Class>
+  <owl:Class rdf:ID="PHD_STUDENT_USERROLE">
+    <rdfs:subClassOf rdf:resource="#RESEARCHER_USERROLE"/>
+  </owl:Class>
+  <owl:Class rdf:about="#UNINFLUENTIAL_DATAAGE">
+    <rdfs:subClassOf rdf:resource="#DataAge"/>
+  </owl:Class>
+  <owl:Class rdf:about="#AlgorithmicBackends">
+    <rdfs:subClassOf rdf:resource="#AnonymizationBackend"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Specific algorithms</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#NEW_DATAAGE">
+    <owl:disjointWith rdf:resource="#OLD_DATAAGE"/>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#RECENT_DATAAGE"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#UNINFLUENTIAL_DATAAGE"/>
+    <rdfs:subClassOf rdf:resource="#DataAge"/>
+  </owl:Class>
+  <owl:Class rdf:ID="BOOLEAN_ANONYMIZATIONTARGET">
+    <rdfs:subClassOf rdf:resource="#GENERIC_ANONYMIZATIONTARGET"/>
+  </owl:Class>
+  <owl:Class rdf:about="#SecurityStrategy">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Address, Latitude and Longitude are masked but not randomized, all other info is left untouched</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#IDENTIFIER_ANONYMIZATIONTARGET"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#MediumObfuscationBackend"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationBackend"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#LONGITUDE_ANONYMIZATIONTARGET"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#LATITUDE_ANONYMIZATIONTARGET"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#ADDRESSES_ANONYMIZATIONTARGET"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#AnonymizationStrategy"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TRAFFIC_TYPE_ANONYMIZATIONTARGET">
+    <rdfs:subClassOf rdf:resource="#AnonymizationTarget"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >A literal identifier of the type of traffic carried inside the data traces.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#PrivacyScope">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="hasDataAge"/>
+        </owl:onProperty>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasDataAge"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#DataAge"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#DataAge"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasDataAge"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Indicates whether the policy applies to all measurements of the collection or not</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="PerturbationBackend">
+    <rdfs:subClassOf rdf:resource="#AlgorithmicBackends"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Perturbate data by adding or subtracting a random amount calculated as a fraction of the data value</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#RECENT_DATAAGE">
+    <rdfs:subClassOf rdf:resource="#DataAge"/>
+    <owl:disjointWith rdf:resource="#UNINFLUENTIAL_DATAAGE"/>
+  </owl:Class>
+  <owl:Class rdf:about="#INFERRING_SECURITY_ATTACKS_USAGEPURPOSE">
+    <rdfs:subClassOf rdf:resource="#UsagePurpose"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NETWORK_THROUGHPUT_USAGEPURPOSE">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#NETWORK_PERFORMANCE_USAGEPURPOSE"/>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="#RESPONSIVENESS_USAGEPURPOSE"/>
+  </owl:Class>
+  <owl:Class rdf:about="#LightStrategies">
+    <rdfs:subClassOf rdf:resource="#AnonymizationStrategy"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#ADDRESSES_ANONYMIZATIONTARGET"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#LightObfuscationBackend"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationBackend"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Addresses are prefix-preserved</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="GENERIC_USAGEPURPOSE">
+    <rdfs:subClassOf rdf:resource="#UsagePurpose"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ASSOCIATE_PROFESSOR_USERROLE">
+    <rdfs:subClassOf rdf:resource="#RESEARCHER_USERROLE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="HashingBackend">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Calculate MD5 hash of the value</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#AlgorithmicBackends"/>
+  </owl:Class>
+  <owl:Class rdf:about="#NETWORK_TOMOGRAPHY_USAGEPURPOSE">
+    <rdfs:subClassOf rdf:resource="#UsagePurpose"/>
+  </owl:Class>
+  <owl:Class rdf:about="#DATE_ANONYMIZATIONTARGET">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The date this piece of data refers to (date the measurement was taken)</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#AnonymizationTarget"/>
+  </owl:Class>
+  <owl:Class rdf:about="#NETWORK_PROVIDER_USERROLE">
+    <rdfs:subClassOf rdf:resource="#UserRole"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OTHER_ANONYMIZATIONBACKEND">
+    <rdfs:subClassOf rdf:resource="#ExternalBackends"/>
+  </owl:Class>
+  <owl:Class rdf:ID="InfrastructureScope">
+    <rdfs:subClassOf rdf:resource="#PrivacyScope"/>
+  </owl:Class>
+  <owl:Class rdf:about="#LightFullPrivacy">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >All privacy indicators involved</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#IDENTIFIER_ANONYMIZATIONTARGET"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#PORT_ANONYMIZATIONTARGET"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#PAYLOADS_ANONYMIZATIONTARGET"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#LONGITUDE_ANONYMIZATIONTARGET"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#LATITUDE_ANONYMIZATIONTARGET"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#PACKET_TIMESTAMPS_ANONYMIZATIONTARGET"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#LightStrategies"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OffsetShiftBackend">
+    <rdfs:subClassOf rdf:resource="#AlgorithmicBackends"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Add a fixed amount to all values, thus preserving size of delta intervals (i.e. preserving temporal or spatial relationships)</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="INSPECT_TRAFFIC_USAGEPURPOSE">
+    <rdfs:subClassOf rdf:resource="#UsagePurpose"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NUMBER_ANONYMIZATIONTARGET">
+    <rdfs:subClassOf rdf:resource="#GENERIC_ANONYMIZATIONTARGET"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AcceptableUsePolicy">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >An human language readable output document describing to the user the obfuscation techniques employied on the data he/she is getting from the system</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#NETWORK_PERFORMANCE_USAGEPURPOSE">
+    <rdfs:subClassOf rdf:resource="#UsagePurpose"/>
+  </owl:Class>
+  <owl:Class rdf:about="#StrongStrategies">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Addresses are completely randomized</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#AnonymizationStrategy"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationTarget"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#ADDRESSES_ANONYMIZATIONTARGET"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationBackend"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#StrongObfuscationBackend"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AggressivePolicies">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Analysis of traffic data for potentially malicious purposes, like inferring private information about users, deanonymization, traffic inspection</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#StrongFullPrivacy"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasAnonymizationStrategy"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#BusinessPolicies"/>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="#isValidForUsagePurpose"/>
+            </owl:onProperty>
+            <owl:someValuesFrom>
+              <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                  <owl:Class rdf:about="#DEANONYMIZATION_USAGEPURPOSE"/>
+                  <owl:Class rdf:about="#INSPECT_TRAFFIC_USAGEPURPOSE"/>
+                </owl:unionOf>
+              </owl:Class>
+            </owl:someValuesFrom>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:ObjectProperty rdf:about="#hasDataAge">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:range rdf:resource="#DataAge"/>
+    <rdfs:domain rdf:resource="#PrivacyScope"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasAcceptableUsePolicy">
+    <rdfs:domain rdf:resource="#PolicyObject"/>
+    <rdfs:range rdf:resource="#AcceptableUsePolicy"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#hasAnonymizationStrategy">
+    <rdfs:range rdf:resource="#AnonymizationStrategy"/>
+    <rdfs:domain rdf:resource="#PolicyObject"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#hasAnonymizationBackend">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:range rdf:resource="#AnonymizationBackend"/>
+    <rdfs:domain rdf:resource="#AnonymizationStrategy"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="isAppliedToPrivacyScope">
+    <rdfs:range rdf:resource="#PrivacyScope"/>
+    <rdfs:domain rdf:resource="#PolicyObject"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#isValidForUserRole">
+    <rdfs:range rdf:resource="#UserRole"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#isValidForUsagePurpose">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The function isValidForUsagePurpose should not be made functional, since for a given individual
+(i.e. for a given PolicyObject instance), multiple UsagePurposes are possible.</rdfs:comment>
+    <rdfs:range rdf:resource="#UsagePurpose"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#hasAnonymizationTarget">
+    <rdfs:domain rdf:resource="#AnonymizationStrategy"/>
+    <rdfs:range rdf:resource="#AnonymizationTarget"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The function hasAnonymizationTarget should not be made functional, since for a given individual
+(i.e. for a given AnonymizationStrategy instance), multiple AnonymizationTargets are possible.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/publisher"/>
+  <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/creator"/>
+  <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/contributor"/>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.4.4, Build 579)  http://protege.stanford.edu -->

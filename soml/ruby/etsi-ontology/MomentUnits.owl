@@ -1,0 +1,627 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:MomentUnits="http://www.etsi.org/isg/moi/Units.owl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xml:base="http://www.etsi.org/isg/moi/Units.owl">
+  <owl:Ontology rdf:about="">
+    <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >2.0</owl:versionInfo>
+  </owl:Ontology>
+  <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#double"/>
+  <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#string"/>
+  <owl:Class rdf:ID="ComplexUnit">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="DerivedUnit"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Complex units are units composed by the product of several units, they are multi dimensional</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="BaseUnit">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="Unit"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Base units are defined from physical phenomena constants or in Computer Science units are common abstract concepts. Those units are defined in an absolute way independent from other units</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="PrefixOrUnit">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Both Prefix or Unit</rdfs:comment>
+  </owl:Class>
+  <owl:Class>
+    <owl:equivalentClass rdf:resource="#PrefixOrUnit"/>
+    <owl:unionOf rdf:parseType="Collection">
+      <owl:Class rdf:ID="Prefix"/>
+      <owl:Class rdf:about="#Unit"/>
+    </owl:unionOf>
+  </owl:Class>
+  <owl:Class rdf:about="#DerivedUnit">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#Unit"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Derivated units can be obtained combination some base units, multiplying or adding a base unit with a number.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#Prefix">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:ID="hasSymbol"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:ID="hasValue"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Prefixes are scalling factors for units which numerical factor is commonly known and its not stated.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#Unit">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Also called  dimension.  Any specified amount of a quantity, by comparison with which any other quantity of the same kind is measured or estimated.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="UnitDerivedByScaling">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The change of unit is obtained multiplying a value. Usually in the same scale, the value that we multiplied to change from one unit to another, is a power of the value that is necessary to multiplicate for two consecutives units in the same scale.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="UnitDerivedWithoutChangingOfDimension"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="hasPrefix"/>
+        </owl:onProperty>
+        <owl:allValuesFrom rdf:resource="#Prefix"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:ID="hasScalingNumber"/>
+        </owl:onProperty>
+        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:equivalentClass>
+      <owl:restriction>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+        <owl:someValuesFrom rdf:resource="#UnitDerivedByScaling"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="productOf"/>
+        </owl:onProperty>
+      </owl:restriction>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="unitDerivedByRegexpScaling">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#UnitDerivedWithoutChangingOfDimension"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Change of the representation. The change is not performed with a numerical factor, a regexp.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="UnitDerivedByShifting">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The change of unit is obtained adding a value.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#UnitDerivedWithoutChangingOfDimension"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="BaseUnitOrUnitDerivedtWithoutChangingOfDimension">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#BaseUnit"/>
+          <owl:Class rdf:about="#UnitDerivedWithoutChangingOfDimension"/>
+        </owl:unionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Class created for convenience</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#UnitDerivedWithoutChangingOfDimension">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SimpleUnit"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This unit is defined as transformations of the unit but without addition of dimensions such as scalling, shifting or regexp transformations.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="UnitDerivedByRaisingToPower">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SimpleUnit"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Units derived by raising to power are multidimensional units where all dimensions are from the same unit and measured in the same scale.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#SimpleUnit">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Simple units are modifications of Base units in which the dimension remains unchanged, or all dimension units are the same (self product)</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#DerivedUnit"/>
+  </owl:Class>
+  <owl:ObjectProperty rdf:ID="derivedFromUnit">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This property indicates from what base unit derives a simple derived unit.</rdfs:comment>
+    <rdfs:range rdf:resource="#BaseUnitOrUnitDerivedtWithoutChangingOfDimension"/>
+    <rdfs:domain rdf:resource="#SimpleUnit"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#hasPrefix">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This properties indicates the prefix that the unit has.</rdfs:comment>
+    <rdfs:domain rdf:resource="#Unit"/>
+    <rdfs:range rdf:resource="#Prefix"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#productOf">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This properties indicates theunits that take part in the complex unit.</rdfs:comment>
+    <rdfs:range rdf:resource="#Unit"/>
+    <rdfs:domain rdf:resource="#ComplexUnit"/>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:ID="matchingRegexp">
+    <rdfs:domain rdf:resource="#unitDerivedByRegexpScaling"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This regexp allow to match the units from this class and group its parts together for further process</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="inverseScalingRegexp">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="#unitDerivedByRegexpScaling"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This regexp is the inverse function to de base unit</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="scalingRegexp">
+    <rdfs:domain rdf:resource="#unitDerivedByRegexpScaling"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:about="#hasSymbol">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Characters used to represent the unit or prefix, for example "m" for meters abd G for "Gigas".</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#PrefixOrUnit"/>
+          <owl:Class rdf:about="#Unit"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:about="#hasScalingNumber">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The value of the number that we have to multiplied to change from the simple unit of the scale to the unit of the domain.</rdfs:comment>
+    <rdfs:domain rdf:resource="#UnitDerivedByScaling"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="hasPower">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    <rdfs:domain rdf:resource="#UnitDerivedByRaisingToPower"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The value of the exponent of the power expresion.</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:about="#hasValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#Prefix"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    ></rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="hasShiftingNumber">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The value of the number that we have to add to change from the simple unit of the scale to the unit of the domain.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    <rdfs:domain rdf:resource="#UnitDerivedByShifting"/>
+  </owl:FunctionalProperty>
+  <MomentUnits:UnitDerivedByRaisingToPower rdf:ID="secondToPower3">
+    <MomentUnits:hasPower rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >3</MomentUnits:hasPower>
+    <MomentUnits:derivedFromUnit>
+      <MomentUnits:BaseUnit rdf:ID="second">
+        <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >s</MomentUnits:hasSymbol>
+      </MomentUnits:BaseUnit>
+    </MomentUnits:derivedFromUnit>
+  </MomentUnits:UnitDerivedByRaisingToPower>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="Megabitpersec">
+    <MomentUnits:derivedFromUnit>
+      <MomentUnits:ComplexUnit rdf:ID="bitpersec">
+        <MomentUnits:productOf>
+          <MomentUnits:UnitDerivedByRaisingToPower rdf:ID="perSecond">
+            <MomentUnits:hasPower rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+            >-1</MomentUnits:hasPower>
+            <MomentUnits:derivedFromUnit rdf:resource="#second"/>
+          </MomentUnits:UnitDerivedByRaisingToPower>
+        </MomentUnits:productOf>
+        <MomentUnits:productOf>
+          <MomentUnits:BaseUnit rdf:ID="bit">
+            <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >In computing and telecommunications a bit is a basic unit of information storage and communication; it is the maximum amount of information that can be stored by a device or other physical system that can normally exist in only two distinct states. These states are often interpreted (especially in the storage of numerical data) as the binary digits 0 and 1. They may be interpreted also as logical values, either "true" or "false"; or two settings of a flag or switch, either "on" or "off". - wikipedia</rdfs:comment>
+            <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >b</MomentUnits:hasSymbol>
+            <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Bit</rdfs:label>
+          </MomentUnits:BaseUnit>
+        </MomentUnits:productOf>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Bits per sec</rdfs:label>
+      </MomentUnits:ComplexUnit>
+    </MomentUnits:derivedFromUnit>
+    <MomentUnits:hasPrefix>
+      <MomentUnits:Prefix rdf:ID="mega">
+        <MomentUnits:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+        >1e6</MomentUnits:hasValue>
+        <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >M</MomentUnits:hasSymbol>
+      </MomentUnits:Prefix>
+    </MomentUnits:hasPrefix>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="MACAddress">
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mac</MomentUnits:hasSymbol>
+    <MomentUnits:derivedFromUnit rdf:resource="#bit"/>
+    <MomentUnits:hasScalingNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >48</MomentUnits:hasScalingNumber>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="century">
+    <MomentUnits:hasScalingNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >3.1556926E09</MomentUnits:hasScalingNumber>
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >century</MomentUnits:hasSymbol>
+    <MomentUnits:derivedFromUnit rdf:resource="#second"/>
+  </MomentUnits:UnitDerivedByScaling>
+  <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#comment"/>
+  <MomentUnits:UnitDerivedByRaisingToPower rdf:ID="secondToPower4">
+    <MomentUnits:derivedFromUnit rdf:resource="#second"/>
+    <MomentUnits:hasPower rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >4</MomentUnits:hasPower>
+  </MomentUnits:UnitDerivedByRaisingToPower>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="permil">
+    <MomentUnits:derivedFromUnit>
+      <MomentUnits:BaseUnit rdf:ID="ratio">
+        <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >r</MomentUnits:hasSymbol>
+      </MomentUnits:BaseUnit>
+    </MomentUnits:derivedFromUnit>
+    <MomentUnits:hasScalingNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >0.001</MomentUnits:hasScalingNumber>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="ppb">
+    <MomentUnits:derivedFromUnit rdf:resource="#ratio"/>
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ppb</MomentUnits:hasSymbol>
+    <MomentUnits:hasScalingNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >0.000000001</MomentUnits:hasScalingNumber>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:Prefix rdf:ID="NoPrefix">
+    <MomentUnits:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >1</MomentUnits:hasValue>
+  </MomentUnits:Prefix>
+  <MomentUnits:BaseUnit rdf:ID="hexadecimalMAC"/>
+  <MomentUnits:UnitDerivedByRaisingToPower rdf:ID="perSecondSquare">
+    <MomentUnits:derivedFromUnit rdf:resource="#second"/>
+    <MomentUnits:hasPower rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >-2</MomentUnits:hasPower>
+  </MomentUnits:UnitDerivedByRaisingToPower>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="Gigabitpersec">
+    <MomentUnits:hasPrefix>
+      <MomentUnits:Prefix rdf:ID="giga">
+        <MomentUnits:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+        >1e9</MomentUnits:hasValue>
+        <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >G</MomentUnits:hasSymbol>
+      </MomentUnits:Prefix>
+    </MomentUnits:hasPrefix>
+    <MomentUnits:derivedFromUnit rdf:resource="#bitpersec"/>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="MegaBit">
+    <MomentUnits:derivedFromUnit rdf:resource="#bit"/>
+    <MomentUnits:hasPrefix rdf:resource="#mega"/>
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Mb</MomentUnits:hasSymbol>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="TebiByte">
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >TeB</MomentUnits:hasSymbol>
+    <MomentUnits:hasPrefix>
+      <MomentUnits:Prefix rdf:ID="Tebi">
+        <MomentUnits:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+        >1099511627776</MomentUnits:hasValue>
+      </MomentUnits:Prefix>
+    </MomentUnits:hasPrefix>
+    <MomentUnits:derivedFromUnit>
+      <MomentUnits:UnitDerivedByScaling rdf:ID="Byte">
+        <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >B</MomentUnits:hasSymbol>
+        <MomentUnits:derivedFromUnit rdf:resource="#bit"/>
+        <MomentUnits:hasScalingNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+        >8</MomentUnits:hasScalingNumber>
+      </MomentUnits:UnitDerivedByScaling>
+    </MomentUnits:derivedFromUnit>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="GigaBit">
+    <MomentUnits:derivedFromUnit rdf:resource="#bit"/>
+    <MomentUnits:hasPrefix rdf:resource="#giga"/>
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Gb</MomentUnits:hasSymbol>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="TeraBit">
+    <MomentUnits:derivedFromUnit rdf:resource="#bit"/>
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Tb</MomentUnits:hasSymbol>
+    <MomentUnits:hasPrefix>
+      <MomentUnits:Prefix rdf:ID="tera">
+        <MomentUnits:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+        >1e12</MomentUnits:hasValue>
+      </MomentUnits:Prefix>
+    </MomentUnits:hasPrefix>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="decade">
+    <MomentUnits:derivedFromUnit rdf:resource="#second"/>
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >decade</MomentUnits:hasSymbol>
+    <MomentUnits:hasScalingNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >315569260</MomentUnits:hasScalingNumber>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByRaisingToPower rdf:ID="secondSquare">
+    <MomentUnits:derivedFromUnit rdf:resource="#second"/>
+    <MomentUnits:hasPower rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >2</MomentUnits:hasPower>
+  </MomentUnits:UnitDerivedByRaisingToPower>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="ppt">
+    <MomentUnits:derivedFromUnit rdf:resource="#ratio"/>
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ppt</MomentUnits:hasSymbol>
+    <MomentUnits:hasScalingNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >0.000000000001</MomentUnits:hasScalingNumber>
+  </MomentUnits:UnitDerivedByScaling>
+  <owl:AnnotationProperty rdf:about="http://www.w3.org/2002/07/owl#versionInfo"/>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="millisecond">
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ms</MomentUnits:hasSymbol>
+    <MomentUnits:derivedFromUnit rdf:resource="#second"/>
+    <MomentUnits:hasPrefix>
+      <MomentUnits:Prefix rdf:ID="milli">
+        <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >m</MomentUnits:hasSymbol>
+        <MomentUnits:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+        >1E-3</MomentUnits:hasValue>
+      </MomentUnits:Prefix>
+    </MomentUnits:hasPrefix>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="minute">
+    <MomentUnits:derivedFromUnit rdf:resource="#second"/>
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >min</MomentUnits:hasSymbol>
+    <MomentUnits:hasScalingNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >60</MomentUnits:hasScalingNumber>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="GibiByte">
+    <MomentUnits:hasPrefix>
+      <MomentUnits:Prefix rdf:ID="Gibi">
+        <MomentUnits:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+        >1073741824</MomentUnits:hasValue>
+      </MomentUnits:Prefix>
+    </MomentUnits:hasPrefix>
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >GiB</MomentUnits:hasSymbol>
+    <MomentUnits:derivedFromUnit rdf:resource="#Byte"/>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="week">
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >week</MomentUnits:hasSymbol>
+    <MomentUnits:derivedFromUnit rdf:resource="#second"/>
+    <MomentUnits:hasScalingNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >604800</MomentUnits:hasScalingNumber>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByRaisingToPower rdf:ID="perSecondToPower3">
+    <MomentUnits:hasPower rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >-3</MomentUnits:hasPower>
+    <MomentUnits:derivedFromUnit rdf:resource="#second"/>
+  </MomentUnits:UnitDerivedByRaisingToPower>
+  <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#label"/>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="Kilobitpersec">
+    <MomentUnits:derivedFromUnit rdf:resource="#bitpersec"/>
+    <MomentUnits:hasPrefix>
+      <MomentUnits:Prefix rdf:ID="kilo">
+        <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >k</MomentUnits:hasSymbol>
+        <MomentUnits:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+        >1e3</MomentUnits:hasValue>
+      </MomentUnits:Prefix>
+    </MomentUnits:hasPrefix>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="TebiBytepersec">
+    <MomentUnits:derivedFromUnit>
+      <MomentUnits:ComplexUnit rdf:ID="Bytepersec">
+        <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Bps</MomentUnits:hasSymbol>
+        <MomentUnits:productOf rdf:resource="#perSecond"/>
+        <MomentUnits:productOf rdf:resource="#Byte"/>
+      </MomentUnits:ComplexUnit>
+    </MomentUnits:derivedFromUnit>
+    <MomentUnits:hasPrefix rdf:resource="#Tebi"/>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="MebiBytepersec">
+    <MomentUnits:hasPrefix>
+      <MomentUnits:Prefix rdf:ID="Mebi">
+        <MomentUnits:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+        >1048576</MomentUnits:hasValue>
+      </MomentUnits:Prefix>
+    </MomentUnits:hasPrefix>
+    <MomentUnits:derivedFromUnit rdf:resource="#Bytepersec"/>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:unitDerivedByRegexpScaling rdf:ID="ipv4dotted">
+    <MomentUnits:scalingRegexp rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >/evalInteger/(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/(\g&lt;1&gt;) &lt;&lt; 24 | (\g&lt;2&gt;) &lt;&lt; 16 | (\g&lt;3&gt;) &lt;&lt; 8 | (\g&lt;4&gt;)/</MomentUnits:scalingRegexp>
+    <MomentUnits:inverseScalingRegexp rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >"/evalIntegerAsString/([0-9]*)/((\g&lt;1&gt;) &amp; (255 &lt;&lt; 24)) &gt;&gt; 24/./([0-9]*)/((\g&lt;1&gt;) &amp; (255 &lt;&lt; 16)) &gt;&gt; 16/./([0-9]*)/((\g&lt;1&gt;) &amp; (255 &lt;&lt; 8)) &gt;&gt; 8/./([0-9]*)/(\g&lt;1&gt;) &amp; 255//"</MomentUnits:inverseScalingRegexp>
+    <MomentUnits:derivedFromUnit>
+      <MomentUnits:BaseUnit rdf:ID="ipv4int">
+        <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >ipv4</MomentUnits:hasSymbol>
+        <MomentUnits:derivedFromUnit rdf:resource="#bit"/>
+        <MomentUnits:hasScalingNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+        >32</MomentUnits:hasScalingNumber>
+      </MomentUnits:BaseUnit>
+    </MomentUnits:derivedFromUnit>
+  </MomentUnits:unitDerivedByRegexpScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="Terabitpersec">
+    <MomentUnits:derivedFromUnit rdf:resource="#bitpersec"/>
+    <MomentUnits:hasPrefix rdf:resource="#tera"/>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:Prefix rdf:ID="deco">
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >da</MomentUnits:hasSymbol>
+    <MomentUnits:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >10</MomentUnits:hasValue>
+  </MomentUnits:Prefix>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="KibiByte">
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >KiB</MomentUnits:hasSymbol>
+    <MomentUnits:derivedFromUnit rdf:resource="#Byte"/>
+    <MomentUnits:hasPrefix>
+      <MomentUnits:Prefix rdf:ID="Kibi">
+        <MomentUnits:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+        >1024</MomentUnits:hasValue>
+      </MomentUnits:Prefix>
+    </MomentUnits:hasPrefix>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="year">
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >year</MomentUnits:hasSymbol>
+    <MomentUnits:hasScalingNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >31556926</MomentUnits:hasScalingNumber>
+    <MomentUnits:derivedFromUnit rdf:resource="#second"/>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="MebiByte">
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >MeB</MomentUnits:hasSymbol>
+    <MomentUnits:hasPrefix rdf:resource="#Mebi"/>
+    <MomentUnits:derivedFromUnit rdf:resource="#Byte"/>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:Prefix rdf:ID="hecto">
+    <MomentUnits:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >1e2</MomentUnits:hasValue>
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >h</MomentUnits:hasSymbol>
+  </MomentUnits:Prefix>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="nanosecond">
+    <MomentUnits:hasPrefix>
+      <MomentUnits:Prefix rdf:ID="nano">
+        <MomentUnits:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+        >1E-9</MomentUnits:hasValue>
+        <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >n</MomentUnits:hasSymbol>
+      </MomentUnits:Prefix>
+    </MomentUnits:hasPrefix>
+    <MomentUnits:derivedFromUnit rdf:resource="#second"/>
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ns</MomentUnits:hasSymbol>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="millennium">
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >millenium</MomentUnits:hasSymbol>
+    <MomentUnits:derivedFromUnit rdf:resource="#second"/>
+    <MomentUnits:hasScalingNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >3.1556926E10</MomentUnits:hasScalingNumber>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="KiloBit">
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Kb</MomentUnits:hasSymbol>
+    <MomentUnits:derivedFromUnit rdf:resource="#bit"/>
+    <MomentUnits:hasPrefix rdf:resource="#kilo"/>
+  </MomentUnits:UnitDerivedByScaling>
+  <owl:DeprecatedClass rdf:about="http://www.w3.org/2002/07/owl#Thing"/>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="KibiBytepersec">
+    <MomentUnits:hasPrefix rdf:resource="#Kibi"/>
+    <MomentUnits:derivedFromUnit rdf:resource="#Bytepersec"/>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByRaisingToPower rdf:ID="perRadian">
+    <MomentUnits:derivedFromUnit>
+      <MomentUnits:BaseUnit rdf:ID="radian">
+        <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >rad</MomentUnits:hasSymbol>
+      </MomentUnits:BaseUnit>
+    </MomentUnits:derivedFromUnit>
+    <MomentUnits:hasPower rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >-1</MomentUnits:hasPower>
+  </MomentUnits:UnitDerivedByRaisingToPower>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="microsecond">
+    <MomentUnits:derivedFromUnit rdf:resource="#second"/>
+    <MomentUnits:hasPrefix>
+      <MomentUnits:Prefix rdf:ID="micro">
+        <MomentUnits:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+        >1E-6</MomentUnits:hasValue>
+      </MomentUnits:Prefix>
+    </MomentUnits:hasPrefix>
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >us</MomentUnits:hasSymbol>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:unitDerivedByRegexpScaling rdf:ID="ipv6dotted">
+    <MomentUnits:derivedFromUnit>
+      <MomentUnits:unitDerivedByRegexpScaling rdf:ID="ipv6int">
+        <MomentUnits:scalingRegexp rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >/evalInteger/(4254568045883437758817888692162946662[4-9]|425456804588343775881788869216294666[2-9][0-9]|42545680458834377588178886921629466[6-9][0-9]{2}|4254568045883437758817888692162946[6-9][0-9]{3}|425456804588343775881788869216294[6-9][0-9]{4}|42545680458834377588178886921629[4-9][0-9]{5}|42545680458834377588178886921629[0-9]{6}|425456804588343775881788869216[2-9][0-9]{7}|42545680458834377588178886921[6-9][0-9]{8}|4254568045883437758817888692[1-9][0-9]{9}|425456804588343775881788869[2-9][0-9]{10}|425456804588343775881788869[0-9]{11}|4254568045883437758817888[6-9][0-9]{12}|425456804588343775881788[8-9][0-9]{13}|42545680458834377588178[8-9][0-9]{14}|4254568045883437758817[8-9][0-9]{15}|425456804588343775881[7-9][0-9]{16}|42545680458834377588[1-9][0-9]{17}|4254568045883437758[8-9][0-9]{18}|425456804588343775[8-9][0-9]{19}|42545680458834377[5-9][0-9]{20}|4254568045883437[7-9][0-9]{21}|425456804588343[7-9][0-9]{22}|42545680458834[3-9][0-9]{23}|4254568045883[4-9][0-9]{24}|425456804588[3-9][0-9]{25}|42545680458[8-9][0-9]{26}|4254568045[8-9][0-9]{27}|425456804[5-9][0-9]{28}|42545680[4-9][0-9]{29}|425456[8-9][0-9]{31}|42545[6-9][0-9]{32}|4254[5-9][0-9]{33}|42550[0-8][0-9]{32}|425508[0-7][0-9]{31}|4255087[0-2][0-9]{30}|42550872[0-7][0-9]{29}|4255087275[0-5][0-9]{27}|42550872755[0-6][0-9]{26}|4255087275569[0-9]{25}|4255087275569[01][0-9]{24}|42550872755691[0-7][0-9]{23}|4255087275569170[0-3][0-9]{21}|42550872755691703[0-4][0-9]{20}|425508727556917034[0-8][0-9]{19}|4255087275569170348[0-9]{19}|42550872755691703489[0-9]{18}|425508727556917034899[0-8][0-9]{16}|4255087275569170348998[0-7][0-9]{15}|42550872755691703489987[0-8][0-9]{14}|4255087275569170348998780[0-2][0-9]{12}|42550872755691703489987802[0-7][0-9]{11}|425508727556917034899878027[0-8][0-9]{10}|4255087275569170348998780278[0-8][0-9]{9}|42550872755691703489987802788[0-7][0-9]{8}|425508727556917034899878027887[0-8][0-9]{7}|4255087275569170348998780278878[0-3][0-9]{6}|425508727556917034899878027887839[0-8][0-9]{4}|42550872755691703489987802788783980[0-5][0-9]{2}|425508727556917034899878027887839805[0-4][0-9]|4255087275569170348998780278878398054[0-4])/((\g&lt;1&gt;)&gt;&gt;80)&amp;(4294967295)/</MomentUnits:scalingRegexp>
+        <MomentUnits:hasScalingNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+        >64</MomentUnits:hasScalingNumber>
+        <MomentUnits:derivedFromUnit rdf:resource="#ipv4int"/>
+        <MomentUnits:inverseScalingRegexp rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >/evalInteger/(429496729[0-5]|4294967[01][0-9]{2}|429496[0-6][0-9]{3}|42949[0-5][0-9]{4}|429[0-3][0-9]{6}|4[01][0-9]{8}|[1-3][0-9]{9}|[0-9]{1,9})/(35192962023424+\g&lt;1&gt;)&lt;&lt;80/</MomentUnits:inverseScalingRegexp>
+        <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >ipv6</MomentUnits:hasSymbol>
+      </MomentUnits:unitDerivedByRegexpScaling>
+    </MomentUnits:derivedFromUnit>
+    <MomentUnits:inverseScalingRegexp rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >/evalIntegerAsString/([0-9]*)/hex(((\g&lt;1&gt;) &amp; 0xFFFF0000000000000000000000000000) &gt;&gt; 112)/:/([0-9]*)/hex(((\g&lt;1&gt;) &amp; 0xFFFF000000000000000000000000) &gt;&gt; 96)/:/([0-9]*)/hex(((\g&lt;1&gt;) &amp; 0xFFFF00000000000000000000) &gt;&gt; 80)/:/([0-9]*)/hex(((\g&lt;1&gt;) &amp; 0xFFFF0000000000000000) &gt;&gt; 64)/:/([0-9]*)/hex(((\g&lt;1&gt;) &amp; 0xFFFF000000000000) &gt;&gt; 48)/:/([0-9]*)/hex(((\g&lt;1&gt;) &amp; 0xFFFF00000000) &gt;&gt; 32)/:/([0-9]*)/hex(((\g&lt;1&gt;) &amp; 0xFFFF0000) &gt;&gt; 16)/:/([0-9]*)/hex((\g&lt;1&gt;) &amp; 0xFFFF)//</MomentUnits:inverseScalingRegexp>
+    <MomentUnits:scalingRegexp rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >/evalInteger/([0-9a-fA-F]{0,4}):([0-9a-fA-F]{0,4}):([0-9a-fA-F]{0,4}):([0-9a-fA-F]{0,4}):([0-9a-fA-F]{0,4}):([0-9a-fA-F]{0,4}):([0-9a-fA-F]{0,4}):([0-9a-fA-F]{0,4})/(0x\g&lt;1&gt;)&lt;&lt;112|(0x\g&lt;2&gt;)&lt;&lt;96|(0x\g&lt;3&gt;)&lt;&lt;80|(0x\g&lt;4&gt;)&lt;&lt;64|(0x\g&lt;5&gt;)&lt;&lt;48|(0x\g&lt;6&gt;)&lt;&lt;32|(0x\g&lt;7&gt;)&lt;&lt;16|(0x\g&lt;8&gt;)/</MomentUnits:scalingRegexp>
+  </MomentUnits:unitDerivedByRegexpScaling>
+  <MomentUnits:UnitDerivedByRaisingToPower rdf:ID="perHour">
+    <MomentUnits:derivedFromUnit>
+      <MomentUnits:UnitDerivedByScaling rdf:ID="hour">
+        <MomentUnits:derivedFromUnit rdf:resource="#second"/>
+        <MomentUnits:hasScalingNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+        >3600</MomentUnits:hasScalingNumber>
+        <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >h</MomentUnits:hasSymbol>
+      </MomentUnits:UnitDerivedByScaling>
+    </MomentUnits:derivedFromUnit>
+    <MomentUnits:hasPower rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >-1</MomentUnits:hasPower>
+  </MomentUnits:UnitDerivedByRaisingToPower>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="percent">
+    <MomentUnits:derivedFromUnit rdf:resource="#ratio"/>
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >%</MomentUnits:hasSymbol>
+    <MomentUnits:hasScalingNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >0.01</MomentUnits:hasScalingNumber>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="ppm">
+    <MomentUnits:hasScalingNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#double"
+    >0.000001</MomentUnits:hasScalingNumber>
+    <MomentUnits:hasSymbol rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ppm</MomentUnits:hasSymbol>
+    <MomentUnits:derivedFromUnit rdf:resource="#ratio"/>
+  </MomentUnits:UnitDerivedByScaling>
+  <MomentUnits:UnitDerivedByScaling rdf:ID="GibiBytepersec">
+    <MomentUnits:derivedFromUnit rdf:resource="#Bytepersec"/>
+    <MomentUnits:hasPrefix rdf:resource="#Gibi"/>
+  </MomentUnits:UnitDerivedByScaling>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.5, Build 649)  http://protege.stanford.edu -->

@@ -1,0 +1,2718 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+    xmlns:MD="http://www.etsi.org/isg/moi/data.owl#"
+    xmlns:assertion="http://www.owl-ontologies.com/assert.owl#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:Tools="http://www.etsi.org/isg/moi/tools.owl#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:MU="http://www.etsi.org/isg/moi/Units.owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:MGC="http://www.etsi.org/isg/moi/GeneralConcepts.owl#"
+  xml:base="http://www.etsi.org/isg/moi/data.owl">
+  <owl:Ontology rdf:about="">
+    <owl:incompatibleWith rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://www.fp7-moment.eu/MomentData.owl</owl:incompatibleWith>
+    <dc:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Jorge E. López de Vergara Méndez</dc:creator>
+    <dc:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Alvaro Katsu Tomoyuki</dc:creator>
+    <dc:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Alfredo Salvador Gonzalez</dc:creator>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Version 2. This version is incompatible with previuos versions.</rdfs:comment>
+    <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >v2.0</owl:versionInfo>
+  </owl:Ontology>
+  <owl:Class rdf:ID="MeanMeasurement">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="StatisticalMeasurement"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mean Value from a statistacal measurement.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="DayType">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="GeneralInformation"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Indicates the type of day. F if it´s holyday or L if it´s working day.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="LongitudeCoordinate">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="NodeInformation"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Longitude coordinate where is  the object.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Traceroute">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Thing rdf:ID="RoundTripDelayMeasurement">
+            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+            <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >RFC2681</rdfs:isDefinedBy>
+            <rdfs:subClassOf>
+              <owl:Class rdf:ID="DelayMeasurement"/>
+            </rdfs:subClassOf>
+            <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >http://www.ietf.org/rfc/rfc2681.txt</rdfs:seeAlso>
+            <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >INFORMALLY: Time it takes for a packet to reach from a sourceNode to a destinationNode and back again.
+
+RFC2681 defines a "Round-trip Delay Metric for IPPM" in Section 2.4 as follows:
+   For a real number dT, &gt;&gt;the *Type-P-Round-trip-Delay* from Src to Dst
+   at T is dT&lt;&lt; means that Src sent the first bit of a Type-P packet to
+   Dst at wire-time* T, that Dst received that packet, then immediately
+   sent a Type-P packet back to Src, and that Src received the last bit
+   of that packet at wire-time T+dT.
+
+   &gt;&gt;The *Type-P-Round-trip-Delay* from Src to Dst at T is undefined
+   (informally, infinite)&lt;&lt; means that Src sent the first bit of a
+   Type-P packet to Dst at wire-time T and that (either Dst did not
+   receive the packet, Dst did not send a Type-P packet in response, or)
+   Src did not receive that response packet.
+
+   &gt;&gt;The *Type-P-Round-trip-Delay between Src and Dst at T&lt;&lt; means
+   either the *Type-P-Round-trip-Delay from Src to Dst at T or the
+   *Type-P-Round-trip-Delay from Dst to Src at T.  When this notion is
+   used, it is understood to be specifically ambiguous which host acts
+   as Src and which as Dst.  {Comment: This ambiguity will usually be a
+   small price to pay for being able to have one measurement, launched
+   from either Src or Dst, rather than having two measurements.}</rdfs:comment>
+          </owl:Thing>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Thing rdf:ID="DestinationIP">
+            <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >IP address of the destination node</rdfs:comment>
+            <rdfs:subClassOf>
+              <owl:Class rdf:ID="NodeIP"/>
+            </rdfs:subClassOf>
+            <rdfs:subClassOf>
+              <owl:Restriction>
+                <owl:hasValue>
+                  <owl:Thing rdf:about="http://www.etsi.org/isg/moi/Units.owl#ipv4int"/>
+                </owl:hasValue>
+                <owl:onProperty>
+                  <owl:FunctionalProperty rdf:ID="defaultUnit"/>
+                </owl:onProperty>
+              </owl:Restriction>
+            </rdfs:subClassOf>
+            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+          </owl:Thing>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Traceroute is a network measurement tool to obtain the path between two nodes in a network and the (one way) delay.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Thing rdf:ID="FinalTtlMeasurement">
+            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+            <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >TTL (Time to Live) of the packet at the destination node</rdfs:comment>
+            <rdfs:subClassOf>
+              <owl:Class rdf:ID="SimpleMeasurement"/>
+            </rdfs:subClassOf>
+          </owl:Thing>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Thing rdf:ID="FirstTtlMeasurement">
+            <rdfs:subClassOf>
+              <owl:Class rdf:about="#SimpleMeasurement"/>
+            </rdfs:subClassOf>
+            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+            <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >TTL (Time to Live) of the package in the source node</rdfs:comment>
+          </owl:Thing>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://ggf.org/ns/nmwg/tools/traceroute/2.0/</rdfs:isDefinedBy>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="PauseParameter"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="WaitTimeParameter"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="QueryNumberParameter"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="Measurement"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Thing rdf:ID="HopCountMeasurement">
+            <rdfs:subClassOf>
+              <owl:Class rdf:about="#SimpleMeasurement"/>
+            </rdfs:subClassOf>
+            <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Number of hopes between two different nodes</rdfs:comment>
+            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+          </owl:Thing>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Thing rdf:ID="SourceIP">
+            <rdfs:subClassOf>
+              <owl:Restriction>
+                <owl:onProperty>
+                  <owl:FunctionalProperty rdf:about="#defaultUnit"/>
+                </owl:onProperty>
+                <owl:hasValue rdf:resource="http://www.etsi.org/isg/moi/Units.owl#ipv4int"/>
+              </owl:Restriction>
+            </rdfs:subClassOf>
+            <rdfs:subClassOf>
+              <owl:Class rdf:about="#NodeIP"/>
+            </rdfs:subClassOf>
+            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+            <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >IP address of the source node</rdfs:comment>
+          </owl:Thing>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NodeName">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Name or direction of the node</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#NodeInformation"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="TrainPacketMeasurement">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Obtain available bandwidth and one way delay using packet train information.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="TrainIdentifier"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#Measurement"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Thing rdf:ID="AvailableCapacityMeasurement">
+            <rdfs:subClassOf>
+              <owl:Class rdf:ID="CapacityMeasurement"/>
+            </rdfs:subClassOf>
+            <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Available path capacity is the minimum available link capacity ("tight link") of the links along that path.
+   AvailCap(P,T,I) = min {1..n} {AvailCap(Ln,T,I)}
+
+We define  available link capacity as the  multiplication of th link capacity with the complement of the link utilization:
+   AvailCap(L,T,I) = C(L,T,I) * ( 1 - Util(L,T,I) )</rdfs:comment>
+            <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >http://www.rfc-editor.org/rfc/rfc5136.txt</rdfs:seeAlso>
+            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+          </owl:Thing>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="PacketsCount"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="PacketSize"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="VarMeasurement"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="MinMeasurement"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="PacketIdentifier"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Thing rdf:ID="PathCapacityMeasurement">
+            <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >The path capacity of a determinate protocol is the smallest link capacity ("narrow link") of the links that make up the path.
+We define the  link capacity, C(L,T,I), to be the maximum number of bits of a determinate protocol that can be transmitted from the source and correctly received by the destination over the link L during the interval [T, T+I], divided by I.</rdfs:comment>
+            <rdfs:subClassOf>
+              <owl:Class rdf:about="#CapacityMeasurement"/>
+            </rdfs:subClassOf>
+            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+            <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >http://www.rfc-editor.org/rfc/rfc5136.txt</rdfs:seeAlso>
+          </owl:Thing>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="MaxMeasurement"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="Status">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#NodeInformation"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Special status of a node</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Duration">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Duration set in advance of the measure.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="MeasurementParameters"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="Type">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MeasurementParameters"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="DestinationName">
+    <rdfs:subClassOf rdf:resource="#NodeName"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Name or direction of the destination node.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Origin">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="BGPAttributes"/>
+    </rdfs:subClassOf>
+    <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://tools.ietf.org/html/draft-ietf-idr-bgp4-21#section-5.1.1</rdfs:seeAlso>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ORIGIN is a well-known mandatory attribute. The ORIGIN attribute is
+   generated by the speaker that originates the associated routing
+   information</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#PacketIdentifier">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="PacketAndTrainProperties"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Unique identifier of the packet.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Time">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GeneralInformation"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NetworkNode">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >A point on the network where communications lines interface.
+ To describe complex nodes such as routers the interface property will represent the multiple connections the node has and how they are interconected together</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="NetworkObject"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#NodeIP"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#NodeName"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="NodePort"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="NodeMacAddress"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#CapacityMeasurement">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Measurement relationed with bandwidth. It measures the information pass through a node per unit of time.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SimpleMeasurement"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:about="#defaultUnit"/>
+        </owl:onProperty>
+        <owl:hasValue>
+          <owl:Thing rdf:about="http://www.etsi.org/isg/moi/Units.owl#bitpersec"/>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/GeneralConcepts.owl#Protocol"/>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/Units.owl#Unit"/>
+  <owl:Class rdf:ID="P00Parameter">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >StartValue for Kalman filter parameter P00</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MeasurementParameters"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="DPA">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#BGPAttributes"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Destination Point Attribute for BGP</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="P11Parameter">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MeasurementParameters"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >StartValue for Kalman filter parameter P11</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="As4Path">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#BGPAttributes"/>
+    </rdfs:subClassOf>
+    <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://www.armware.dk/RFC/rfc/rfc4893.html</rdfs:seeAlso>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This is an optional transitive attribute that contains the
+   AS path encoded with 4-octet AS numbers.  The AS4_PATH attribute has
+   the same semantics as the AS_PATH attribute, except that it is
+   optional transitive, and it carries 4-octet AS numbers</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Iperf">
+    <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://ggf.org/ns/nmwg/tools/iperf/2.0/</rdfs:isDefinedBy>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#Measurement"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="hasMetricAttributes"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#DestinationIP"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMetricAttributes"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#SourceIP"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMetricAttributes"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#CapacityMeasurement"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Iperf is a commonly used network testing tool that can create TCP and UDP data streams and measure the throughput of a network that is carrying them.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#NodeIP">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >IP address of the node</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:about="#defaultUnit"/>
+        </owl:onProperty>
+        <owl:hasValue rdf:resource="http://www.etsi.org/isg/moi/Units.owl#ipv4int"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="AddressMeasurement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SamplingRate">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >defines the number of samples per second (or per other unit) taken from a continuous signal to make a discrete signal</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SimpleMeasurement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="Link">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >A link is a connection between two of these network devices or nodes</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#NetworkObject"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Thing rdf:ID="SourceMacAddress">
+            <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Mac address of the source node</rdfs:comment>
+            <rdfs:subClassOf>
+              <owl:Restriction>
+                <owl:onProperty>
+                  <owl:FunctionalProperty rdf:about="#defaultUnit"/>
+                </owl:onProperty>
+                <owl:hasValue>
+                  <owl:Thing rdf:about="http://www.etsi.org/isg/moi/Units.owl#hexadecimalMAC"/>
+                </owl:hasValue>
+              </owl:Restriction>
+            </rdfs:subClassOf>
+            <rdfs:subClassOf>
+              <owl:Class rdf:about="#NodeMacAddress"/>
+            </rdfs:subClassOf>
+            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+          </owl:Thing>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Thing rdf:ID="DestinationMacAddress">
+            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+            <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Mac address of the destination node</rdfs:comment>
+            <rdfs:subClassOf>
+              <owl:Class rdf:about="#NodeMacAddress"/>
+            </rdfs:subClassOf>
+            <rdfs:subClassOf>
+              <owl:Restriction>
+                <owl:onProperty>
+                  <owl:FunctionalProperty rdf:about="#defaultUnit"/>
+                </owl:onProperty>
+                <owl:hasValue rdf:resource="http://www.etsi.org/isg/moi/Units.owl#hexadecimalMAC"/>
+              </owl:Restriction>
+            </rdfs:subClassOf>
+          </owl:Thing>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#SourceIP"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="SourceName"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#DestinationIP"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#DestinationName"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#SourceName">
+    <rdfs:subClassOf rdf:resource="#NodeName"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ToolVersion">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ToolParameters"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Version of the tool</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="IpIdentifier">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PacketAndTrainProperties"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The IP identifier field from a packet</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#NetworkObject">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#Status"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#Measurement"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >A object of a Network</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Advertiser">
+    <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://www.ietf.org/rfc/rfc1863.txt#4.1%20ADVERTISER%20Path%20Attribute</rdfs:seeAlso>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >BGP/IDRP Route Server</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#BGPAttributes"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="MeasurementData">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >MeasurementData represents individual results of a measurement. As the ontology is designed to work with D2R it also represents different columns of the database</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="MessageType">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Message type inidactes the type of a message, like BGP4MP in withdrawn routes of RIPE</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MeasurementParameters"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PingER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="Ping"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >A device that periodically emits a signal that can be monitored to permit movement tracking.</rdfs:comment>
+    <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://ggf.org/ns/nmwg/tools/pinger/2.0</rdfs:isDefinedBy>
+  </owl:Class>
+  <owl:Class rdf:about="#PauseParameter">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Time between differents measurements</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MeasurementParameters"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#StatisticalMeasurement">
+    <rdfs:subClassOf rdf:resource="#MeasurementData"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Results from statistical analysis.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Proxy">
+    <rdfs:subClassOf rdf:resource="#NetworkObject"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >A server  that acts as a go-between for requests from clients seeking resources from other servers.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="SatelliteCountMeasurement">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Number of Satellites seen by the GPS at the moment of the measurement.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SimpleMeasurement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SourcePort">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#NodePort"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Number of port of the source node.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Aggregator">
+    <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://tools.ietf.org/html/draft-ietf-idr-bgp4-21#section-5.1.7</rdfs:seeAlso>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >AGGREGATOR is an optional transitive attribute which MAY be included
+   in updates which are formed by aggregation</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#BGPAttributes"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SequenceIndex">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GeneralInformation"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#NodeInformation">
+    <rdfs:subClassOf rdf:resource="#MeasurementData"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Information about a node or a path of the network.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#NodeMacAddress">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >MAC address of the node.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:about="#defaultUnit"/>
+        </owl:onProperty>
+        <owl:hasValue rdf:resource="http://www.etsi.org/isg/moi/Units.owl#hexadecimalMAC"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#AddressMeasurement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="Topology">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Arrangement or mapping of the elements of a network.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#NetworkObject"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MultiExit">
+    <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://tools.ietf.org/html/draft-ietf-idr-bgp4-21#section-5.1.4</rdfs:seeAlso>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#BGPAttributes"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The MULTI_EXIT_DISC is an optional non-transitive attribute which is
+   intended to be used on external (inter-AS) links to discriminate
+   among multiple exit or entry points to the same neighboring AS</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="SNMP">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >SNMP (Simple Network Management Protocol) information</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#Measurement"/>
+    </rdfs:subClassOf>
+    <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://ggf.org/ns/nmwg/tools/snmp/2.0</rdfs:isDefinedBy>
+  </owl:Class>
+  <owl:Class rdf:about="#PacketsCount">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Number of packet in a train.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PacketAndTrainProperties"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#Ping">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMetricAttributes"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Thing rdf:ID="PacketLossMeasurement">
+            <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >http://www.ietf.org/rfc/rfc3357.txt</rdfs:seeAlso>
+            <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Percentage of losing packets along the data path.</rdfs:comment>
+            <rdfs:subClassOf>
+              <owl:Class rdf:about="#SimpleMeasurement"/>
+            </rdfs:subClassOf>
+            <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+          </owl:Thing>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#RoundTripDelayMeasurement"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMetricAttributes"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Network tool that measures round-trip time and packet loss sending ICMP "echo-request" packets and listening for ICMP "echo-response" replies.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#SourceIP"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMetricAttributes"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#DestinationIP"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMetricAttributes"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="Arguments"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMetricAttributes"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://ggf.org/ns/nmwg/tools/ping/2.0/</rdfs:isDefinedBy>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#Measurement"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMetricAttributes"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#FirstTtlMeasurement"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#FinalTtlMeasurement"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMetricAttributes"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#PacketSize"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMetricAttributes"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="Interface">
+    <rdfs:subClassOf rdf:resource="#NetworkObject"/>
+    <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://ggf.org/ns/nmwg/topology/2.0#interface</rdfs:isDefinedBy>
+    <owl:disjointWith rdf:resource="#Topology"/>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="Path"/>
+    </owl:disjointWith>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >One of the interfaces of a Node, usually each of the network adapter of the Node. Each of them having different addresses.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#MaxMeasurement">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Maximum Value from a statistacal measurement.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#StatisticalMeasurement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MP_Reach">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#BGPAttributes"/>
+    </rdfs:subClassOf>
+    <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://ietfreport.isoc.org/idref/rfc2283/</rdfs:seeAlso>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >MP_REACH is an optional non-transitive attribute that can be used for the following purposes:
+
+      (a) to advertise a feasible route to a peer
+
+      (b) to permit a router to advertise the Network Layer address of the router that should be used as the next hop to the destinations listed in the Network Layer Reachability Information field of the MP_NLRI attribute.
+
+      (c) to allow a given router to report some or all of the Subnetwork Points of Attachment (SNPAs) that exist within the local system</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="X11Parameter">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MeasurementParameters"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >StartValue for Kalman filter parameter X11</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="LocalPref">
+    <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://tools.ietf.org/html/draft-ietf-idr-bgp4-21#section-5.1.5</rdfs:seeAlso>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#BGPAttributes"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >LOCAL_PREF is a well-known attribute that SHALL be included in all
+   UPDATE messages that a given BGP speaker sends to the other internal
+   peers</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="OutgoingTransferRateMeasurement">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="TransferRateMeasurement"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Average data infomation  that has as source node the node that is being measured per unit of time.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="ExtendedCommunities">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#BGPAttributes"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The Extended Communities Attribute is a transitive optional BGP
+   attribute, with the Type Code 16.  The attribute consists of a set of
+   "extended communities"</rdfs:comment>
+    <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://www.rfc-editor.org/rfc/rfc4360.txt</rdfs:seeAlso>
+  </owl:Class>
+  <owl:Class rdf:ID="NetworkName">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >name of the network where is being measuring.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GeneralInformation"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="DestinationPort">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#NodePort"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Number of port of the destination node.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="ExporterName">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GeneralInformation"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Name of the exporter</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="AsPath">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#BGPAttributes"/>
+    </rdfs:subClassOf>
+    <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://tools.ietf.org/html/draft-ietf-idr-bgp4-21#section-5.1.2</rdfs:seeAlso>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >AS_PATH is a well-known mandatory attribute. This attribute identi-
+   fies the autonomous systems through which routing information carried
+   in this UPDATE message has passed.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#VarMeasurement">
+    <rdfs:subClassOf rdf:resource="#StatisticalMeasurement"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >variance from a statistacal measurement.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="ProbeRateMeasurement">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Probe rate for the train.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SimpleMeasurement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#NodePort">
+    <rdfs:subClassOf rdf:resource="#NodeInformation"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Port used for the measurement in the Node.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#DelayMeasurement">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SimpleMeasurement"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue>
+          <owl:Thing rdf:about="http://www.etsi.org/isg/moi/Units.owl#second"/>
+        </owl:hasValue>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:about="#defaultUnit"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >A measurement of the time required to traverse between two nodes.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="HurstParameterMeasurement">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MeasurementParameters"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="OriginatorID">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#BGPAttributes"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ORIGINATOR_ID is a new optional, non-transitive BGP attribute of Type code 9.   This attribute will carry the BGP Identifier of the originator of the route in the local AS</rdfs:comment>
+    <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://www.rfc-editor.org/rfc/rfc4456.txt</rdfs:seeAlso>
+  </owl:Class>
+  <owl:Class rdf:ID="LatitudeCoordinate">
+    <rdfs:subClassOf rdf:resource="#NodeInformation"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Latitude coordinate where is  the object.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="ActiveCentre">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GeneralInformation"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >State wheter observation point is active or not at the current time.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="ClusterID">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#BGPAttributes"/>
+    </rdfs:subClassOf>
+    <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://www.powerfast.net/bgp/BGP_Nd5.html</rdfs:seeAlso>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Specifies the identifier for the route reflector cluster. Valid values are integers from 0 and 4294967295.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="As4Aggregator">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#BGPAttributes"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The AS4_AGGREGATOR
+   attribute has the same semantics as the AGGREGATOR attribute, except
+   that it carries a 4-octet AS number</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Metric">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Metric indivuals represent the thing that is being measuring, and all the differents Values that are necessary to obtain, when the metric is being measuring.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="CentreIdentifier">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GeneralInformation"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Unique Identifier for a centre</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#Measurement">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Measurement is the class to represent network measurements. A network meausurement may measure multiple metric, like traceroute that meausures route and delay.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="MRTGMeasurement">
+    <rdfs:subClassOf rdf:resource="#Measurement"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:ID="CentreName"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#ExporterName"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#SamplingRate"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#MaxMeasurement"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#NetworkName"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#VarMeasurement"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >MRTG (Multi Router Traffic Grapher) data measured on the acadic Spanish network RedIris.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="DagOffset">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Offset between system clock (PC) and dag card</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SimpleMeasurement"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="http://www.etsi.org/isg/moi/Units.owl#second"/>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:about="#defaultUnit"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="DiscardsRate">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SimpleMeasurement"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Rate of discards</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#ToolParameters">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MeasurementParameters"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The tool used to do the measurement.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#SimpleMeasurement">
+    <rdfs:subClassOf rdf:resource="#MeasurementData"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    ></rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#CentreName">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Name of the centre (institute, university, ...) where data have been captured.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GeneralInformation"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.etsi.org/isg/moi/GeneralConcepts.owl#TimeStamp"/>
+  <owl:Class rdf:about="#BGPAttributes">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MeasurementParameters"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#QueryNumberParameter">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Number of times to send a query for a given hop</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MeasurementParameters"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PeerAs">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Autonomous system number of a peer</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#BGPAttributes"/>
+  </owl:Class>
+  <owl:Class rdf:about="#GeneralInformation">
+    <rdfs:subClassOf rdf:resource="#MeasurementData"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Information of a centre of measurement like name, direction, telephone ...</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#TrainIdentifier">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Unique identifier of the train that the packet form part</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PacketAndTrainProperties"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="IcmpCode">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The ICMP code of the received packet</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PacketAndTrainProperties"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="IcmpType">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The ICMP type of the received packet</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PacketAndTrainProperties"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="LinkUtilization">
+    <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://www.rfc-editor.org/rfc/rfc5136.txt</rdfs:seeAlso>
+    <rdfs:subClassOf rdf:resource="#CapacityMeasurement"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >We express usage as a fraction of the overall capacity.
+   Util(L,T,I) = ( Used(L,T,I) / C(L,T,I) ) 
+   Thus, the utilization now represents the fraction of the capacity  that is being used and is a Value between zero (meaning nothing is used) and one (meaning the link is fully saturated).  Multiplying the utilization by 100 yields the percent utilization of the link</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="NextHop">
+    <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://tools.ietf.org/html/draft-ietf-idr-bgp4-21#section-5.1.3</rdfs:seeAlso>
+    <rdfs:subClassOf rdf:resource="#BGPAttributes"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The NEXT_HOP is a well-known mandatory attribute that defines the IP address of the router that SHOULD be used as the next hop to the destinations listed in the UPDATE message</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="AtomicAggregate">
+    <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://tools.ietf.org/html/draft-ietf-idr-bgp4-21#section-5.1.6</rdfs:seeAlso>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ATOMIC_AGGREGATE is a well-known discretionary attribute.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#BGPAttributes"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NlriMask">
+    <rdfs:subClassOf rdf:resource="#BGPAttributes"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Network Layer Reachability Information subnet IP mask</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="PassiveAnomal">
+    <rdfs:subClassOf rdf:resource="#Measurement"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Passive anomal represents pieces of captured traffic which contains anomal data</rdfs:comment>
+    <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI"
+    >http://ggf.org/ns/nmwg/tools/passiveanomal/2.0/</rdfs:isDefinedBy>
+  </owl:Class>
+  <owl:Class rdf:about="#WaitTimeParameter">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MeasurementParameters"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Maximum time to wait for reply.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="X00Parameter">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >StartValue for Kalman filter parameter x00</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MeasurementParameters"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PpsOffset">
+    <rdfs:subClassOf rdf:resource="#SimpleMeasurement"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="http://www.etsi.org/isg/moi/Units.owl#second"/>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:about="#defaultUnit"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Offset between PPS signal from GPS and NTP clock.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#PacketSize">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PacketAndTrainProperties"/>
+    </rdfs:subClassOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Size of the packet</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="MP_Unreach">
+    <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://ietfreport.isoc.org/idref/rfc2283/</rdfs:seeAlso>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >This is an optional non-transitive attribute that can be used for the
+   purpose of withdrawing multiple unfeasible routes from service.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#BGPAttributes"/>
+  </owl:Class>
+  <owl:Class rdf:about="#MeasurementParameters">
+    <rdfs:subClassOf rdf:resource="#MeasurementData"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Parameters for measurements</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="GenericInterruptionMeasurement">
+    <rdfs:subClassOf rdf:resource="#GeneralInformation"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GenericSimpleMeasurement">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >GenericSimpleMeasurement class represent all the simple measuremenent that is not represented in the ontology.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#SimpleMeasurement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="isTTLconstMeasurement">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Boolean measurement indicating if the TTLwas constant during the measurement.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#SimpleMeasurement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="StatisticalAnalysis">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#StatisticalMeasurement"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMetricAttributes"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#Measurement"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Statistical measurements are statistical results derivated from network measurements.
+hasMetricAttributes contains the result of the statistical analysis (ie mean Value) and measurementsAnalyzed contains the set of data from where the results are computed.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="GenericEventMeasurement">
+    <rdfs:subClassOf rdf:resource="#GeneralInformation"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GenericParameter">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >A non especific parameter.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#MeasurementParameters"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Path">
+    <rdfs:subClassOf rdf:resource="#NetworkObject"/>
+    <owl:disjointWith rdf:resource="#Topology"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >A Path or a Segment in a network is a set of ordered Nodes connected through communication Link
+.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="IncomingTransferRateMeasurement">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Data infomation  that has as destination node the node that is being measured per unit of time.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#TransferRateMeasurement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#PacketAndTrainProperties">
+    <rdfs:subClassOf rdf:resource="#MeasurementParameters"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >A packet is a formatted block of data carried over a network.
+A train is a collection of packets.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="StandardDeviationMeasurement">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The standard deviation of the statistical measurement</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#StatisticalMeasurement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NlriIp">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Network Layer Reachability information IP address</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#BGPAttributes"/>
+  </owl:Class>
+  <owl:Class rdf:about="#TransferRateMeasurement">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The measurement that measured the data infomation  that send or recived  the node that is being measured.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="http://www.etsi.org/isg/moi/Units.owl#bitpersec"/>
+        <owl:onProperty>
+          <owl:FunctionalProperty rdf:about="#defaultUnit"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#SimpleMeasurement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClusterList">
+    <rdfs:subClassOf rdf:resource="#BGPAttributes"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >CLUSTER_LIST is a new, optional, non-transitive BGP attribute of Type
+   code 10.  It is a sequence of CLUSTER_ID values representing the
+   reflection path that the route has passed.</rdfs:comment>
+    <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://www.rfc-editor.org/rfc/rfc4456.txt</rdfs:seeAlso>
+  </owl:Class>
+  <owl:Class rdf:ID="TrafficMeasurement">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#OutgoingTransferRateMeasurement"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#IncomingTransferRateMeasurement"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMeasurementData"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#Measurement"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Measures incoming and outgoing traffic.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#MinMeasurement">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >minimum Value from a statistacal measurement.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#StatisticalMeasurement"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Arguments">
+    <rdfs:subClassOf rdf:resource="#MeasurementParameters"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Arguments used to take the measurement</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#AddressMeasurement">
+    <rdfs:subClassOf rdf:resource="#NodeInformation"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Community">
+    <rdfs:subClassOf rdf:resource="#BGPAttributes"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >A community is a group of destinations which share some common property</rdfs:comment>
+    <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://www.rfc-editor.org/rfc/rfc1997.txt</rdfs:seeAlso>
+  </owl:Class>
+  <owl:Class rdf:ID="NTP_GPS_Measurement">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#DagOffset"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMetricAttributes"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#SatelliteCountMeasurement"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMetricAttributes"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#SourceIP"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMetricAttributes"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="#hasMetricAttributes"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#PpsOffset"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#Measurement"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >NTP and GPS measurements sone in every node of the ETOMIC system</rdfs:comment>
+  </owl:Class>
+  <owl:ObjectProperty rdf:ID="hasNetworkNode">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Nodes tha are relationated with the network object</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#Interface"/>
+          <owl:Class rdf:about="#Proxy"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="#NetworkNode"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasSegment">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >A topology is composed of any number of segmets that should be specified here</rdfs:comment>
+    <rdfs:range rdf:resource="#Path"/>
+    <rdfs:domain rdf:resource="#Topology"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#hasMeasurementData">
+    <rdfs:domain rdf:resource="#Measurement"/>
+    <rdfs:range rdf:resource="#MeasurementData"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Different data which can be obtained from the measurement. Those Values determine the metrics measured and stated in :measuresMetric property</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="measuresMetric">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Metrics thar are measured by a measure .</rdfs:comment>
+    <rdfs:range rdf:resource="#Metric"/>
+    <rdfs:domain rdf:resource="#Measurement"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="canBeCalculatedFrom">
+    <rdfs:range rdf:resource="#Metric"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Simpler metrics allow to determine complex ones by the combination of their results or adding more attributes.</rdfs:comment>
+    <rdfs:domain rdf:resource="#Metric"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasLink">
+    <rdfs:domain rdf:resource="#Path"/>
+    <rdfs:range rdf:resource="#Link"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The Hop or Link between two network nodes</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#hasMetricAttributes">
+    <rdfs:range rdf:resource="#MeasurementData"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The metric attributtes relationed with a metric, the individual results of each measurement attribute ( column in the database case )</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="measurementsAnalyzed">
+    <rdfs:domain rdf:resource="#StatisticalAnalysis"/>
+    <rdfs:range rdf:resource="#SimpleMeasurement"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The measurements used to perform the statistical analysis</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:ID="deadline">
+    <rdfs:domain rdf:resource="#Ping"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >the point in time at which something must be completed</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="classOfService">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >a 3 bit field within an Ethernet frame header when using 802.1Q tagging</rdfs:comment>
+    <rdfs:domain rdf:resource="#Interface"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="OriginValue">
+    <rdfs:domain rdf:resource="#Origin"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="LocalPrefValue">
+    <rdfs:domain rdf:resource="#LocalPref"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="capacity">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Tha interface capacity in MBytes / sec</rdfs:comment>
+    <rdfs:domain rdf:resource="#Interface"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="DPAValue">
+    <rdfs:domain rdf:resource="#DPA"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="NextHopValue">
+    <rdfs:domain rdf:resource="#NextHop"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="CommunityValue">
+    <rdfs:domain rdf:resource="#Community"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="AtomicAggregateValue">
+    <rdfs:domain rdf:resource="#AtomicAggregate"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="Alias">
+    <rdfs:domain rdf:resource="#SNMP"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >SNMP Alias</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="MP_ReachValue">
+    <rdfs:domain rdf:resource="#MP_Reach"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="AsPathValue">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >AsPath value.</rdfs:comment>
+    <rdfs:domain rdf:resource="#AsPath"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="AdvertiserValue">
+    <rdfs:domain rdf:resource="#Advertiser"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hostName">
+    <rdfs:domain rdf:resource="#Interface"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="direction">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#Interface"/>
+          <owl:Class rdf:about="#MRTGMeasurement"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="AggregatorValue">
+    <rdfs:domain rdf:resource="#Aggregator"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="As4AggregatorValue">
+    <rdfs:domain rdf:resource="#As4Aggregator"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="type">
+    <rdfs:domain rdf:resource="#PassiveAnomal"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="SNMPCommunity">
+    <rdfs:domain rdf:resource="#SNMP"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="ClusterListValue">
+    <rdfs:domain rdf:resource="#ClusterList"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="Startum">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    ></rdfs:comment>
+    <rdfs:domain rdf:resource="#NetworkNode"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="IqrIpd">
+    <rdfs:domain rdf:resource="#PingER"/>
+    <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://ggf.org/ns/nmwg/tools/pinger/2.0</rdfs:isDefinedBy>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="MP_UnreachValue">
+    <rdfs:domain rdf:resource="#MP_Unreach"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="As4PathValue">
+    <rdfs:domain rdf:resource="#As4Path"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="authrealm">
+    <rdfs:domain rdf:resource="#Interface"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="seqNum">
+    <rdfs:domain rdf:resource="#PingER"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="description">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#Measurement"/>
+          <owl:Class rdf:about="#NetworkObject"/>
+          <owl:Class rdf:about="#ToolParameters"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Description of the concept, process, etc used.
+A textual, human-readable description which defines the concept.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="ClusterIDValue">
+    <rdfs:domain rdf:resource="#ClusterID"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="ExtendedCommunitiesValue">
+    <rdfs:domain rdf:resource="#ExtendedCommunities"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="OriginatorIDValue">
+    <rdfs:domain rdf:resource="#OriginatorID"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="MultiExitValue">
+    <rdfs:domain rdf:resource="#MultiExit"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:ID="MeanMeasurementValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#MeanMeasurement"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:ID="StatisticalMeasurementValue"/>
+    </rdfs:subPropertyOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mean Value from a statistacl measurement.</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="DestinationMacAddressValue">
+    <rdfs:domain rdf:resource="#DestinationMacAddress"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:ID="NodeInformationValue"/>
+    </rdfs:subPropertyOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of Mac Addres in the destinantion node</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="CapacityMeasurementValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#CapacityMeasurement"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="seqIndex">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#Ping"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="CentreIdentifierValue">
+    <rdfs:domain rdf:resource="#CentreIdentifier"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Unique Identifier for a centre</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="LongitudeCoordinateValue">
+    <rdfs:domain rdf:resource="#LongitudeCoordinate"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Longitude coordinate where the object is.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="id">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Measurements: If the measurement has a unique identifier in the data source where it is held, it should be stated here. This will allow an easier identification of the measurements in their datasources.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#Measurement"/>
+          <owl:Class rdf:about="#MeasurementData"/>
+          <owl:Class rdf:about="#NetworkObject"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="NodeIPValue">
+    <rdfs:domain rdf:resource="#NodeIP"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the IP of the Node</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="event">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PassiveAnomal"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="NlriIpValue">
+    <rdfs:domain rdf:resource="#NlriIp"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the Network Layer Reachability Information Ip address</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="ResultType">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Type of result</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="#GenericSimpleMeasurement"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="PacketLossMeasurementValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:ID="SimpleMeasurementValue"/>
+    </rdfs:subPropertyOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the porcentage of lossing packets.</rdfs:comment>
+    <rdfs:domain rdf:resource="#PacketLossMeasurement"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:about="#defaultUnit">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="http://www.etsi.org/isg/moi/Units.owl#Unit"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:range>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The default unit is the unit in which a measure should be represented.</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="IncomingTransferRateMeasurementValue">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="#IncomingTransferRateMeasurement"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Information per time that comes to the measured node.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:ID="TransferRateMeasurementValue"/>
+    </rdfs:subPropertyOf>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="MeasurementParametersValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:ID="MeasurementDataValue"/>
+    </rdfs:subPropertyOf>
+    <rdfs:domain rdf:resource="#GenericParameter"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="IpIdentifierValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#IpIdentifier"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the IP identifier field from received packet</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="ArgumentsValue">
+    <rdfs:subPropertyOf rdf:resource="#MeasurementParametersValue"/>
+    <rdfs:domain rdf:resource="#Arguments"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the arguments.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="OID">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Object identifier for SNMP Values</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="#SNMP"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="GenericInterruptionMeasurementValue">
+    <rdfs:domain rdf:resource="#GenericInterruptionMeasurement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="MinMeasurementValue">
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#StatisticalMeasurementValue"/>
+    </rdfs:subPropertyOf>
+    <rdfs:domain rdf:resource="#MinMeasurement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="MessageTypeValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the type of message</rdfs:comment>
+    <rdfs:domain rdf:resource="#MessageType"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="PacketIdentifierValue">
+    <rdfs:domain rdf:resource="#PacketIdentifier"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:ID="PacketAndTrainPropertiesValue"/>
+    </rdfs:subPropertyOf>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the packet´s identifier</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="isStatisticalMeasurementOf">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="#SimpleMeasurement"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The measure associated with the statistical measurement.</rdfs:comment>
+    <rdfs:domain rdf:resource="#StatisticalMeasurement"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="PacketsCountValue">
+    <rdfs:domain rdf:resource="#PacketsCount"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >number of packets in a train.</rdfs:comment>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#PacketAndTrainPropertiesValue"/>
+    </rdfs:subPropertyOf>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="NetworkNameValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >name of the network where is being measuring. (uses in DIOR)</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="#NetworkName"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="PauseParameterValue">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Time between differents measurements</rdfs:comment>
+    <rdfs:domain rdf:resource="#PauseParameter"/>
+    <rdfs:subPropertyOf rdf:resource="#MeasurementParametersValue"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="ProbeRateMeasurementValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#ProbeRateMeasurement"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#SimpleMeasurementValue"/>
+    </rdfs:subPropertyOf>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="SequenceIndexValue">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdfs:domain rdf:resource="#SequenceIndex"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="ActiveCentreValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdfs:domain rdf:resource="#ActiveCentre"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >State wheter observation point is active or not at the current time.</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="FinalTtlMeasurementValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#MeasurementDataValue"/>
+    </rdfs:subPropertyOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the TTL in the destination node</rdfs:comment>
+    <rdfs:domain rdf:resource="#FinalTtlMeasurement"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="ModifiedTimestamp">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#NetworkNode"/>
+          <owl:Class rdf:about="#ToolParameters"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Timestamp with the date of the last modification.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.etsi.org/isg/moi/GeneralConcepts.owl#TimeStamp"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="HopCountMeasurementValue">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Number of hop between two different nodes</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
+    <rdfs:domain rdf:resource="#HopCountMeasurement"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#MeasurementDataValue"/>
+    </rdfs:subPropertyOf>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="ToolVersionValue">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The version of the tool</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="#ToolVersion"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="HurstParameterMeasurementValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    <rdfs:domain rdf:resource="#HurstParameterMeasurement"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="TimeValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdfs:domain rdf:resource="#Time"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="ErrorsRateValue">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Number of errors per second</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain>
+      <owl:Thing rdf:ID="ErrorsRate">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Rate of errors</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="#SimpleMeasurement"/>
+      </owl:Thing>
+    </rdfs:domain>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="SamplingRateValue">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#SimpleMeasurementValue"/>
+    </rdfs:subPropertyOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Defines the number of samples per second taken from a continuous signal to make a discrete signal</rdfs:comment>
+    <rdfs:domain rdf:resource="#SamplingRate"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="index">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >MD:result 
+  Key for the result if it is numeric.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#Interface"/>
+          <owl:Class rdf:about="#MeasurementData"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="DelayVariationMeasurementValue">
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#MeasurementDataValue"/>
+    </rdfs:subPropertyOf>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain>
+      <owl:Thing rdf:ID="DelayVariationMeasurement">
+        <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >http://www.ietf.org/rfc/rfc3393.txt</rdfs:seeAlso>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >INFORMALLY: The variability over time of the packet latency across a network. A measurement of the time difference calculated between a pair of delay measurements.
+
+RFC3393 defines a "IP Packet Delay Variation Metric for IP Performance Metrics (IPPM)" in Section 1.2 as follows:
+   A definition of the IP Packet Delay Variation (ipdv) can be given for
+   packets inside a stream of packets.
+
+   The ipdv of a pair of packets within a stream of packets is defined
+   for a selected pair of packets in the stream going from measurement
+   point MP1 to measurement point MP2.
+
+   The ipdv is the difference between the one-way-delay of the selected packets.</rdfs:comment>
+        <rdfs:subClassOf rdf:resource="#SimpleMeasurement"/>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:onProperty rdf:resource="#defaultUnit"/>
+            <owl:hasValue rdf:resource="http://www.etsi.org/isg/moi/Units.owl#second"/>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+      </owl:Thing>
+    </rdfs:domain>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the delay variation</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="CreatedTimestamp">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Timestamp with the date of creation.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#NetworkNode"/>
+          <owl:Class rdf:about="#ToolParameters"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="http://www.etsi.org/isg/moi/GeneralConcepts.owl#TimeStamp"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="DestinationIPValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >IP of the destination node.</rdfs:comment>
+    <rdfs:domain rdf:resource="#DestinationIP"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#NodeInformationValue"/>
+    </rdfs:subPropertyOf>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="DurationValue">
+    <rdfs:domain rdf:resource="#Duration"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of duration set in advance of the measure.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="IcmpTypeValue">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the ICMP type of the received packet</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#IcmpType"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:about="#TransferRateMeasurementValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#SimpleMeasurementValue"/>
+    </rdfs:subPropertyOf>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="PeerAsValue">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
+    <rdfs:domain rdf:resource="#PeerAs"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Autonomous system number of a peer</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="SourcePortValue">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#NodeInformationValue"/>
+    </rdfs:subPropertyOf>
+    <rdfs:domain rdf:resource="#SourcePort"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="isTTLconstMeasurementValue">
+    <rdfs:domain rdf:resource="#isTTLconstMeasurement"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Iis Value is True if is constant or False if not</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="clp">
+    <rdfs:domain rdf:resource="#PingER"/>
+    <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://ggf.org/ns/nmwg/tools/pinger/2.0</rdfs:isDefinedBy>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Count of packet lost</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="PathUsageMeasurementValue">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of throughput</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain>
+      <owl:Thing rdf:ID="LinkUsageMeasurement">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+        <rdfs:subClassOf rdf:resource="#CapacityMeasurement"/>
+        <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >http://www.rfc-editor.org/rfc/rfc5136.txt</rdfs:seeAlso>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >The average usage of a link L, Used(L,T,I), is the actual number of  bits of a determinate protocol from any source, correctly received over link L during the interval [T, T+I], divided by I.</rdfs:comment>
+      </owl:Thing>
+    </rdfs:domain>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#SimpleMeasurementValue"/>
+    </rdfs:subPropertyOf>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="DestinationNameValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="#DestinationName"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Name or direction of the destination node.</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="WaitTimeParameterValue">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value for the maximum time to wait for reply.</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="#MeasurementParametersValue"/>
+    <rdfs:domain rdf:resource="#WaitTimeParameter"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="TrainIdentifierValue">
+    <rdfs:domain rdf:resource="#TrainIdentifier"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#PacketAndTrainPropertiesValue"/>
+    </rdfs:subPropertyOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Unique identifier of the train that the packet form part</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="isConditionable">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdfs:domain rdf:resource="#GenericSimpleMeasurement"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Indicate if it is contionable (True) or not (False)</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="SatelliteCountMeasurementValue">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdfs:domain rdf:resource="#SatelliteCountMeasurement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#SimpleMeasurementValue"/>
+    </rdfs:subPropertyOf>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:about="#MeasurementDataValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#GenericSimpleMeasurement"/>
+          <owl:Class rdf:about="#MeasurementData"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The value related to a measurement. Should be the property of a MeasurementData (or one of its subclasses) instance and other details as unit and datatype should be present</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="SourceNameValue">
+    <rdfs:domain rdf:resource="#SourceName"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Name or direction of the source node.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="RoundTripDelayMeasurementValue">
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#SimpleMeasurementValue"/>
+    </rdfs:subPropertyOf>
+    <rdfs:domain rdf:resource="#RoundTripDelayMeasurement"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The numerical value related to the round trip delay measurement.</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="SNMPVersion">
+    <rdfs:domain rdf:resource="#SNMP"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    ></rdfs:comment>
+    <rdfs:range>
+      <owl:DataRange>
+        <owl:oneOf rdf:parseType="Resource">
+          <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+          >v1</rdf:first>
+          <rdf:rest rdf:parseType="Resource">
+            <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >v2</rdf:first>
+            <rdf:rest rdf:parseType="Resource">
+              <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+              <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+              >v3</rdf:first>
+            </rdf:rest>
+          </rdf:rest>
+        </owl:oneOf>
+      </owl:DataRange>
+    </rdfs:range>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="QueryNumberParameterValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
+    <rdfs:domain rdf:resource="#QueryNumberParameter"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Number of times to send a query for a given hop</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="isToolResult">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdfs:domain rdf:resource="#GenericSimpleMeasurement"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Indicate if the result was generated by a tool (True) or not (False)</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="timestamp">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The time when the measurement was measured on the network</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#MRTGMeasurement"/>
+          <owl:Class rdf:about="#Measurement"/>
+          <owl:Class rdf:about="#TrafficMeasurement"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="http://www.etsi.org/isg/moi/GeneralConcepts.owl#TimeStamp"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="DagOffsetValue">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the offset between system clock (PC) and dag card</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#DagOffset"/>
+    <rdfs:subPropertyOf rdf:resource="#MeasurementDataValue"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="CentreNameValue">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Name of the centre (institute, university, ...) where data have been captured.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#CentreName"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="P11ParameterValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of P11 parameter</rdfs:comment>
+    <rdfs:domain rdf:resource="#P11Parameter"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:subPropertyOf rdf:resource="#MeasurementParametersValue"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:about="#StatisticalMeasurementValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="#MeasurementDataValue"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="GenericEventMeasurementValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#GenericEventMeasurement"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="TOS">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Type of Service</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#Ping"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="NlriMaskValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Network Layer Reachability Information mask</rdfs:comment>
+    <rdfs:domain rdf:resource="#NlriMask"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:about="#NodeInformationValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Values about a node information.</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="#MeasurementDataValue"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="P00ParameterValue">
+    <rdfs:domain rdf:resource="#P00Parameter"/>
+    <rdfs:subPropertyOf rdf:resource="#MeasurementParametersValue"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of P00 parameter.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="MaxMeasurementValue">
+    <rdfs:domain rdf:resource="#MaxMeasurement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="#StatisticalMeasurementValue"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="NodePortValue">
+    <rdfs:domain rdf:resource="#NodePort"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Port used for the measurement in the Node.</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="X11ParameterValue">
+    <rdfs:domain rdf:resource="#X11Parameter"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of X11 parameter.</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="#MeasurementParametersValue"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="VarMeasurementValue">
+    <rdfs:domain rdf:resource="#VarMeasurement"/>
+    <rdfs:subPropertyOf rdf:resource="#StatisticalMeasurementValue"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >variance from a statistacal measurement.</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="DestinationPortValue">
+    <rdfs:domain rdf:resource="#DestinationPort"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Number of the destination port in a network conexion.</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="#NodeInformationValue"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="PathCapacityMeasurementValue">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of Capacity</rdfs:comment>
+    <rdfs:domain rdf:resource="#PathCapacityMeasurement"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="#MeasurementDataValue"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="AvailableCapacityMeasurementValue">
+    <rdfs:domain rdf:resource="#AvailableCapacityMeasurement"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Bandwidth´s Value</rdfs:comment>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#SimpleMeasurementValue"/>
+    </rdfs:subPropertyOf>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="MOSMeasurementValue">
+    <rdfs:domain>
+      <owl:Thing rdf:ID="MOSMeasurement">
+        <rdfs:subClassOf rdf:resource="#SimpleMeasurement"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >MOS (Mean Opinion Score) provides a numerical measure of the quality of human speech at the destination end of the circuit.</rdfs:comment>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+      </owl:Thing>
+    </rdfs:domain>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#SimpleMeasurementValue"/>
+    </rdfs:subPropertyOf>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of MOS.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="StatusValue">
+    <rdfs:domain rdf:resource="#Status"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the special status of a node</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="OutgoingTransferRateMeasurementValue">
+    <rdfs:subPropertyOf rdf:resource="#TransferRateMeasurementValue"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Information per time that go out from the measured node.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#OutgoingTransferRateMeasurement"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="ExporterNameValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Name of the exporter. (Uses in DIOR)</rdfs:comment>
+    <rdfs:domain rdf:resource="#ExporterName"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="needsSelector">
+    <rdfs:domain rdf:resource="#GenericSimpleMeasurement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Indicate if it need a selector (True) or not (False)</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="packetProtocol">
+    <rdfs:range rdf:resource="http://www.etsi.org/isg/moi/GeneralConcepts.owl#Protocol"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#Measurement"/>
+          <owl:Class rdf:about="#TrafficMeasurement"/>
+          <owl:Class rdf:about="#TrainPacketMeasurement"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The protocol of the packets used to perform the measurement</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="PpsOffsetValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="#MeasurementDataValue"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the offset between PPS signal from GPS and NTP clock</rdfs:comment>
+    <rdfs:domain rdf:resource="#PpsOffset"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="DayTypeValue">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#DayType"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Indicates the type of day. F if it´s holyday or L if it´s working day.</rdfs:comment>
+    <rdfs:range>
+      <owl:DataRange>
+        <owl:oneOf rdf:parseType="Resource">
+          <rdf:rest rdf:parseType="Resource">
+            <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >L</rdf:first>
+            <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+          </rdf:rest>
+          <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+          >F</rdf:first>
+        </owl:oneOf>
+      </owl:DataRange>
+    </rdfs:range>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="OneWayDelayMeasurementValue">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#SimpleMeasurementValue"/>
+    </rdfs:subPropertyOf>
+    <rdfs:domain>
+      <owl:Thing rdf:ID="OneWayDelayMeasurement">
+        <rdfs:seeAlso rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >http://www.ietf.org/rfc/rfc2679.txt</rdfs:seeAlso>
+        <rdfs:subClassOf rdf:resource="#DelayMeasurement"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+        <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >RFC2679</rdfs:isDefinedBy>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >A measurement of the time required to traverse one direction between two nodes.
+
+RFC2679 defines a "A One-way Delay Metric for IPPM" in Section 3.4 as follows:
+   For a real number dT, &gt;&gt;the *Type-P-One-way-Delay* from Src to Dst at
+   T is dT&lt;&lt; means that Src sent the first bit of a Type-P packet to Dst
+   at wire-time* T and that Dst received the last bit of that packet at
+   wire-time T+dT.
+
+   &gt;&gt;The *Type-P-One-way-Delay* from Src to Dst at T is undefined
+   (informally, infinite)&lt;&lt; means that Src sent the first bit of a
+   Type-P packet to Dst at wire-time T and that Dst did not receive that
+   packet.</rdfs:comment>
+      </owl:Thing>
+    </rdfs:domain>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The numerical value related to the one way delay measurement.</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="FirstTtlMeasurementValue">
+    <rdfs:domain rdf:resource="#FirstTtlMeasurement"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the TTL in the source node</rdfs:comment>
+    <rdfs:subPropertyOf rdf:resource="#MeasurementDataValue"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="hasPath">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >A path is a secuence of Nodes conected with hops or links. The order is not stated because is easy to compute given the first and the last node.</rdfs:comment>
+    <rdfs:domain rdf:resource="#Traceroute"/>
+    <rdfs:range rdf:resource="#Path"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="NodeMacAddressValue">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the Mac Address of the node.</rdfs:comment>
+    <rdfs:domain rdf:resource="#NodeMacAddress"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:about="#SimpleMeasurementValue">
+    <rdfs:subPropertyOf rdf:resource="#MeasurementDataValue"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="LinkUtilizationValue">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#LinkUtilization"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the fraction of the capacity that is being used.</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="PacketSizeValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf>
+      <owl:FunctionalProperty rdf:about="#PacketAndTrainPropertiesValue"/>
+    </rdfs:subPropertyOf>
+    <rdfs:domain rdf:resource="#PacketSize"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Size of the packet.</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="SourceIPValue">
+    <rdfs:subPropertyOf rdf:resource="#NodeInformationValue"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#SourceIP"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the IP of the source node</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="SourceMacAddressValue">
+    <rdfs:subPropertyOf rdf:resource="#NodeInformationValue"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of Mac address in the source node.</rdfs:comment>
+    <rdfs:domain rdf:resource="#SourceMacAddress"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="NodeNameValue">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Name or direction of the node</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#NodeName"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="isMeasuredIn">
+    <rdfs:range>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="http://www.etsi.org/isg/moi/Units.owl#Unit"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:range>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The units of measure in which is measured the result.</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="Name">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >MD:Result : 
+  Key for the result if it is a string</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="#GenericParameter"/>
+          <owl:Class rdf:about="#GenericSimpleMeasurement"/>
+          <owl:Class rdf:about="#NetworkObject"/>
+          <owl:Class rdf:about="#SNMP"/>
+          <owl:Class rdf:about="#ToolParameters"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="X00ParameterValue">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="#X00Parameter"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of X00 parameter.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="#MeasurementParametersValue"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:about="#PacketAndTrainPropertiesValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="#MeasurementDataValue"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="isRequired">
+    <rdfs:domain rdf:resource="#MeasurementParameters"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Indicate if a parameter is required (True) or optional (False)</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="DataType">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Form of representation of the data.</rdfs:comment>
+    <rdfs:domain rdf:resource="#MeasurementData"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="IcmpCodeValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#IcmpCode"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Value of the ICMP code of the received packet.</rdfs:comment>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="LatitudeCoordinateValue">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#LatitudeCoordinate"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Latitude coordinate where the object is.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:FunctionalProperty>
+  <MD:Metric rdf:ID="PathCapacityMetric">
+    <MD:hasMetricAttributes rdf:resource="#SourceIP"/>
+    <MD:hasMetricAttributes rdf:resource="#PathCapacityMeasurement"/>
+    <MD:hasMetricAttributes rdf:resource="#DestinationIP"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Capacity</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The path capacity of a determinate protocol is the smallest link capacity of the links that make up the path.
+We define the  link capacity, C(L,T,I), to be the maximum number of bits of a determinate protocol that can be transmitted from the source and correctly received by the destination over the link L during the interval [T, T+I], divided by I.</rdfs:comment>
+    <rdf:type>
+      <owl:Thing rdf:about="http://www.w3.org/2002/07/owl#Thing">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        ></rdfs:comment>
+      </owl:Thing>
+    </rdf:type>
+  </MD:Metric>
+  <owl:Thing rdf:ID="ThroughputMetric">
+    <MD:hasMetricAttributes rdf:resource="#SourceIP"/>
+    <MD:hasMetricAttributes rdf:resource="#LinkUsageMeasurement"/>
+    <MD:hasMetricAttributes rdf:resource="#DestinationIP"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Average rate of successful message delivery over a net conection</rdfs:comment>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Troughput</rdfs:label>
+    <rdf:type rdf:resource="#Metric"/>
+  </owl:Thing>
+  <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/creator"/>
+  <owl:Thing rdf:ID="PacketLossMetric">
+    <MD:hasMetricAttributes rdf:resource="#SourceIP"/>
+    <MD:hasMetricAttributes rdf:resource="#PacketLossMeasurement"/>
+    <MD:hasMetricAttributes rdf:resource="#DestinationIP"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >PacketLoss</rdfs:label>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Percentage of losing packets along the data path.</rdfs:comment>
+    <rdf:type rdf:resource="#Metric"/>
+  </owl:Thing>
+  <MD:Metric rdf:ID="AvailableBandwidthMetric">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >AvailableBandwidth</rdfs:label>
+    <MD:hasMetricAttributes rdf:resource="#SourceIP"/>
+    <MD:hasMetricAttributes rdf:resource="#AvailableCapacityMeasurement"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Bandwidth that is not use.</rdfs:comment>
+  </MD:Metric>
+  <owl:Thing rdf:ID="RouteMetric">
+    <MD:hasMetricAttributes rdf:resource="#SourceIP"/>
+    <MD:hasMetricAttributes rdf:resource="#SourceMacAddress"/>
+    <MD:canBeCalculatedFrom>
+      <owl:Thing rdf:ID="HopMetric">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >HopMetric</rdfs:label>
+        <MD:hasMetricAttributes rdf:resource="#SourceMacAddress"/>
+        <MD:hasMetricAttributes rdf:resource="#SourceIP"/>
+        <MD:hasMetricAttributes rdf:resource="#DestinationMacAddress"/>
+        <MD:hasMetricAttributes rdf:resource="#DestinationIP"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Two neighboring nodes</rdfs:comment>
+        <rdf:type rdf:resource="#Metric"/>
+      </owl:Thing>
+    </MD:canBeCalculatedFrom>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Path that follows a package from the source node to the destination node</rdfs:comment>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Route</rdfs:label>
+    <MD:hasMetricAttributes rdf:resource="#HopCountMeasurement"/>
+    <MD:hasMetricAttributes rdf:resource="#FirstTtlMeasurement"/>
+    <MD:hasMetricAttributes rdf:resource="#DestinationMacAddress"/>
+    <MD:hasMetricAttributes rdf:resource="#FinalTtlMeasurement"/>
+    <MD:hasMetricAttributes rdf:resource="#DestinationIP"/>
+    <rdf:type rdf:resource="#Metric"/>
+  </owl:Thing>
+  <owl:Thing rdf:ID="MOSMetric">
+    <MD:hasMetricAttributes rdf:resource="#SourceIP"/>
+    <MD:hasMetricAttributes rdf:resource="#MOSMeasurement"/>
+    <MD:hasMetricAttributes rdf:resource="#DestinationIP"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >MOS (Mean Opinion Score) provides a numerical measure of the quality of human speech at the destination end of the circuit.</rdfs:comment>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >MOS</rdfs:label>
+    <rdf:type rdf:resource="#Metric"/>
+  </owl:Thing>
+  <owl:Thing rdf:ID="ErrorMetric">
+    <rdf:type rdf:resource="#Metric"/>
+    <MD:hasMetricAttributes>
+      <owl:Thing rdf:ID="NodeIp"/>
+    </MD:hasMetricAttributes>
+    <MD:hasMetricAttributes rdf:resource="#ErrorsRate"/>
+  </owl:Thing>
+  <owl:Thing rdf:ID="DelayVariationMetric">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >DelayVariation</rdfs:label>
+    <MD:canBeCalculatedFrom>
+      <owl:Thing rdf:ID="RoundTripDelayMetric">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >RoundTripDelay</rdfs:label>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Time it takes for a packet to reach from a sourceNode to a destinationNode and back again.</rdfs:comment>
+        <MD:canBeCalculatedFrom rdf:resource="#DelayVariationMetric"/>
+        <rdf:type rdf:resource="#Metric"/>
+        <MD:hasMetricAttributes rdf:resource="#SourceIP"/>
+        <MD:hasMetricAttributes rdf:resource="#RoundTripDelayMeasurement"/>
+        <MD:hasMetricAttributes rdf:resource="#DestinationIP"/>
+      </owl:Thing>
+    </MD:canBeCalculatedFrom>
+    <MD:canBeCalculatedFrom>
+      <MD:Metric rdf:ID="OneWayDelayMetric">
+        <MD:canBeCalculatedFrom rdf:resource="#DelayVariationMetric"/>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Time it takes for a packet to reach from the sourceNode to the destinationNode.</rdfs:comment>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >OneTripDelay</rdfs:label>
+        <MD:hasMetricAttributes rdf:resource="#SourceIP"/>
+        <MD:hasMetricAttributes rdf:resource="#OneWayDelayMeasurement"/>
+        <MD:hasMetricAttributes rdf:resource="#DestinationIP"/>
+      </MD:Metric>
+    </MD:canBeCalculatedFrom>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >The variability over time of the packet latency across a network.</rdfs:comment>
+    <rdf:type rdf:resource="#Metric"/>
+    <MD:hasMetricAttributes rdf:resource="#SourceIP"/>
+    <MD:hasMetricAttributes rdf:resource="#DestinationIP"/>
+    <MD:hasMetricAttributes rdf:resource="#DelayVariationMeasurement"/>
+  </owl:Thing>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.5, Build 649)  http://protege.stanford.edu -->
