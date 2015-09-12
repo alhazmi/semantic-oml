@@ -48,7 +48,6 @@
 #include "sqlite_adapter.h"
 #include "monitoring_server.h"
 #include "fuseki_adapter.h"
-#include "virtuoso_adapter.h"
 
 #define V_STRING  "OML Server %s\n"
 #define V_STRING_UAM  "Semantic-OML Server %s\n"
@@ -104,10 +103,6 @@ extern char *pg_conninfo;
 extern char *fus_host;
 extern char *fus_port;
 extern char *fus_namespace;
-extern char *vir_host;
-extern char *vir_port;
-extern char *vir_user;
-extern char *vir_pass;
 
 struct poptOption options[] = {
   POPT_AUTOHELP
@@ -124,10 +119,6 @@ struct poptOption options[] = {
   { "fus-host", '\0', POPT_ARG_STRING, &fus_host, 0, "Fuseki server host to connect to", DEFAULT_FUS_HOST },
   { "fus-port", '\0', POPT_ARG_STRING, &fus_port, 0, "Fuseki server port to connect to", DEFAULT_FUS_PORT },
   { "fus-namespace", '\0', POPT_ARG_STRING, &fus_namespace, 0, "Fuseki server namespace", DEFAULT_FUS_NAMESPACE },
-  { "vir-user", '\0', POPT_ARG_STRING, &vir_user, 0, "Virtuoso server user to connect to", DEFAULT_VIR_USER },
-  { "vir-pass", '\0', POPT_ARG_STRING, &vir_pass, 0, "Virtuoso server pass to connect to", DEFAULT_VIR_PASS },
-  { "vir-host", '\0', POPT_ARG_STRING, &vir_host, 0, "Database server host to connect to", DEFAULT_VIR_HOST },
-  { "vir-port", '\0', POPT_ARG_STRING, &vir_port, 0, "Database server port to connect to", DEFAULT_VIR_PORT },
   { "user", '\0', POPT_ARG_STRING, &uidstr, 0, "Change server's user id", "UID" },
   { "group", '\0', POPT_ARG_STRING, &gidstr, 0, "Change server's group id", "GID" },
   { "event-hook", 'H', POPT_ARG_STRING, &hook, 0, "Path to an event hook taking input on stdin", "HOOK" },
@@ -296,7 +287,6 @@ int main(int argc, const char **argv)
 #ifdef HAVE_LIBPQ
   char *pass_replace = "--pg-pass=WITHHELD", *conninfo_replace = "--pg-connect=WITHHELD";
 #endif
-  char *vir_pass_replace = "--vir-pass=WITHHELD";
   char semantic = 0;
 
   oml_setup(&argc, argv);
@@ -333,18 +323,7 @@ int main(int argc, const char **argv)
     }
   }
   for(c=1; c<argc; c++) {
-      if (vir_user && !strncmp(argv[c],"--vir-user", 10))
-        semantic = 1;
-      else if (vir_pass && !strncmp(argv[c],"--vir-pass", 10))
-      {
-        argv[c] = conninfo_replace;
-        semantic = 1;
-      }
-      else if (vir_host && !strncmp(argv[c],"--vir-host", 10))
-        semantic = 1;
-      else if (vir_port && !strncmp(argv[c],"--vir-port", 10))
-        semantic = 1;
-      else if (fus_host && !strncmp(argv[c],"--fus-host", 10))
+      if (fus_host && !strncmp(argv[c],"--fus-host", 10))
         semantic = 1;
       else if (fus_port && !strncmp(argv[c],"--fus-port", 10))
         semantic = 1;
@@ -413,3 +392,4 @@ int main(int argc, const char **argv)
  End:
  vim: sw=2:sts=2:expandtab
 */
+

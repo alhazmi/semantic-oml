@@ -71,7 +71,6 @@
 #include "psql_adapter.h"
 #endif
 #include "fuseki_adapter.h"
-#include "virtuoso_adapter.h"
 
 #define DEF_COLUMN_COUNT 1
 #define DEF_TABLE_COUNT 1
@@ -86,8 +85,7 @@ static struct db_backend
 #if HAVE_LIBPQ
     { "postgresql", psql_create_database },
 #endif
-    { "fuseki", fuseki_create_database },
-    { "virtuoso", virtuoso_create_database },
+    { "fuseki", fuseki_create_database }
   };
 
 char* dbbackend = DEFAULT_DB_BACKEND;
@@ -146,8 +144,6 @@ database_setup_backend (const char* backend)
 #endif
   } else if (!strcmp (backend, "fuseki")) {
     if(fuseki_backend_setup ()) return -1;
-  } else if (!strcmp (backend, "virtuoso")) {
-    if(virtuoso_backend_setup ()) return -1;
   }
   return 0;
 }
@@ -578,4 +574,5 @@ database_init (Database *database)
  End:
  vim: sw=2:sts=2:expandtab
 */
+
 
