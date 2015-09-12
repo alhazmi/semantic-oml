@@ -65,7 +65,7 @@ oml2_server_LDFLAGS = $(PQLIBPATH)
 endif
 
 if HAVE_SEMANTIC
-oml2_server_SOURCES += fuseki_adapter.c fuseki_adapter.h virtuoso_adapter.c virtuoso_adapter.h
+oml2_server_SOURCES += fuseki_adapter.c fuseki_adapter.h
 oml2_server_LDFLAGS = -L/usr/include/curl/lib -lcurl
 endif
 
