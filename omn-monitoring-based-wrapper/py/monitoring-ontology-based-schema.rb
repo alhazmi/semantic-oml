@@ -66,11 +66,11 @@ app.defMeasurement("used_memory"){ |m|
 
 
     m.defMetric('physicalresource', :string, 'Name of monitored physical host',
-    [['omn-domain-pc:PC','rdfs:label','%value%']])
+    [['omn-domain-pc:PC','omn:hasURI','%value%']])
 
 
     m.defMetric('virtualresource', :string, 'Name of virtual host which is running on the monitored physical host',
-    [['omn-domain-pc:VM','rdfs:label','%value%'],
+    [['omn-domain-pc:VM','omn:hasURI','%value%'],
     ['omn-domain-pc:VM','omn-lifecycle:childOf','omn-domain-pc:PC']])}
 
 
@@ -78,6 +78,7 @@ app.defMeasurement("total_memory"){ |m|
     m.defMetric('total_memory', :double, 'Total memory value of host',
     [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:TotalMemory'],
     ['omn-monitoring-metric:TotalMemory','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
+    ['omn-domain-pc:VM','omn-lifecycle:childOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
     ['omn-monitoring-unit:Byte','omn-monitoring-unit:hasPrefix','omn-monitoring-unit:giga']])
@@ -88,12 +89,12 @@ app.defMeasurement("total_memory"){ |m|
 
 
     m.defMetric('physicalresource', :string, 'Name of monitored physical host',
-    [['omn-domain-pc:PC','rdfs:label','%value%']])
+    [['omn-domain-pc:PC','omn:hasURI','%value%']])
 
 
     m.defMetric('virtualresource', :string, 'Name of virtual host which is running on the monitored physical host',
-    [['omn-domain-pc:VM','rdfs:label','%value%'],
-    ['omn-domain-pc:VM','omn-lifecycle:childOf','omn-domain-pc:PC']])}
+    [['omn-domain-pc:VM','omn:hasURI','%value%']])
+    }
 
 
 app.defMeasurement("available_memory"){ |m|
@@ -110,11 +111,11 @@ app.defMeasurement("available_memory"){ |m|
 
 
     m.defMetric('physicalresource', :string, 'Name of monitored physical host',
-    [['omn-domain-pc:PC','rdfs:label','%value%']])
+    [['omn-domain-pc:PC','omn:hasURI','%value%']])
 
 
     m.defMetric('virtualresource', :string, 'Name of virtual host which is running on the monitored physical host',
-    [['omn-domain-pc:VM','rdfs:label','%value%'],
+    [['omn-domain-pc:VM','omn:hasURI','%value%'],
     ['omn-domain-pc:VM','omn-lifecycle:childOf','omn-domain-pc:PC']])}
 
 
@@ -132,11 +133,11 @@ app.defMeasurement("used_bandwidth"){ |m|
 
 
     m.defMetric('physicalresource', :string, 'Name of monitored physical host',
-    [['omn-domain-pc:PC','rdfs:label','%value%']])
+    [['omn-domain-pc:PC','omn:hasURI','%value%']])
 
 
     m.defMetric('virtualresource', :string, 'Name of virtual host which is running on the monitored physical host',
-    [['omn-domain-pc:VM','rdfs:label','%value%'],
+    [['omn-domain-pc:VM','omn:hasURI','%value%'],
     ['omn-domain-pc:VM','omn-lifecycle:childOf','omn-domain-pc:PC']])}
 
 
@@ -152,11 +153,11 @@ app.defMeasurement("availability"){ |m|
 
 
     m.defMetric('physicalresource', :string, 'Name of monitored physical host',
-    [['omn-domain-pc:PC','rdfs:label','%value%']])
+    [['omn-domain-pc:PC','omn:hasURI','%value%']])
 
 
     m.defMetric('virtualresource', :string, 'Name of virtual host which is running on the monitored physical host',
-    [['omn-domain-pc:VM','rdfs:label','%value%'],
+    [['omn-domain-pc:VM','omn:hasURI','%value%'],
     ['omn-domain-pc:VM','omn-lifecycle:childOf','omn-domain-pc:PC']])}
 
 app.defMeasurement("cpu_load"){ |m|
@@ -171,11 +172,11 @@ app.defMeasurement("cpu_load"){ |m|
 
 
     m.defMetric('physicalresource', :string, 'Name of monitored physical host',
-    [['omn-domain-pc:PC','rdfs:label','%value%']])
+    [['omn-domain-pc:PC','omn:hasURI','%value%']])
 
 
     m.defMetric('virtualresource', :string, 'Name of virtual host which is running on the monitored physical host',
-    [['omn-domain-pc:VM','rdfs:label','%value%'],
+    [['omn-domain-pc:VM','omn:hasURI','%value%'],
     ['omn-domain-pc:VM','omn-lifecycle:childOf','omn-domain-pc:PC']])}
 
 end
