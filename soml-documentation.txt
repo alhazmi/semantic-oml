@@ -1,0 +1,155 @@
+SOML Server
+
+SERVER INSTALLATION
+1. Build the server from the source code, follow the instructions in [1]
+2. Install fuseki [2]
+3. Update ruby to v1.9.2 or higher, and install the extensions [3] and [4] (for semantic validation)
+
+======================================================
+
+WRITING THE SCHEMA
+A template of the schema is located in the documentation [5], but it's incomplete (without header) so check here [6] or [8] to find out how to add the header. the schema is written in ruby and defines the properties and measurement points defined by the application. 
+
+For the semantic extension, there are several rules that must be followed while writing the semantic triples. 
+	1. Every metric has to begin with SimpleMeasurement (as the subject of the very first triple), followed by its corresponding Metric class (as object).
+	Example: omn-monitoring-data:SimpleMeasurement omn-monitoring:isMeasurementOf omn-monitoring-metric:TotalMemory
+	2. Every metric has a resource, which is linked to its Metric class.
+	Example: omn-monitoring-metric:TotalMemory omn-monitoring:isMeasurementMetricOf omn-domain-pc:PC
+	3. Later on, a URI of that resource must be given
+	Example: omn-domain-pc:PC omn:hasURI %value%
+
+This is an example of a semantic schema of a metric:
+
+app.defMeasurement("total_memory"){ |m|
+    m.defMetric('total_memory', :double, 'Total memory value of host',
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:TotalMemory'],
+    ['omn-monitoring-metric:TotalMemory','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
+    ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
+    ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
+    ['omn-monitoring-unit:Byte','omn-monitoring-unit:hasPrefix','omn-monitoring-unit:giga']])
+
+    m.defMetric('timestamp', :datetime, 'Time when the metric is measured',
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasTimestamp','%value%']])
+
+    m.defMetric('physicalresource', :string, 'URI of monitored resource',
+    [['omn-domain-pc:PC','omn:hasURI','%value%']])
+
+    m.defMetric('virtualresource', :string, 'URI of virtual host which is running on the monitored physical host',
+    [['omn-domain-pc:VM','omn:hasURI','%value%'],
+    ['omn-domain-pc:VM','omn-lifecycle:childOf','omn-domain-pc:PC']])}
+
+======================================================
+
+USING OML2-SCAFFOLD
+1. copy the oml2-scaffold file to whichever machine on which you want it be to deployed. (if you have SOML Server deployed, you can find the file under /usr/local/bin/, or else, in the source code of the server under soml/ruby/)
+2. to enable semantic validating, install 'rdf/rdfxml' and 'text' from ruby gem, for example using the following commands:
+	gem install rdf-rdfxml -v 1.1.3
+	gem install text -v 1.3.0
+3. now you can use oml2-scaffold for semantic validation with the following command:
+	/path/to/oml2-scaffold --oml <path-to-schema.rb> --ontology <ontology-dir>  
+
+Note: oml2-scaffold is extended to also support python and ruby beside C. To generate python file, type --omlpy instead of --oml, and to generate ruby file, type --omlr instead of --oml. It will generate a py/ruby file which you can modify to suit your needs.
+
+Regarding C, scaffold will generate a skeleton C-header file, which serves as a framework for the wrapper. The header will be compiled together with the main C-file to generate an executable C-program that can send measurement streams to OML Server. you can write the main file yourself, or you can use scaffold to create a template for the main C-file, which you have to modify to suit your needs (by template, it means that the measurement data are generated randomly, this serves as testing purposes because you can immediately test it wthout having to add any data at all). 
+
+important commands for C:
+	/path/to/oml2-scaffold --oml <path-to-schema.rb> --ontology <ontology-dir> 		// create header file
+	/path/to/oml2-scaffold --main <path-to-schema.rb> --ontology <ontology-dir>		// create main file
+	/path/to/oml2-scaffold --opts <path-to-schema.rb>								// to enable command-line parsing
+	cc -c -Wall -Werror -g -I.  generator.c -o generator.o
+	gcc -o <filename> <filename>.o -loml2 -lpopt 									// compile
+	cc -o filename filename.o  -loml2 -lpopt	
+
+After executing these commands you will get one executable file which you can use to send measurement data to SOML using the following command:
+	/path/to/<client-program> --oml-id <id> --oml-domain <domain> --oml-collect tcp:<server IP>:<port>
+
+In a case that the data are queried from Zabbix (which doesn't have C API), python will be used to query the data from Zabbix and then you can call the executable C-program from inside python with the data given in parameters.
+Example:
+	/path/to/<client-program> --oml-id <id> --oml-domain <domain> --oml-collect tcp:<server IP>:<port> --used-bandwidth <value> --time <timestamp> --pm-used-bandwidth <monitored physical host> --vm-used-bandwidth <monitored virtual host>
+
+the parameters names (like --used-bandwidth, --time, etc must be defined beforehand in the schema)
+
+======================================================
+
+STARTING FUSEKI
+1. use the following command to start fuseki
+	/path/to/fuseki-server --update --loc=<location> /<dataset>
+to use in-memory dataset:
+	/path/to/fuseki-server --update --mem=/<dataset>
+
+Note: --update option allows SPARQL Update, whereas SPARQL Query is enabled by default.
+	  --loc allows to choose the location (directory) where the database should be stored.
+	  --/<dataset> identifies the path to the dataset
+	  --mem creates an in-memory dataset in case --loc is not used.
+Note: To create multiple databases for different users (exporters), use a configuration file (see fuseki documentation for more infos)
+
+======================================================
+
+STARTING SOML SERVER 
+Start SOML-Server in a new window
+	/path/to/oml2-server -b fuseki --fus-namespace <dataset> --fus-host <host> --fus-port <port>
+
+Note: <dataset> is the same as the one identified in fuseki-server
+Note: You can still use the native database backends (posgresql or sqlite) by using the option -b ("-b postgresql" or "-b sqlite")
+
+
+
+------------------------------------------------------------------------------------------------------------
+Requirements of adopting ontology in SOML
+
+1. all ontology files in the ontology directory have to be in RDF/XML format. To convert ontologies from other serialized technologies into RDF/XML you could use Prótegé
+2. edit the oml2-scaffold file (located by default in /usr/local/bin/)
+	search the code to find these functions:
+		- def get_concept(concept)
+		- def get_ontology_file(concept)
+	and adjust them accordingly
+3. unfortunately the codes under fuseki_adapter.c or virtuoso_adapter.c in the server side are MOI-specified (soml/server/fuseki_adapter.c or soml/server/virtuoso_adapter.c) so you have to change them according to the used ontology and build the server.
+
+------------------------------------------------------------------------------------------------------------
+Visualization using sgvizler
+
+Download the source code from here http://dev.data2000.no/sgvizler/
+but we don't need the all of the codes, only the javascript one called 'sgvizler.js'
+put the js file in fuseki directory under 'pages'
+
+------------------------------------------------------------------------------------------------------------
+Querying data
+
+You can query the data either via terminal, or via GUI.
+
+To query all data from Fuseki via terminal (s-query is located in the Fuseki directory) :
+	/path/to/s-query --service http://<serverIP>:<serverPort>/<dataset>/query 'SELECT * {GRAPH <http://<serverIP>:<serverPort>/<domain>> {?s ?p ?o}}'
+
+To open the GUI, open <fuseki-host>:<fuseki-port> in browser. (Example: localhost:8080)
+Under Control Panel, choose the appropriate dataset and enter the query.
+Or, if sgvizler is installed, there should be a new link (Example: SPARQL Visualization), where you can enter the query and choose what kind of charts you want to see.
+
+A query example to show a line chart of used bandwidth of a specific resource:
+
+SELECT ?timevalue ?value ?prefix ?unit{{
+?measure omn-monitoring:isMeasurementDataOf ?metric .
+?metric rdf:type omn-monitoring-metric:UsedBandwidth .
+?metric omn-monitoring:isMeasurementMetricOf ?resource .
+?measure omn-monitoring-data:hasMeasurementDataValue ?value .
+?measure omn-monitoring:hasUnit ?unit_value .
+?unit_value rdf:type ?unit .
+?unit_value omn-monitoring-unit:hasPrefix ?prefix_value .
+?prefix_value rdf:type ?prefix .
+?measure omn-monitoring-data:hasTimestamp ?timevalue .
+?resource omn:hasURI ?uri .
+filter(regex(?uri,<resource-uri>))
+}}
+
+------------------------------------------------------------------------------------------------------------
+[1] http://oml.mytestbed.net/projects/oml/wiki/BuildingSource
+[2] http://jena.apache.org/documentation/serving_data/#getting-started-with-fuseki
+[3] https://rubygems.org/gems/rdf-rdfxml
+[4] https://rubygems.org/gems/text
+[5] http://www.eps.uam.es/nueva_web/intranet/ga/tfdm/trabajos/Mario_Poyato_Pino.pdf
+[6] https://mytestbed.net/projects/oml/wiki/Quick_Start_Tutorial
+[7] https://mytestbed.net/projects/oml/wiki/Client_Programming
+[8] http://doc.mytestbed.net/doc/omf/OmfEc/Backward/AppDefinition.html
+
+
+
+
