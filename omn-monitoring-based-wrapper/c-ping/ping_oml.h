@@ -38,16 +38,14 @@ extern OMLSemDef *oml_sem_register_concepts(char***concepts, int n);
 static OmlMPDef oml_packet_loss_def[] = {
   {"packet_loss", OML_INT32_VALUE, NULL},
   {"timestamp", OML_DATETIME_VALUE, NULL},
-  {"source_ip", OML_STRING_VALUE, NULL},
-  {"destination_ip", OML_STRING_VALUE, NULL},
+  {"link", OML_STRING_VALUE, NULL},
   {NULL, (OmlValueT)0, NULL}
 };
 
 static OmlMPDef oml_delay_def[] = {
   {"delay", OML_DOUBLE_VALUE, NULL},
   {"timestamp", OML_DATETIME_VALUE, NULL},
-  {"source_ip", OML_STRING_VALUE, NULL},
-  {"destination_ip", OML_STRING_VALUE, NULL},
+  {"link", OML_STRING_VALUE, NULL},
   {NULL, (OmlValueT)0, NULL}
 };
 
@@ -61,8 +59,8 @@ oml_register_mps(void)
   char*** concept;// = (char***)oml_malloc(sizeof(char**)*);
   concept = (char***)oml_malloc(sizeof(char**)*4);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
+  concept[0][0]=strdup("omn-monitoring:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
   concept[0][2]=strdup("omn-monitoring-metric:PacketLoss");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:PacketLoss");
@@ -100,22 +98,9 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*1);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-resource:Link");
-  concept[0][1]=strdup("omn-monitoring-data:hasSourceIP");
+  concept[0][1]=strdup("omn:hasURI");
   concept[0][2]=strdup("%value%");
   oml_packet_loss_def[2].relations = oml_sem_register_concepts(concept, 1);
-  for (i=0;i<1;i++)
-  {
-    for (j=0;j<3;j++)
-      free(concept[i][j]);
-    oml_free(concept[i]);
-  }
-  oml_free(concept);
-  concept = (char***)oml_malloc(sizeof(char**)*1);
-  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[0][0]=strdup("omn-resource:Link");
-  concept[0][1]=strdup("omn-monitoring-data:hasDestinationIP");
-  concept[0][2]=strdup("%value%");
-  oml_packet_loss_def[3].relations = oml_sem_register_concepts(concept, 1);
   for (i=0;i<1;i++)
   {
     for (j=0;j<3;j++)
@@ -126,8 +111,8 @@ oml_register_mps(void)
   g_oml_mps_ping->packet_loss = omlc_add_mp("packet_loss", oml_packet_loss_def);
   concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
+  concept[0][0]=strdup("omn-monitoring:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
   concept[0][2]=strdup("omn-monitoring-metric:Delay");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:Delay");
@@ -169,22 +154,9 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*1);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-resource:Link");
-  concept[0][1]=strdup("omn-monitoring-data:hasSourceIP");
+  concept[0][1]=strdup("omn:hasURI");
   concept[0][2]=strdup("%value%");
   oml_delay_def[2].relations = oml_sem_register_concepts(concept, 1);
-  for (i=0;i<1;i++)
-  {
-    for (j=0;j<3;j++)
-      free(concept[i][j]);
-    oml_free(concept[i]);
-  }
-  oml_free(concept);
-  concept = (char***)oml_malloc(sizeof(char**)*1);
-  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[0][0]=strdup("omn-resource:Link");
-  concept[0][1]=strdup("omn-monitoring-data:hasDestinationIP");
-  concept[0][2]=strdup("%value%");
-  oml_delay_def[3].relations = oml_sem_register_concepts(concept, 1);
   for (i=0;i<1;i++)
   {
     for (j=0;j<3;j++)
@@ -207,42 +179,38 @@ extern oml_mps_t* g_oml_mps_ping;
 #endif /* OML_FROM_MAIN */
 
 static inline int
-oml_inject_packet_loss(OmlMP *mp, int32_t packet_loss, const char *timestamp, const char *source_ip, const char *destination_ip)
+oml_inject_packet_loss(OmlMP *mp, int32_t packet_loss, const char *timestamp, const char *link)
 {
   int ret = -1;
 
-  OmlValueU v[4];
-  omlc_zero_array(v, 4);
+  OmlValueU v[3];
+  omlc_zero_array(v, 3);
 
   omlc_set_int32(v[0], packet_loss);
   omlc_set_string(v[1], timestamp);
-  omlc_set_string(v[2], source_ip);
-  omlc_set_string(v[3], destination_ip);
+  omlc_set_string(v[2], link);
 
   ret = omlc_inject(mp, v);
 
   omlc_reset_string(v[2]);
-  omlc_reset_string(v[3]);
   return ret;
 }
 
 static inline int
-oml_inject_delay(OmlMP *mp, double delay, const char *timestamp, const char *source_ip, const char *destination_ip)
+oml_inject_delay(OmlMP *mp, double delay, const char *timestamp, const char *link)
 {
   int ret = -1;
 
-  OmlValueU v[4];
-  omlc_zero_array(v, 4);
+  OmlValueU v[3];
+  omlc_zero_array(v, 3);
 
   omlc_set_double(v[0], delay);
   omlc_set_string(v[1], timestamp);
-  omlc_set_string(v[2], source_ip);
-  omlc_set_string(v[3], destination_ip);
+  omlc_set_string(v[2], link);
 
   ret = omlc_inject(mp, v);
 
   omlc_reset_string(v[2]);
-  omlc_reset_string(v[3]);
   return ret;
 }
 

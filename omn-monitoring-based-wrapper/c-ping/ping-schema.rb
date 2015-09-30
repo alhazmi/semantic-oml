@@ -22,9 +22,20 @@ defApplication('oml:ping', 'ping') do |app|
         app.description = %{an application to provide measurement of Packet Loss and Delay}
         app.path = "/home/ubuntu/"
 
+	app.defProperty('link', 'URI of a Link between two nodes', '--link-uri',
+                :type => :string)
+	app.defProperty('packet_loss', 'Check Packet Loss', '--packet-loss',
+                :type => :double)
+        app.defProperty('packet_loss_timestamp', 'Time of checking', '--packet-loss-timestamp',
+                :type => :string)
+        app.defProperty('delay', 'Check Delay', '--delay',
+                :type => :double)
+        app.defProperty('delay_timestamp', 'Time of checking', '--delay-timestamp',
+                :type => :string)
+
 app.defMeasurement("packet_loss"){ |m|
     m.defMetric('packet_loss', :int, 'Packet Loss value of host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:PacketLoss'],
+    [['omn-monitoring:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:PacketLoss'],
     ['omn-monitoring-metric:PacketLoss','omn-monitoring:isMeasurementMetricOf', 'omn-resource:Link'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:percent']])
@@ -33,37 +44,22 @@ app.defMeasurement("packet_loss"){ |m|
     m.defMetric('timestamp', :datetime, 'Time when the metric is measured',
     [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasTimestamp','%value%']])
 
-
-    m.defMetric('source_ip', :string, 'Source IP of monitored host',
-    [['omn-resource:Link','omn-monitoring-data:hasSourceIP','%value%']])
-
-
-    m.defMetric('destination_ip', :string, 'Destination IP of monitored host',
-    [['omn-resource:Link','omn-monitoring-data:hasDestinationIP','%value%']])
-
-    }
-
+    m.defMetric('link', :string, 'URI of monitored resource',
+    [['omn-resource:Link','omn:hasURI','%value%']])}
 
 app.defMeasurement("delay"){ |m|
     m.defMetric('delay', :double, 'Delay value of host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:Delay'],
+    [['omn-monitoring:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:Delay'],
     ['omn-monitoring-metric:Delay','omn-monitoring:isMeasurementMetricOf', 'omn-resource:Link'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:second'],
     ['omn-monitoring-unit:second','omn-monitoring-unit:hasPrefix','omn-monitoring-unit:milli']])
 
-
     m.defMetric('timestamp', :datetime, 'Time when the metric is measured',
     [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasTimestamp','%value%']])
 
-
-    m.defMetric('source_ip', :string, 'Source IP of monitored host',
-    [['omn-resource:Link','omn-monitoring-data:hasSourceIP','%value%']])
-
-
-    m.defMetric('destination_ip', :string, 'Destination IP of monitored host',
-    [['omn-resource:Link','omn-monitoring-data:hasDestinationIP','%value%']])
-    }
+    m.defMetric('link', :string, 'URI of monitored resource',
+    [['omn-resource:Link','omn:hasURI','%value%']])}
 
 end
 

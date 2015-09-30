@@ -76,11 +76,11 @@ run(opts_t *opts, oml_mps_t *oml_mps)
 
   /* The oml_inject_MPNAME() helpers are defined in ping_oml.h*/
   sleep(1);
-  if(oml_inject_packet_loss(oml_mps->packet_loss, atoi(packetloss), buf, "130.149.22.139" ,"185.63.147.10") != 0) {
+  if(oml_inject_packet_loss(oml_mps->packet_loss, atoi(packetloss), buf, "http://localhost/Link") != 0) {
       logwarn("Failed to inject data into MP 'packet_loss'\n");
     }
  sleep(1);
-  if(oml_inject_delay(oml_mps->delay, atof(avgdelay), buf, "130.149.22.139", "185.63.147.10") != 0) {
+  if(oml_inject_delay(oml_mps->delay, atof(avgdelay), buf, "http://localhost/Link") != 0) {
       logwarn("Failed to inject data into MP 'delay'\n");
     }
  sleep(1);

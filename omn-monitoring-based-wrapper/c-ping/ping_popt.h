@@ -12,6 +12,11 @@ extern "C" {
 #endif
 
 typedef struct {
+  char* link;
+  double packet_loss;
+  char* packet_loss_timestamp;
+  double delay;
+  char* delay_timestamp;
 
 } opts_t;
 
@@ -21,7 +26,7 @@ opts_t* g_opts;
 
 #else
 
-static opts_t g_opts_storage = {};
+static opts_t g_opts_storage = {"", 0., "", 0., ""};
 opts_t* g_opts = &g_opts_storage;
 
 /* Only the file containing the main() function should come through here */
@@ -30,6 +35,11 @@ opts_t* g_opts = &g_opts_storage;
 
 struct poptOption options[] = {
   POPT_AUTOHELP
+  { "link-uri", 0, POPT_ARG_STRING, &g_opts_storage.link, 0, "URI of a Link between two nodes"},
+  { "packet-loss", 0, POPT_ARG_DOUBLE, &g_opts_storage.packet_loss, 0, "Check Packet Loss"},
+  { "packet-loss-timestamp", 0, POPT_ARG_STRING, &g_opts_storage.packet_loss_timestamp, 0, "Time of checking"},
+  { "delay", 0, POPT_ARG_DOUBLE, &g_opts_storage.delay, 0, "Check Delay"},
+  { "delay-timestamp", 0, POPT_ARG_STRING, &g_opts_storage.delay_timestamp, 0, "Time of checking"},
 
   { NULL, 0, 0, NULL, 0 }
 };
