@@ -12,13 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 #
-# This wrapper reads data from SQLite database, fetches the necessary data from Zabbix and 
+# This wrapper fetches the necessary data from Zabbix and 
 # sends them to the semantic OML Server. 
 #
 # The following files are needed to be in the same directory:
 # Zabbix Library for Python (zabbix_api.py)
 # Configuration file (monitoring-config-data.cfg)
-# SQLite database (sqliteDB.db)
 # OML Library for Python (oml4py.py)
 
 import oml4py
@@ -83,7 +82,7 @@ def read_config(filename):
         logger.error("can not read file %s to a dictionary, format must be KEY=VALUE" % (filename))
         sys.exit()
 
-monitoring_settings=read_config('./monitoring-config-data.cfg')
+monitoring_settings=read_config('../monitoring-config-data.cfg')
 
 logger=init_logger(monitoring_settings,'infrastructure-monitoring-wrapper.py')
 logger.debug("infrastructure-monitoring-wrapper.py' has been started")
