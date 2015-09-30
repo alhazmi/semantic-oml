@@ -23,8 +23,25 @@ typedef struct {
   OmlMP *used_memory;
   OmlMP *total_memory;
   OmlMP *available_memory;
+  OmlMP *free_memory;
+  OmlMP *cached_memory;
+  OmlMP *buffers_memory;
+  OmlMP *used_swap;
   OmlMP *used_bandwidth;
+  OmlMP *cpu_idle;
+  OmlMP *cpu_nice;
+  OmlMP *cpu_iowait;
   OmlMP *availability;
+  OmlMP *cpu_load;
+  OmlMP *free_swap;
+  OmlMP *cpu_user;
+  OmlMP *total_swap;
+  OmlMP *cpu_system;
+  OmlMP *diskIO_read;
+  OmlMP *free_disk_space;
+  OmlMP *used_disk_space;
+  OmlMP *packet_loss;
+  OmlMP *delay;
 
 } oml_mps_t;
 
@@ -62,8 +79,64 @@ static OmlMPDef oml_available_memory_def[] = {
   {NULL, (OmlValueT)0, NULL}
 };
 
+static OmlMPDef oml_free_memory_def[] = {
+  {"free_memory", OML_DOUBLE_VALUE, NULL},
+  {"timestamp", OML_DATETIME_VALUE, NULL},
+  {"physicalresource", OML_STRING_VALUE, NULL},
+  {"virtualresource", OML_STRING_VALUE, NULL},
+  {NULL, (OmlValueT)0, NULL}
+};
+
+static OmlMPDef oml_cached_memory_def[] = {
+  {"cached_memory", OML_DOUBLE_VALUE, NULL},
+  {"timestamp", OML_DATETIME_VALUE, NULL},
+  {"physicalresource", OML_STRING_VALUE, NULL},
+  {"virtualresource", OML_STRING_VALUE, NULL},
+  {NULL, (OmlValueT)0, NULL}
+};
+
+static OmlMPDef oml_buffers_memory_def[] = {
+  {"buffers_memory", OML_DOUBLE_VALUE, NULL},
+  {"timestamp", OML_DATETIME_VALUE, NULL},
+  {"physicalresource", OML_STRING_VALUE, NULL},
+  {"virtualresource", OML_STRING_VALUE, NULL},
+  {NULL, (OmlValueT)0, NULL}
+};
+
+static OmlMPDef oml_used_swap_def[] = {
+  {"used_swap", OML_DOUBLE_VALUE, NULL},
+  {"timestamp", OML_DATETIME_VALUE, NULL},
+  {"physicalresource", OML_STRING_VALUE, NULL},
+  {"virtualresource", OML_STRING_VALUE, NULL},
+  {NULL, (OmlValueT)0, NULL}
+};
+
 static OmlMPDef oml_used_bandwidth_def[] = {
   {"used_bandwidth", OML_DOUBLE_VALUE, NULL},
+  {"timestamp", OML_DATETIME_VALUE, NULL},
+  {"physicalresource", OML_STRING_VALUE, NULL},
+  {"virtualresource", OML_STRING_VALUE, NULL},
+  {NULL, (OmlValueT)0, NULL}
+};
+
+static OmlMPDef oml_cpu_idle_def[] = {
+  {"cpu_idle", OML_DOUBLE_VALUE, NULL},
+  {"timestamp", OML_DATETIME_VALUE, NULL},
+  {"physicalresource", OML_STRING_VALUE, NULL},
+  {"virtualresource", OML_STRING_VALUE, NULL},
+  {NULL, (OmlValueT)0, NULL}
+};
+
+static OmlMPDef oml_cpu_nice_def[] = {
+  {"cpu_nice", OML_DOUBLE_VALUE, NULL},
+  {"timestamp", OML_DATETIME_VALUE, NULL},
+  {"physicalresource", OML_STRING_VALUE, NULL},
+  {"virtualresource", OML_STRING_VALUE, NULL},
+  {NULL, (OmlValueT)0, NULL}
+};
+
+static OmlMPDef oml_cpu_iowait_def[] = {
+  {"cpu_iowait", OML_DOUBLE_VALUE, NULL},
   {"timestamp", OML_DATETIME_VALUE, NULL},
   {"physicalresource", OML_STRING_VALUE, NULL},
   {"virtualresource", OML_STRING_VALUE, NULL},
@@ -78,6 +151,84 @@ static OmlMPDef oml_availability_def[] = {
   {NULL, (OmlValueT)0, NULL}
 };
 
+static OmlMPDef oml_cpu_load_def[] = {
+  {"cpu_load", OML_DOUBLE_VALUE, NULL},
+  {"timestamp", OML_DATETIME_VALUE, NULL},
+  {"physicalresource", OML_STRING_VALUE, NULL},
+  {"virtualresource", OML_STRING_VALUE, NULL},
+  {NULL, (OmlValueT)0, NULL}
+};
+
+static OmlMPDef oml_free_swap_def[] = {
+  {"free_swap", OML_DOUBLE_VALUE, NULL},
+  {"timestamp", OML_DATETIME_VALUE, NULL},
+  {"physicalresource", OML_STRING_VALUE, NULL},
+  {"virtualresource", OML_STRING_VALUE, NULL},
+  {NULL, (OmlValueT)0, NULL}
+};
+
+static OmlMPDef oml_cpu_user_def[] = {
+  {"cpu_user", OML_DOUBLE_VALUE, NULL},
+  {"timestamp", OML_DATETIME_VALUE, NULL},
+  {"physicalresource", OML_STRING_VALUE, NULL},
+  {"virtualresource", OML_STRING_VALUE, NULL},
+  {NULL, (OmlValueT)0, NULL}
+};
+
+static OmlMPDef oml_total_swap_def[] = {
+  {"total_swap", OML_DOUBLE_VALUE, NULL},
+  {"timestamp", OML_DATETIME_VALUE, NULL},
+  {"physicalresource", OML_STRING_VALUE, NULL},
+  {"virtualresource", OML_STRING_VALUE, NULL},
+  {NULL, (OmlValueT)0, NULL}
+};
+
+static OmlMPDef oml_cpu_system_def[] = {
+  {"cpu_system", OML_DOUBLE_VALUE, NULL},
+  {"timestamp", OML_DATETIME_VALUE, NULL},
+  {"physicalresource", OML_STRING_VALUE, NULL},
+  {"virtualresource", OML_STRING_VALUE, NULL},
+  {NULL, (OmlValueT)0, NULL}
+};
+
+static OmlMPDef oml_diskIO_read_def[] = {
+  {"diskIO_read", OML_DOUBLE_VALUE, NULL},
+  {"timestamp", OML_DATETIME_VALUE, NULL},
+  {"physicalresource", OML_STRING_VALUE, NULL},
+  {"virtualresource", OML_STRING_VALUE, NULL},
+  {NULL, (OmlValueT)0, NULL}
+};
+
+static OmlMPDef oml_free_disk_space_def[] = {
+  {"free_disk_space", OML_DOUBLE_VALUE, NULL},
+  {"timestamp", OML_DATETIME_VALUE, NULL},
+  {"physicalresource", OML_STRING_VALUE, NULL},
+  {"virtualresource", OML_STRING_VALUE, NULL},
+  {NULL, (OmlValueT)0, NULL}
+};
+
+static OmlMPDef oml_used_disk_space_def[] = {
+  {"used_disk_space", OML_DOUBLE_VALUE, NULL},
+  {"timestamp", OML_DATETIME_VALUE, NULL},
+  {"physicalresource", OML_STRING_VALUE, NULL},
+  {"virtualresource", OML_STRING_VALUE, NULL},
+  {NULL, (OmlValueT)0, NULL}
+};
+
+static OmlMPDef oml_packet_loss_def[] = {
+  {"packet_loss", OML_INT32_VALUE, NULL},
+  {"timestamp", OML_DATETIME_VALUE, NULL},
+  {"link", OML_STRING_VALUE, NULL},
+  {NULL, (OmlValueT)0, NULL}
+};
+
+static OmlMPDef oml_delay_def[] = {
+  {"delay", OML_DOUBLE_VALUE, NULL},
+  {"timestamp", OML_DATETIME_VALUE, NULL},
+  {"link", OML_STRING_VALUE, NULL},
+  {NULL, (OmlValueT)0, NULL}
+};
+
 static oml_mps_t g_oml_mps_storage;
 oml_mps_t* g_oml_mps_infrastructure_monitoring = &g_oml_mps_storage;
 
@@ -86,7 +237,7 @@ oml_register_mps(void)
 {
   int i,j;
   char*** concept;// = (char***)oml_malloc(sizeof(char**)*);
-  concept = (char***)oml_malloc(sizeof(char**)*6);
+  concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
   concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
@@ -96,23 +247,19 @@ oml_register_mps(void)
   concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
   concept[1][2]=strdup("omn-domain-pc:PC");
   concept[2] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[2][0]=strdup("omn-monitoring-metric:UsedMemory");
-  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementData");
-  concept[2][2]=strdup("omn-monitoring-data:MeasurementData");
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
   concept[3] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[3][0]=strdup("omn-monitoring-data:MeasurementData");
-  concept[3][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
-  concept[3][2]=strdup("%value%");
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:Byte");
   concept[4] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[4][0]=strdup("omn-monitoring-data:MeasurementData");
-  concept[4][1]=strdup("omn-monitoring:hasUnit");
-  concept[4][2]=strdup("omn-monitoring-unit:Byte");
-  concept[5] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[5][0]=strdup("omn-monitoring-unit:Byte");
-  concept[5][1]=strdup("omn-monitoring-unit:hasPrefix");
-  concept[5][2]=strdup("omn-monitoring-unit:giga");
-  oml_used_memory_def[0].relations = oml_sem_register_concepts(concept, 6);
-  for (i=0;i<6;i++)
+  concept[4][0]=strdup("omn-monitoring-unit:Byte");
+  concept[4][1]=strdup("omn-monitoring-unit:hasPrefix");
+  concept[4][2]=strdup("omn-monitoring-unit:giga");
+  oml_used_memory_def[0].relations = oml_sem_register_concepts(concept, 5);
+  for (i=0;i<5;i++)
   {
     for (j=0;j<3;j++)
       free(concept[i][j]);
@@ -121,7 +268,7 @@ oml_register_mps(void)
   oml_free(concept);
   concept = (char***)oml_malloc(sizeof(char**)*1);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[0][0]=strdup("omn-monitoring-data:MeasurementData");
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
   concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
   concept[0][2]=strdup("%value%");
   oml_used_memory_def[1].relations = oml_sem_register_concepts(concept, 1);
@@ -135,7 +282,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*1);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-domain-pc:PC");
-  concept[0][1]=strdup("rdfs:label");
+  concept[0][1]=strdup("omn:hasURI");
   concept[0][2]=strdup("%value%");
   oml_used_memory_def[2].relations = oml_sem_register_concepts(concept, 1);
   for (i=0;i<1;i++)
@@ -148,7 +295,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*2);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-domain-pc:VM");
-  concept[0][1]=strdup("rdfs:label");
+  concept[0][1]=strdup("omn:hasURI");
   concept[0][2]=strdup("%value%");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-domain-pc:VM");
@@ -163,7 +310,7 @@ oml_register_mps(void)
   }
   oml_free(concept);
   g_oml_mps_infrastructure_monitoring->used_memory = omlc_add_mp("used_memory", oml_used_memory_def);
-  concept = (char***)oml_malloc(sizeof(char**)*6);
+  concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
   concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
@@ -173,23 +320,19 @@ oml_register_mps(void)
   concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
   concept[1][2]=strdup("omn-domain-pc:PC");
   concept[2] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[2][0]=strdup("omn-monitoring-metric:TotalMemory");
-  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementData");
-  concept[2][2]=strdup("omn-monitoring-data:MeasurementData");
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
   concept[3] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[3][0]=strdup("omn-monitoring-data:MeasurementData");
-  concept[3][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
-  concept[3][2]=strdup("%value%");
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:Byte");
   concept[4] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[4][0]=strdup("omn-monitoring-data:MeasurementData");
-  concept[4][1]=strdup("omn-monitoring:hasUnit");
-  concept[4][2]=strdup("omn-monitoring-unit:Byte");
-  concept[5] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[5][0]=strdup("omn-monitoring-unit:Byte");
-  concept[5][1]=strdup("omn-monitoring-unit:hasPrefix");
-  concept[5][2]=strdup("omn-monitoring-unit:giga");
-  oml_total_memory_def[0].relations = oml_sem_register_concepts(concept, 6);
-  for (i=0;i<6;i++)
+  concept[4][0]=strdup("omn-monitoring-unit:Byte");
+  concept[4][1]=strdup("omn-monitoring-unit:hasPrefix");
+  concept[4][2]=strdup("omn-monitoring-unit:giga");
+  oml_total_memory_def[0].relations = oml_sem_register_concepts(concept, 5);
+  for (i=0;i<5;i++)
   {
     for (j=0;j<3;j++)
       free(concept[i][j]);
@@ -198,7 +341,7 @@ oml_register_mps(void)
   oml_free(concept);
   concept = (char***)oml_malloc(sizeof(char**)*1);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[0][0]=strdup("omn-monitoring-data:MeasurementData");
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
   concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
   concept[0][2]=strdup("%value%");
   oml_total_memory_def[1].relations = oml_sem_register_concepts(concept, 1);
@@ -212,7 +355,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*1);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-domain-pc:PC");
-  concept[0][1]=strdup("rdfs:label");
+  concept[0][1]=strdup("omn:hasURI");
   concept[0][2]=strdup("%value%");
   oml_total_memory_def[2].relations = oml_sem_register_concepts(concept, 1);
   for (i=0;i<1;i++)
@@ -225,7 +368,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*2);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-domain-pc:VM");
-  concept[0][1]=strdup("rdfs:label");
+  concept[0][1]=strdup("omn:hasURI");
   concept[0][2]=strdup("%value%");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-domain-pc:VM");
@@ -240,39 +383,29 @@ oml_register_mps(void)
   }
   oml_free(concept);
   g_oml_mps_infrastructure_monitoring->total_memory = omlc_add_mp("total_memory", oml_total_memory_def);
-  concept = (char***)oml_malloc(sizeof(char**)*6);
+  concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
   concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
-  // Warning: Concept omn-monitoring-metric:AvailableMemory is not known, please recheck the used ontologies. You may want to use: omn-monitoring-metric:AllocatedMemory or omn-monitoring-metric:Availability
   concept[0][2]=strdup("omn-monitoring-metric:AvailableMemory");
-  logwarn("[SEMANTIC] Concept omn-monitoring-metric:AvailableMemory is not known, please recheck the used ontologies. You may want to use: omn-monitoring-metric:AllocatedMemory or omn-monitoring-metric:Availability");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
-  // Warning: Concept omn-monitoring-metric:AvailableMemory is not known, please recheck the used ontologies. You may want to use: omn-monitoring-metric:AllocatedMemory or omn-monitoring-metric:Availability
   concept[1][0]=strdup("omn-monitoring-metric:AvailableMemory");
-  logwarn("[SEMANTIC] Concept omn-monitoring-metric:AvailableMemory is not known, please recheck the used ontologies. You may want to use: omn-monitoring-metric:AllocatedMemory or omn-monitoring-metric:Availability");
   concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
   concept[1][2]=strdup("omn-domain-pc:PC");
   concept[2] = (char**)oml_malloc(sizeof(char*)*3);
-  // Warning: Concept omn-monitoring-metric:AvailableMemory is not known, please recheck the used ontologies. You may want to use: omn-monitoring-metric:AllocatedMemory or omn-monitoring-metric:Availability
-  concept[2][0]=strdup("omn-monitoring-metric:AvailableMemory");
-  logwarn("[SEMANTIC] Concept omn-monitoring-metric:AvailableMemory is not known, please recheck the used ontologies. You may want to use: omn-monitoring-metric:AllocatedMemory or omn-monitoring-metric:Availability");
-  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementData");
-  concept[2][2]=strdup("omn-monitoring-data:MeasurementData");
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
   concept[3] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[3][0]=strdup("omn-monitoring-data:MeasurementData");
-  concept[3][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
-  concept[3][2]=strdup("%value%");
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:Byte");
   concept[4] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[4][0]=strdup("omn-monitoring-data:MeasurementData");
-  concept[4][1]=strdup("omn-monitoring:hasUnit");
-  concept[4][2]=strdup("omn-monitoring-unit:Byte");
-  concept[5] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[5][0]=strdup("omn-monitoring-unit:Byte");
-  concept[5][1]=strdup("omn-monitoring-unit:hasPrefix");
-  concept[5][2]=strdup("omn-monitoring-unit:giga");
-  oml_available_memory_def[0].relations = oml_sem_register_concepts(concept, 6);
-  for (i=0;i<6;i++)
+  concept[4][0]=strdup("omn-monitoring-unit:Byte");
+  concept[4][1]=strdup("omn-monitoring-unit:hasPrefix");
+  concept[4][2]=strdup("omn-monitoring-unit:giga");
+  oml_available_memory_def[0].relations = oml_sem_register_concepts(concept, 5);
+  for (i=0;i<5;i++)
   {
     for (j=0;j<3;j++)
       free(concept[i][j]);
@@ -281,7 +414,7 @@ oml_register_mps(void)
   oml_free(concept);
   concept = (char***)oml_malloc(sizeof(char**)*1);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[0][0]=strdup("omn-monitoring-data:MeasurementData");
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
   concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
   concept[0][2]=strdup("%value%");
   oml_available_memory_def[1].relations = oml_sem_register_concepts(concept, 1);
@@ -295,7 +428,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*1);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-domain-pc:PC");
-  concept[0][1]=strdup("rdfs:label");
+  concept[0][1]=strdup("omn:hasURI");
   concept[0][2]=strdup("%value%");
   oml_available_memory_def[2].relations = oml_sem_register_concepts(concept, 1);
   for (i=0;i<1;i++)
@@ -308,7 +441,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*2);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-domain-pc:VM");
-  concept[0][1]=strdup("rdfs:label");
+  concept[0][1]=strdup("omn:hasURI");
   concept[0][2]=strdup("%value%");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-domain-pc:VM");
@@ -323,7 +456,295 @@ oml_register_mps(void)
   }
   oml_free(concept);
   g_oml_mps_infrastructure_monitoring->available_memory = omlc_add_mp("available_memory", oml_available_memory_def);
-  concept = (char***)oml_malloc(sizeof(char**)*6);
+  concept = (char***)oml_malloc(sizeof(char**)*5);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][2]=strdup("omn-monitoring-metric:FreeMemory");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-monitoring-metric:FreeMemory");
+  concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  concept[2] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
+  concept[3] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:Byte");
+  concept[4] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[4][0]=strdup("omn-monitoring-unit:Byte");
+  concept[4][1]=strdup("omn-monitoring-unit:hasPrefix");
+  concept[4][2]=strdup("omn-monitoring-unit:giga");
+  oml_free_memory_def[0].relations = oml_sem_register_concepts(concept, 5);
+  for (i=0;i<5;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
+  concept[0][2]=strdup("%value%");
+  oml_free_memory_def[1].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:PC");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  oml_free_memory_def[2].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*2);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:VM");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-domain-pc:VM");
+  concept[1][1]=strdup("omn-lifecycle:childOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  oml_free_memory_def[3].relations = oml_sem_register_concepts(concept, 2);
+  for (i=0;i<2;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  g_oml_mps_infrastructure_monitoring->free_memory = omlc_add_mp("free_memory", oml_free_memory_def);
+  concept = (char***)oml_malloc(sizeof(char**)*5);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][2]=strdup("omn-monitoring-metric:CachedMemory");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-monitoring-metric:CachedMemory");
+  concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  concept[2] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
+  concept[3] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:Byte");
+  concept[4] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[4][0]=strdup("omn-monitoring-unit:Byte");
+  concept[4][1]=strdup("omn-monitoring-unit:hasPrefix");
+  concept[4][2]=strdup("omn-monitoring-unit:giga");
+  oml_cached_memory_def[0].relations = oml_sem_register_concepts(concept, 5);
+  for (i=0;i<5;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
+  concept[0][2]=strdup("%value%");
+  oml_cached_memory_def[1].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:PC");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  oml_cached_memory_def[2].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*2);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:VM");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-domain-pc:VM");
+  concept[1][1]=strdup("omn-lifecycle:childOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  oml_cached_memory_def[3].relations = oml_sem_register_concepts(concept, 2);
+  for (i=0;i<2;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  g_oml_mps_infrastructure_monitoring->cached_memory = omlc_add_mp("cached_memory", oml_cached_memory_def);
+  concept = (char***)oml_malloc(sizeof(char**)*5);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][2]=strdup("omn-monitoring-metric:BuffersMemory");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-monitoring-metric:BuffersMemory");
+  concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  concept[2] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
+  concept[3] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:Byte");
+  concept[4] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[4][0]=strdup("omn-monitoring-unit:Byte");
+  concept[4][1]=strdup("omn-monitoring-unit:hasPrefix");
+  concept[4][2]=strdup("omn-monitoring-unit:giga");
+  oml_buffers_memory_def[0].relations = oml_sem_register_concepts(concept, 5);
+  for (i=0;i<5;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
+  concept[0][2]=strdup("%value%");
+  oml_buffers_memory_def[1].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:PC");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  oml_buffers_memory_def[2].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*2);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:VM");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-domain-pc:VM");
+  concept[1][1]=strdup("omn-lifecycle:childOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  oml_buffers_memory_def[3].relations = oml_sem_register_concepts(concept, 2);
+  for (i=0;i<2;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  g_oml_mps_infrastructure_monitoring->buffers_memory = omlc_add_mp("buffers_memory", oml_buffers_memory_def);
+  concept = (char***)oml_malloc(sizeof(char**)*4);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][2]=strdup("omn-monitoring-metric:UsedSwap");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-monitoring-metric:UsedSwap");
+  concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  concept[2] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
+  concept[3] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:percent");
+  oml_used_swap_def[0].relations = oml_sem_register_concepts(concept, 4);
+  for (i=0;i<4;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
+  concept[0][2]=strdup("%value%");
+  oml_used_swap_def[1].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:PC");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  oml_used_swap_def[2].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*2);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:VM");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-domain-pc:VM");
+  concept[1][1]=strdup("omn-lifecycle:childOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  oml_used_swap_def[3].relations = oml_sem_register_concepts(concept, 2);
+  for (i=0;i<2;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  g_oml_mps_infrastructure_monitoring->used_swap = omlc_add_mp("used_swap", oml_used_swap_def);
+  concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
   concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
@@ -333,23 +754,19 @@ oml_register_mps(void)
   concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
   concept[1][2]=strdup("omn-domain-pc:PC");
   concept[2] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[2][0]=strdup("omn-monitoring-metric:UsedBandwidth");
-  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementData");
-  concept[2][2]=strdup("omn-monitoring-data:MeasurementData");
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
   concept[3] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[3][0]=strdup("omn-monitoring-data:MeasurementData");
-  concept[3][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
-  concept[3][2]=strdup("%value%");
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:bitpersecond");
   concept[4] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[4][0]=strdup("omn-monitoring-data:MeasurementData");
-  concept[4][1]=strdup("omn-monitoring:hasUnit");
-  concept[4][2]=strdup("omn-monitoring-unit:bitpersecond");
-  concept[5] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[5][0]=strdup("omn-monitoring-unit:bitpersecond");
-  concept[5][1]=strdup("omn-monitoring-unit:hasPrefix");
-  concept[5][2]=strdup("omn-monitoring-unit:mega");
-  oml_used_bandwidth_def[0].relations = oml_sem_register_concepts(concept, 6);
-  for (i=0;i<6;i++)
+  concept[4][0]=strdup("omn-monitoring-unit:bitpersecond");
+  concept[4][1]=strdup("omn-monitoring-unit:hasPrefix");
+  concept[4][2]=strdup("omn-monitoring-unit:mega");
+  oml_used_bandwidth_def[0].relations = oml_sem_register_concepts(concept, 5);
+  for (i=0;i<5;i++)
   {
     for (j=0;j<3;j++)
       free(concept[i][j]);
@@ -358,7 +775,7 @@ oml_register_mps(void)
   oml_free(concept);
   concept = (char***)oml_malloc(sizeof(char**)*1);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[0][0]=strdup("omn-monitoring-data:MeasurementData");
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
   concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
   concept[0][2]=strdup("%value%");
   oml_used_bandwidth_def[1].relations = oml_sem_register_concepts(concept, 1);
@@ -372,7 +789,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*1);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-domain-pc:PC");
-  concept[0][1]=strdup("rdfs:label");
+  concept[0][1]=strdup("omn:hasURI");
   concept[0][2]=strdup("%value%");
   oml_used_bandwidth_def[2].relations = oml_sem_register_concepts(concept, 1);
   for (i=0;i<1;i++)
@@ -385,7 +802,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*2);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-domain-pc:VM");
-  concept[0][1]=strdup("rdfs:label");
+  concept[0][1]=strdup("omn:hasURI");
   concept[0][2]=strdup("%value%");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-domain-pc:VM");
@@ -404,20 +821,20 @@ oml_register_mps(void)
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
   concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
-  concept[0][2]=strdup("omn-monitoring-metric:Availability");
+  concept[0][2]=strdup("omn-monitoring-metric:CPUidle");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[1][0]=strdup("omn-monitoring-metric:Availability");
+  concept[1][0]=strdup("omn-monitoring-metric:CPUidle");
   concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
   concept[1][2]=strdup("omn-domain-pc:PC");
   concept[2] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[2][0]=strdup("omn-monitoring-metric:Availability");
-  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementData");
-  concept[2][2]=strdup("omn-monitoring-data:MeasurementData");
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
   concept[3] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[3][0]=strdup("omn-monitoring-data:MeasurementData");
-  concept[3][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
-  concept[3][2]=strdup("%value%");
-  oml_availability_def[0].relations = oml_sem_register_concepts(concept, 4);
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:percent");
+  oml_cpu_idle_def[0].relations = oml_sem_register_concepts(concept, 4);
   for (i=0;i<4;i++)
   {
     for (j=0;j<3;j++)
@@ -427,7 +844,210 @@ oml_register_mps(void)
   oml_free(concept);
   concept = (char***)oml_malloc(sizeof(char**)*1);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
-  concept[0][0]=strdup("omn-monitoring-data:MeasurementData");
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
+  concept[0][2]=strdup("%value%");
+  oml_cpu_idle_def[1].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:PC");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  oml_cpu_idle_def[2].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*2);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:VM");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-domain-pc:VM");
+  concept[1][1]=strdup("omn-lifecycle:childOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  oml_cpu_idle_def[3].relations = oml_sem_register_concepts(concept, 2);
+  for (i=0;i<2;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  g_oml_mps_infrastructure_monitoring->cpu_idle = omlc_add_mp("cpu_idle", oml_cpu_idle_def);
+  concept = (char***)oml_malloc(sizeof(char**)*4);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][2]=strdup("omn-monitoring-metric:CPUnice");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-monitoring-metric:CPUnice");
+  concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  concept[2] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
+  concept[3] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:percent");
+  oml_cpu_nice_def[0].relations = oml_sem_register_concepts(concept, 4);
+  for (i=0;i<4;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
+  concept[0][2]=strdup("%value%");
+  oml_cpu_nice_def[1].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:PC");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  oml_cpu_nice_def[2].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*2);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:VM");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-domain-pc:VM");
+  concept[1][1]=strdup("omn-lifecycle:childOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  oml_cpu_nice_def[3].relations = oml_sem_register_concepts(concept, 2);
+  for (i=0;i<2;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  g_oml_mps_infrastructure_monitoring->cpu_nice = omlc_add_mp("cpu_nice", oml_cpu_nice_def);
+  concept = (char***)oml_malloc(sizeof(char**)*4);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][2]=strdup("omn-monitoring-metric:CPUIOwait");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-monitoring-metric:CPUIOwait");
+  concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  concept[2] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
+  concept[3] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:percent");
+  oml_cpu_iowait_def[0].relations = oml_sem_register_concepts(concept, 4);
+  for (i=0;i<4;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
+  concept[0][2]=strdup("%value%");
+  oml_cpu_iowait_def[1].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:PC");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  oml_cpu_iowait_def[2].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*2);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:VM");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-domain-pc:VM");
+  concept[1][1]=strdup("omn-lifecycle:childOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  oml_cpu_iowait_def[3].relations = oml_sem_register_concepts(concept, 2);
+  for (i=0;i<2;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  g_oml_mps_infrastructure_monitoring->cpu_iowait = omlc_add_mp("cpu_iowait", oml_cpu_iowait_def);
+  concept = (char***)oml_malloc(sizeof(char**)*3);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][2]=strdup("omn-monitoring-metric:Availability");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-monitoring-metric:Availability");
+  concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  concept[2] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
+  oml_availability_def[0].relations = oml_sem_register_concepts(concept, 3);
+  for (i=0;i<3;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
   concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
   concept[0][2]=strdup("%value%");
   oml_availability_def[1].relations = oml_sem_register_concepts(concept, 1);
@@ -441,7 +1061,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*1);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-domain-pc:PC");
-  concept[0][1]=strdup("rdfs:label");
+  concept[0][1]=strdup("omn:hasURI");
   concept[0][2]=strdup("%value%");
   oml_availability_def[2].relations = oml_sem_register_concepts(concept, 1);
   for (i=0;i<1;i++)
@@ -454,7 +1074,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*2);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-domain-pc:VM");
-  concept[0][1]=strdup("rdfs:label");
+  concept[0][1]=strdup("omn:hasURI");
   concept[0][2]=strdup("%value%");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-domain-pc:VM");
@@ -469,6 +1089,674 @@ oml_register_mps(void)
   }
   oml_free(concept);
   g_oml_mps_infrastructure_monitoring->availability = omlc_add_mp("availability", oml_availability_def);
+  concept = (char***)oml_malloc(sizeof(char**)*3);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][2]=strdup("omn-monitoring-metric:CPULoad");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-monitoring-metric:CPULoad");
+  concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  concept[2] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
+  oml_cpu_load_def[0].relations = oml_sem_register_concepts(concept, 3);
+  for (i=0;i<3;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
+  concept[0][2]=strdup("%value%");
+  oml_cpu_load_def[1].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:PC");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  oml_cpu_load_def[2].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*2);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:VM");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-domain-pc:VM");
+  concept[1][1]=strdup("omn-lifecycle:childOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  oml_cpu_load_def[3].relations = oml_sem_register_concepts(concept, 2);
+  for (i=0;i<2;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  g_oml_mps_infrastructure_monitoring->cpu_load = omlc_add_mp("cpu_load", oml_cpu_load_def);
+  concept = (char***)oml_malloc(sizeof(char**)*5);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][2]=strdup("omn-monitoring-metric:FreeSwap");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-monitoring-metric:FreeSwap");
+  concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  concept[2] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
+  concept[3] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:Byte");
+  concept[4] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[4][0]=strdup("omn-monitoring-unit:Byte");
+  concept[4][1]=strdup("omn-monitoring-unit:hasPrefix");
+  concept[4][2]=strdup("omn-monitoring-unit:giga");
+  oml_free_swap_def[0].relations = oml_sem_register_concepts(concept, 5);
+  for (i=0;i<5;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
+  concept[0][2]=strdup("%value%");
+  oml_free_swap_def[1].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:PC");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  oml_free_swap_def[2].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*2);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:VM");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-domain-pc:VM");
+  concept[1][1]=strdup("omn-lifecycle:childOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  oml_free_swap_def[3].relations = oml_sem_register_concepts(concept, 2);
+  for (i=0;i<2;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  g_oml_mps_infrastructure_monitoring->free_swap = omlc_add_mp("free_swap", oml_free_swap_def);
+  concept = (char***)oml_malloc(sizeof(char**)*4);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][2]=strdup("omn-monitoring-metric:CPUuser");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-monitoring-metric:CPUuser");
+  concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  concept[2] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
+  concept[3] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:percent");
+  oml_cpu_user_def[0].relations = oml_sem_register_concepts(concept, 4);
+  for (i=0;i<4;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
+  concept[0][2]=strdup("%value%");
+  oml_cpu_user_def[1].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:PC");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  oml_cpu_user_def[2].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*2);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:VM");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-domain-pc:VM");
+  concept[1][1]=strdup("omn-lifecycle:childOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  oml_cpu_user_def[3].relations = oml_sem_register_concepts(concept, 2);
+  for (i=0;i<2;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  g_oml_mps_infrastructure_monitoring->cpu_user = omlc_add_mp("cpu_user", oml_cpu_user_def);
+  concept = (char***)oml_malloc(sizeof(char**)*5);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][2]=strdup("omn-monitoring-metric:TotalSwap");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-monitoring-metric:TotalSwap");
+  concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  concept[2] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
+  concept[3] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:Byte");
+  concept[4] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[4][0]=strdup("omn-monitoring-unit:Byte");
+  concept[4][1]=strdup("omn-monitoring-unit:hasPrefix");
+  concept[4][2]=strdup("omn-monitoring-unit:giga");
+  oml_total_swap_def[0].relations = oml_sem_register_concepts(concept, 5);
+  for (i=0;i<5;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
+  concept[0][2]=strdup("%value%");
+  oml_total_swap_def[1].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:PC");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  oml_total_swap_def[2].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*2);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:VM");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-domain-pc:VM");
+  concept[1][1]=strdup("omn-lifecycle:childOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  oml_total_swap_def[3].relations = oml_sem_register_concepts(concept, 2);
+  for (i=0;i<2;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  g_oml_mps_infrastructure_monitoring->total_swap = omlc_add_mp("total_swap", oml_total_swap_def);
+  concept = (char***)oml_malloc(sizeof(char**)*4);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][2]=strdup("omn-monitoring-metric:CPUsystem");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-monitoring-metric:CPUsystem");
+  concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  concept[2] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
+  concept[3] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:percent");
+  oml_cpu_system_def[0].relations = oml_sem_register_concepts(concept, 4);
+  for (i=0;i<4;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
+  concept[0][2]=strdup("%value%");
+  oml_cpu_system_def[1].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:PC");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  oml_cpu_system_def[2].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*2);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:VM");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-domain-pc:VM");
+  concept[1][1]=strdup("omn-lifecycle:childOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  oml_cpu_system_def[3].relations = oml_sem_register_concepts(concept, 2);
+  for (i=0;i<2;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  g_oml_mps_infrastructure_monitoring->cpu_system = omlc_add_mp("cpu_system", oml_cpu_system_def);
+  concept = (char***)oml_malloc(sizeof(char**)*4);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][2]=strdup("omn-monitoring-metric:DiskIORead");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-monitoring-metric:DiskIORead");
+  concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  concept[2] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
+  concept[3] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:Bytepersecond");
+  oml_diskIO_read_def[0].relations = oml_sem_register_concepts(concept, 4);
+  for (i=0;i<4;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
+  concept[0][2]=strdup("%value%");
+  oml_diskIO_read_def[1].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:PC");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  oml_diskIO_read_def[2].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*2);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:VM");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-domain-pc:VM");
+  concept[1][1]=strdup("omn-lifecycle:childOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  oml_diskIO_read_def[3].relations = oml_sem_register_concepts(concept, 2);
+  for (i=0;i<2;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  g_oml_mps_infrastructure_monitoring->diskIO_read = omlc_add_mp("diskIO_read", oml_diskIO_read_def);
+  concept = (char***)oml_malloc(sizeof(char**)*4);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][2]=strdup("omn-monitoring-metric:FreeDiskSpace");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-monitoring-metric:FreeDiskSpace");
+  concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  concept[2] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
+  concept[3] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:percent");
+  oml_free_disk_space_def[0].relations = oml_sem_register_concepts(concept, 4);
+  for (i=0;i<4;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
+  concept[0][2]=strdup("%value%");
+  oml_free_disk_space_def[1].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:PC");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  oml_free_disk_space_def[2].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*2);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:VM");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-domain-pc:VM");
+  concept[1][1]=strdup("omn-lifecycle:childOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  oml_free_disk_space_def[3].relations = oml_sem_register_concepts(concept, 2);
+  for (i=0;i<2;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  g_oml_mps_infrastructure_monitoring->free_disk_space = omlc_add_mp("free_disk_space", oml_free_disk_space_def);
+  concept = (char***)oml_malloc(sizeof(char**)*5);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][2]=strdup("omn-monitoring-metric:UsedDiskSpace");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-monitoring-metric:UsedDiskSpace");
+  concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  concept[2] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
+  concept[3] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:Byte");
+  concept[4] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[4][0]=strdup("omn-monitoring-unit:Byte");
+  concept[4][1]=strdup("omn-monitoring-unit:hasPrefix");
+  concept[4][2]=strdup("omn-monitoring-unit:giga");
+  oml_used_disk_space_def[0].relations = oml_sem_register_concepts(concept, 5);
+  for (i=0;i<5;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
+  concept[0][2]=strdup("%value%");
+  oml_used_disk_space_def[1].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:PC");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  oml_used_disk_space_def[2].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*2);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-domain-pc:VM");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-domain-pc:VM");
+  concept[1][1]=strdup("omn-lifecycle:childOf");
+  concept[1][2]=strdup("omn-domain-pc:PC");
+  oml_used_disk_space_def[3].relations = oml_sem_register_concepts(concept, 2);
+  for (i=0;i<2;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  g_oml_mps_infrastructure_monitoring->used_disk_space = omlc_add_mp("used_disk_space", oml_used_disk_space_def);
+  concept = (char***)oml_malloc(sizeof(char**)*4);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][2]=strdup("omn-monitoring-metric:PacketLoss");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-monitoring-metric:PacketLoss");
+  concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
+  concept[1][2]=strdup("omn-resource:Link");
+  concept[2] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
+  concept[3] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:percent");
+  oml_packet_loss_def[0].relations = oml_sem_register_concepts(concept, 4);
+  for (i=0;i<4;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
+  concept[0][2]=strdup("%value%");
+  oml_packet_loss_def[1].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-resource:Link");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  oml_packet_loss_def[2].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  g_oml_mps_infrastructure_monitoring->packet_loss = omlc_add_mp("packet_loss", oml_packet_loss_def);
+  concept = (char***)oml_malloc(sizeof(char**)*5);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][2]=strdup("omn-monitoring-metric:Delay");
+  concept[1] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[1][0]=strdup("omn-monitoring-metric:Delay");
+  concept[1][1]=strdup("omn-monitoring:isMeasurementMetricOf");
+  concept[1][2]=strdup("omn-resource:Link");
+  concept[2] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[2][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[2][1]=strdup("omn-monitoring-data:hasMeasurementDataValue");
+  concept[2][2]=strdup("%value%");
+  concept[3] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[3][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[3][1]=strdup("omn-monitoring:hasUnit");
+  concept[3][2]=strdup("omn-monitoring-unit:second");
+  concept[4] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[4][0]=strdup("omn-monitoring-unit:second");
+  concept[4][1]=strdup("omn-monitoring-unit:hasPrefix");
+  concept[4][2]=strdup("omn-monitoring-unit:milli");
+  oml_delay_def[0].relations = oml_sem_register_concepts(concept, 5);
+  for (i=0;i<5;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
+  concept[0][1]=strdup("omn-monitoring-data:hasTimestamp");
+  concept[0][2]=strdup("%value%");
+  oml_delay_def[1].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  concept = (char***)oml_malloc(sizeof(char**)*1);
+  concept[0] = (char**)oml_malloc(sizeof(char*)*3);
+  concept[0][0]=strdup("omn-resource:Link");
+  concept[0][1]=strdup("omn:hasURI");
+  concept[0][2]=strdup("%value%");
+  oml_delay_def[2].relations = oml_sem_register_concepts(concept, 1);
+  for (i=0;i<1;i++)
+  {
+    for (j=0;j<3;j++)
+      free(concept[i][j]);
+    oml_free(concept[i]);
+  }
+  oml_free(concept);
+  g_oml_mps_infrastructure_monitoring->delay = omlc_add_mp("delay", oml_delay_def);
 
 }
 
@@ -543,6 +1831,86 @@ oml_inject_available_memory(OmlMP *mp, double available_memory, const char *time
 }
 
 static inline int
+oml_inject_free_memory(OmlMP *mp, double free_memory, const char *timestamp, const char *physicalresource, const char *virtualresource)
+{
+  int ret = -1;
+
+  OmlValueU v[4];
+  omlc_zero_array(v, 4);
+
+  omlc_set_double(v[0], free_memory);
+  omlc_set_string(v[1], timestamp);
+  omlc_set_string(v[2], physicalresource);
+  omlc_set_string(v[3], virtualresource);
+
+  ret = omlc_inject(mp, v);
+
+  omlc_reset_string(v[2]);
+  omlc_reset_string(v[3]);
+  return ret;
+}
+
+static inline int
+oml_inject_cached_memory(OmlMP *mp, double cached_memory, const char *timestamp, const char *physicalresource, const char *virtualresource)
+{
+  int ret = -1;
+
+  OmlValueU v[4];
+  omlc_zero_array(v, 4);
+
+  omlc_set_double(v[0], cached_memory);
+  omlc_set_string(v[1], timestamp);
+  omlc_set_string(v[2], physicalresource);
+  omlc_set_string(v[3], virtualresource);
+
+  ret = omlc_inject(mp, v);
+
+  omlc_reset_string(v[2]);
+  omlc_reset_string(v[3]);
+  return ret;
+}
+
+static inline int
+oml_inject_buffers_memory(OmlMP *mp, double buffers_memory, const char *timestamp, const char *physicalresource, const char *virtualresource)
+{
+  int ret = -1;
+
+  OmlValueU v[4];
+  omlc_zero_array(v, 4);
+
+  omlc_set_double(v[0], buffers_memory);
+  omlc_set_string(v[1], timestamp);
+  omlc_set_string(v[2], physicalresource);
+  omlc_set_string(v[3], virtualresource);
+
+  ret = omlc_inject(mp, v);
+
+  omlc_reset_string(v[2]);
+  omlc_reset_string(v[3]);
+  return ret;
+}
+
+static inline int
+oml_inject_used_swap(OmlMP *mp, double used_swap, const char *timestamp, const char *physicalresource, const char *virtualresource)
+{
+  int ret = -1;
+
+  OmlValueU v[4];
+  omlc_zero_array(v, 4);
+
+  omlc_set_double(v[0], used_swap);
+  omlc_set_string(v[1], timestamp);
+  omlc_set_string(v[2], physicalresource);
+  omlc_set_string(v[3], virtualresource);
+
+  ret = omlc_inject(mp, v);
+
+  omlc_reset_string(v[2]);
+  omlc_reset_string(v[3]);
+  return ret;
+}
+
+static inline int
 oml_inject_used_bandwidth(OmlMP *mp, double used_bandwidth, const char *timestamp, const char *physicalresource, const char *virtualresource)
 {
   int ret = -1;
@@ -551,6 +1919,66 @@ oml_inject_used_bandwidth(OmlMP *mp, double used_bandwidth, const char *timestam
   omlc_zero_array(v, 4);
 
   omlc_set_double(v[0], used_bandwidth);
+  omlc_set_string(v[1], timestamp);
+  omlc_set_string(v[2], physicalresource);
+  omlc_set_string(v[3], virtualresource);
+
+  ret = omlc_inject(mp, v);
+
+  omlc_reset_string(v[2]);
+  omlc_reset_string(v[3]);
+  return ret;
+}
+
+static inline int
+oml_inject_cpu_idle(OmlMP *mp, double cpu_idle, const char *timestamp, const char *physicalresource, const char *virtualresource)
+{
+  int ret = -1;
+
+  OmlValueU v[4];
+  omlc_zero_array(v, 4);
+
+  omlc_set_double(v[0], cpu_idle);
+  omlc_set_string(v[1], timestamp);
+  omlc_set_string(v[2], physicalresource);
+  omlc_set_string(v[3], virtualresource);
+
+  ret = omlc_inject(mp, v);
+
+  omlc_reset_string(v[2]);
+  omlc_reset_string(v[3]);
+  return ret;
+}
+
+static inline int
+oml_inject_cpu_nice(OmlMP *mp, double cpu_nice, const char *timestamp, const char *physicalresource, const char *virtualresource)
+{
+  int ret = -1;
+
+  OmlValueU v[4];
+  omlc_zero_array(v, 4);
+
+  omlc_set_double(v[0], cpu_nice);
+  omlc_set_string(v[1], timestamp);
+  omlc_set_string(v[2], physicalresource);
+  omlc_set_string(v[3], virtualresource);
+
+  ret = omlc_inject(mp, v);
+
+  omlc_reset_string(v[2]);
+  omlc_reset_string(v[3]);
+  return ret;
+}
+
+static inline int
+oml_inject_cpu_iowait(OmlMP *mp, double cpu_iowait, const char *timestamp, const char *physicalresource, const char *virtualresource)
+{
+  int ret = -1;
+
+  OmlValueU v[4];
+  omlc_zero_array(v, 4);
+
+  omlc_set_double(v[0], cpu_iowait);
   omlc_set_string(v[1], timestamp);
   omlc_set_string(v[2], physicalresource);
   omlc_set_string(v[3], virtualresource);
@@ -579,6 +2007,202 @@ oml_inject_availability(OmlMP *mp, double availability, const char *timestamp, c
 
   omlc_reset_string(v[2]);
   omlc_reset_string(v[3]);
+  return ret;
+}
+
+static inline int
+oml_inject_cpu_load(OmlMP *mp, double cpu_load, const char *timestamp, const char *physicalresource, const char *virtualresource)
+{
+  int ret = -1;
+
+  OmlValueU v[4];
+  omlc_zero_array(v, 4);
+
+  omlc_set_double(v[0], cpu_load);
+  omlc_set_string(v[1], timestamp);
+  omlc_set_string(v[2], physicalresource);
+  omlc_set_string(v[3], virtualresource);
+
+  ret = omlc_inject(mp, v);
+
+  omlc_reset_string(v[2]);
+  omlc_reset_string(v[3]);
+  return ret;
+}
+
+static inline int
+oml_inject_free_swap(OmlMP *mp, double free_swap, const char *timestamp, const char *physicalresource, const char *virtualresource)
+{
+  int ret = -1;
+
+  OmlValueU v[4];
+  omlc_zero_array(v, 4);
+
+  omlc_set_double(v[0], free_swap);
+  omlc_set_string(v[1], timestamp);
+  omlc_set_string(v[2], physicalresource);
+  omlc_set_string(v[3], virtualresource);
+
+  ret = omlc_inject(mp, v);
+
+  omlc_reset_string(v[2]);
+  omlc_reset_string(v[3]);
+  return ret;
+}
+
+static inline int
+oml_inject_cpu_user(OmlMP *mp, double cpu_user, const char *timestamp, const char *physicalresource, const char *virtualresource)
+{
+  int ret = -1;
+
+  OmlValueU v[4];
+  omlc_zero_array(v, 4);
+
+  omlc_set_double(v[0], cpu_user);
+  omlc_set_string(v[1], timestamp);
+  omlc_set_string(v[2], physicalresource);
+  omlc_set_string(v[3], virtualresource);
+
+  ret = omlc_inject(mp, v);
+
+  omlc_reset_string(v[2]);
+  omlc_reset_string(v[3]);
+  return ret;
+}
+
+static inline int
+oml_inject_total_swap(OmlMP *mp, double total_swap, const char *timestamp, const char *physicalresource, const char *virtualresource)
+{
+  int ret = -1;
+
+  OmlValueU v[4];
+  omlc_zero_array(v, 4);
+
+  omlc_set_double(v[0], total_swap);
+  omlc_set_string(v[1], timestamp);
+  omlc_set_string(v[2], physicalresource);
+  omlc_set_string(v[3], virtualresource);
+
+  ret = omlc_inject(mp, v);
+
+  omlc_reset_string(v[2]);
+  omlc_reset_string(v[3]);
+  return ret;
+}
+
+static inline int
+oml_inject_cpu_system(OmlMP *mp, double cpu_system, const char *timestamp, const char *physicalresource, const char *virtualresource)
+{
+  int ret = -1;
+
+  OmlValueU v[4];
+  omlc_zero_array(v, 4);
+
+  omlc_set_double(v[0], cpu_system);
+  omlc_set_string(v[1], timestamp);
+  omlc_set_string(v[2], physicalresource);
+  omlc_set_string(v[3], virtualresource);
+
+  ret = omlc_inject(mp, v);
+
+  omlc_reset_string(v[2]);
+  omlc_reset_string(v[3]);
+  return ret;
+}
+
+static inline int
+oml_inject_diskIO_read(OmlMP *mp, double diskIO_read, const char *timestamp, const char *physicalresource, const char *virtualresource)
+{
+  int ret = -1;
+
+  OmlValueU v[4];
+  omlc_zero_array(v, 4);
+
+  omlc_set_double(v[0], diskIO_read);
+  omlc_set_string(v[1], timestamp);
+  omlc_set_string(v[2], physicalresource);
+  omlc_set_string(v[3], virtualresource);
+
+  ret = omlc_inject(mp, v);
+
+  omlc_reset_string(v[2]);
+  omlc_reset_string(v[3]);
+  return ret;
+}
+
+static inline int
+oml_inject_free_disk_space(OmlMP *mp, double free_disk_space, const char *timestamp, const char *physicalresource, const char *virtualresource)
+{
+  int ret = -1;
+
+  OmlValueU v[4];
+  omlc_zero_array(v, 4);
+
+  omlc_set_double(v[0], free_disk_space);
+  omlc_set_string(v[1], timestamp);
+  omlc_set_string(v[2], physicalresource);
+  omlc_set_string(v[3], virtualresource);
+
+  ret = omlc_inject(mp, v);
+
+  omlc_reset_string(v[2]);
+  omlc_reset_string(v[3]);
+  return ret;
+}
+
+static inline int
+oml_inject_used_disk_space(OmlMP *mp, double used_disk_space, const char *timestamp, const char *physicalresource, const char *virtualresource)
+{
+  int ret = -1;
+
+  OmlValueU v[4];
+  omlc_zero_array(v, 4);
+
+  omlc_set_double(v[0], used_disk_space);
+  omlc_set_string(v[1], timestamp);
+  omlc_set_string(v[2], physicalresource);
+  omlc_set_string(v[3], virtualresource);
+
+  ret = omlc_inject(mp, v);
+
+  omlc_reset_string(v[2]);
+  omlc_reset_string(v[3]);
+  return ret;
+}
+
+static inline int
+oml_inject_packet_loss(OmlMP *mp, int32_t packet_loss, const char *timestamp, const char *link)
+{
+  int ret = -1;
+
+  OmlValueU v[3];
+  omlc_zero_array(v, 3);
+
+  omlc_set_int32(v[0], packet_loss);
+  omlc_set_string(v[1], timestamp);
+  omlc_set_string(v[2], link);
+
+  ret = omlc_inject(mp, v);
+
+  omlc_reset_string(v[2]);
+  return ret;
+}
+
+static inline int
+oml_inject_delay(OmlMP *mp, double delay, const char *timestamp, const char *link)
+{
+  int ret = -1;
+
+  OmlValueU v[3];
+  omlc_zero_array(v, 3);
+
+  omlc_set_double(v[0], delay);
+  omlc_set_string(v[1], timestamp);
+  omlc_set_string(v[2], link);
+
+  ret = omlc_inject(mp, v);
+
+  omlc_reset_string(v[2]);
   return ret;
 }
 
