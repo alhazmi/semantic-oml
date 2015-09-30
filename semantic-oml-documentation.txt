@@ -1,4 +1,4 @@
-SOML Server
+Semantic-OML Framework
 
 SERVER INSTALLATION
 1. Build the server from the source code, follow the instructions in [1]
@@ -9,6 +9,7 @@ SERVER INSTALLATION
 
 WRITING THE SCHEMA
 A template of the schema is located in the documentation [5], but it's incomplete (without header) so check here [6] or [8] to find out how to add the header. the schema is written in ruby and defines the properties and measurement points defined by the application. 
+This implementation is based on the Open-Multinet (OMN) Ontology [9][10], so all the examples below are specific to that ontology.
 
 For the semantic extension, there are several rules that must be followed while writing the semantic triples. 
 	1. Every metric has to begin with SimpleMeasurement (as the subject of the very first triple), followed by its corresponding Metric class (as object).
@@ -17,6 +18,8 @@ For the semantic extension, there are several rules that must be followed while 
 	Example: omn-monitoring-metric:TotalMemory omn-monitoring:isMeasurementMetricOf omn-domain-pc:PC
 	3. Later on, a URI of that resource must be given
 	Example: omn-domain-pc:PC omn:hasURI %value%
+
+Note: Prefixes in triples have to be predefined in both oml2-scaffold and OML server before they can be used in schema. Refer to the section below in "Requirements of adopting ontology in Semantic OML".
 
 This is an example of a semantic schema of a metric:
 
@@ -95,15 +98,17 @@ Note: You can still use the native database backends (posgresql or sqlite) by us
 
 
 ------------------------------------------------------------------------------------------------------------
-Requirements of adopting ontology in SOML
+Requirements of adopting ontology in Semantic OML
 
-1. all ontology files in the ontology directory have to be in RDF/XML format. To convert ontologies from other serialized technologies into RDF/XML you could use Prótegé
-2. edit the oml2-scaffold file (located by default in /usr/local/bin/)
+1. all ontology files in the ontology directory have to be in RDF/XML format. To convert ontologies from other serialized 
+technologies into RDF/XML you could use Prótegé
+2. Prefixes have to be hardcoded in codes, both at oml2-scaffold and OML server.
+3. edit the oml2-scaffold file (located by default in /usr/local/bin/)
 	search the code to find these functions:
 		- def get_concept(concept)
 		- def get_ontology_file(concept)
 	and adjust them accordingly
-3. unfortunately the codes under fuseki_adapter.c or virtuoso_adapter.c in the server side are MOI-specified (soml/server/fuseki_adapter.c or soml/server/virtuoso_adapter.c) so you have to change them according to the used ontology and build the server.
+4. unfortunately the codes under fuseki_adapter.c in the server side are MOI-specified (soml/server/fuseki_adapter.c) so you have to change it according to the used ontology and build the server.
 
 ------------------------------------------------------------------------------------------------------------
 Visualization using sgvizler
@@ -149,7 +154,8 @@ filter(regex(?uri,<resource-uri>))
 [6] https://mytestbed.net/projects/oml/wiki/Quick_Start_Tutorial
 [7] https://mytestbed.net/projects/oml/wiki/Client_Programming
 [8] http://doc.mytestbed.net/doc/omf/OmfEc/Backward/AppDefinition.html
-
+[9] https://github.com/open-multinet/playground-rspecs-ontology
+[10] https://github.com/alhazmi/playground-rspecs-ontology
 
 
 

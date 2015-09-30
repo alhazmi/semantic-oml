@@ -1,81 +1,46 @@
+Some query examples to query monitoring data or visualize them using sgvizler
+
 ======================================================
-Availability
-SELECT ?timevalue ?value{{
-?metric rdf:type omn-monitoring-metric:Availability .
-?metric omn-monitoring-data:hasMeasurementData ?data .
-?data omn-monitoring-data:hasMeasurementDataValue ?value .
-?data omn-monitoring-data:hasTimestamp ?timevalue
-}}
-limit 200
-
-UsedMemory
+Used Memory
 SELECT ?timevalue ?value ?prefix ?unit{{
+?measure omn-monitoring:isMeasurementDataOf ?metric .
 ?metric rdf:type omn-monitoring-metric:UsedMemory .
-?metric omn-monitoring-data:hasMeasurementData ?data .
-?data omn-monitoring-data:hasMeasurementDataValue ?value .
-?data omn-monitoring:hasUnit ?unit_value .
+?metric omn-monitoring:isMeasurementMetricOf ?resource .
+?measure omn-monitoring-data:hasMeasurementDataValue ?value .
+?measure omn-monitoring:hasUnit ?unit_value .
 ?unit_value rdf:type ?unit .
 ?unit_value omn-monitoring-unit:hasPrefix ?prefix_value .
 ?prefix_value rdf:type ?prefix .
-?data omn-monitoring-data:hasTimestamp ?timevalue
+?measure omn-monitoring-data:hasTimestamp ?timevalue .
+?resource omn:hasURI ?uri .
+filter(regex(?uri,"<resource-uri>"))
 }}
 limit 200
 
-AvailableMemory
+Used Bandwidth
 SELECT ?timevalue ?value ?prefix ?unit{{
-?metric rdf:type omn-monitoring-metric:AvailableMemory .
-?metric omn-monitoring-data:hasMeasurementData ?data .
-?data omn-monitoring-data:hasMeasurementDataValue ?value .
-?data omn-monitoring:hasUnit ?unit_value .
-?unit_value rdf:type ?unit .
-?unit_value omn-monitoring-unit:hasPrefix ?prefix_value .
-?prefix_value rdf:type ?prefix .
-?data omn-monitoring-data:hasTimestamp ?timevalue
-}}
-limit 200
-
-TotalMemory
-SELECT ?timevalue ?value ?prefix ?unit{{
-?metric rdf:type omn-monitoring-metric:TotalMemory .
-?metric omn-monitoring-data:hasMeasurementData ?data .
-?data omn-monitoring-data:hasMeasurementDataValue ?value .
-?data omn-monitoring:hasUnit ?unit_value .
-?unit_value rdf:type ?unit .
-?unit_value omn-monitoring-unit:hasPrefix ?prefix_value .
-?prefix_value rdf:type ?prefix .
-?data omn-monitoring-data:hasTimestamp ?timevalue
-}}
-limit 200
-
-UsedBandwidth
-SELECT ?timevalue ?value ?prefix ?unit{{
+?measure omn-monitoring:isMeasurementDataOf ?metric .
 ?metric rdf:type omn-monitoring-metric:UsedBandwidth .
-?metric omn-monitoring-data:hasMeasurementData ?data .
-?data omn-monitoring-data:hasMeasurementDataValue ?value .
-?data omn-monitoring:hasUnit ?unit_value .
+?metric omn-monitoring:isMeasurementMetricOf ?resource .
+?measure omn-monitoring-data:hasMeasurementDataValue ?value .
+?measure omn-monitoring:hasUnit ?unit_value .
 ?unit_value rdf:type ?unit .
 ?unit_value omn-monitoring-unit:hasPrefix ?prefix_value .
 ?prefix_value rdf:type ?prefix .
-?data omn-monitoring-data:hasTimestamp ?timevalue
+?measure omn-monitoring-data:hasTimestamp ?timevalue .
+?resource omn:hasURI ?uri .
+filter(regex(?uri,<resource-uri>))
 }}
-limit 200
 
-Default
-SELECT * {
-{?s ?p ?o}
-}		
-
-========================================================
-Regex
-
-filter time period
-filter(?timeval >= xsd:dateTime('2015-02-23T00:00:00Z'))
-
-filter name
-filter(regex(?name,"FITeagle-Zabbix-Server"))}
-
-
-
-
+CPU Load
+SELECT ?timevalue ?value{{
+?measure omn-monitoring:isMeasurementDataOf ?metric .
+?metric rdf:type omn-monitoring-metric:CPULoad .
+?metric omn-monitoring:isMeasurementMetricOf ?resource .
+?measure omn-monitoring-data:hasMeasurementDataValue ?value .
+?measure omn-monitoring-data:hasTimestamp ?timevalue .
+?resource omn:hasURI ?uri .
+filter(regex(?uri,<resource-uri>))
+}}
 
 
