@@ -38,7 +38,7 @@ require 'time'
 
 class USED_MEMORY_MP < OML4R::MPBase
  name :used_memory
- param :used_memory, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:UsedMemory}{omn-monitoring-metric:UsedMemory|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
+ param :used_memory, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:UsedMemory}{omn-monitoring-metric:UsedMemory|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -46,7 +46,7 @@ end
 
 class TOTAL_MEMORY_MP < OML4R::MPBase
  name :total_memory
- param :total_memory, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:TotalMemory}{omn-monitoring-metric:TotalMemory|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
+ param :total_memory, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:TotalMemory}{omn-monitoring-metric:TotalMemory|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -54,7 +54,7 @@ end
 
 class AVAILABLE_MEMORY_MP < OML4R::MPBase
  name :available_memory
- param :available_memory, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:AvailableMemory}{omn-monitoring-metric:AvailableMemory|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
+ param :available_memory, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:AvailableMemory}{omn-monitoring-metric:AvailableMemory|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -62,7 +62,7 @@ end
 
 class FREE_MEMORY_MP < OML4R::MPBase
  name :free_memory
- param :free_memory, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:FreeMemory}{omn-monitoring-metric:FreeMemory|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
+ param :free_memory, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:FreeMemory}{omn-monitoring-metric:FreeMemory|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -70,7 +70,7 @@ end
 
 class CACHED_MEMORY_MP < OML4R::MPBase
  name :cached_memory
- param :cached_memory, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:CachedMemory}{omn-monitoring-metric:CachedMemory|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
+ param :cached_memory, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:CachedMemory}{omn-monitoring-metric:CachedMemory|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -78,7 +78,7 @@ end
 
 class BUFFERS_MEMORY_MP < OML4R::MPBase
  name :buffers_memory
- param :buffers_memory, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:BuffersMemory}{omn-monitoring-metric:BuffersMemory|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
+ param :buffers_memory, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:BuffersMemory}{omn-monitoring-metric:BuffersMemory|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -86,7 +86,7 @@ end
 
 class USED_SWAP_MP < OML4R::MPBase
  name :used_swap
- param :used_swap, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:UsedSwap}{omn-monitoring-metric:UsedSwap|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:percent}"}
+ param :used_swap, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:UsedSwap}{omn-monitoring-metric:UsedSwap|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:percent}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -94,7 +94,7 @@ end
 
 class USED_BANDWIDTH_MP < OML4R::MPBase
  name :used_bandwidth
- param :used_bandwidth, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:UsedBandwidth}{omn-monitoring-metric:UsedBandwidth|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:bitpersecond}{omn-monitoring-unit:bitpersecond|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:mega}"}
+ param :used_bandwidth, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:UsedBandwidth}{omn-monitoring-metric:UsedBandwidth|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:bitpersecond}{omn-monitoring-unit:bitpersecond|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:mega}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -102,7 +102,7 @@ end
 
 class CPU_IDLE_MP < OML4R::MPBase
  name :cpu_idle
- param :cpu_idle, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:CPUidle}{omn-monitoring-metric:CPUidle|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:percent}"}
+ param :cpu_idle, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:CPUidle}{omn-monitoring-metric:CPUidle|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:percent}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -110,7 +110,7 @@ end
 
 class CPU_NICE_MP < OML4R::MPBase
  name :cpu_nice
- param :cpu_nice, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:CPUnice}{omn-monitoring-metric:CPUnice|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:percent}"}
+ param :cpu_nice, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:CPUnice}{omn-monitoring-metric:CPUnice|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:percent}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -118,7 +118,7 @@ end
 
 class CPU_IOWAIT_MP < OML4R::MPBase
  name :cpu_iowait
- param :cpu_iowait, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:CPUIOwait}{omn-monitoring-metric:CPUIOwait|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:percent}"}
+ param :cpu_iowait, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:CPUIOwait}{omn-monitoring-metric:CPUIOwait|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:percent}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -126,7 +126,7 @@ end
 
 class AVAILABILITY_MP < OML4R::MPBase
  name :availability
- param :availability, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:Availability}{omn-monitoring-metric:Availability|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}"}
+ param :availability, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:Availability}{omn-monitoring-metric:Availability|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -134,7 +134,7 @@ end
 
 class CPU_LOAD_MP < OML4R::MPBase
  name :cpu_load
- param :cpu_load, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:CPULoad}{omn-monitoring-metric:CPULoad|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}"}
+ param :cpu_load, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:CPULoad}{omn-monitoring-metric:CPULoad|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -142,7 +142,7 @@ end
 
 class FREE_SWAP_MP < OML4R::MPBase
  name :free_swap
- param :free_swap, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:FreeSwap}{omn-monitoring-metric:FreeSwap|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
+ param :free_swap, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:FreeSwap}{omn-monitoring-metric:FreeSwap|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -150,7 +150,7 @@ end
 
 class CPU_USER_MP < OML4R::MPBase
  name :cpu_user
- param :cpu_user, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:CPUuser}{omn-monitoring-metric:CPUuser|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:percent}"}
+ param :cpu_user, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:CPUuser}{omn-monitoring-metric:CPUuser|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:percent}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -158,7 +158,7 @@ end
 
 class TOTAL_SWAP_MP < OML4R::MPBase
  name :total_swap
- param :total_swap, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:TotalSwap}{omn-monitoring-metric:TotalSwap|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
+ param :total_swap, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:TotalSwap}{omn-monitoring-metric:TotalSwap|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -166,7 +166,7 @@ end
 
 class CPU_SYSTEM_MP < OML4R::MPBase
  name :cpu_system
- param :cpu_system, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:CPUsystem}{omn-monitoring-metric:CPUsystem|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:percent}"}
+ param :cpu_system, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:CPUsystem}{omn-monitoring-metric:CPUsystem|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:percent}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -174,7 +174,7 @@ end
 
 class DISKIO_READ_MP < OML4R::MPBase
  name :diskIO_read
- param :diskIO_read, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:DiskIORead}{omn-monitoring-metric:DiskIORead|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Bytepersecond}"}
+ param :diskIO_read, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:DiskIORead}{omn-monitoring-metric:DiskIORead|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Bytepersecond}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -182,7 +182,7 @@ end
 
 class FREE_DISK_SPACE_MP < OML4R::MPBase
  name :free_disk_space
- param :free_disk_space, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:FreeDiskSpace}{omn-monitoring-metric:FreeDiskSpace|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:percent}"}
+ param :free_disk_space, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:FreeDiskSpace}{omn-monitoring-metric:FreeDiskSpace|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:percent}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -190,7 +190,7 @@ end
 
 class USED_DISK_SPACE_MP < OML4R::MPBase
  name :used_disk_space
- param :used_disk_space, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:UsedDiskSpace}{omn-monitoring-metric:UsedDiskSpace|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
+ param :used_disk_space, {:type => :double, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:UsedDiskSpace}{omn-monitoring-metric:UsedDiskSpace|omn-monitoring:isMeasurementMetricOf|omn-domain-pc:PC}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:Byte}{omn-monitoring-unit:Byte|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:giga}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :physicalresource, {:type => :string, :relation => "{omn-domain-pc:PC|omn:hasURI|%value%}"}
  param :virtualresource, {:type => :string, :relation => "{omn-domain-pc:VM|omn:hasURI|%value%}{omn-domain-pc:VM|omn-lifecycle:childOf|omn-domain-pc:PC}"}
@@ -198,14 +198,14 @@ end
 
 class PACKET_LOSS_MP < OML4R::MPBase
  name :packet_loss
- param :packet_loss, {:type => :int32, :relation => "{omn-monitoring:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:PacketLoss}{omn-monitoring-metric:PacketLoss|omn-monitoring:isMeasurementMetricOf|omn-resource:Link}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:percent}"}
+ param :packet_loss, {:type => :int32, :relation => "{omn-monitoring:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:PacketLoss}{omn-monitoring-metric:PacketLoss|omn-monitoring:isMeasurementMetricOf|omn-resource:Link}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:percent}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :link, {:type => :string, :relation => "{omn-resource:Link|omn:hasURI|%value%}"}
 end
 
 class DELAY_MP < OML4R::MPBase
  name :delay
- param :delay, {:type => :double, :relation => "{omn-monitoring:SimpleMeasurement|omn-monitoring:isMeasurementOf|omn-monitoring-metric:Delay}{omn-monitoring-metric:Delay|omn-monitoring:isMeasurementMetricOf|omn-resource:Link}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:second}{omn-monitoring-unit:second|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:milli}"}
+ param :delay, {:type => :double, :relation => "{omn-monitoring:SimpleMeasurement|omn-monitoring-data:isMeasurementDataOf|omn-monitoring-metric:Delay}{omn-monitoring-metric:Delay|omn-monitoring:isMeasurementMetricOf|omn-resource:Link}{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasMeasurementDataValue|%value%}{omn-monitoring-data:SimpleMeasurement|omn-monitoring:hasUnit|omn-monitoring-unit:second}{omn-monitoring-unit:second|omn-monitoring-unit:hasPrefix|omn-monitoring-unit:milli}"}
  param :timestamp, {:type => :datetime, :relation => "{omn-monitoring-data:SimpleMeasurement|omn-monitoring-data:hasTimestamp|%value%}"}
  param :link, {:type => :string, :relation => "{omn-resource:Link|omn:hasURI|%value%}"}
 end
