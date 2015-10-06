@@ -46,94 +46,41 @@ run(opts_t *opts, oml_mps_t *oml_mps)
 
   /* The oml_inject_MPNAME() helpers are defined in infrastructure_monitoring_oml.h*/
   sleep(1);
-  if(oml_inject_used_memory(oml_mps->used_memory, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'used_memory'\n");
-    }
+  if(opts->vm && opts->pm && opts->used_memory && opts->used_memory_timestamp){
+	if(oml_inject_used_memory(oml_mps->used_memory, opts->used_memory, opts->used_memory_timestamp, opts->pm, opts->vm) != 0) {
+      		logwarn("Failed to inject data into MP 'used_memory'\n");
+    	}
+  }
+
  sleep(1);
-  if(oml_inject_total_memory(oml_mps->total_memory, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
+ if(opts->vm && opts->pm && opts->total_memory && opts->total_memory_timestamp){
+  if(oml_inject_total_memory(oml_mps->total_memory, opts->total_memory, opts->total_memory_timestamp, opts->pm, opts->vm) != 0) {
       logwarn("Failed to inject data into MP 'total_memory'\n");
     }
- sleep(1);
-  if(oml_inject_available_memory(oml_mps->available_memory, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
+ } 
+
+sleep(1);
+if(opts->vm && opts->pm && opts->available_memory && opts->available_memory_timestamp){
+  if(oml_inject_available_memory(oml_mps->available_memory, opts->available_memory, opts->available_memory_timestamp, opts->pm, opts->vm) != 0) {
       logwarn("Failed to inject data into MP 'available_memory'\n");
     }
- sleep(1);
-  if(oml_inject_free_memory(oml_mps->free_memory, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'free_memory'\n");
-    }
- sleep(1);
-  if(oml_inject_cached_memory(oml_mps->cached_memory, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'cached_memory'\n");
-    }
- sleep(1);
-  if(oml_inject_buffers_memory(oml_mps->buffers_memory, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'buffers_memory'\n");
-    }
- sleep(1);
-  if(oml_inject_used_swap(oml_mps->used_swap, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'used_swap'\n");
-    }
- sleep(1);
-  if(oml_inject_used_bandwidth(oml_mps->used_bandwidth, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
+ }
+
+sleep(1);
+if(opts->vm && opts->pm && opts->used_bandwidth && opts->used_bandwidth_timestamp){
+  if(oml_inject_used_bandwidth(oml_mps->used_bandwidth, opts->used_bandwidth, opts->used_bandwidth_timestamp, opts->pm, opts->vm) != 0) {
       logwarn("Failed to inject data into MP 'used_bandwidth'\n");
     }
- sleep(1);
-  if(oml_inject_cpu_idle(oml_mps->cpu_idle, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'cpu_idle'\n");
-    }
- sleep(1);
-  if(oml_inject_cpu_nice(oml_mps->cpu_nice, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'cpu_nice'\n");
-    }
- sleep(1);
-  if(oml_inject_cpu_iowait(oml_mps->cpu_iowait, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'cpu_iowait'\n");
-    }
- sleep(1);
-  if(oml_inject_availability(oml_mps->availability, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
+ } 
+
+sleep(1);
+if(opts->vm && opts->pm && opts->availability && opts->availability_timestamp){
+  if(oml_inject_availability(oml_mps->availability, opts->availability, opts->availability_timestamp, opts->pm, opts->vm) != 0) {
       logwarn("Failed to inject data into MP 'availability'\n");
     }
- sleep(1);
-  if(oml_inject_cpu_load(oml_mps->cpu_load, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'cpu_load'\n");
-    }
- sleep(1);
-  if(oml_inject_free_swap(oml_mps->free_swap, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'free_swap'\n");
-    }
- sleep(1);
-  if(oml_inject_cpu_user(oml_mps->cpu_user, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'cpu_user'\n");
-    }
- sleep(1);
-  if(oml_inject_total_swap(oml_mps->total_swap, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'total_swap'\n");
-    }
- sleep(1);
-  if(oml_inject_cpu_system(oml_mps->cpu_system, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'cpu_system'\n");
-    }
- sleep(1);
-  if(oml_inject_diskIO_read(oml_mps->diskIO_read, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'diskIO_read'\n");
-    }
- sleep(1);
-  if(oml_inject_free_disk_space(oml_mps->free_disk_space, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'free_disk_space'\n");
-    }
- sleep(1);
-  if(oml_inject_used_disk_space(oml_mps->used_disk_space, 1.0/val, "2015-02-23T00:00:00Z", "foo", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'used_disk_space'\n");
-    }
- sleep(1);
-  if(oml_inject_packet_loss(oml_mps->packet_loss, ((int32_t)-val), "2015-02-23T00:00:00Z", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'packet_loss'\n");
-    }
- sleep(1);
-  if(oml_inject_delay(oml_mps->delay, 1.0/val, "2015-02-23T00:00:00Z", "foo") != 0) {
-      logwarn("Failed to inject data into MP 'delay'\n");
-    }
- sleep(1);
+ } 
+
+sleep(1);
 
 }
 
