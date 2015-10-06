@@ -36,36 +36,6 @@ sighandler (int signum) {
 void
 run(opts_t *opts, oml_mps_t *oml_mps)
 {
-
-  while(loop == 1){
-    FILE *cmd = popen ("ping -c 5 -q 185.63.147.10 | grep -oP \'\\d+(?=% packet loss)\'", "r" ) ;
-    char *packetloss = malloc ( sizeof ( char ) * 200 );
-    fgets ( packetloss, sizeof ( char )*200, cmd );
-    //printf ( "%s", packetloss); //show outcome
-    pclose ( cmd );
-
-    FILE *cmd2 = popen("ping -c 5 -q 185.63.147.10 | grep rtt | cut -d\"/\" -f5", "r") ;
-    char *avgdelay = malloc ( sizeof ( char ) * 200 );
-    fgets ( avgdelay, sizeof ( char )*200, cmd2 );
-    //printf ( "%s", avgdelay);
-    pclose ( cmd2 );
-
-    /*FILE *cmd3 = popen ("ping -c 5 -q 185.63.147.10 | grep \"rtt\" -A 1", "r" ) ;
-    char *output = malloc ( sizeof ( char ) * 400 );
-    fgets ( output, sizeof ( char )*400, cmd3 );
-    //printf ( "%s", output);
-    pclose ( cmd3 );*/
-
-    time_t     now;
-    struct tm  ts;
-    char       buf[80];
-    // Get current time
-    time(&now);
-    // Format time, "ddd yyyy-mm-dd hh:mm:ss zzz"
-    ts = *localtime(&now);
-    strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", &ts);
-    //printf("%s\n", buf);
-
   long val = 1;
   struct sigaction sa;
 
@@ -76,18 +46,14 @@ run(opts_t *opts, oml_mps_t *oml_mps)
 
   /* The oml_inject_MPNAME() helpers are defined in ping_oml.h*/
   sleep(1);
-  if(oml_inject_packet_loss(oml_mps->packet_loss, atoi(packetloss), buf, "http://localhost/Link") != 0) {
+  if(oml_inject_packet_loss(oml_mps->packet_loss, ((int32_t)-val), "2015-02-23T00:00:00Z", "foo") != 0) {
       logwarn("Failed to inject data into MP 'packet_loss'\n");
     }
  sleep(1);
-  if(oml_inject_delay(oml_mps->delay, atof(avgdelay), buf, "http://localhost/Link") != 0) {
+  if(oml_inject_delay(oml_mps->delay, 1.0/val, "2015-02-23T00:00:00Z", "foo") != 0) {
       logwarn("Failed to inject data into MP 'delay'\n");
     }
  sleep(1);
-
-sleep(30) ;
-}
-
 
 }
 

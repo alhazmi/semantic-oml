@@ -240,7 +240,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:UsedMemory");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:UsedMemory");
@@ -313,7 +313,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:TotalMemory");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:TotalMemory");
@@ -386,7 +386,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:AvailableMemory");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:AvailableMemory");
@@ -459,7 +459,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:FreeMemory");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:FreeMemory");
@@ -532,7 +532,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:CachedMemory");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:CachedMemory");
@@ -605,7 +605,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:BuffersMemory");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:BuffersMemory");
@@ -678,7 +678,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*4);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:UsedSwap");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:UsedSwap");
@@ -747,7 +747,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:UsedBandwidth");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:UsedBandwidth");
@@ -820,7 +820,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*4);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:CPUidle");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:CPUidle");
@@ -889,7 +889,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*4);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:CPUnice");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:CPUnice");
@@ -958,7 +958,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*4);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:CPUIOwait");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:CPUIOwait");
@@ -1027,7 +1027,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*3);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:Availability");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:Availability");
@@ -1092,7 +1092,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*3);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:CPULoad");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:CPULoad");
@@ -1157,7 +1157,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:FreeSwap");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:FreeSwap");
@@ -1230,7 +1230,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*4);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:CPUuser");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:CPUuser");
@@ -1299,7 +1299,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:TotalSwap");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:TotalSwap");
@@ -1372,7 +1372,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*4);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:CPUsystem");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:CPUsystem");
@@ -1441,7 +1441,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*4);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:DiskIORead");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:DiskIORead");
@@ -1510,7 +1510,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*4);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:FreeDiskSpace");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:FreeDiskSpace");
@@ -1579,7 +1579,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring-data:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:UsedDiskSpace");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:UsedDiskSpace");
@@ -1652,7 +1652,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*4);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:PacketLoss");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:PacketLoss");
@@ -1704,7 +1704,7 @@ oml_register_mps(void)
   concept = (char***)oml_malloc(sizeof(char**)*5);
   concept[0] = (char**)oml_malloc(sizeof(char*)*3);
   concept[0][0]=strdup("omn-monitoring:SimpleMeasurement");
-  concept[0][1]=strdup("omn-monitoring:isMeasurementOf");
+  concept[0][1]=strdup("omn-monitoring-data:isMeasurementDataOf");
   concept[0][2]=strdup("omn-monitoring-metric:Delay");
   concept[1] = (char**)oml_malloc(sizeof(char*)*3);
   concept[1][0]=strdup("omn-monitoring-metric:Delay");
