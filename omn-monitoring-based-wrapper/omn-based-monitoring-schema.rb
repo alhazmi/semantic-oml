@@ -121,7 +121,7 @@ defApplication('oml:infrastructure-monitoring', 'infrastructure_monitoring') do 
 
 app.defMeasurement("used_memory"){ |m|
     m.defMetric('used_memory', :double, 'Used memory value of host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:UsedMemory'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:UsedMemory'],
     ['omn-monitoring-metric:UsedMemory','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
@@ -143,7 +143,7 @@ app.defMeasurement("used_memory"){ |m|
 
 app.defMeasurement("total_memory"){ |m|
     m.defMetric('total_memory', :double, 'Total memory value of host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:TotalMemory'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:TotalMemory'],
     ['omn-monitoring-metric:TotalMemory','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
@@ -165,7 +165,7 @@ app.defMeasurement("total_memory"){ |m|
 
 app.defMeasurement("available_memory"){ |m|
     m.defMetric('available_memory', :double, 'Available memory value of host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:AvailableMemory'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:AvailableMemory'],
     ['omn-monitoring-metric:AvailableMemory','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
@@ -186,7 +186,7 @@ app.defMeasurement("available_memory"){ |m|
 
 app.defMeasurement("free_memory"){ |m|
     m.defMetric('free_memory', :double, 'Free memory value of host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:FreeMemory'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:FreeMemory'],
     ['omn-monitoring-metric:FreeMemory','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
@@ -207,7 +207,7 @@ app.defMeasurement("free_memory"){ |m|
 
 app.defMeasurement("cached_memory"){ |m|
     m.defMetric('cached_memory', :double, 'Cached memory value of host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:CachedMemory'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:CachedMemory'],
     ['omn-monitoring-metric:CachedMemory','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
@@ -228,7 +228,7 @@ app.defMeasurement("cached_memory"){ |m|
 
 app.defMeasurement("buffers_memory"){ |m|
     m.defMetric('buffers_memory', :double, 'Buffers memory value of host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:BuffersMemory'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:BuffersMemory'],
     ['omn-monitoring-metric:BuffersMemory','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
@@ -249,7 +249,7 @@ app.defMeasurement("buffers_memory"){ |m|
 
 app.defMeasurement("used_swap"){ |m|
     m.defMetric('used_swap', :double, 'Used swap space value of host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:UsedSwap'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:UsedSwap'],
     ['omn-monitoring-metric:UsedSwap','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:percent']])
@@ -268,7 +268,7 @@ app.defMeasurement("used_swap"){ |m|
 
 app.defMeasurement("used_bandwidth"){ |m|
     m.defMetric('used_bandwidth', :double, 'used bandwidth of monitored host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:UsedBandwidth'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:UsedBandwidth'],
     ['omn-monitoring-metric:UsedBandwidth','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:bitpersecond'],
@@ -289,7 +289,7 @@ app.defMeasurement("used_bandwidth"){ |m|
 
 app.defMeasurement("cpu_idle"){ |m|
     m.defMetric('cpu_idle', :double, 'CPU idle time of monitored host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:CPUidle'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:CPUidle'],
     ['omn-monitoring-metric:CPUidle','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:percent']])
@@ -308,7 +308,7 @@ app.defMeasurement("cpu_idle"){ |m|
 
 app.defMeasurement("cpu_nice"){ |m|
     m.defMetric('cpu_nice', :double, 'CPU nice time of monitored host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:CPUnice'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:CPUnice'],
     ['omn-monitoring-metric:CPUnice','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:percent']])
@@ -327,7 +327,7 @@ app.defMeasurement("cpu_nice"){ |m|
 
 app.defMeasurement("cpu_iowait"){ |m|
     m.defMetric('cpu_iowait', :double, 'CPU IOwait time of monitored host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:CPUIOwait'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:CPUIOwait'],
     ['omn-monitoring-metric:CPUIOwait','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:percent']])
@@ -346,7 +346,7 @@ app.defMeasurement("cpu_iowait"){ |m|
 
 app.defMeasurement("availability"){ |m|
     m.defMetric('availability', :double, '1 if host is available, else 0',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:Availability'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:Availability'],
     ['omn-monitoring-metric:Availability','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%']])
 
@@ -365,7 +365,7 @@ app.defMeasurement("availability"){ |m|
 
 app.defMeasurement("cpu_load"){ |m|
     m.defMetric('cpu_load', :double, 'CPU Load of monitored host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:CPULoad'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:CPULoad'],
     ['omn-monitoring-metric:CPULoad','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%']])
 
@@ -384,7 +384,7 @@ app.defMeasurement("cpu_load"){ |m|
 
 app.defMeasurement("free_swap"){ |m|
     m.defMetric('free_swap', :double, 'Free swap space value of host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:FreeSwap'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:FreeSwap'],
     ['omn-monitoring-metric:FreeSwap','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
@@ -405,7 +405,7 @@ app.defMeasurement("free_swap"){ |m|
 
 app.defMeasurement("cpu_user"){ |m|
     m.defMetric('cpu_user', :double, 'CPU User time of monitored host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:CPUuser'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:CPUuser'],
     ['omn-monitoring-metric:CPUuser','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:percent']])
@@ -424,7 +424,7 @@ app.defMeasurement("cpu_user"){ |m|
 
 app.defMeasurement("total_swap"){ |m|
     m.defMetric('total_swap', :double, 'Total swap space value of host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:TotalSwap'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:TotalSwap'],
     ['omn-monitoring-metric:TotalSwap','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
@@ -445,7 +445,7 @@ app.defMeasurement("total_swap"){ |m|
 
 app.defMeasurement("cpu_system"){ |m|
     m.defMetric('cpu_system', :double, 'CPU System time of monitored host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:CPUsystem'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:CPUsystem'],
     ['omn-monitoring-metric:CPUsystem','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:percent']])
@@ -464,7 +464,7 @@ app.defMeasurement("cpu_system"){ |m|
 
 app.defMeasurement("diskIO_read"){ |m|
     m.defMetric('diskIO_read', :double, 'Disk IO read of monitored host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:DiskIORead'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:DiskIORead'],
     ['omn-monitoring-metric:DiskIORead','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:Bytepersecond']])
@@ -483,7 +483,7 @@ app.defMeasurement("diskIO_read"){ |m|
 
 app.defMeasurement("free_disk_space"){ |m|
     m.defMetric('free_disk_space', :double, 'Free Disk Space of monitored host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:FreeDiskSpace'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:FreeDiskSpace'],
     ['omn-monitoring-metric:FreeDiskSpace','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:percent']])
@@ -502,7 +502,7 @@ app.defMeasurement("free_disk_space"){ |m|
 
 app.defMeasurement("used_disk_space"){ |m|
     m.defMetric('used_disk_space', :double, 'Used Disk Space of monitored host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:UsedDiskSpace'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:UsedDiskSpace'],
     ['omn-monitoring-metric:UsedDiskSpace','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
@@ -522,7 +522,7 @@ app.defMeasurement("used_disk_space"){ |m|
 
 app.defMeasurement("packet_loss"){ |m|
     m.defMetric('packet_loss', :int, 'Packet Loss value of host',
-    [['omn-monitoring:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:PacketLoss'],
+    [['omn-monitoring:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:PacketLoss'],
     ['omn-monitoring-metric:PacketLoss','omn-monitoring:isMeasurementMetricOf', 'omn-resource:Link'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:percent']])
@@ -536,7 +536,7 @@ app.defMeasurement("packet_loss"){ |m|
 
 app.defMeasurement("delay"){ |m|
     m.defMetric('delay', :double, 'Delay value of host',
-    [['omn-monitoring:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:Delay'],
+    [['omn-monitoring:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:Delay'],
     ['omn-monitoring-metric:Delay','omn-monitoring:isMeasurementMetricOf', 'omn-resource:Link'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:second'],
