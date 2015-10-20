@@ -547,7 +547,13 @@ sem_prepare(Database *db, DbTable* table)
         n += mstring_sprintf(insert,"\t\t?measurement a %s .\n", osd->subject);
         n += mstring_sprintf(insert,"\t\t?measurement rdfs:label \"measurement\"^^xsd:string .\n");
         n += mstring_sprintf(insert,"\t\t?measurement %s ?metric .\n", osd->predicate);
-        n += mstring_sprintf(insert,"\t\t?metric rdfs:label \"%s\"^^xsd:string .\n", table->schema->name);
+        //n += mstring_sprintf(insert,"\t\t?metric rdfs:label \"%s\"^^xsd:string .\n", table->schema->name);
+
+	copy = strdup(osd->object) ;
+        token = strtok(copy, delim);
+        token = strtok(NULL, delim);
+        n += mstring_sprintf(insert,"\t\t?metric rdfs:label \"%s\"^^xsd:string .\n", token);
+
         n += mstring_sprintf(insert,"\t\t?metric a %s .\n", osd->object);
         n += mstring_sprintf(where,"\tBIND (URI(CONCAT(\"http://%s:%s/%s/%s/\", ?struuid )) as ?measurement) .\n",fus_host,fus_port,"measurement",table->schema->name);
 
