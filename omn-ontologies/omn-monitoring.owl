@@ -38,7 +38,7 @@
     <owl:Ontology rdf:about="http://open-multinet.info/ontology/omn-monitoring">
         <rdfs:label xml:lang="en">omn-monitoring</rdfs:label>
         <dc:title rdf:datatype="&xsd;string">Open-Multinet Monitoring Upper Ontology</dc:title>
-        <dc:description rdf:datatype="&xsd;string">This ontology includes the main monitoring concept.</dc:description>
+        <dc:description rdf:datatype="&xsd;string">This ontology includes the main monitoring concepts and relations.</dc:description>
         <vann:preferredNamespaceUri>http://open-multinet.info/ontology/omn-monitoring#</vann:preferredNamespaceUri>
         <vann:preferredNamespacePrefix>omn-monitoring</vann:preferredNamespacePrefix>
         <dc:date>2015-05-30</dc:date>
