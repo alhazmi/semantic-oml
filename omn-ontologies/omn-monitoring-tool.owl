@@ -135,9 +135,9 @@
     
 
 
-    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#reportesDataAbout -->
+    <!-- http://open-multinet.info/ontology/omn-monitoring-tool#reportsDataAbout -->
 
-    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#reportesDataAbout">
+    <owl:ObjectProperty rdf:about="http://open-multinet.info/ontology/omn-monitoring-tool#reportsDataAbout">
         <rdfs:comment rdf:datatype="&xsd;string">Reports data about particular domain or resource.</rdfs:comment>
         <rdfs:domain rdf:resource="http://open-multinet.info/ontology/omn-monitoring-tool#MonitoringTool"/>
         <rdfs:range>
