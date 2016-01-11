@@ -13,7 +13,7 @@ This implementation is based on the Open-Multinet (OMN) Ontology [9][10], so all
 
 For the semantic extension, there are several rules that must be followed while writing the semantic triples. 
 	1. Every metric has to begin with SimpleMeasurement (as the subject of the very first triple), followed by its corresponding Metric class (as object).
-	Example: omn-monitoring-data:SimpleMeasurement omn-monitoring:isMeasurementOf omn-monitoring-metric:TotalMemory
+	Example: omn-monitoring-data:SimpleMeasurement omn-monitoring-data:isMeasurementDataOf omn-monitoring-metric:TotalMemory
 	2. Every metric has a resource, which is linked to its Metric class.
 	Example: omn-monitoring-metric:TotalMemory omn-monitoring:isMeasurementMetricOf omn-domain-pc:PC
 	3. Later on, a URI of that resource must be given
@@ -25,7 +25,7 @@ This is an example of a semantic schema of a metric:
 
 app.defMeasurement("total_memory"){ |m|
     m.defMetric('total_memory', :double, 'Total memory value of host',
-    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring:isMeasurementOf','omn-monitoring-metric:TotalMemory'],
+    [['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:isMeasurementDataOf','omn-monitoring-metric:TotalMemory'],
     ['omn-monitoring-metric:TotalMemory','omn-monitoring:isMeasurementMetricOf','omn-domain-pc:PC'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring-data:hasMeasurementDataValue','%value%'],
     ['omn-monitoring-data:SimpleMeasurement','omn-monitoring:hasUnit','omn-monitoring-unit:Byte'],
