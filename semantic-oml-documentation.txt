@@ -53,7 +53,7 @@ USING OML2-SCAFFOLD
 
 Note: oml2-scaffold is extended to also support python and ruby beside C. To generate python file, type --omlpy instead of --oml, and to generate ruby file, type --omlr instead of --oml. It will generate a py/ruby file which you can modify to suit your needs.
 
-Regarding C, scaffold will generate a skeleton C-header file, which serves as a framework for the wrapper. The header will be compiled together with the main C-file to generate an executable C-program that can send measurement streams to OML Server. you can write the main file yourself, or you can use scaffold to create a template for the main C-file, which you have to modify to suit your needs (by template, it means that the measurement data are generated randomly, this serves as testing purposes because you can immediately test it wthout having to add any data at all). 
+Regarding C, scaffold will generate a skeleton C-header file, which serves as a framework for the wrapper. The header will be compiled together with the main C-file to generate an executable C-program that can send measurement streams to OML Server. you can write the main file yourself, or you can use scaffold to create a template for the main C-file, which you have to modify to suit your needs (by template, it means that the measurement data are generated randomly, this serves as testing purposes because you can immediately test it without having to add any data at all). 
 
 important commands for C:
 	/path/to/oml2-scaffold --oml <path-to-schema.rb> --ontology <ontology-dir> 		// create header file
@@ -74,16 +74,18 @@ the parameters names (like --used-bandwidth, --time, etc must be defined beforeh
 
 ======================================================
 
-STARTING FUSEKI
-1. use the following command to start fuseki
+STARTING FUSEKI:
+Use the following command to start fuseki
 	/path/to/fuseki-server --update --loc=<location> /<dataset>
-to use in-memory dataset:
+To use in-memory dataset:
 	/path/to/fuseki-server --update --mem=/<dataset>
 
-Note: --update option allows SPARQL Update, whereas SPARQL Query is enabled by default.
-	  --loc allows to choose the location (directory) where the database should be stored.
-	  --/<dataset> identifies the path to the dataset
-	  --mem creates an in-memory dataset in case --loc is not used.
+Where: 
+--update option allows SPARQL Update, whereas SPARQL Query is enabled by default
+--loc allows to choose the location (directory) where the database should be stored.
+--/<dataset> identifies the path to the dataset
+--mem creates an in-memory dataset in case --loc is not used.
+
 Note: To create multiple databases for different users (exporters), use a configuration file (see fuseki documentation for more infos)
 
 ======================================================
@@ -98,17 +100,15 @@ Note: You can still use the native database backends (posgresql or sqlite) by us
 
 
 ------------------------------------------------------------------------------------------------------------
-Requirements of adopting ontology in Semantic OML
+Requirements of extending the OMN ontologies or adopting any new ontology in Semantic OML
 
-1. all ontology files in the ontology directory have to be in RDF/XML format. To convert ontologies from other serialized 
-technologies into RDF/XML you could use Prótegé
+1. All ontology files in the ontology directory have to be in RDF/XML format. To convert ontologies from other serialized 
+technologies into RDF/XML you could use Prótegé.
 2. Prefixes have to be hardcoded in codes, both at oml2-scaffold and OML server.
-3. edit the oml2-scaffold file (located by default in /usr/local/bin/)
-	search the code to find these functions:
-		- def get_concept(concept)
-		- def get_ontology_file(concept)
-	and adjust them accordingly
-4. unfortunately the codes under fuseki_adapter.c in the server side are MOI-specified (soml/server/fuseki_adapter.c) so you have to change it according to the used ontology and build the server.
+3. Edit the oml2-scaffold file (located by default in /usr/local/bin/) by searching in the code to find the following two functions and adjust them accordingly:
+	- def get_concept(concept)
+	- def get_ontology_file(concept)
+4. If new terms or ontologies are used, the soml/server/fuseki_adapter.c might needs to be updated to use the suitable prefixes and terms according to the used ontology and build the server.
 
 ------------------------------------------------------------------------------------------------------------
 Visualization using sgvizler
@@ -132,7 +132,7 @@ Or, if sgvizler is installed, there should be a new link (Example: SPARQL Visual
 A query example to show a line chart of used bandwidth of a specific resource:
 
 SELECT ?timevalue ?value ?prefix ?unit{{
-?measure omn-monitoring:isMeasurementDataOf ?metric .
+?measure omn-monitoring-data:isMeasurementDataOf ?metric .
 ?metric rdf:type omn-monitoring-metric:UsedBandwidth .
 ?metric omn-monitoring:isMeasurementMetricOf ?resource .
 ?measure omn-monitoring-data:hasMeasurementDataValue ?value .
