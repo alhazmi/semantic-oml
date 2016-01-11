@@ -12,9 +12,9 @@ A template of the schema is located in the documentation [5], but it's incomplet
 This implementation is based on the Open-Multinet (OMN) Ontology [9][10], so all the examples below are specific to that ontology.
 
 For the semantic extension, there are several rules that must be followed while writing the semantic triples. 
-	1. Every metric has to begin with SimpleMeasurement (as the subject of the very first triple), followed by its corresponding Metric class (as object).
+	1. Every semantic schema has to begin with SimpleMeasurement (as the subject in the first triple), followed by its corresponding Metric class (as object).
 	Example: omn-monitoring-data:SimpleMeasurement omn-monitoring-data:isMeasurementDataOf omn-monitoring-metric:TotalMemory
-	2. Every metric has a resource, which is linked to its Metric class.
+	2. The metric has to be linked with a resource by the property omn-monitoring:isMeasurementMetricOf
 	Example: omn-monitoring-metric:TotalMemory omn-monitoring:isMeasurementMetricOf omn-domain-pc:PC
 	3. Later on, a URI of that resource must be given
 	Example: omn-domain-pc:PC omn:hasURI %value%
